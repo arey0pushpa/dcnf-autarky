@@ -10,6 +10,7 @@
 #include <exception>
 
 #include "defs.h"
+#include "util.h"
 
 // Include Boost Utilities 
 #include <boost/program_options/options_description.hpp>
@@ -25,6 +26,7 @@ int main ( int ac, char* av[] )
 {
   try {
     bool inputFile = false;
+    unsigned dependencyVar = 0;
     std::vector<std::string> inputFilename;
 
     options_description general("General options");
@@ -63,6 +65,10 @@ int main ( int ac, char* av[] )
     }
 
     auto start = std::chrono::high_resolution_clock::now();
+    parse_qdimacs_file ( inputFilename[0], dependencyVar );
+    if ( dependencyVar == 0 ) {
+      // Implement a dependency scheme
+    }
 
     printf("Hello World \n"); 
 
