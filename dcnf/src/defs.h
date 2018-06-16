@@ -10,6 +10,8 @@
 
 #include "util.h"
 
+void command_line_parsing ( int, char* av[], std::string&, bool& );
+
 /*
 // DCNF [ Universal_var_count, Existential_var_count, Number_Of_clauses, Number_of_var ] 
 class dcnf{
