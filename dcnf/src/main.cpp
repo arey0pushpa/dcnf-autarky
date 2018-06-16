@@ -51,8 +51,13 @@ int main ( int ac, char* av[] )
 
     /** Preprocessing **/
     preprocess_fml( e_var, a_var, dep_set, cnf_fml, T, S );
-    //print_3d_vector ( S );
+    //print_2d_vector ( dep_set );
     
+    for ( const auto& i : T ) {
+    for ( const auto& p : i ) {
+      std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
+    } }
+
     /** Create Constraints **/
 
 

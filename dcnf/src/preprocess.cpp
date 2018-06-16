@@ -14,33 +14,44 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     });
 
      assert ( e_var.size() >= dep_set.size() );
- 
-     /** Come Back and Complete **/
-     auto dbit = dep_set.begin();
+     Vec1D e_pr;
+     for ( auto& i : dep_set ) {
+       e_pr.push_back( i[0] );
+     }
+     //print_1d_vector( e_pr );
      
+     /** Come Back and Complete **/
+     unsigned ctr = 0;
      for ( auto e : e_var ) {
-       if (  e == 1 ) {
+       if ( e == e_pr[ctr] ) {
+         ctr += 1;
+       } else {
          auto dummy_vec = a_var;
          dummy_vec.insert( dummy_vec.begin(), e );
          dep_set.push_back( dummy_vec ); 
-       } else {
-         dbit = std::next( dbit, 1 );
        } 
      }
     
-    std::sort(dep_set.begin(), dep_set.end(),
+     std::sort(dep_set.begin(), dep_set.end(),
           [](const std::vector<int>& a, const std::vector<int>& b) {
       return a[0] < b[0];
-    });
+     });
      
     /** Selected Boolean Function **/
-    for ( auto e : e_var ) {
+    for ( unsigned i = 0; i < e_var.size(); i++  ) {
       std::vector< std::pair <int,int> > t_vec;
       // Base Case [bf(0), bf(1)]
-      t_vec.emplace_back( e, 0 );
-      t_vec.emplace_back( e, 1 );
-     
+      t_vec.emplace_back( e_var[i], 1000 ); //true 
+      t_vec.emplace_back( e_var[i], 500 );  //false
       // Other Cases
+      for ( unsigned j = 0; j < dep_set[i].size(); j++ ) {
+        if ( j == 0 ) 
+          continue;
+        else  {
+          t_vec.emplace_back( e_var[i], dep_set[i][j] ); 
+          t_vec.emplace_back( e_var[i], -dep_set[i][j] ); 
+        } 
+      }
       T.push_back( t_vec );
     }
     
