@@ -1,48 +1,85 @@
+#include <defs.h>
 #include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
 
-#include "defs.h"
-#include "util.h"
+/** Varibles needs to be fixed 
+ * e_var = []
+ * a_var = []
+ * dep_set = []
+ *
+ * func: add_dep_set()
+ * func: create_sv()
+ */
 
-void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar ) {
+void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar, 
+    Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, 
+    Vec2D& cnf_fml, Vec2DPair& T, Vec3D& S ) { 
+  unsigned var_count;
+  unsigned clause_count;
+
   std::ifstream file( filename );
   std::string line;
-  while( std::getline( file , line ) )
+  
+  /** todo: 1. handle conversion to each string to int in get_split_line() **/
+  if ( file.is_open() ) 
   {
-    std::string s1 = line.substr(0, line.find(' '));
-    //std::cout << "The value of s1 is : " << s1 << "\n";
-    if ( s1 == "c" || s1 == "p" ) {
-      continue;
-    } else if ( s1 == "e" || s1 == "a" ) {
-      std::string quant;
-      if ( s1 == "e") {
-        std::cout << "Inside the Existential block. \n";
-        // do something
-      } else {
-        std::cout << "Inside the Universal block. \n";
-        // do something
+    while( std::getline( file , line ) )
+    {
+      char s1 = line[0];
+      switch (s1) {
+        case 'c': break;
+        case 'p': 
+        { 
+          auto vec_string = get_split_line( line ); 
+          assert ( vec_string.size() == 3 );
+          var_count = std::stoi( vec_string[1] );
+          clause_count = std::stoi( vec_string[2] );
+          break;
+        }   
+        case 'e':
+        {
+          auto vec_string = get_split_line( line );
+          assert ( vec_string.size() >= 1 );
+          for ( auto i : vec_string ) { 
+            e_var.push_back( std::stoi( i ) );
+          }
+          break;
+        }
+        case 'a':
+        { 
+          auto vec_string = get_split_line( line );
+          assert ( vec_string.size() >= 1 );
+          for ( auto i : vec_string ) {
+            a_var.push_back( std::stoi( i ) );
+          }
+          break;  
+        }
+        case 'd': 
+        { 
+          dependencyVar += 1;
+          
+          auto vec_string = get_split_line( line );
+          auto vsize = vec_string.size(); 
+          assert ( vsize >= 2 );
+          
+          auto var = std::stoi( vec_string[0] );
+          assert( !vec_string.empty() );
+          vec_string.erase( vec_string.begin() );
+      
+          Vec1D inner_vec;
+          for ( auto i : vec_string ) {  
+            inner_vec.push_back( std::stoi(i) );
+          }
+          dep_set.push_back( inner_vec );
+          break;
+        }
+        
+        default: continue;
       }
-    } else if ( s1 == "d" ) {
-      dependencyVar += 1;
-      remove_first_word ( line );
-      auto vec_string = split_string ( line );
-      auto vsize = vec_string.size();
-      std::cout << "Inside the Dependency block. \n";
-      if ( vsize == 2 ) {
-        // Single variable dependence f( var )
-      } else if ( vsize > 2 ) {
-        // Implement a f ( var, var ) scheme 
-      } else {
-        std::cout << "Wrong input format of dependency. Exiting...\n";
-        exit(0);
-      }
-      // do something
-    } else {
-      continue;
-    }
+    } 
+    file.close();
   }
+  else {
+    std::cout << "Unable to open file"; 
+  }
+  assert( var_count == (e_var.size() + a_var.size()) );  
 }
-
-

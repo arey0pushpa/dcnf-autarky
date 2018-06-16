@@ -14,14 +14,14 @@ release : $(BUILDDIR)/buildr/Makefile
 
 #cc -o release $(SRCDIR)/main.o
 
-debug : $(BUILDDIR)/buildd/Makefile $(SRCDIR)/main.o
+debug : $(BUILDDIR)/buildd/Makefile 
+	#$(SRCDIR)/main.o
 	 +make -C $(BUILDDIR)/buildr
 	 cp -f $(BUILDDIR)/buildr/dcnf-autarky dcnf-autarky
 
 $(BUILDDIR)/buildr/Makefile: 
 	  mkdir -p $(BUILDDIR)/buildr
 		cd $(BUILDDIR)/buildr; cmake -DCMAKE_BUILD_TYPE=Release $(SRCDIR)
-
 
 $(BUILDDIR)/buildd/Makefile: 
 	  mkdir -p $(BUILDDIR)/buildr

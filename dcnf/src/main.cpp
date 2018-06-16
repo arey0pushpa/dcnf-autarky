@@ -1,16 +1,12 @@
 #include <stdio.h>
-#include <vector>
 #include <stdlib.h>
-#include <iostream>
-#include <fstream>
-#include <future>
 
 #include <unistd.h>
 #include <chrono>
 #include <exception>
 
 #include "defs.h"
-#include "util.h"
+#include <fstream>
 
 // Include Boost Utilities 
 #include <boost/program_options/options_description.hpp>
@@ -28,6 +24,7 @@ int main ( int ac, char* av[] )
     bool inputFile = false;
     unsigned dependencyVar = 0;
     std::vector<std::string> inputFilename;
+    std::string filename;
 
     options_description general("General options");
     general.add_options()
@@ -61,14 +58,41 @@ int main ( int ac, char* av[] )
       inputFilename = vm["input-file"].as< std::vector<std::string> >();
       std::cout << "Input file is = "
         << inputFilename[0] << "\n";
+      filename = inputFilename[0];
       inputFile = true;
     }
 
+    if( inputFile == false ) {
+      filename = "./examples/qbflib.qdimacs";
+    } 
+
     auto start = std::chrono::high_resolution_clock::now();
-    parse_qdimacs_file ( inputFilename[0], dependencyVar );
-    if ( dependencyVar == 0 ) {
-      // Implement a dependency scheme
-    }
+
+    /** Global Variables **
+     ** todo : Implement in a class 
+     */
+
+    Vec1D e_var;       // existential variable set 
+    Vec1D a_var;       // Universal variable set
+    Vec2D dep_set;    // List of dependent variable
+    Vec2D cnf_fml;
+    Vec2DPair T;         
+    Vec3D S;        
+
+    /** Implement the DQCNF Code i
+    *  Given: fml = vector< 
+    * **/ 
+    
+    parse_qdimacs_file ( filename, dependencyVar, e_var, a_var, dep_set, cnf_fml, T, S );
+
+    /* Implement a dependency Scheme in case no dependency given
+      if ( dependencyVar == 0 ) 
+        // Implement a dependency scheme
+    */
+
+    /** Preprocessing **/
+
+    /** Create Constraints **/
 
     printf("Hello World \n"); 
 
