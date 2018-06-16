@@ -12,6 +12,12 @@
 
 void command_line_parsing ( int, char* av[], std::string&, bool& );
 
+void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar, 
+    Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml);
+
+void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, 
+    Vec2D& cnf_fml, Vec2DPair& T, Vec3D& S );
+
 /*
 // DCNF [ Universal_var_count, Existential_var_count, Number_Of_clauses, Number_of_var ] 
 class dcnf{
@@ -34,18 +40,13 @@ class dcnf{
 
     // Variable of the DCNF Translation 
     // True:: f is chosen for v. Length = (2 * E_vars) + 2
-    Vec2Expr bf_var;
+    Vec2D bf_var;
 
     // Make each P (C) a clause. Length == MayBe( #of E_vars ) 
-    VecExpr pa_var;
+    Vec1D pa_var;
 
     // True: C is satisfied. Length == #of clause
-    VecExpr clause_sel_var;
-
-    void popl1( VecExpr&, unsigned,  std::string);
-    void popl2( Vec2Expr&, unsigned, unsigned, std::string);
-    void popl3( Vec3Expr&, unsigned, unsigned, unsigned, std::string);
-    void popl4( Vec4Expr&, unsigned, unsigned, unsigned, unsigned, std::string);
+    Vec2D clause_sel_var;
     
   public:
 };
