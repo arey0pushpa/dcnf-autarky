@@ -70,30 +70,33 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
       return a[0] < b[0];
     });
     */
+    
    /** Minimal Satisfying Clauses **/
-    for ( auto c : cnf_fml ) {
-       Vec2D dummy_s;
-       for ( auto l : c ) {
-         auto index = union_var[ abs(l) ]; // get the lth value  
-         auto var = std::get<1>( index );
-          if ( var == 'e' ) {
-             Vec1D inner_vec;
-             if ( l > 0 ) {
-              // Basic case
-               inner_vec.push_back( l );
-               inner_vec.push_back( true );
-               
-              // Other Cases: Take Care of Intersection
-             } else {
-              // Basic case
-              inner_vec.push_back( l );
-              inner_vec.push_back( false );
-              // Other cases
-             } 
+   for ( auto c : cnf_fml ) {
+     Vec2D dummy_s;
+     for ( auto l : c ) {
+       auto index = union_var[ abs(l) ]; // get the lth value  
+       auto var = std::get<1>( index );
+       if ( var == 'e' ) {
+          Vec1D inner_vec;
+          if ( l > 0 ) {
+           // Basic case
+           inner_vec.push_back( l );
+           inner_vec.push_back( 1000 );
+           dummy_s.push_back( inner_vec );
+            // Other Cases: Take Care of Intersection
           } else {
-             continue;
-          }  
-        }
-        S.push_back( dummy_s );
+          // Basic case
+            inner_vec.push_back( l );
+            inner_vec.push_back( 500 );
+            dummy_s.push_back( inner_vec );
+          // Other cases
+          } 
+      } else {
+        continue;
+      }  
     }
+    S.push_back( dummy_s );
+  }
+
 }

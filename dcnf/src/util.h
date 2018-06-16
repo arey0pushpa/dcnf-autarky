@@ -70,3 +70,11 @@ inline void print_3d_vector ( Vec3D& vec ) {
       std::cout << "\n";
   }
 }
+
+inline void print_2d_vector_pair ( Vec2DPair& T ) {
+  for ( const auto& i : T ) {
+    for ( const auto& p : i ) {
+      std::cout << " (" << p.first << "," << p.second << ")" << std::endl;
+    } 
+  } 
+}
