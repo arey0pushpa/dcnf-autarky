@@ -46,6 +46,6 @@ include_directories (${CMAKE_CURRENT_BINARY_DIR} "${PROJECT_SOURCE_DIR}" "${PROJ
 include_directories(${Boost_INCLUDE_DIRS}) 
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 
-add_executable( dcnf-autarky main.cpp defs.h parse-qdimacs.cpp util.h command-line-parsing.cpp preprocess.cpp constraints.cpp )
+add_executable( dcnf-autarky main.cpp defs.h parse-qdimacs.cpp util.h command-line-parsing.cpp preprocess.cpp )
 
 target_link_libraries (dcnf-autarky ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})

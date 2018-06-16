@@ -10,6 +10,18 @@
  * func: create_sv()
  */
 
+/*
+void semi_parse ( std::string filename, Vec1D& e_var ) {
+  std::ifstream infile( filename );
+  if (infile.good())
+  {
+    string sLine;
+    std::getline( infile, sLine );
+    std::cout << sLine << "\n";
+  }
+  infile.close();
+}  */
+
 void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar, 
     Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml ) { 
   unsigned var_count;
@@ -18,9 +30,6 @@ void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar,
   std::ifstream file( filename );
   std::string line;
   
-  /** todo: 
-   * 1. handle conversion to each string to int in get_split_line() 
-   **/
   if ( file.is_open() ) 
   {
     while( std::getline( file , line ) )

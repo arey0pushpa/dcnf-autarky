@@ -4,8 +4,7 @@
 
 #include <boost/algorithm/string.hpp>
 
-typedef int lit_t; // literals
-typedef std::vector<lit_t> Vec1D; // clauses
+typedef std::vector<int> Vec1D; // clauses
 typedef std::vector<Vec1D> Vec2D; // clause-sets
 typedef std::vector<Vec2D> Vec3D; // vector of clause set 
 typedef std::vector<std::vector<std::pair<int, int>>> Vec2DPair; // represent bf var set
@@ -52,16 +51,22 @@ inline Vec1D extract_int ( std::string line )
 }
 
 inline void print_1d_vector ( Vec1D& vec ) {
- for ( const auto& i : vec ) {
-   std::cout << i << " ";
- }
+  //for ( const auto& i : vec ) {
+  for ( unsigned int i = 0; i < vec.size(); i++ ) {
+    std::cout << vec[i] << " ";
+  }
 }
           
 inline void print_2d_vector ( Vec2D& vec ) {
-  for ( const auto& i : vec ) {
-    for ( const auto& j : i ) {
-        std::cout << j << " ";
-    }
-    std::cout << "\n";
+  for ( unsigned int i = 0; i < vec.size(); i++ ) {
+    print_1d_vector( vec[i] );
+      std::cout << "\n";
   }
-}  
+}
+ 
+inline void print_3d_vector ( Vec3D& vec ) {
+  for ( unsigned int i = 0; i < vec.size(); i++ ) {
+    print_2d_vector( vec[i] );
+      std::cout << "\n";
+  }
+}
