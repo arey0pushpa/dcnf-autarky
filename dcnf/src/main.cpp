@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <array>
 
-#include <unistd.h>
 #include <chrono>
 #include <exception>
 
@@ -41,20 +38,21 @@ int main ( int ac, char* av[] )
     /** Parse Input file **/
     parse_qdimacs_file ( filename, dependencyVar, e_var, a_var, dep_set, cnf_fml );
     
-    //std::cout << "Printing input cnf formula...\n"; 
-    //print_2d_vector ( cnf_fml );
+    // std::cout << "Printing input cnf formula...\n"; 
+    // print_2d_vector ( cnf_fml );
     
-    /* Implement a dependency Scheme in case no dependency given
-      if ( dependencyVar == 0 ) 
+    /* Todo: Implement a dependency Scheme in case no dependency given 
+      if ( dependencyVar == 0 ) { 
         // Implement a dependency scheme
-    */
+      } */
 
     /** Preprocessing **/
     preprocess_fml( e_var, a_var, dep_set, cnf_fml, T, S );
-    //print_2d_vector ( dep_set );
+
+    std::cout << "\nThe S is: " << "\n";
+    print_3d_vector( S );
 
     /** Create Constraints **/
-
 
     auto finish = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = finish - start;

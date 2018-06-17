@@ -5,8 +5,8 @@
 #include "util.h"
 
 void quant_seperation ( Vec1D& c, Vec1D& e_part, Vec1D& a_part , std::vector<std::pair <int, char> >& union_var ) {
-  for ( auto& l : c ) {
-    auto index = union_var[ abs(l) ]; // get the lth value  
+  for ( auto l : c ) {
+    auto index = union_var[ abs(l) - 1 ]; // get the lth value   
     auto var = std::get<1>( index );
     if ( var == 'e' ) 
       e_part.push_back( l ); 
@@ -29,9 +29,8 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
   for ( auto& i : dep_set ) {
     e_pr.push_back( i[0] );
   }
-  //print_1d_vector( e_pr );
 
-  /** Come Back and Complete **/
+  /** Fill the dependency for all exists vars **/
   unsigned ctr = 0;
   for ( auto e : e_var ) {
     if ( e == e_pr[ctr] ) {
@@ -66,6 +65,14 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     T.push_back( t_vec );
   }
 
+  /*
+  std::cout << "The T set is: ";
+  print_2d_vector_pair( T );
+  exit(0);
+  */
+
+  // Create a Union of both exists and forall :
+  // todo: do it while parsing the file 
   std::vector<std::pair <int, char> > union_var;
 
   for ( auto i : e_var ) {
@@ -75,7 +82,7 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     union_var.emplace_back( j, 'a');      
   }
 
-  /*
+  /* Todo :: code is broke. Sort() before generating Min Sat Clause
      std::sort(union_var.begin(), union_var.end(),
      [](const std::vector<int>& a, const std::vector<int>& b) {
      return a[0] < b[0];
@@ -93,6 +100,7 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     Vec2D dummy_s;
     Vec1D e_part;
     Vec1D a_part;
+
     quant_seperation( c, e_part, a_part, union_var );
 
     /** All e-var case **/
@@ -106,15 +114,18 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
       }
     }
 
-    /** e-var pairs case **/
-    auto& size = e_part.size();
+    /** e-var pairs case */ 
+    // todo: check with variations: May have Bugs
+    auto size = e_part.size();
     for ( unsigned i = 0; i < size-1; i++ ) {
-      // Implement the scheme to find the dependency set of a e-var.
-      auto& dep1 = dep_set[i]; // get the dependent set of the e variables. 
+      auto index = find_index( e_var, abs( e_part[i] ) ); 
+      auto dep1 = dep_set[index]; 
       for ( unsigned j = i+1; j < size; j++ ) {
-        auto& dep2 = dep_set[j]; // get the dependent set of the e variables. 
+        auto index = find_index( e_var, abs(e_part[j]) ); 
+        auto dep2 = dep_set[index]; 
         // Implement Intersection of two vectors.
-        auto& d_vec = vector_intersection( dep1, dep2 );
+        Vec1D d_vec; 
+        vector_intersection( dep1, dep2, d_vec );
         for ( auto& d : d_vec ) {
           Vec1D inner_vec1 = { e_part[i], d, e_part[j], -d };
           Vec1D inner_vec2 = { e_part[i], -d, e_part[j], d };
@@ -125,17 +136,23 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     }
 
     /** e-var a-var case **/
-    for ( auto& e : e_part ) {
-      auto& dep = dep_set[]; // get the dependent set of the e variables. 
+
+    // std::cout << "The e part is: ";
+    // print_1d_vector ( e_part ); 
+    for ( auto e : e_part ) {
+      //print_1d_vector ( e_var ); 
+      const auto i = find_index( e_var, abs(e) ); 
+      auto dep = dep_set[i]; 
       /** todo : try using intersection **/
-      for ( auto& a : a_part ) {
-        auto& presence_a = std::find( dep.begin(), dep.end(), abs(a) ) != dep.end(); 
+      for ( auto a : a_part ) {
+        auto presence_a = find_int_element( dep, abs(a) );
         if ( presence_a ) { 
           Vec1D inner_vec = { e, -a };
           dummy_s.push_back( inner_vec );
         }
       }
     }
+
     // Do final push on the S
     S.push_back( dummy_s );
   }
