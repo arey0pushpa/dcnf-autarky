@@ -18,6 +18,8 @@ void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar,
 void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, 
     Vec2D& cnf_fml, Vec2DPair& T, Vec3D& S );
 
+void quant_seperation ( Vec1D& c, Vec1D& e_part, Vec1D& a_part );
+
 /*
 // DCNF [ Universal_var_count, Existential_var_count, Number_Of_clauses, Number_of_var ] 
 class dcnf{

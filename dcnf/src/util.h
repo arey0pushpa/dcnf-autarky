@@ -50,6 +50,13 @@ inline Vec1D extract_int ( std::string line )
   return vec_int;
 }
 
+/** Vector intersection **/
+inline void vector_intersection( Vec1D &v1, Vec1D &v2, vector &v ) {
+  v.clear();
+  std::set_intersection( v1.begin(), v1.end(), v2.begin(), v2.end(),
+                        std::back_inserter(v) );
+}
+
 inline void print_1d_vector ( Vec1D& vec ) {
   //for ( const auto& i : vec ) {
   for ( unsigned int i = 0; i < vec.size(); i++ ) {
