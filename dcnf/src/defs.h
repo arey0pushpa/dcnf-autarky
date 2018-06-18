@@ -20,6 +20,8 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
 
 void quant_seperation ( Vec1D& c, Vec1D& e_part, Vec1D& a_part );
 
+void at_most_one ( Vec1D&, Vec2D& );
+
 /*
 // DCNF [ Universal_var_count, Existential_var_count, Number_Of_clauses, Number_of_var ] 
 class dcnf{

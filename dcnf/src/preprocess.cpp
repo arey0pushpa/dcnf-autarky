@@ -106,11 +106,9 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     /** All e-var case **/
     for ( auto& e : e_part ) {
       if ( e > 0 ) {
-        Vec1D inner_vec = { e, 1000 };
-        dummy_s.push_back( inner_vec );
+        dummy_s.push_back( Vec1D { e, 1000 } );
       } else {
-        Vec1D inner_vec = { e, 500 };
-        dummy_s.push_back( inner_vec );
+        dummy_s.push_back( Vec1D { e, 500 } );
       }
     }
 
@@ -123,7 +121,6 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
       for ( unsigned j = i+1; j < size; j++ ) {
         auto index = find_index( e_var, abs(e_part[j]) ); 
         auto dep2 = dep_set[index]; 
-        // Implement Intersection of two vectors.
         Vec1D d_vec; 
         vector_intersection( dep1, dep2, d_vec );
         for ( auto& d : d_vec ) {
@@ -136,24 +133,19 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     }
 
     /** e-var a-var case **/
-
-    // std::cout << "The e part is: ";
-    // print_1d_vector ( e_part ); 
     for ( auto e : e_part ) {
-      //print_1d_vector ( e_var ); 
       const auto i = find_index( e_var, abs(e) ); 
       auto dep = dep_set[i]; 
-      /** todo : try using intersection **/
+      /** todo : implement intersection **/
       for ( auto a : a_part ) {
         auto presence_a = find_int_element( dep, abs(a) );
         if ( presence_a ) { 
-          Vec1D inner_vec = { e, -a };
-          dummy_s.push_back( inner_vec );
+          dummy_s.push_back( Vec1D { e, -a } );
         }
       }
     }
 
-    // Do final push on the S
+    // final push on the S
     S.push_back( dummy_s );
   }
 }

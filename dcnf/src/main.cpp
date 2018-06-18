@@ -26,17 +26,22 @@ int main ( int ac, char* av[] )
      ** todo : Implement in a class ... Template is ready ... 
      */
 
+    Vec2D dcnf_fml;     // Input Cnf formula { Clause }
+
     Vec1D e_var;       // existential variable set 
     Vec1D a_var;       // Universal variable set
     Vec2D dep_set;     // List of dependent variable
-    Vec2D cnf_fml;     // Input Cnf formula { Clause }
     Vec2DPair T;       // All bf (v,f) pairs   
     Vec3D S;           // All S(C)'s
+
+    Vec2D trans_fml;   // translation variables 
+    Vec1D trans_vars;  // Set of translated variables
+    Vec3D var_ord;     // Solver variable ordering
 
     /**** Implement the DQCNF Code ****/ 
     
     /** Parse Input file **/
-    parse_qdimacs_file ( filename, dependencyVar, e_var, a_var, dep_set, cnf_fml );
+    parse_qdimacs_file ( filename, dependencyVar, e_var, a_var, dep_set, dcnf_fml );
     
     // std::cout << "Printing input cnf formula...\n"; 
     // print_2d_vector ( cnf_fml );
@@ -47,12 +52,20 @@ int main ( int ac, char* av[] )
       } */
 
     /** Preprocessing **/
-    preprocess_fml( e_var, a_var, dep_set, cnf_fml, T, S );
+    preprocess_fml( e_var, a_var, dep_set, dcnf_fml, T, S );
 
-    std::cout << "\nThe S is: " << "\n";
-    print_3d_vector( S );
+    std::cout << "\nThe t is: " << "\n";
+    print_2d_vector_pair( T );
+    //print_3d_vector( S );
 
     /** Create Constraints **/
+    // Create Variables
+    unsigned index = 1;
+    for ( unsigned i = 0; i < dcnf_fml.size(); i++ ) {
+      trans_vars.push_back( index );
+      index += 1;
+    }
+    trans_vars.clear();
 
     auto finish = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = finish - start;
