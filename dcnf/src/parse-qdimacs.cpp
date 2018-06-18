@@ -24,8 +24,8 @@ void semi_parse ( std::string filename, Vec1D& e_var ) {
 
 void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar, 
     Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml ) { 
-  unsigned var_count;
-  unsigned clause_count;
+  // unsigned var_count;
+  // unsigned clause_count;
 
   std::ifstream file( filename );
   std::string line;
@@ -41,8 +41,8 @@ void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar,
         { 
           auto vec_int = extract_int( line );
           assert ( vec_int.size() == 2 );
-          var_count = vec_int[0];
-          clause_count = vec_int[1];
+         // var_count = vec_int[0];
+         // clause_count = vec_int[1];
           break;
         }   
         case 'e':
@@ -68,8 +68,7 @@ void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar,
           Vec1D inner_vec;
           dependencyVar += 1;
           auto vec_int = extract_int( line );
-          auto vsize = vec_int.size(); 
-          assert ( vsize >= 2 );
+          assert ( vec_int.size() >= 2 );
           for ( auto i : vec_int ) {  
             inner_vec.push_back( i );
           }
@@ -90,5 +89,5 @@ void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar,
   else {
     std::cout << "Unable to open file"; 
   }
-  assert( var_count == (e_var.size() + a_var.size()) );  
+ // assert( var_count == (e_var.size() + a_var.size()) );  
 }

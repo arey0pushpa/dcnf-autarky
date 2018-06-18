@@ -34,9 +34,12 @@ int main ( int ac, char* av[] )
     Vec2DPair T;       // All bf (v,f) pairs   
     Vec3D S;           // All S(C)'s
 
-    Vec2D trans_fml;   // translation variables 
-    Vec1D trans_vars;  // Set of translated variables
-    Vec3D var_ord;     // Solver variable ordering
+    Vec2D cnf_fml;   // dimacs/cnf variables  
+    Vec1D cnf_vars;  // dimacs/cnf variables
+
+    Vec1D cs_var; 
+    Vec2D bf_var;
+    Vec1D pa_var;
 
     /**** Implement the DQCNF Code ****/ 
     
@@ -54,19 +57,64 @@ int main ( int ac, char* av[] )
     /** Preprocessing **/
     preprocess_fml( e_var, a_var, dep_set, dcnf_fml, T, S );
 
-    std::cout << "\nThe t is: " << "\n";
+    std::cout << "\nThe s(v) is: " << "\n";
     print_2d_vector_pair( T );
-    //print_3d_vector( S );
+    std::cout << "\nThe S(C) is: " << "\n";
+    print_3d_vector( S );
 
-    /** Create Constraints **/
-    // Create Variables
+    /** Create traslation Variables/ordering **/
     unsigned index = 1;
+
+    // cs variable
     for ( unsigned i = 0; i < dcnf_fml.size(); i++ ) {
-      trans_vars.push_back( index );
+      cs_var.push_back( index );
       index += 1;
     }
-    trans_vars.clear();
 
+    // bf variable
+    std::cout << "The size of s(v) is: " << T.size() << "\n";
+    for ( unsigned i = 0; i < T.size(); i++ ) {
+      //print_1d_vector_int_pair  ( T[i] );
+       for ( auto& p : T[i] ) {
+       bf_var[i].push_back( index ); 
+        index += 1;
+      }
+    }
+
+    // pa variable 
+    /** Straigten, sort and remove duplicates and then map **/ 
+    
+
+    /** Create Constraints **/
+    // 4.5 Non trivial Autarky
+    non_trivial_autarky ( cs_var, cnf_fml );
+
+    // 4.1 At Most One Constraint
+    for ( unsigned i = 0; i < cs_var.size(); i++ ) {
+      at_most_one ( bf_var[i], cnf_fml );
+    }
+    
+    //print_2d_vector ( cnf_fml );
+
+    std::string fname = "/tmp/dcnf.dimacs";
+    std::cout << "Writing the DIMACS file to .. " << fname << "\n";
+    std::ofstream fout( fname );
+    
+    if ( !fout ) {
+      std::cerr << "Error opening file..." << fname << "\n";
+      return 1;
+    }
+
+    fout << "c" << "Writing the dcnf output in dimacs format";
+    fout << "p cnf " << index - 1 << " " << cnf_fml.size() << "\n";
+    
+    for ( auto& C : cnf_fml ) {
+      for ( auto lit : C ) {
+        fout << lit << " ";
+      }
+      fout << "0" << "\n";
+    }
+    
     auto finish = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = finish - start;
     std::cout << "entire run took " << elapsed.count() << " secs\n";
