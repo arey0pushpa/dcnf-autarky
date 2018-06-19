@@ -101,20 +101,20 @@ inline void print_3d_vector ( Vec3D& vec ) {
 // todo: use template
 inline void print_1d_vector_pair ( std::vector<std::pair <int, char> >& T ) {
   for ( const auto& p : T ) {
-    std::cout << " (" << p.first << "," << p.second << ")" << std::endl;
+    std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
   }  
 }
 
 inline void print_1d_vector_int_pair ( std::vector<std::pair <int, int> >& T ) {
   for ( const auto& p : T ) {
-    std::cout << " (" << p.first << "," << p.second << ")" << std::endl;
+    std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
   }  
 }
 
 inline void print_2d_vector_pair ( Vec2DPair& T ) {
   for ( const auto& i : T ) {
     for ( const auto& p : i ) {
-      std::cout << " (" << p.first << "," << p.second << ")" << std::endl;
+      std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
     } 
     std::cout << "\n";
   } 

@@ -27,6 +27,5 @@ void non_trivial_autarky ( Vec1D& cs_var, Vec2D& cnf_fml ) {
   for ( auto i : cs_var ) {
     dummy_vec.push_back( i );
   }
-  print_1d_vector( dummy_vec );
   cnf_fml.push_back( dummy_vec );
 }

@@ -73,22 +73,88 @@ int main ( int ac, char* av[] )
 
     // bf variable
     std::cout << "The size of s(v) is: " << T.size() << "\n";
+    
+    Vec1D dummy_vec;
     for ( unsigned i = 0; i < T.size(); i++ ) {
-      //print_1d_vector_int_pair  ( T[i] );
-       for ( auto& p : T[i] ) {
-       bf_var[i].push_back( index ); 
-        index += 1;
+       for ( unsigned j = 0; j < T[i].size(); j++ ) {
+         dummy_vec.push_back( index ); 
+         index += 1;
       }
+       bf_var.push_back( dummy_vec );
+       dummy_vec.clear();
     }
 
     // pa variable 
-    /** Straigten, sort and remove duplicates and then map **/ 
     
+    /** Improved Encosing than Blockwise encoding.
+     * Straigten, sort and remove duplicates and then map  
+    // Vec2D dummy_pa;
+    for ( unsigned i = 0; i < S.size(); i++ ) {
+      for ( unsigned j = 0; j < S[i].size(); j++ ) {
+        dummy_pa.push_back( S[i][j] );
+      }
+    }
+    
+    // todo: Implement using sets in case of large duplicate 
+    // that approach works better 
+    sort( dummy_pa.begin(), dummy_pa.end() );
+    dummy_pa.erase( unique( dummy_pa.begin(), dummy_pa.end() ), dummy_pa.end() );
+          
+    for ( unsigned i = 0; i < dummy_pa.size(); i++ ) {
+      pa_var.push_back( index );
+      index += 1;
+    }
+    **/
 
+    Vec2D pa_var_block;
+    Vec1D v2;
+    // Blockwise pa-var encoding 
+    for ( unsigned i = 0; i < S.size(); i++ ) {
+      for ( unsigned j = 0; j < S[i].size(); j++ ) {
+        v2.push_back( index );
+        index += 1;
+      }
+      pa_var_block.push_back( v2 );
+      v2.clear();
+    }
+    
     /** Create Constraints **/
     // 4.5 Non trivial Autarky
     non_trivial_autarky ( cs_var, cnf_fml );
 
+    // 4.2 pa-variable constraint
+    /*
+    for ( auto&i : dummy_pa ) {
+      print_1d_vector( i );
+      std::cout << "\n"; 
+    } */
+    
+    // 4.3 Selected clauses: t(C0 -> P(C)
+    Vec1D v3;
+    for ( unsigned i = 0; i < cs_var.size(); i++ ) { 
+      v3.push_back( cs_var[i] ); 
+      //for ( auto j: pa_var ) v3.push_back( j );
+      for ( auto j: pa_var_block[i] ) v3.push_back( j );
+      cnf_fml.push_back( v3 );
+      v3.clear();
+    }
+    
+    // 4.4. Untoched clauses: !t(C) -> N(C)
+    // For every Clause
+    for ( unsigned i = 0; i < dcnf_fml.size(); i++ ) { 
+      Vec1D vec4;
+      vector_intersection( dcnf_fml[i], e_var, vec4 );
+      // All e-var in C
+      for ( auto j : vec4 ) {
+        //for every f in s(v)
+        // Create a e-var: id mapping; below code works partially
+        for ( auto t : bf_var[j]  ) {
+          vec4.push_back ( t );
+        }
+        cnf_fml.push_back( vec4 );
+      }
+    }
+         
     // 4.1 At Most One Constraint
     for ( unsigned i = 0; i < cs_var.size(); i++ ) {
       at_most_one ( bf_var[i], cnf_fml );
@@ -105,7 +171,7 @@ int main ( int ac, char* av[] )
       return 1;
     }
 
-    fout << "c" << "Writing the dcnf output in dimacs format";
+    //fout << "c" << "Writing the dcnf output in dimacs format";
     fout << "p cnf " << index - 1 << " " << cnf_fml.size() << "\n";
     
     for ( auto& C : cnf_fml ) {
