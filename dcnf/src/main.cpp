@@ -5,6 +5,8 @@
 
 #include "defs.h"
 #include <fstream>
+#include <algorithm>
+
 
 int main ( int ac, char* av[] )
 {
@@ -46,8 +48,8 @@ int main ( int ac, char* av[] )
     /** Parse Input file **/
     parse_qdimacs_file ( filename, dependencyVar, e_var, a_var, dep_set, dcnf_fml );
     
-    // std::cout << "Printing input cnf formula...\n"; 
-    // print_2d_vector ( cnf_fml );
+    std::cout << "Printing input cnf formula...\n"; 
+    print_2d_vector ( cnf_fml );
     
     /* Todo: Implement a dependency Scheme in case no dependency given 
       if ( dependencyVar == 0 ) { 
@@ -72,7 +74,7 @@ int main ( int ac, char* av[] )
     }
 
     // bf variable
-    std::cout << "The size of s(v) is: " << T.size() << "\n";
+    //std::cout << "The size of s(v) is: " << T.size() << "\n";
     
     Vec1D dummy_vec;
     for ( unsigned i = 0; i < T.size(); i++ ) {
@@ -83,29 +85,10 @@ int main ( int ac, char* av[] )
        bf_var.push_back( dummy_vec );
        dummy_vec.clear();
     }
-
+    
     // pa variable 
     
-    /** Improved Encosing than Blockwise encoding.
-     * Straigten, sort and remove duplicates and then map  
-    // Vec2D dummy_pa;
-    for ( unsigned i = 0; i < S.size(); i++ ) {
-      for ( unsigned j = 0; j < S[i].size(); j++ ) {
-        dummy_pa.push_back( S[i][j] );
-      }
-    }
-    
-    // todo: Implement using sets in case of large duplicate 
-    // that approach works better 
-    sort( dummy_pa.begin(), dummy_pa.end() );
-    dummy_pa.erase( unique( dummy_pa.begin(), dummy_pa.end() ), dummy_pa.end() );
-          
-    for ( unsigned i = 0; i < dummy_pa.size(); i++ ) {
-      pa_var.push_back( index );
-      index += 1;
-    }
-    **/
-
+    /** Block Wise Encoding
     Vec2D pa_var_block;
     Vec1D v2;
     // Blockwise pa-var encoding 
@@ -117,19 +100,47 @@ int main ( int ac, char* av[] )
       pa_var_block.push_back( v2 );
       v2.clear();
     }
+    **/
+
+    /** Improved Encoding than Blockwise encoding.
+     * Straigten, sort and remove duplicates and then map 
+     * todo: add flattern function:
+     *       2D-1D 3D-2D in util.cpp */
+    Vec2D dummy_pa;
+    for ( unsigned i = 0; i < S.size(); i++ ) {
+      for ( unsigned j = 0; j < S[i].size(); j++ ) {
+        dummy_pa.push_back( S[i][j] );
+      }
+    }
     
+    // todo: Implement using sets. I
+    // In case of large duplicate that approach works better.
+    sort( dummy_pa.begin(), dummy_pa.end() );
+    dummy_pa.erase( unique( dummy_pa.begin(), dummy_pa.end() ), dummy_pa.end() );
+          
+    std::cout << "Sorted S(C) set is : \n";
+    print_2d_vector ( dummy_pa );
+    std::cout << "\n";
+    
+    for ( unsigned i = 0; i < dummy_pa.size(); i++ ) {
+      pa_var.push_back( index );
+      index += 1;
+    }
+
+    std::cout << "pa-var are : ";
+    print_1d_vector( pa_var );
+    std::cout << "\n";
+
     /** Create Constraints **/
     // 4.5 Non trivial Autarky
     non_trivial_autarky ( cs_var, cnf_fml );
 
     // 4.2 pa-variable constraint
-    /*
     for ( auto&i : dummy_pa ) {
-      print_1d_vector( i );
-      std::cout << "\n"; 
-    } */
+    }  
     
-    // 4.3 Selected clauses: t(C0 -> P(C)
+    // 4.3 Selected clauses: t(C) -> P(C)
+    /** Efficient implementation 
     Vec1D v3;
     for ( unsigned i = 0; i < cs_var.size(); i++ ) { 
       v3.push_back( cs_var[i] ); 
@@ -137,21 +148,38 @@ int main ( int ac, char* av[] )
       for ( auto j: pa_var_block[i] ) v3.push_back( j );
       cnf_fml.push_back( v3 );
       v3.clear();
+    } **/
+    // Basic Implemetation:
+    Vec1D v3;
+    for ( unsigned i = 0; i < cs_var.size(); i++ ) { 
+      v3.push_back( cs_var[i] ); 
+      for ( auto& c : S[i] ) {
+        auto id = find_vector_index ( dummy_pa, c );
+        std::cout << "the chosen pa-var:" << pa_var[id] << "\n";
+        v3.push_back ( pa_var[id] );
+      }
+      std::cout << "\n";
+      cnf_fml.push_back( v3 );
+      v3.clear();
     }
-    
+ 
     // 4.4. Untoched clauses: !t(C) -> N(C)
+    /** Intersection use:
+      Vec1D vec4 = vector_intersection( dcnf_fml[i], e_var );
+      std::cout << "Intersection is: ";
+      print_1d_vector( vec4 );
+    */
     // For every Clause
     for ( unsigned i = 0; i < dcnf_fml.size(); i++ ) { 
-      Vec1D vec4;
-      vector_intersection( dcnf_fml[i], e_var, vec4 );
-      // All e-var in C
-      for ( auto j : vec4 ) {
-        //for every f in s(v)
-        // Create a e-var: id mapping; below code works partially
-        for ( auto t : bf_var[j]  ) {
-          vec4.push_back ( t );
+      for ( auto d : dcnf_fml[i] ) {
+        auto id = find_index ( e_var, abs(d) );
+        if ( id >= 0 ) {  
+          for ( auto l : bf_var[id] ) { 
+            // std::cout << "Current f is: " << l << "\n";
+            cnf_fml.push_back( Vec1D{cs_var[i], -l} );
+          }
+          // std::cout << "\n";
         }
-        cnf_fml.push_back( vec4 );
       }
     }
          

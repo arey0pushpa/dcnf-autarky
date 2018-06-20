@@ -121,8 +121,7 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
       for ( unsigned j = i+1; j < size; j++ ) {
         auto index = find_index( e_var, abs(e_part[j]) ); 
         auto dep2 = dep_set[index]; 
-        Vec1D d_vec; 
-        vector_intersection( dep1, dep2, d_vec );
+        Vec1D d_vec = vector_intersection( dep1, dep2 );
         for ( auto& d : d_vec ) {
           Vec1D inner_vec1 = { e_part[i], d, e_part[j], -d };
           Vec1D inner_vec2 = { e_part[i], -d, e_part[j], d };
@@ -136,7 +135,7 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     for ( auto e : e_part ) {
       const auto i = find_index( e_var, abs(e) ); 
       auto dep = dep_set[i]; 
-      /** todo : implement intersection **/
+      /** todo : implement with intersection **/
       for ( auto a : a_part ) {
         auto presence_a = find_int_element( dep, abs(a) );
         if ( presence_a ) { 

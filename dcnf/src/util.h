@@ -52,10 +52,11 @@ inline Vec1D extract_int ( std::string line )
 }
 
 /** Vector intersection **/
-inline void vector_intersection( Vec1D &v1, Vec1D &v2, Vec1D &v ) {
-  v.clear();
+inline Vec1D vector_intersection( Vec1D &v1, Vec1D &v2 ) {
+  Vec1D v;
   std::set_intersection( v1.begin(), v1.end(), v2.begin(), v2.end(),
                         std::back_inserter(v) );
+  return v;
 }
 
 /** Find an element in a vector **/
@@ -63,13 +64,29 @@ inline bool find_int_element ( Vec1D& vec,  int elem ) {
   return std::find( vec.begin(), vec.end(), elem ) != vec.end();
 }
 
+/** Implement a template */
 /** Return index of the element **/
-inline unsigned find_index ( Vec1D& vec, int elem ) { 
+inline int find_index ( Vec1D& vec, int elem ) { 
   auto it = std::find( vec.begin(), vec.end(), elem );
   if ( it == vec.end() ) {
     // Todo: implement exception handling
-    std::cout << "Element not found. Exiting..." <<"\n";
-    exit(0);
+    // std::cout << "Element not found. Exiting..." <<"\n";
+    return -1;
+    // exit(0);
+  } else {
+    auto index = std::distance( vec.begin(), it );
+    return index;
+  }
+}
+
+/** Return index of the element **/
+inline int find_vector_index ( Vec2D& vec, Vec1D& elem ) { 
+  auto it = std::find( vec.begin(), vec.end(), elem );
+  if ( it == vec.end() ) {
+    // Todo: implement exception handling
+    // std::cout << "Element not found. Exiting..." <<"\n";
+    return -1;
+    // exit(0);
   } else {
     auto index = std::distance( vec.begin(), it );
     return index;
