@@ -4,11 +4,12 @@
 #include <cassert>
 
 #include <boost/algorithm/string.hpp>
-
+typedef std::pair<int, int> Pair;
+typedef std::vector<Pair> Vec1Dpair; 
 typedef std::vector<int> Vec1D; // clauses
 typedef std::vector<Vec1D> Vec2D; // clause-sets
 typedef std::vector<Vec2D> Vec3D; // vector of clause set 
-typedef std::vector<std::vector<std::pair<int, int>>> Vec2DPair; // represent bf var set
+typedef std::vector< Vec1Dpair> Vec2DPair; // represent bf var set
 
 inline void remove_first_word ( std::string &sentence ) {
   std::string::size_type n = 0;
@@ -92,6 +93,17 @@ inline int find_vector_index ( Vec2D& vec, Vec1D& elem ) {
     return index;
   }
 }
+
+/** Return index of the element */
+inline int find_scd_index ( Vec1Dpair& vec, int elem ) { 
+  for ( unsigned i = 0; i < vec.size(); i++ ) {
+    if ( vec[i].second == elem ) {
+      return i;
+    }
+  }
+  // todo: error handle
+  return -1;
+} 
 
 /** Print n-dimentional vector **/
 inline void print_1d_vector ( Vec1D& vec ) {

@@ -4,7 +4,7 @@
 
 #include "util.h"
 
-void quant_seperation ( Vec1D& c, Vec1D& e_part, Vec1D& a_part , std::vector<std::pair <int, char> >& union_var ) {
+void quant_seperation ( Vec1D& c, Vec1D& e_part, Vec1D& a_part, std::vector<std::pair <int, char> >& union_var ) {
   for ( auto l : c ) {
     auto index = union_var[ abs(l) - 1 ]; // get the lth value   
     auto var = std::get<1>( index );
@@ -51,15 +51,15 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
   for ( unsigned i = 0; i < e_var.size(); i++  ) {
     std::vector< std::pair <int,int> > t_vec;
     // Base Case [bf(0), bf(1)]
-    t_vec.emplace_back( e_var[i], 1000 ); //true 
     t_vec.emplace_back( e_var[i], 500 );  //false
+    t_vec.emplace_back( e_var[i], 1000 ); //true 
     // Other Cases
     for ( unsigned j = 0; j < dep_set[i].size(); j++ ) {
       if ( j == 0 ) 
         continue;
       else  {
-        t_vec.emplace_back( e_var[i], dep_set[i][j] ); 
         t_vec.emplace_back( e_var[i], -dep_set[i][j] ); 
+        t_vec.emplace_back( e_var[i], dep_set[i][j] ); 
       } 
     }
     T.push_back( t_vec );
@@ -82,13 +82,16 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     union_var.emplace_back( j, 'a');      
   }
 
-  /* Todo :: code is broke. Sort() before generating Min Sat Clause
-     std::sort(union_var.begin(), union_var.end(),
-     [](const std::vector<int>& a, const std::vector<int>& b) {
-     return a[0] < b[0];
-     });
+  /* Sort() before generating Min Sat Clause */
+  std::sort(union_var.begin(), union_var.end());
+  
+  /*
+  std::cout << " Printing Union Var: \n";
+  for (unsigned i=0; i< union_var.size(); i++) {
+        std::cout << union_var[i].first << " "
+             << union_var[i].second << "\n";
+  }
   */
-
   /** Three cases to consider 
    * 1. Basic case: handle all are e_variables 
    * 2. Handle dependency case for all e_variable 
@@ -108,7 +111,7 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
       if ( e > 0 ) {
         dummy_s.push_back( Vec1D { e, 1000 } );
       } else {
-        dummy_s.push_back( Vec1D { e, 500 } );
+        dummy_s.push_back( Vec1D { abs(e), 500 } );
       }
     }
 
@@ -123,8 +126,8 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
         auto dep2 = dep_set[index]; 
         Vec1D d_vec = vector_intersection( dep1, dep2 );
         for ( auto& d : d_vec ) {
-          Vec1D inner_vec1 = { e_part[i], d, e_part[j], -d };
-          Vec1D inner_vec2 = { e_part[i], -d, e_part[j], d };
+          Vec1D inner_vec1 = { abs(e_part[i]), d, abs(e_part[j]), -d };
+          Vec1D inner_vec2 = { abs(e_part[i]), -d, abs(e_part[j]), d };
           dummy_s.push_back( inner_vec1 );
           dummy_s.push_back( inner_vec2 );
         }
@@ -139,7 +142,7 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
       for ( auto a : a_part ) {
         auto presence_a = find_int_element( dep, abs(a) );
         if ( presence_a ) { 
-          dummy_s.push_back( Vec1D { e, -a } );
+          dummy_s.push_back( Vec1D { abs(e), -a } );
         }
       }
     }

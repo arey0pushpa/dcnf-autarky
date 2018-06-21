@@ -11,14 +11,14 @@
 int main ( int ac, char* av[] )
 {
   try {
-    bool inputFile = false;
-    unsigned dependencyVar = 0;
+    bool input_file = false;
+    unsigned dependency_var = 0;
     std::string filename;
     
     /** Handle Command Line parsing **/
-    command_line_parsing ( ac, av, filename, inputFile );
+    command_line_parsing ( ac, av, filename, input_file );
     
-    if( inputFile == false ) {
+    if( input_file == false ) {
       filename = "./examples/qbflib.qdimacs";
     } 
 
@@ -46,13 +46,13 @@ int main ( int ac, char* av[] )
     /**** Implement the DQCNF Code ****/ 
     
     /** Parse Input file **/
-    parse_qdimacs_file ( filename, dependencyVar, e_var, a_var, dep_set, dcnf_fml );
+    parse_qdimacs_file ( filename, dependency_var, e_var, a_var, dep_set, dcnf_fml );
     
     std::cout << "Printing input cnf formula...\n"; 
-    print_2d_vector ( cnf_fml );
+    print_2d_vector ( dcnf_fml );
     
     /* Todo: Implement a dependency Scheme in case no dependency given 
-      if ( dependencyVar == 0 ) { 
+      if ( dependency_var == 0 ) { 
         // Implement a dependency scheme
       } */
 
@@ -87,60 +87,51 @@ int main ( int ac, char* av[] )
     }
     
     // pa variable 
-    
-    /** Block Wise Encoding
-    Vec2D pa_var_block;
-    Vec1D v2;
-    // Blockwise pa-var encoding 
-    for ( unsigned i = 0; i < S.size(); i++ ) {
-      for ( unsigned j = 0; j < S[i].size(); j++ ) {
-        v2.push_back( index );
-        index += 1;
-      }
-      pa_var_block.push_back( v2 );
-      v2.clear();
-    }
-    **/
-
     /** Improved Encoding than Blockwise encoding.
      * Straigten, sort and remove duplicates and then map 
      * todo: add flattern function:
      *       2D-1D 3D-2D in util.cpp */
     Vec2D dummy_pa;
     for ( unsigned i = 0; i < S.size(); i++ ) {
-      for ( unsigned j = 0; j < S[i].size(); j++ ) {
+    for ( unsigned j = 0; j < S[i].size(); j++ ) {
         dummy_pa.push_back( S[i][j] );
-      }
-    }
+    } }
     
-    // todo: Implement using sets. I
-    // In case of large duplicate that approach works better.
+    // todo: Implement using sets. 
+    // In the case of large duplicate that approach works better.
     sort( dummy_pa.begin(), dummy_pa.end() );
     dummy_pa.erase( unique( dummy_pa.begin(), dummy_pa.end() ), dummy_pa.end() );
           
-    std::cout << "Sorted S(C) set is : \n";
-    print_2d_vector ( dummy_pa );
-    std::cout << "\n";
+     std::cout << "Sorted S(C) set is : \n";
+     print_2d_vector ( dummy_pa );
+     std::cout << "\n";
     
     for ( unsigned i = 0; i < dummy_pa.size(); i++ ) {
       pa_var.push_back( index );
       index += 1;
     }
 
-    std::cout << "pa-var are : ";
-    print_1d_vector( pa_var );
+    std::cout << "cs-var are: ";
+    print_1d_vector( cs_var );
+    std::cout << "\n\n";
+
+    std::cout << "bf-var are:\n";
+    print_2d_vector( bf_var );
     std::cout << "\n";
+    
+    std::cout << "pa-var are : ";
+    print_1d_vector( pa_var ); 
+    std::cout << "\n\n";
 
     /** Create Constraints **/
     // 4.5 Non trivial Autarky
     non_trivial_autarky ( cs_var, cnf_fml );
 
     // 4.2 pa-variable constraint
-    for ( auto&i : dummy_pa ) {
-    }  
+    satisfied_clauses ( e_var, pa_var, dep_set, bf_var, dummy_pa, T, cnf_fml );
     
     // 4.3 Selected clauses: t(C) -> P(C)
-    /** Efficient implementation 
+    /** Efficient implementation: Avoid search 
     Vec1D v3;
     for ( unsigned i = 0; i < cs_var.size(); i++ ) { 
       v3.push_back( cs_var[i] ); 
@@ -149,19 +140,7 @@ int main ( int ac, char* av[] )
       cnf_fml.push_back( v3 );
       v3.clear();
     } **/
-    // Basic Implemetation:
-    Vec1D v3;
-    for ( unsigned i = 0; i < cs_var.size(); i++ ) { 
-      v3.push_back( cs_var[i] ); 
-      for ( auto& c : S[i] ) {
-        auto id = find_vector_index ( dummy_pa, c );
-        std::cout << "the chosen pa-var:" << pa_var[id] << "\n";
-        v3.push_back ( pa_var[id] );
-      }
-      std::cout << "\n";
-      cnf_fml.push_back( v3 );
-      v3.clear();
-    }
+    touched_clauses ( cs_var, pa_var, dummy_pa, S, cnf_fml );
  
     // 4.4. Untoched clauses: !t(C) -> N(C)
     /** Intersection use:
@@ -169,19 +148,7 @@ int main ( int ac, char* av[] )
       std::cout << "Intersection is: ";
       print_1d_vector( vec4 );
     */
-    // For every Clause
-    for ( unsigned i = 0; i < dcnf_fml.size(); i++ ) { 
-      for ( auto d : dcnf_fml[i] ) {
-        auto id = find_index ( e_var, abs(d) );
-        if ( id >= 0 ) {  
-          for ( auto l : bf_var[id] ) { 
-            // std::cout << "Current f is: " << l << "\n";
-            cnf_fml.push_back( Vec1D{cs_var[i], -l} );
-          }
-          // std::cout << "\n";
-        }
-      }
-    }
+    untouched_clauses ( e_var, cs_var, bf_var, dcnf_fml, cnf_fml );
          
     // 4.1 At Most One Constraint
     for ( unsigned i = 0; i < cs_var.size(); i++ ) {

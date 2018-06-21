@@ -22,7 +22,7 @@ void semi_parse ( std::string filename, Vec1D& e_var ) {
   infile.close();
 }  */
 
-void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar, 
+void parse_qdimacs_file ( std::string filename, unsigned& dependency_var, 
     Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml ) { 
   // unsigned var_count;
   // unsigned clause_count;
@@ -66,7 +66,7 @@ void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar,
         case 'd': 
         {           
           Vec1D inner_vec;
-          dependencyVar += 1;
+          dependency_var += 1;
           auto vec_int = extract_int( line );
           assert ( vec_int.size() >= 2 );
           for ( auto i : vec_int ) {  
