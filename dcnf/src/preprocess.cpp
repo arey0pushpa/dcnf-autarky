@@ -16,7 +16,7 @@ void quant_seperation ( Vec1D& c, Vec1D& e_part, Vec1D& a_part, std::vector<std:
 }
 
 void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, 
-    Vec2D& cnf_fml, Vec2DPair& T, Vec3D& S ) {
+    Vec2D& cnf_fml, Vec2DPair& T, Vec3D& S, unsigned level ) {
 
   /** Create Complete Dependency List **/
   std::sort(dep_set.begin(), dep_set.end(),
@@ -53,14 +53,15 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
     // Base Case [bf(0), bf(1)]
     t_vec.emplace_back( e_var[i], 500 );  //false
     t_vec.emplace_back( e_var[i], 1000 ); //true 
-    // Other Cases
-    for ( unsigned j = 0; j < dep_set[i].size(); j++ ) {
-      if ( j == 0 ) 
-        continue;
-      else  {
-        t_vec.emplace_back( e_var[i], -dep_set[i][j] ); 
-        t_vec.emplace_back( e_var[i], dep_set[i][j] ); 
-      } 
+    if ( level > 0 ) {
+      // Other Cases
+      for ( unsigned j = 0; j < dep_set[i].size(); j++ ) {
+        if ( j == 0 ) continue;
+        else  {
+          t_vec.emplace_back( e_var[i], -dep_set[i][j] ); 
+          t_vec.emplace_back( e_var[i], dep_set[i][j] ); 
+        } 
+      }
     }
     T.push_back( t_vec );
   }
@@ -114,7 +115,8 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
         dummy_s.push_back( Vec1D { abs(e), 500 } );
       }
     }
-
+    
+  if ( level > 0 ) {
     /** e-var pairs case */ 
     // todo: check with variations: May have Bugs
     auto size = e_part.size();
@@ -146,7 +148,7 @@ void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
         }
       }
     }
-
+   }
     // final push on the S
     S.push_back( dummy_s );
   }

@@ -1,6 +1,6 @@
 #include <string>
 #include <stdexcept>
-//#include <cassert>
+
 #include <iostream>
 #include <ostream>
 #include <sstream>
@@ -10,28 +10,27 @@
 
 #include "util.h"
 
-void command_line_parsing ( int, char* av[], std::string&, bool& );
+void command_line_parsing ( int, char* av[], std::string&, unsigned, bool, bool );
 
-void parse_qdimacs_file ( std::string filename, unsigned& dependencyVar, 
-    Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml);
+void parse_qdimacs_file ( std::string, unsigned&, 
+    Vec1D&, Vec1D&, Vec2D&, Vec2D& );
 
-void preprocess_fml ( Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, 
-    Vec2D& cnf_fml, Vec2DPair& T, Vec3D& S );
+void preprocess_fml ( Vec1D&, Vec1D&, Vec2D&, 
+    Vec2D&, Vec2DPair&, Vec3D&, unsigned);
 
-void quant_seperation ( Vec1D& c, Vec1D& e_part, Vec1D& a_part );
+void quant_seperation ( Vec1D&, Vec1D&, Vec1D& );
 
 void non_trivial_autarky ( Vec1D&, Vec2D& );
 
-void satisfied_clauses ( Vec1D& e_var, Vec1D& pa_var, Vec2D& dep_set, 
-   Vec2D& bf_var, Vec2D& dummy_pa, Vec2DPair& T, Vec2D& cnf_fml  );
+void satisfied_clauses ( Vec1D&, Vec1D&, Vec2D&, 
+   Vec2D&, Vec2D&, Vec2DPair&, Vec2D& );
 
-void touched_clauses ( Vec1D& cs_var, Vec1D& pa_var, Vec2D& dummy_pa, 
-                       Vec3D& S, Vec2D& cnf_fml );
+void touched_clauses ( Vec1D&, Vec1D&, Vec2D&, Vec3D&, Vec2D& );
 
-void untouched_clauses ( Vec1D& e_var,  Vec1D& cs_var, Vec2D& bf_var, 
-    Vec2D& dcnf_fml, Vec2D& cnf_fml);
+void untouched_clauses ( Vec1D&,  Vec1D&, Vec2D&, Vec2D&, Vec2D& );
 
 void at_most_one ( Vec1D&, Vec2D& );
+
 /*
 // DCNF [ Universal_var_count, Existential_var_count, Number_Of_clauses, Number_of_var ] 
 class dcnf{

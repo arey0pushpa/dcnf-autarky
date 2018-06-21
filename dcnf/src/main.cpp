@@ -12,11 +12,13 @@ int main ( int ac, char* av[] )
 {
   try {
     bool input_file = false;
+    bool level_func = false;
     unsigned dependency_var = 0;
+    unsigned level = 0;
     std::string filename;
     
     /** Handle Command Line parsing **/
-    command_line_parsing ( ac, av, filename, input_file );
+    command_line_parsing ( ac, av, filename, level, input_file, level_func );
     
     if( input_file == false ) {
       filename = "./examples/qbflib.qdimacs";
@@ -57,7 +59,7 @@ int main ( int ac, char* av[] )
       } */
 
     /** Preprocessing **/
-    preprocess_fml( e_var, a_var, dep_set, dcnf_fml, T, S );
+    preprocess_fml( e_var, a_var, dep_set, dcnf_fml, T, S, level );
 
     std::cout << "\nThe s(v) is: " << "\n";
     print_2d_vector_pair( T );
@@ -74,7 +76,7 @@ int main ( int ac, char* av[] )
     }
 
     // bf variable
-    //std::cout << "The size of s(v) is: " << T.size() << "\n";
+    // std::cout << "The size of s(v) is: " << T.size() << "\n";
     
     Vec1D dummy_vec;
     for ( unsigned i = 0; i < T.size(); i++ ) {
