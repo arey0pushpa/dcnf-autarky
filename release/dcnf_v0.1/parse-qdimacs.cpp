@@ -41,7 +41,7 @@ void parse_qdimacs_file ( std::string filename, unsigned& dependency_var,
         case 'p': 
         { 
           auto vec_int = extract_int( line );
-          assert ( vec_int.size() == 2 );
+        //  assert ( vec_int.size() == 2 );
          // var_count = vec_int[0];
          // clause_count = vec_int[1];
           break;
