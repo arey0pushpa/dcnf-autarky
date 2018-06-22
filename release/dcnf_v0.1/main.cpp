@@ -31,7 +31,7 @@ int main( int argc, char * argv[] )
     }
 
     char* file_name = get_cmd_option( argv, argv + argc, "-f" );
-    //unsigned level_set = get_cmd_option( argv, argv + argc, "-l" );
+    char* level_set = get_cmd_option( argv, argv + argc, "-l" );
     
     if ( file_name ) {
       filename = file_name;
@@ -39,9 +39,9 @@ int main( int argc, char * argv[] )
       filename = "./examples/qbflib.qdimacs";
     }
     
-//    if ( level_set ) {
-//      level = level_set;
-//    } 
+    if ( level_set ) {
+      level = std::stoi( level_set );
+    } 
 
     auto start = std::chrono::high_resolution_clock::now();
 
