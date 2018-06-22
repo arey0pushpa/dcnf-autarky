@@ -10,7 +10,7 @@
 
 #include "util.h"
 
-void command_line_parsing ( int, char* av[], std::string&, unsigned, bool, bool );
+void command_line_parsing ( int, char* av[], std::string&, unsigned&, unsigned&, bool&, bool& );
 
 void parse_qdimacs_file ( std::string, unsigned&, 
     Vec1D&, Vec1D&, Vec2D&, Vec2D& );

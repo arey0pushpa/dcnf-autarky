@@ -10,7 +10,9 @@
 using namespace boost;
 using namespace boost::program_options;
 
-void command_line_parsing ( int ac, char* av[], std::string& filename, unsigned level,  bool inputFile, bool level_func ) {
+void command_line_parsing ( int ac, char* av[], std::string& filename, 
+                            unsigned& level, unsigned& encoding, bool& inputFile, 
+                            bool& level_func ) {
   std::vector<std::string> inputFilename;
   
    options_description general("General options");
@@ -20,6 +22,7 @@ void command_line_parsing ( int ac, char* av[], std::string& filename, unsigned 
     options_description options("Available options");
     options.add_options()
       ("level,l", value<int>(), "level of the func")
+      ("encoding,e", value<int>(), "encoding of the bf-variables")
       ("input-file,i", value< std::vector<std::string> >(),
        "Specifies input file.");
 
@@ -55,5 +58,11 @@ void command_line_parsing ( int ac, char* av[], std::string& filename, unsigned 
         << vm["level"].as<int>() << "\n";            
       level  =  vm["level"].as<int>();  
       level_func = true;
+    }
+    
+    if ( vm.count("encoding")) {
+       std::cout << "The chosen 'encoding' is: "
+        << vm["encoding"].as<int>() << "\n";            
+      encoding =  vm["encoding"].as<int>();  
     }
 }  

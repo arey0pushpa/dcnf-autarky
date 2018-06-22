@@ -2,10 +2,12 @@
 
 #include <chrono>
 #include <exception>
+#include <cmath>
 
-#include "defs.h"
 #include <fstream>
 #include <algorithm>
+
+#include "defs.h"
 
 
 int main ( int ac, char* av[] )
@@ -15,10 +17,11 @@ int main ( int ac, char* av[] )
     bool level_func = false;
     unsigned dependency_var = 0;
     unsigned level = 0;
+    unsigned encoding = 0;
     std::string filename;
     
     /** Handle Command Line parsing **/
-    command_line_parsing ( ac, av, filename, level, input_file, level_func );
+    command_line_parsing ( ac, av, filename, level, encoding, input_file, level_func );
     
     if( input_file == false ) {
       filename = "./examples/qbflib.qdimacs";
@@ -78,14 +81,19 @@ int main ( int ac, char* av[] )
     // bf variable
     // std::cout << "The size of s(v) is: " << T.size() << "\n";
     
-    Vec1D dummy_vec;
-    for ( unsigned i = 0; i < T.size(); i++ ) {
-       for ( unsigned j = 0; j < T[i].size(); j++ ) {
-         dummy_vec.push_back( index ); 
-         index += 1;
+    if ( encoding == 0 ) {
+      Vec1D dummy_vec;
+      for ( unsigned i = 0; i < T.size(); i++ ) {
+         for ( unsigned j = 0; j < T[i].size(); j++ ) {
+           dummy_vec.push_back( index ); 
+           index += 1;
+        }
+         bf_var.push_back( dummy_vec );
+         dummy_vec.clear();
       }
-       bf_var.push_back( dummy_vec );
-       dummy_vec.clear();
+    } else {
+      unsigned m =  ceil ( log( T.size() + 1 )/ log(2) );  
+
     }
     
     // pa variable 
@@ -128,33 +136,24 @@ int main ( int ac, char* av[] )
     /** Create Constraints **/
     // 4.5 Non trivial Autarky
     non_trivial_autarky ( cs_var, cnf_fml );
-
-    // 4.2 pa-variable constraint
-    satisfied_clauses ( e_var, pa_var, dep_set, bf_var, dummy_pa, T, cnf_fml );
+    
     
     // 4.3 Selected clauses: t(C) -> P(C)
-    /** Efficient implementation: Avoid search 
-    Vec1D v3;
-    for ( unsigned i = 0; i < cs_var.size(); i++ ) { 
-      v3.push_back( cs_var[i] ); 
-      //for ( auto j: pa_var ) v3.push_back( j );
-      for ( auto j: pa_var_block[i] ) v3.push_back( j );
-      cnf_fml.push_back( v3 );
-      v3.clear();
-    } **/
     touched_clauses ( cs_var, pa_var, dummy_pa, S, cnf_fml );
- 
-    // 4.4. Untoched clauses: !t(C) -> N(C)
-    /** Intersection use:
-      Vec1D vec4 = vector_intersection( dcnf_fml[i], e_var );
-      std::cout << "Intersection is: ";
-      print_1d_vector( vec4 );
-    */
-    untouched_clauses ( e_var, cs_var, bf_var, dcnf_fml, cnf_fml );
-         
-    // 4.1 At Most One Constraint
-    for ( unsigned i = 0; i < cs_var.size(); i++ ) {
-      at_most_one ( bf_var[i], cnf_fml );
+
+    if ( encoding == 0 ) {
+      // 4.2 pa-variable constraint
+      satisfied_clauses ( e_var, pa_var, dep_set, bf_var, dummy_pa, T, cnf_fml );  
+   
+      // 4.4. Untoched clauses: !t(C) -> N(C)
+      untouched_clauses ( e_var, cs_var, bf_var, dcnf_fml, cnf_fml );
+           
+      // 4.1 At Most One Constraint
+      for ( unsigned i = 0; i < cs_var.size(); i++ ) {
+        at_most_one ( bf_var[i], cnf_fml );
+      }
+    } else {
+      // Lograthemic encoding.
     }
     
     //print_2d_vector ( cnf_fml );

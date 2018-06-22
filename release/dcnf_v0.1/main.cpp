@@ -28,6 +28,7 @@ int main( int argc, char * argv[] )
 
     if( cmd_option_exists( argv, argv+argc, "-h" ) ) {
       std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 Swansea UNiversity. \nUsage: ./dcnf [-f filename] [-l level]\n";
+      exit(0);
     }
 
     char* file_name = get_cmd_option( argv, argv + argc, "-f" );

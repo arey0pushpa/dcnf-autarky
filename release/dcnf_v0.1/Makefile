@@ -13,7 +13,7 @@ all: $(PROGRAM)
 $(PROGRAM): $(CXXOBJECTS)
 	$(CXX) -o $@ $(CXXOBJECTS) 
 	
-main.o: defs.h util.h constraints.o  preprocess.o  parse-qdimacs.o 
+main.o: main.cpp defs.h util.h constraints.o  preprocess.o  parse-qdimacs.o Makefile
 	$(CXX) $(CXXFLAGS) -c -o main.o main.cpp
 
 constraints.o: defs.h util.h 
@@ -22,7 +22,7 @@ constraints.o: defs.h util.h
 preprocess.o: defs.h util.h 
 	$(CXX) $(CXXFLAGS) -c -o preprocess.o preprocess.cpp
 
-parse-qdimacs.o: defs.h util.h
+parse-qdimacs.o: defs.h util.h 
 	$(CXX) $(CXXFLAGS) -c -o parse-qdimacs.o parse-qdimacs.cpp
 
 clean: 
