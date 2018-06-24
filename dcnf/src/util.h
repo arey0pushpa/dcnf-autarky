@@ -1,9 +1,11 @@
 #include <vector>
 #include <iostream>
-#include <sstream>
+
+#include <sstream> 
 #include <cassert>
 
 #include <boost/algorithm/string.hpp>
+
 typedef std::pair<int, int> Pair;
 typedef std::vector<Pair> Vec1Dpair; 
 typedef std::vector<int> Vec1D; // clauses

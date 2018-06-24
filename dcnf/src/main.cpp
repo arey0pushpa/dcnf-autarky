@@ -1,18 +1,18 @@
-#include <array>
+// Ankit Shukla, 22.June.2018 (Swansea)
+/* Copyright 2018 Ankit Shukla
+ * This is free software and I take no responsibility 
+ * */
 
+#include <array>
 #include <chrono>
 #include <exception>
 #include <cmath>
-
 #include <fstream>
 #include <algorithm>
 
 #include "defs.h"
 
-
-int main ( int ac, char* av[] )
-{
-  try {
+int main(int ac, char* av[]) {
     bool input_file = false;
     bool level_func = false;
     unsigned dependency_var = 0;
@@ -92,7 +92,7 @@ int main ( int ac, char* av[] )
          dummy_vec.clear();
       }
     } else {
-      unsigned m =  ceil ( log( T.size() + 1 )/ log(2) );  
+      unsigned m =  ceil( log(T.size()+1)/log(2) );  
 
     }
     
@@ -180,11 +180,7 @@ int main ( int ac, char* av[] )
     auto finish = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = finish - start;
     std::cout << "entire run took " << elapsed.count() << " secs\n";
-  }
-
-  catch ( const std::exception& ex ) {
-    std::cout << "\n Nukes are launched --> " << ex.what() << "\n";
-  }
-  return 0;
+  
+    return 0;
 }
 
