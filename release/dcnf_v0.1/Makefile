@@ -6,28 +6,33 @@ PROGRAM = dcnf_autarky
 CXXSOURCES = main.cpp constraints.cpp preprocess.cpp parse-qdimacs.cpp 
 CXXOBJECTS = $(CXXSOURCES:.cpp=.o) 
 CXX = g++
-CXXFLAGS  = --std=c++11 -pedantic -g -Wall
+
+Standard_options = --std=c++11 -pedantic
+Warning_options = -Wall
+Optimisation_options = -Ofast -DNDEBUG
+debug_options = -g
+
 
 all: $(PROGRAM)
 
 $(PROGRAM): $(CXXOBJECTS)
-	$(CXX) -o $@ $(CXXOBJECTS) 
-	
+	$(CXX) -o $@ $(CXXOBJECTS)
+
 main.o: main.cpp defs.h util.h constraints.o  preprocess.o  parse-qdimacs.o Makefile
-	$(CXX) $(CXXFLAGS) -c main.cpp 
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c main.cpp
 
-constraints.o: constraints.cpp defs.h  
-	$(CXX) $(CXXFLAGS) -c constraints.cpp
+constraints.o: defs.h util.h
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c constraints.cpp
 
-preprocess.o: preprocess.cpp defs.h 
-	$(CXX) $(CXXFLAGS) -c preprocess.cpp
+preprocess.o: defs.h util.h
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c preprocess.cpp
 
-parse-qdimacs.o: parse-qdimacs.cpp defs.h 
-	$(CXX) $(CXXFLAGS) -c parse-qdimacs.cpp
+parse-qdimacs.o: defs.h util.h
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c parse-qdimacs.cpp
 
-clean: 
+clean:
 	$(RM) -f $(CXXOBJECTS) $(PROGRAM)
 	$(RM) count *.o *~
-  
+
 run:
 	./$(PROGRAM)

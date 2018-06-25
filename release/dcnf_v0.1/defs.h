@@ -6,8 +6,6 @@
 #include <sstream>
 #include <map>
 
-#include <boost/regex.hpp>
-
 #include "util.h"
 
 void command_line_parsing ( int, char* av[], std::string&, unsigned, bool, bool );
