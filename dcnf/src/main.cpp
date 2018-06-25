@@ -1,13 +1,11 @@
 // Ankit Shukla, 22.June.2018 (Swansea)
 /* Copyright 2018 Ankit Shukla
- * This is free software and I take no responsibility 
+ * This is a free software. 
  * */
 
-#include <array>
-#include <chrono>
-#include <exception>
-#include <cmath>
 #include <fstream>
+#include <cmath>
+#include <chrono>
 #include <algorithm>
 
 #include "defs.h"
@@ -21,9 +19,9 @@ int main(int ac, char* av[]) {
     std::string filename;
     
     /** Handle Command Line parsing **/
-    command_line_parsing ( ac, av, filename, level, encoding, input_file, level_func );
+    command_line_parsing(ac, av, filename, level, encoding, input_file, level_func);
     
-    if( input_file == false ) {
+    if (input_file == false) {
       filename = "./examples/qbflib.qdimacs";
     } 
 
