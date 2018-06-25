@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <cassert>
+#include <algorithm>
 
 typedef std::pair<int, int> Pair;
 typedef std::vector<Pair> Vec1Dpair; 
