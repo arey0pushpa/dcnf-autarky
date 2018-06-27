@@ -1,6 +1,5 @@
 #include <vector>
 #include <iostream>
-
 #include <sstream> 
 #include <cassert>
 
@@ -49,6 +48,12 @@ inline Vec1D extract_int ( std::string line )
     }
 	}
   assert ( !vec_string.empty() );
+  if(vec_string.back() != '0') {
+    std::cerr
+              << "Input format violation[Missing 0]. Every Line should end with 0"
+              << '\n';
+          exit(input_format_violation);
+  }
   vec_int.pop_back();
   
   return vec_int;

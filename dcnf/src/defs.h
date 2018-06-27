@@ -1,4 +1,27 @@
 #include "util.h"
+namespace {
+
+// --- General input and output ---
+
+const std::string version = "2.8.0";
+const std::string date = "29.5.2018";
+
+const std::string program = "tawSolver";
+
+enum Error_codes {
+  file_reading_error=1,
+  file_writing_error=2,
+  file_pline_error=3,
+  num_vars_error=4,
+  allocation_error=5,
+  literal_read_error=6,
+  variable_value_error=7,
+  number_clauses_error=8,
+  empty_clause_error=9,
+  unit_clause_error=11,
+  input_format_violation=12
+};
+}
 
 void command_line_parsing ( int, char* av[], std::string&, unsigned&, unsigned&, bool&, bool& );
 

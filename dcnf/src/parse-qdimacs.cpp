@@ -1,7 +1,7 @@
 #include <defs.h>
 #include <fstream>
 
-/** Varibles needs to be fixed 
+/** Varibles needs to be computed
  * e_var = []
  * a_var = []
  * dep_set = []
@@ -10,84 +10,73 @@
  * func: create_sv()
  */
 
-/*
-void semi_parse ( std::string filename, Vec1D& e_var ) {
-  std::ifstream infile( filename );
-  if (infile.good())
-  {
-    string sLine;
-    std::getline( infile, sLine );
-    std::cout << sLine << "\n";
-  }
-  infile.close();
-}  */
-
-void parse_qdimacs_file ( std::string filename, unsigned& dependency_var, 
-    Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml ) { 
-  // unsigned var_count;
-  // unsigned clause_count;
-
-  std::ifstream file( filename );
+void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
+                        Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
+                        Vec2D& cnf_fml) {
   std::string line;
-  
-  if ( file.is_open() ) 
-  {
-    while( std::getline( file , line ) )
-    {
-      char s1 = line[0];
-      switch (s1) {
-        case 'c': break;
-        case 'p': 
-        { 
-          auto vec_int = extract_int( line );
-          assert ( vec_int.size() == 2 );
-         // var_count = vec_int[0];
-         // clause_count = vec_int[1];
-          break;
-        }   
-        case 'e':
-        {
-          auto vec_int = extract_int( line );
-          assert ( vec_int.size() >= 1 );
-          for ( auto i : vec_int ) {
-            e_var.push_back( i );
-          }
-          break;
+  std::cout << "Trying to open and read... " << filename << '\n';
+  std::ifstream file(filename);
+
+  if (!file.is_open()) {
+    perror(("Error while opening file " + filename).c_str());
+    exit(file_reading_error);
+  }
+
+  while (std::getline(file, line)) {
+    char s1 = line[0];
+    switch (s1) {
+      case 'c':
+        break;
+      case 'p': {
+        auto vec_int = extract_int(line);
+        assert(vec_int.size() == 2);
+        if (vec_int.size() < 2 || vec_int.size() > 2) {
+          std::cerr
+              << "Input format violation [p-line]. Accepted format: p cnf n1 n2"
+              << '\n';
+          exit(input_format_violation);
         }
-        case 'a':
-        { 
-          auto vec_int = extract_int( line );
-          assert ( vec_int.size() >= 1 );
-          for ( auto i : vec_int ) {
-            a_var.push_back( i );
-          }
-          break;  
-        }
-        case 'd': 
-        {           
-          Vec1D inner_vec;
-          dependency_var += 1;
-          auto vec_int = extract_int( line );
-          assert ( vec_int.size() >= 2 );
-          for ( auto i : vec_int ) {  
-            inner_vec.push_back( i );
-          }
-          dep_set.push_back( inner_vec );
-          break;
-        }
-        
-        default: 
-        {
-         auto vec_int = extract_int( line );
-         cnf_fml.push_back( vec_int );
-         break;
-        }
+        break;
       }
-    } 
-    file.close();
+      case 'e': {
+        auto vec_int = extract_int(line);
+        assert(vec_int.size() >= 1);
+        for (auto i : vec_int) {
+          e_var.push_back(i);
+        }
+        break;
+      }
+      case 'a': {
+        auto vec_int = extract_int(line);
+        assert(vec_int.size() >= 1);
+        for (auto i : vec_int) {
+          a_var.push_back(i);
+        }
+        break;
+      }
+      case 'd': {
+        Vec1D inner_vec;
+        dependency_var += 1;
+        auto vec_int = extract_int(line);
+        assert(vec_int.size() >= 2);
+        for (auto i : vec_int) {
+          inner_vec.push_back(i);
+        }
+        dep_set.push_back(inner_vec);
+        break;
+      }
+
+      default: {
+        auto vec_int = extract_int(line);
+        cnf_fml.push_back(vec_int);
+        break;
+      }
+    }
   }
-  else {
-    std::cout << "Unable to open file"; 
+
+  if (file.bad()) {
+    perror(("Error while reading file " + filename).c_str());
+    exit(file_reading_error);
   }
- // assert( var_count == (e_var.size() + a_var.size()) );  
+  file.close();
 }
