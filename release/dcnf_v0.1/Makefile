@@ -21,13 +21,13 @@ $(PROGRAM): $(CXXOBJECTS)
 main.o: main.cpp defs.h util.h constraints.o  preprocess.o  parse-qdimacs.o Makefile
 	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c main.cpp
 
-constraints.o: defs.h util.h
+constraints.o: defs.h util.h constraints.cpp
 	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c constraints.cpp
 
-preprocess.o: defs.h util.h
+preprocess.o: defs.h util.h preprocess.cpp
 	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c preprocess.cpp
 
-parse-qdimacs.o: defs.h util.h
+parse-qdimacs.o: defs.h util.h parse-qdimacs.cpp
 	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c parse-qdimacs.cpp
 
 clean:
