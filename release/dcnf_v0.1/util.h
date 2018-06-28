@@ -11,6 +11,40 @@ typedef std::vector<Vec1D> Vec2D; // clause-sets
 typedef std::vector<Vec2D> Vec3D; // vector of clause set 
 typedef std::vector< Vec1Dpair> Vec2DPair; // represent bf var set
 
+namespace {
+
+enum Error_codes {
+  file_reading_error = 1,
+  file_writing_error = 2,
+  file_pline_error = 3,
+  num_vars_error = 4,
+  allocation_error = 5,
+  literal_read_error = 6,
+  variable_value_error = 7,
+  number_clauses_error = 8,
+  empty_clause_error = 9,
+  unit_clause_error = 11,
+  input_format_violation = 12
+};
+
+class Clause {
+ public:
+  Vec1D lits_c;
+  Vec1D evar_c;
+  Clause (Vec1D& l): lits_c(l) {}
+  int length() {
+    return lits_c.size();
+  }
+};
+
+class Depset {
+  public:
+    unsigned var;
+    Vec1D deps_s; 
+};
+
+}
+
 inline Vec1D extract_int ( std::string line )
 {
   Vec1D vec_int;
@@ -81,6 +115,24 @@ inline int find_scd_index ( Vec1Dpair& vec, int elem ) {
   // todo: error handle
   return -1;
 } 
+
+/** Trim Operations */
+// trim from left
+inline std::string& ltrim(std::string& s, const char* t = " \t\n\r\f\v") {
+  s.erase(0, s.find_first_not_of(t));
+  return s;
+}
+
+// trim from right
+inline std::string& rtrim(std::string& s, const char* t = " \t\n\r\f\v") {
+  s.erase(s.find_last_not_of(t) + 1);
+  return s;
+}
+
+// trim from left & right
+inline std::string& trim(std::string& s, const char* t = " \t\n\r\f\v") {
+  return ltrim(rtrim(s, t), t);
+}
 
 /** Print n-dimentional vector **/
 inline void print_1d_vector ( Vec1D& vec ) {

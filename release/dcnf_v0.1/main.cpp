@@ -79,6 +79,17 @@ int main( int argc, char * argv[] )
      if ( dependency_var == 0 ) { 
   // Implement a dependency scheme
   } */
+  
+   if (e_var.size() == dep_set.size()) {
+    for (unsigned i = 0; i < e_var.size(); ++i) {
+      std::cout << "The e_var " << e_var[i] << " has dependency: ";
+      print_1d_vector(dep_set[i]);
+      std::cout << '\n';
+    }
+  }
+
+  std::cout << "Only Handling the parsing now. Exiting." << '\n';
+  exit(0);
 
   /** Preprocessing **/
   preprocess_fml( e_var, a_var, dep_set, dcnf_fml, T, S, level );
