@@ -28,6 +28,11 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
   }
 
   while (std::getline(file, line)) {
+    // If line is empty
+    if(line == "") {
+      std::cout << "Ignoring empty lines.\n";
+      continue;
+    }
     char s1 = line[0];
     switch (s1) {
       case 'c':
@@ -61,7 +66,7 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
           exit(input_format_violation);
         } else {
           q_line = 'e';
-          // std::cout << "E Line.\n";
+          std::cout << "E Line.\n";
         }
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
@@ -87,7 +92,7 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
           exit(input_format_violation);
         } else {
           q_line = 'a';
-          // std::cout << "A Line.\n";
+          std::cout << "A Line.\n";
         }
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
@@ -119,7 +124,11 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
           exit(input_format_violation);
         }
         ++matrix_cnt;
+        //std::cout << "The input line is: " << line << '\n';
         auto vec_int = extract_int(line);
+        //std::cout << "Extracted vector is: "; 
+        //print_1d_vector (vec_int);
+        //std::cout << "\n";
         cnf_fml.push_back(vec_int);
         break;
       }
