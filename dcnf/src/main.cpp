@@ -3,7 +3,6 @@
  * This is a free software.
  * */
 
-#include <algorithm>  // find and sort
 #include <chrono>
 #include <cmath>
 #include <fstream>
@@ -19,8 +18,8 @@ int main(int argc, char* argv[]) {
   coord_t level = 0;
   coord_t encoding = 0;
 
-  var no_of_clauses = 0;
-  var no_of_var = 0;
+  coord_t no_of_clauses = 0;
+  coord_t no_of_var = 0;
 
   /** Handle Command Line parsing **/
   command_line_parsing(argc, argv, filename, level, encoding, input_file,
@@ -36,34 +35,33 @@ int main(int argc, char* argv[]) {
 
   cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
 
-  var_t e_vars;    // {exists-vars}
-  var_t a_vars;    // {forall-vars}
-  vars_t dep_set;  // {{dep-var}...}
+  cl_t e_vars;    // {exists-vars}
+  cl_t a_vars;    // {forall-vars}
+  cls_t dep_set;  // {{dep-var}...}
 
   sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
   minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
 
-  cls_t cnf_fml;   // dimacs/cnf fml {{lit...}...}
-  var_t cnf_vars;  // dimacs/cnf var {cnf-vars}
+  cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
+  cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
 
-  var_t cs_var;   // set of cs-var
-  vars_t bf_var;  // set of set of bf-var
-  var_t pa_vars;  // set of pa-var
+  cl_t cs_var;   // set of cs-var
+  cls_t bf_var;  // set of set of bf-var
+  cl_t pa_vars;  // set of pa-var
 
   /**** Implement the DQCNF Code ****/
 
   /** Parse Input file **/
-  parse_qdimacs_file(filename, dcnf_fml, dep_set, e_vars, a_vars, no_of_var,
+  parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_var,
                      no_of_clauses, dependency_var);
 
-  std::cout << "Printing input cnf formula...\n";
-  print_2d_vector(dcnf_fml);
-  exit(0);
+  // std::cout << "Printing input cnf formula...\n";
+  // print_2d_vector(dcnf_fml);
 
   if (e_vars.size() == dep_set.size()) {
     for (coord_t i = 0; i < e_vars.size(); ++i) {
       std::cout << "The e_vars " << e_vars[i] << " has dependency: ";
-      print_var_set(dep_set[i]);
+      print_1d_vector(dep_set[i]);
       std::cout << '\n';
     }
   }
@@ -76,18 +74,17 @@ int main(int argc, char* argv[]) {
     } */
 
   /** Preprocessing 
-  preprocess_fml(e_vars, a_vars, dep_set, dcnf_fml, selected_bf,
-                 minsat_clause_assgmt, level);
-                 
+  preprocess_fml(selected_bf, minsat_clause_assgmt, dcnf_fml, dep_set, a_vars,
+                 e_vars, level);
 
-  std::cout << "\nThe s(v) is: "
+  std::cout << "\nThe genearted bool func: s(v) is: "
             << "\n";
-  print_2d_vector_pair(selected_bf);
-  std::cout << "\nThe S(C) is: "
+//  print_2d_vector_pair(selected_bf);
+  std::cout << "\nThe generated min sat clause assgmt S(C) is: "
             << "\n";
-  print_3d_vector(minsat_clause_assgmt);
+//  print_3d_vector(minsat_clause_assgmt);
 
-  /** Create traslation Variables/ordering *
+  ** Create traslation Variables/ordering *
   coord_t index = 1;
 
   // cs variable
@@ -114,10 +111,10 @@ int main(int argc, char* argv[]) {
   }
 
   // pa variable
-  /** Improved Encoding than Blockwise encoding.
+  ** Improved Encoding than Blockwise encoding.
    * Straigten, sort and remove duplicates and then map
    * todo: add flattern function:
-   *       2D-1D 3D-2D in util.cpp 
+   *       2D-1D 3D-2D in util.cpp
   Vec2D dummy_pa;
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {

@@ -87,13 +87,13 @@ inline cl_t extract_int(std::string line) {
   return vec_int;
 }
 
-/** Vector intersection *
-inline Vec1D vector_intersection(Vec1D& v1, Vec1D& v2) {
-  Vec1D v;
+/** Vector intersection */
+inline cl_t vector_intersection(cl_t& v1, cl_t& v2) {
+  cl_t v;
   std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(),
                         std::back_inserter(v));
   return v;
-} */
+} 
 
 /** Find an element in a vector **/
 inline bool find_int_element(Vec1D& vec, int elem) {
@@ -168,19 +168,6 @@ inline void print_1d_vector(cl_t& vec) {
 inline void print_2d_vector(cls_t& vec) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     print_1d_vector(vec[i]);
-    std::cout << "\n";
-  }
-}
-
-inline void print_var_set(var_t& vec) {
-  for (coord_t i = 0; i < vec.size(); ++i) {
-    std::cout << vec[i] << " ";
-  }
-}
-
-inline void print_set_var_set(vars_t& vec) {
-  for (coord_t i = 0; i < vec.size(); ++i) {
-    print_var_set(vec[i]);
     std::cout << "\n";
   }
 }

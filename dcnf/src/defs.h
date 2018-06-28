@@ -3,11 +3,15 @@
 void command_line_parsing(int, char* av[], std::string&, unsigned&, unsigned&,
                           bool&, bool&);
 
-void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, vars_t& dep_set, var_t& e_vars, var_t& a_vars, 
-                        var& no_of_var, var& no_of_clauses, coord_t& dependency_var);
+void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
+                        cl_t& a_vars, cl_t& e_vars, coord_t& no_of_var,
+                        coord_t& no_of_clauses, coord_t& dependency_var);
 
-void preprocess_fml(Vec1D&, Vec1D&, Vec2D&, Vec2D&, Vec2DPair&, Vec3D&,
-                    unsigned);
+void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
+                    cls_t& dcnf_fml, cls_t& dep_set, cl_t& a_vars, cl_t& e_vars,
+                    coord_t& level);
+// void preprocess_fml(Vec1D&, Vec1D&, Vec2D&, Vec2D&, Vec2DPair&, Vec3D&,
+//                    unsigned);
 
 void quant_seperation(Vec1D&, Vec1D&, Vec1D&);
 
