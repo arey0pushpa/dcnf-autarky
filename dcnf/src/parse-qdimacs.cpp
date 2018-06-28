@@ -2,20 +2,18 @@
 #include <fstream>
 
 /** Varibles needs to be computed
- * e_var = []
- * a_var = []
+ * e_vars = []
+ * a_vars = []
  * dep_set = []
  *
  * func: add_dep_set()
  * func: create_sv()
  */
 
-void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
-                        Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
-                        Vec2D& cnf_fml) {
+void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, vars_t& dep_set,
+                        var_t& e_vars, var_t& a_vars, var& no_of_var,
+                        var& no_of_clauses, coord_t& dependency_var) {
   std::string line;
-  unsigned var_count = 0;
-  unsigned clause_count = 0;
   unsigned matrix_cnt = 0;
   bool p_line = false;
   char q_line = 'q';
@@ -47,8 +45,8 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         p_line = true;
         std::stringstream iss(line);
         iss >> s2 >> s2 >> v >> c >> ef;
-        var_count = v;
-        clause_count = c;
+        no_of_var = v;
+        no_of_clauses = c;
         if (s2 != "cnf" || ef != '\0') {
           std::cerr
               << "Input format violation [p-line]. Accepted format: p cnf n1 n2"
@@ -74,12 +72,12 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
-          if (i >= 0 && abs(i) > var_count) {
-            std::cerr << "Input format violation. atom > var_count." << '\n';
+          if (i >= 0 && abs(i) > no_of_var) {
+            std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
-          e_var.push_back(i);
-          dep_set.push_back(a_var);
+          e_vars.push_back(i);
+          dep_set.push_back(a_vars);
         }
         break;
       }
@@ -101,27 +99,27 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
-          if (i >= 0 && abs(i) > var_count) {
-            std::cerr << "Input format violation. atom > var_count." << '\n';
+          if (i >= 0 && abs(i) > no_of_var) {
+            std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
-          a_var.push_back(i);
+          a_vars.push_back(i);
         }
         break;
       }
       case 'd': {
-        Vec1D inner_vec;
+        cl_t inner_vec;
         ++dependency_var;
         auto vec_int = extract_int(line);
 
         auto elem = vec_int.front();
-        e_var.push_back(elem);
+        e_vars.push_back(elem);
 
         vec_int.erase(vec_int.begin());
 
         assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
-          inner_vec.push_back(i);
+          inner_vec.push_back(var(i));
         }
         dep_set.push_back(inner_vec);
         break;
@@ -136,7 +134,7 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         }
         ++matrix_cnt;
         auto vec_int = extract_int(line);
-        cnf_fml.push_back(vec_int);
+        dcnf_fml.push_back(vec_int);
         break;
       }
     }
@@ -148,7 +146,7 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
   }
   file.close();
 
-  if (clause_count != matrix_cnt) {
+  if (no_of_clauses != matrix_cnt) {
     std::cerr << "Input format violation. clause count == #matrix lines"
               << '\n';
     exit(input_format_violation);

@@ -3,7 +3,8 @@
 void command_line_parsing(int, char* av[], std::string&, unsigned&, unsigned&,
                           bool&, bool&);
 
-void parse_qdimacs_file(std::string, unsigned&, Vec1D&, Vec1D&, Vec2D&, Vec2D&);
+void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, vars_t& dep_set, var_t& e_vars, var_t& a_vars, 
+                        var& no_of_var, var& no_of_clauses, coord_t& dependency_var);
 
 void preprocess_fml(Vec1D&, Vec1D&, Vec2D&, Vec2D&, Vec2DPair&, Vec3D&,
                     unsigned);

@@ -18,6 +18,7 @@ void quant_seperation(Vec1D& c, Vec1D& e_part, Vec1D& a_part,
 
 void preprocess_fml(Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml,
                     Vec2DPair& T, Vec3D& S, unsigned level) {
+
   /** Create Complete Dependency List **/
   std::sort(dep_set.begin(), dep_set.end(),
             [](const std::vector<int>& a, const std::vector<int>& b) {

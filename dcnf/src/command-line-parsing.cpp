@@ -1,5 +1,3 @@
-#include "defs.h"
-
 // Include Boost Utilities
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
@@ -7,11 +5,13 @@
 #include <boost/token_functions.hpp>
 #include <boost/tokenizer.hpp>
 
+#include "defs.h"
+
 using namespace boost;
 using namespace boost::program_options;
 
 void command_line_parsing(int ac, char* av[], std::string& filename,
-                          unsigned& level, unsigned& encoding, bool& inputFile,
+                          coord_t& level, coord_t& encoding, bool& inputFile,
                           bool& level_func) {
   std::vector<std::string> inputFilename;
 
@@ -19,8 +19,8 @@ void command_line_parsing(int ac, char* av[], std::string& filename,
   general.add_options()("help", "produce a help message");
 
   options_description options("Available options");
-  options.add_options()("level,l", value<int>(), "level of the func")(
-      "encoding,e", value<int>(), "encoding of the bf-variables")(
+  options.add_options()("level,l", value<coord_t>(), "level of the func")(
+      "encoding,e", value<coord_t>(), "encoding of the bf-variables")(
       "input-file,i", value<std::vector<std::string> >(),
       "Specifies input file.");
 
@@ -52,14 +52,14 @@ void command_line_parsing(int ac, char* av[], std::string& filename,
   }
 
   if (vm.count("level")) {
-    std::cout << "The 'level' chosen is: " << vm["level"].as<int>() << "\n";
-    level = vm["level"].as<int>();
+    std::cout << "The 'level' chosen is: " << vm["level"].as<coord_t>() << "\n";
+    level = vm["level"].as<coord_t>();
     level_func = true;
   }
 
   if (vm.count("encoding")) {
-    std::cout << "The chosen 'encoding' is: " << vm["encoding"].as<int>()
+    std::cout << "The chosen 'encoding' is: " << vm["encoding"].as<coord_t>()
               << "\n";
-    encoding = vm["encoding"].as<int>();
+    encoding = vm["encoding"].as<coord_t>();
   }
 }
