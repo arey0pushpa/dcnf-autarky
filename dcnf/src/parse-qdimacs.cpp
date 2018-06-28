@@ -35,14 +35,14 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
     }
     // handle spaces in the lines
     ltrim(line);
-    //std::cout << "the trimmed line is: " << line << '\n';
     char s1 = line[0];
     switch (s1) {
-      case 'c':
+      case 'c': {
         break;
+      }
       case 'p': {
         std::string s2;
-        char ef;
+        char ef = '\0';
         unsigned v, c;
         p_line = true;
         std::stringstream iss(line);
@@ -74,11 +74,12 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
-          if (i > var_count) {
+          if (i >= 0 && abs(i) > var_count) {
             std::cerr << "Input format violation. atom > var_count." << '\n';
             exit(input_format_violation);
           }
           e_var.push_back(i);
+          dep_set.push_back(a_var);
         }
         break;
       }
@@ -100,7 +101,7 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
-          if (i > var_count) {
+          if (i >= 0 && abs(i) > var_count) {
             std::cerr << "Input format violation. atom > var_count." << '\n';
             exit(input_format_violation);
           }
@@ -110,12 +111,19 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
       }
       case 'd': {
         Vec1D inner_vec;
-        dependency_var += 1;
+        ++dependency_var;
         auto vec_int = extract_int(line);
-        assert(vec_int.size() >= 2);
+
+        auto elem = vec_int.front();
+        e_var.push_back(elem);
+
+        vec_int.erase(vec_int.begin());
+
+        assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
-          dep_set.push_back(inner_vec);
+          inner_vec.push_back(i);
         }
+        dep_set.push_back(inner_vec);
         break;
       }
 
@@ -127,11 +135,7 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
           exit(input_format_violation);
         }
         ++matrix_cnt;
-        // std::cout << "The input line is: " << line << '\n';
         auto vec_int = extract_int(line);
-        // std::cout << "Extracted vector is: ";
-        // print_1d_vector (vec_int);
-        // std::cout << "\n";
         cnf_fml.push_back(vec_int);
         break;
       }

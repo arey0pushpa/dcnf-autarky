@@ -27,6 +27,23 @@ enum Error_codes {
   unit_clause_error = 11,
   input_format_violation = 12
 };
+
+class Clause {
+ public:
+  Vec1D lits_c;
+  Vec1D evar_c;
+  Clause (Vec1D& l): lits_c(l) {}
+  int length() {
+    return lits_c.size();
+  }
+};
+
+class Depset {
+  public:
+    unsigned var;
+    Vec1D deps_s; 
+};
+
 }
 
 inline void remove_first_word(std::string& sentence) {
@@ -120,7 +137,7 @@ inline int find_vector_index(Vec2D& vec, Vec1D& elem) {
 
 /** Return index of the element */
 inline int find_scd_index(Vec1Dpair& vec, int elem) {
-  for (unsigned i = 0; i < vec.size(); i++) {
+  for (unsigned i = 0; i < vec.size(); ++i) {
     if (vec[i].second == elem) {
       return i;
     }
@@ -149,20 +166,20 @@ inline std::string& trim(std::string& s, const char* t = " \t\n\r\f\v") {
 /** Print n-dimentional vector **/
 inline void print_1d_vector(Vec1D& vec) {
   // for ( const auto& i : vec ) {
-  for (unsigned int i = 0; i < vec.size(); i++) {
+  for (unsigned int i = 0; i < vec.size(); ++i) {
     std::cout << vec[i] << " ";
   }
 }
 
 inline void print_2d_vector(Vec2D& vec) {
-  for (unsigned int i = 0; i < vec.size(); i++) {
+  for (unsigned int i = 0; i < vec.size(); ++i) {
     print_1d_vector(vec[i]);
     std::cout << "\n";
   }
 }
 
 inline void print_3d_vector(Vec3D& vec) {
-  for (unsigned int i = 0; i < vec.size(); i++) {
+  for (unsigned int i = 0; i < vec.size(); ++i) {
     print_2d_vector(vec[i]);
     std::cout << "\n";
   }

@@ -55,6 +55,17 @@ int main(int ac, char* av[]) {
   std::cout << "Printing input cnf formula...\n";
   print_2d_vector(dcnf_fml);
 
+  if (e_var.size() == dep_set.size()) {
+    for (unsigned i = 0; i < e_var.size(); ++i) {
+      std::cout << "The e_var " << e_var[i] << " has dependency: ";
+      print_1d_vector(dep_set[i]);
+      std::cout << '\n';
+    }
+  }
+
+  std::cout << "Only Handling the parsing now. Exiting." << '\n';
+  exit(0);
+  
   /* Todo: Implement a dependency Scheme in case no dependency given
     if ( dependency_var == 0 ) {
       // Implement a dependency scheme
@@ -74,7 +85,7 @@ int main(int ac, char* av[]) {
   unsigned index = 1;
 
   // cs variable
-  for (unsigned i = 0; i < dcnf_fml.size(); i++) {
+  for (unsigned i = 0; i < dcnf_fml.size(); ++i) {
     cs_var.push_back(index);
     index += 1;
   }
@@ -84,8 +95,8 @@ int main(int ac, char* av[]) {
 
   if (encoding == 0) {
     Vec1D dummy_vec;
-    for (unsigned i = 0; i < T.size(); i++) {
-      for (unsigned j = 0; j < T[i].size(); j++) {
+    for (unsigned i = 0; i < T.size(); ++i) {
+      for (unsigned j = 0; j < T[i].size(); ++j) {
         dummy_vec.push_back(index);
         index += 1;
       }
@@ -102,8 +113,8 @@ int main(int ac, char* av[]) {
    * todo: add flattern function:
    *       2D-1D 3D-2D in util.cpp */
   Vec2D dummy_pa;
-  for (unsigned i = 0; i < S.size(); i++) {
-    for (unsigned j = 0; j < S[i].size(); j++) {
+  for (unsigned i = 0; i < S.size(); ++i) {
+    for (unsigned j = 0; j < S[i].size(); ++j) {
       dummy_pa.push_back(S[i][j]);
     }
   }
@@ -117,7 +128,7 @@ int main(int ac, char* av[]) {
   print_2d_vector(dummy_pa);
   std::cout << "\n";
 
-  for (unsigned i = 0; i < dummy_pa.size(); i++) {
+  for (unsigned i = 0; i < dummy_pa.size(); ++i) {
     pa_var.push_back(index);
     index += 1;
   }
@@ -149,7 +160,7 @@ int main(int ac, char* av[]) {
     untouched_clauses(e_var, cs_var, bf_var, dcnf_fml, cnf_fml);
 
     // 4.1 At Most One Constraint
-    for (unsigned i = 0; i < cs_var.size(); i++) {
+    for (unsigned i = 0; i < cs_var.size(); ++i) {
       at_most_one(bf_var[i], cnf_fml);
     }
   } else {

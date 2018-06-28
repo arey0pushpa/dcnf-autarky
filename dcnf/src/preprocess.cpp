@@ -48,14 +48,14 @@ void preprocess_fml(Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml,
             });
 
   /** Selected Boolean Function **/
-  for (unsigned i = 0; i < e_var.size(); i++) {
+  for (unsigned i = 0; i < e_var.size(); ++i) {
     std::vector<std::pair<int, int> > t_vec;
     // Base Case [bf(0), bf(1)]
     t_vec.emplace_back(e_var[i], 500);   // false
     t_vec.emplace_back(e_var[i], 1000);  // true
     if (level > 0) {
       // Other Cases
-      for (unsigned j = 0; j < dep_set[i].size(); j++) {
+      for (unsigned j = 0; j < dep_set[i].size(); ++j) {
         if (j == 0)
           continue;
         else {
@@ -89,7 +89,7 @@ void preprocess_fml(Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml,
 
   /*
   std::cout << " Printing Union Var: \n";
-  for (unsigned i=0; i< union_var.size(); i++) {
+  for (unsigned i=0; i< union_var.size(); ++i) {
         std::cout << union_var[i].first << " "
              << union_var[i].second << "\n";
   }
@@ -121,10 +121,10 @@ void preprocess_fml(Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D& cnf_fml,
       /** e-var pairs case */
       // todo: check with variations: May have Bugs
       auto size = e_part.size();
-      for (unsigned i = 0; i < size - 1; i++) {
+      for (unsigned i = 0; i < size - 1; ++i) {
         auto index = find_index(e_var, abs(e_part[i]));
         auto dep1 = dep_set[index];
-        for (unsigned j = i + 1; j < size; j++) {
+        for (unsigned j = i + 1; j < size; ++j) {
           auto index = find_index(e_var, abs(e_part[j]));
           auto dep2 = dep_set[index];
           Vec1D d_vec = vector_intersection(dep1, dep2);
