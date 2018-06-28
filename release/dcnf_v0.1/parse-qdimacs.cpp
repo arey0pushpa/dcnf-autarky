@@ -1,5 +1,7 @@
-#include "defs.h"
 #include <fstream>
+#include <cstdlib>
+
+#include "defs.h"
 
 /** Varibles needs to be computed
  * e_var = []
@@ -73,8 +75,8 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         }
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
-        for (auto i : vec_int) {
-          if (i >= 0 && abs(i) > var_count) {
+        for (int i : vec_int) {
+          if (i >= 0 && unsigned(std::abs(i)) > var_count) {
             std::cerr << "Input format violation. atom > var_count." << '\n';
             exit(input_format_violation);
           }
@@ -100,8 +102,8 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         }
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
-        for (auto i : vec_int) {
-          if (i >= 0 && abs(i) > var_count) {
+        for (int i : vec_int) {
+          if (i >= 0 && unsigned(abs(i)) > var_count) {
             std::cerr << "Input format violation. atom > var_count." << '\n';
             exit(input_format_violation);
           }
