@@ -17,7 +17,7 @@ int main(int ac, char* av[]) {
   unsigned level = 0;
   unsigned encoding = 0;
   std::string filename;
-   
+
   /** Handle Command Line parsing **/
   command_line_parsing(ac, av, filename, level, encoding, input_file,
                        level_func);
@@ -46,7 +46,7 @@ int main(int ac, char* av[]) {
   Vec1D cs_var;
   Vec2D bf_var;
   Vec1D pa_var;
-  
+
   /**** Implement the DQCNF Code ****/
 
   /** Parse Input file **/

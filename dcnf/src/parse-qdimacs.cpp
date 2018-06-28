@@ -14,7 +14,12 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
                         Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
                         Vec2D& cnf_fml) {
   std::string line;
-  std::cout << "Trying to open and read... " << filename << '\n';
+  unsigned var_count = 0;
+  unsigned clause_count = 0;
+  unsigned matrix_cnt = 0;
+  bool p_line = false;
+  char q_line = 'q';
+  std::cout << "Trying to open and read [" << filename << "]\n";
   std::ifstream file(filename);
 
   if (!file.is_open()) {
@@ -28,9 +33,15 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
       case 'c':
         break;
       case 'p': {
-        auto vec_int = extract_int(line);
-        assert(vec_int.size() == 2);
-        if (vec_int.size() < 2 || vec_int.size() > 2) {
+        std::string s2;
+        char ef;
+        unsigned v, c;
+        p_line = true;
+        std::stringstream iss(line);
+        iss >> s2 >> s2 >> v >> c >> ef;
+        var_count = v;
+        clause_count = c;
+        if (s2 != "cnf" || ef != '\0') {
           std::cerr
               << "Input format violation [p-line]. Accepted format: p cnf n1 n2"
               << '\n';
@@ -39,17 +50,52 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         break;
       }
       case 'e': {
+        if (q_line == 'e') {
+          std::cerr << "Input format violation [e-line]. Consecutive e lines "
+                    << '\n';
+          exit(input_format_violation);
+        } else if (matrix_cnt > 0) {
+          std::cerr << "Input format violation [e-line]. e-line not allowed "
+                       "after matrix starts. "
+                    << '\n';
+          exit(input_format_violation);
+        } else {
+          q_line = 'e';
+          // std::cout << "E Line.\n";
+        }
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
+          if (i > var_count) {
+            std::cerr << "Input format violation. atom > var_count." << '\n';
+            exit(input_format_violation);
+          }
           e_var.push_back(i);
         }
         break;
       }
+
       case 'a': {
+        if (q_line == 'a') {
+          std::cerr << "Input format violation [a-line]. Consecutive a lines."
+                    << '\n';
+          exit(input_format_violation);
+        } else if (matrix_cnt > 0) {
+          std::cerr << "Input format violation [a-line]. a-line not allowed "
+                       "after matrix line. "
+                    << '\n';
+          exit(input_format_violation);
+        } else {
+          q_line = 'a';
+          // std::cout << "A Line.\n";
+        }
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 1);
         for (auto i : vec_int) {
+          if (i > var_count) {
+            std::cerr << "Input format violation. atom > var_count." << '\n';
+            exit(input_format_violation);
+          }
           a_var.push_back(i);
         }
         break;
@@ -60,13 +106,19 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
         auto vec_int = extract_int(line);
         assert(vec_int.size() >= 2);
         for (auto i : vec_int) {
-          inner_vec.push_back(i);
+          dep_set.push_back(inner_vec);
         }
-        dep_set.push_back(inner_vec);
         break;
       }
 
       default: {
+        if (q_line != 'e') {
+          std::cerr << "Input format violation [e-line]. Last quant line "
+                       "should be an e-line."
+                    << '\n';
+          exit(input_format_violation);
+        }
+        ++matrix_cnt;
         auto vec_int = extract_int(line);
         cnf_fml.push_back(vec_int);
         break;
@@ -79,4 +131,15 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
     exit(file_reading_error);
   }
   file.close();
+
+  if (clause_count != matrix_cnt) {
+    std::cerr << "Input format violation. clause count == #matrix lines"
+              << '\n';
+    exit(input_format_violation);
+  } else if (!p_line) {
+    std::cerr << "Input format violation. No p-line found!" << '\n';
+    exit(input_format_violation);
+  } else {
+    std::cout << "Input parsed successfully.\n";
+  }
 }
