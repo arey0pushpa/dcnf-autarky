@@ -14,8 +14,6 @@ typedef std::vector<pairs_t> sel_bf;    // represent bf var set
 typedef std::vector<cls_t> minsat_ass;  // vector of clause set
 typedef std::uint32_t coord_t;          // coordinates
 
-namespace {
-
 enum Error_codes {
   file_reading_error = 1,
   file_writing_error = 2,
@@ -56,7 +54,7 @@ class Variables {
   char fetch_qtype() { return m_quantype; }
   cl_t fetch_dependency() { return m_dependency; }
 };
-}
+
 
 inline cl_t extract_int(std::string line) {
   cl_t vec_int;

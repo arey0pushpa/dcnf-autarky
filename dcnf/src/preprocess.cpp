@@ -14,94 +14,40 @@ void quant_seperation(cl_t& c, cl_t& e_part, cl_t& a_part,
   }
 }
 
-void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
-                    cls_t& dcnf_fml, cls_t& dep_set, cl_t& a_vars, cl_t& e_vars,
-                    coord_t& level) {
-  std::sort(dep_set.begin(), dep_set.end(),
-            [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
-
-  std::sort(e_vars.begin(), e_vars.end());
-  std::sort(a_vars.begin(), a_vars.end());
-  
-  cl_t evars_outermost; 
-
-  /** Fill the dependency for all exists vars **
-  coord_t ctr = 0;
-  for (coord_t i = 0; i < no_of_var; ++i) {
-    if (e == e_pr[ctr]) {
-      ctr += 1;
-    } else {
-      auto dummy_vec = a_vars;
-      dummy_vec.insert(dummy_vec.begin(), e);
-      dep_set.push_back(dummy_vec);
-    }
-  } 
-
-  std::sort(dep_set.begin(), dep_set.end(),
-            [](const cl_t& a, const cl_t& b) {
-              return a[0] < b[0];
-            });
-  for (coord_t i = 0; i < dep_set.size(); ++i) {
-      print_1d_vector(dep_set[i]);
-      std::cout << '\n';
-  }
-  exit(0);
-  */
-
+void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[],
+                    sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
+                    coord_t& num_of_vars, coord_t& level) {
   /** Selected Boolean Function **/
-  for (coord_t i = 0; i < e_vars.size(); ++i) {
+  for (coord_t i = 0; i < num_of_vars; ++i) {
     pairs_t t_vec;
-    // Base Case [bf(0), bf(1)]
-    t_vec.emplace_back(e_vars[i], 500);   // false
-    t_vec.emplace_back(e_vars[i], 1000);  // true
-    if (level > 0) {
-      // Other Cases
-      for (coord_t j = 0; j < dep_set[i].size(); ++j) {
-        if (j == 0)
-          continue;
-        else {
-          t_vec.emplace_back(e_vars[i], -dep_set[i][j]);
-          t_vec.emplace_back(e_vars[i], dep_set[i][j]);
+    if (dcnf_variables[i].fetch_qtype() == 'e') {
+      // Base Case [bf(0), bf(1)]; level == 0
+      t_vec.emplace_back(i+1, 500);   // false
+      t_vec.emplace_back(i+1, 1000);  // true
+      if (level > 0) {
+        cl_t dvar = dcnf_variables[i].fetch_dependency();
+        for (coord_t j = 0; j < dvar.size(); ++j) {
+          t_vec.emplace_back( i+1, dvar[j]);
+          t_vec.emplace_back( i+1, -dvar[j]);
         }
       }
     }
     selected_bf.push_back(t_vec);
   }
 
-  /*
-  std::cout << "The T set is: ";
-  print_2d_vector_pair( T );
+  std::cout << "\nThe genearted bool func: s(v) is: "
+            << "\n";
+  print_2d_vector_pair(selected_bf);
+
   exit(0);
-  */
 
-  // Create a Union of both exists and forall :
-  // todo: do it while parsing the file
-  std::vector<std::pair<int, char> > union_var;
-
-  for (auto i : e_vars) {
-    union_var.emplace_back(i, 'e');
-  }
-  for (auto j : a_vars) {
-    union_var.emplace_back(j, 'a');
-  }
-
-  /* Sort() before generating Min Sat Clause */
-  std::sort(union_var.begin(), union_var.end());
-
-  /*
-  std::cout << " Printing Union Var: \n";
-  for (coord_t i=0; i< union_var.size(); ++i) {
-        std::cout << union_var[i].first << " "
-             << union_var[i].second << "\n";
-  }
-  */
   /** Three cases to consider
    * 1. Basic case: handle all are e_varsiables
    * 2. Handle dependency case for all e_varsiable
    * 3. Handle e-var and a-var case
-   */
+   *
 
-  /** Minimal Satisfying Clauses **/
+  ** Minimal Satisfying Clauses **
   for (cl_t& c : dcnf_fml) {
     cls_t dummy_s;
     cl_t e_part;
@@ -109,7 +55,7 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
 
     quant_seperation(c, e_part, a_part, union_var);
 
-    /** All e-var case **/
+    ** All e-var case **
     for (auto& e : e_part) {
       if (e > 0) {
         dummy_s.push_back(cl_t{e, 1000});
@@ -119,7 +65,7 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
     }
 
     if (level > 0) {
-      /** e-var pairs case */
+      ** e-var pairs case *
       // todo: check with variations: May have Bugs
       auto size = e_part.size();
       for (coord_t i = 0; i < size - 1; ++i) {
@@ -138,11 +84,11 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
         }
       }
 
-      /** e-var a-var case **/
+      ** e-var a-var case **
       for (auto e : e_part) {
         const auto i = find_index(e_vars, abs(e));
         auto dep = dep_set[i];
-        /** todo : implement with intersection **/
+        ** todo : implement with intersection **
         for (auto a : a_part) {
           auto presence_a = find_int_element(dep, abs(a));
           if (presence_a) {
@@ -153,5 +99,5 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
     }
     // final push on the S
     minsat_clause_assgmt.push_back(dummy_s);
-  }
+  } */
 }

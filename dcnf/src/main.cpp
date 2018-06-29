@@ -77,8 +77,9 @@ int main(int argc, char* argv[]) {
       }
     } else if (!e_vars_end && i == *evar_iterator - 1) {
       dcnf_variables[i].initialise_qtype('e');
-      dep_set[dep_index].erase(dep_set[dep_index].begin());
-      cl_t dep_vars = dep_set[dep_index];
+      cl_t d_s = dep_set[dep_index];
+      d_s.erase(d_s.begin());
+      cl_t dep_vars = d_s;
       dcnf_variables[i].initialise_dependency(dep_vars);
       ++dep_index;
       if (std::next(evar_iterator) == e_vars.end()) {
@@ -109,8 +110,8 @@ int main(int argc, char* argv[]) {
       // Implement a dependency scheme
     } */
 
-  preprocess_fml(selected_bf, minsat_clause_assgmt, dcnf_fml, dep_set, a_vars,
-                 e_vars, level);
+  preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
+                 minsat_clause_assgmt, no_of_var, level);
 
   std::cout << "\nThe genearted bool func: s(v) is: "
             << "\n";
