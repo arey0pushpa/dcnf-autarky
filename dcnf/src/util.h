@@ -31,17 +31,18 @@ enum Error_codes {
 };
 
 class Clauses {
- cl_t m_lits;
- cl_t m_evars;
+  cl_t m_lits;
+  cl_t m_evars;
+
  public:
-   Clauses() {};
-  //Clauses(cl_t& l) : m_lits(l) {}
+  Clauses(){};
+  // Clauses(cl_t& l) : m_lits(l) {}
   void initialise_lits(cl_t c) { m_lits = c; }
   void initialise_evars(cl_t e) { m_evars = e; }
-  
+
   cl_t fetch_lits() { return m_lits; }
   cl_t fetch_evars() { return m_evars; }
-}; 
+};
 
 class Variables {
   char m_quantype;

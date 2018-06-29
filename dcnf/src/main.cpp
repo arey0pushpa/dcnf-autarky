@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
 
   /* Each Clause */
   lit_t dsize = dcnf_fml.size();
-  Clauses dcnf_clauses[dsize]; 
+  Clauses dcnf_clauses[dsize];
 
   for (coord_t i = 0; i < dsize; ++i) {
     cl_t c_evars;
@@ -103,29 +103,6 @@ int main(int argc, char* argv[]) {
     }
     dcnf_clauses[i].initialise_evars(c_evars);
   }
-
-  /*
-  for (coord_t i = 0; i < no_of_var; ++i) {
-    auto vec = dcnf_variables[i].fetch_dependency();
-    std::cout << "The " << i << "th depset is: ";
-    print_1d_vector(vec);
-    std::cout << '\n';
-  }
-
-  for (coord_t i = 0; i < dsize; ++i) {
-    auto l = dcnf_clauses[i].fetch_evars();
-    std::cout << "The " << i << "th lit-set is: ";
-    print_1d_vector(l);
-    std::cout << '\n';
-  }
-  
-  if (e_vars.size() == dep_set.size()) {
-    for (coord_t i = 0; i < e_vars.size(); ++i) {
-      std::cout << "The e_vars " << e_vars[i] << " has dependency: ";
-      print_1d_vector(dep_set[i]);
-      std::cout << '\n';
-    }
-  } */
 
   /* Todo: Implement a dependency Scheme in case no dependency given
     if ( dependency_var == 0 ) {
