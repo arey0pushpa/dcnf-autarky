@@ -1,15 +1,6 @@
 #include <defs.h>
 #include <fstream>
 
-/** Varibles needs to be computed
- * e_vars = []
- * a_vars = []
- * dep_set = []
- *
- * func: add_dep_set()
- * func: create_sv()
- */
-
 void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
                         cl_t& a_vars, cl_t& e_vars, coord_t& no_of_var,
                         coord_t& no_of_clauses, coord_t& dependency_var) {
@@ -26,13 +17,11 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
   }
 
   while (std::getline(file, line)) {
-    // If line is empty
     if (line == "") {
       std::cout << "Ignoring empty lines.\n";
       continue;
     }
-    // handle spaces in the lines
-    ltrim(line);
+    trim(line);
     char s1 = line[0];
     switch (s1) {
       case 'c': {
@@ -115,12 +104,9 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         cl_t inner_vec;
         ++dependency_var;
         cl_t clause = extract_int(line);
-
         lit_t elem = clause.front();
         e_vars.push_back(elem);
-
         // clause.erase(clause.begin());
-
         assert(clause.size() >= 1);
         for (lit_t i : clause) {
           inner_vec.push_back(i);

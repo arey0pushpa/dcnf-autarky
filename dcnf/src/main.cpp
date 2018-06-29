@@ -10,7 +10,6 @@
 #include "defs.h"
 
 int main(int argc, char* argv[]) {
-  // Command line parsing var
   std::string filename;
   bool input_file = false;
   bool level_func = false;
@@ -21,7 +20,6 @@ int main(int argc, char* argv[]) {
   coord_t no_of_clauses = 0;
   coord_t no_of_var = 0;
 
-  /** Handle Command Line parsing **/
   command_line_parsing(argc, argv, filename, level, encoding, input_file,
                        level_func);
 
@@ -32,11 +30,10 @@ int main(int argc, char* argv[]) {
   auto start = std::chrono::high_resolution_clock::now();
 
   /** Global Variables ***/
-
   cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
 
-  cl_t e_vars;    // {exists-vars}
-  cl_t a_vars;    // {forall-vars}
+  cl_t e_vars;    // {exists-var}
+  cl_t a_vars;    // {forall-var}
   cls_t dep_set;  // {{dep-var}...}
 
   sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
@@ -45,35 +42,64 @@ int main(int argc, char* argv[]) {
   cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
   cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
 
-  cl_t cs_var;   // set of cs-var
-  cls_t bf_var;  // set of set of bf-var
-  cl_t pa_vars;  // set of pa-var
+  cl_t cs_var;
+  cls_t bf_var;
+  cl_t pa_vars;
 
-  /**** Implement the DQCNF Code ****/
-
-  /** Parse Input file **/
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_var,
                      no_of_clauses, dependency_var);
+  
+  std::cout << "The number of variables: " << no_of_var << '\n'; 
+  Variables dcnf_variables[no_of_var]; 
 
-  // std::cout << "Printing input cnf formula...\n";
-  // print_2d_vector(dcnf_fml);
+  std::sort(dep_set.begin(), dep_set.end(),
+            [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
 
+  std::sort(e_vars.begin(), e_vars.end());
+  std::sort(a_vars.begin(), a_vars.end());
+
+  auto avar_iterator = a_vars.begin();
+  auto evar_iterator = e_vars.begin();
+  
+  bool a_vars_end = false;
+  bool e_vars_end = false;
+  if (avar_iterator == a_vars.end()) a_vars_end = true;
+  if (evar_iterator == e_vars.end()) e_vars_end = true;
+
+  for (coord_t i = 0; i < no_of_var; ++i) {
+    if (!a_vars_end && i == *avar_iterator-1) {
+      if (std::next(avar_iterator) == a_vars.end()) { 
+        a_vars_end = true;
+      } else {
+        avar_iterator = std::next(avar_iterator);
+      }
+    } else if (!e_vars_end && i == *evar_iterator-1) {
+      dcnf_variables[i].initialise_qtype('e');
+      if (std::next(evar_iterator) == e_vars.end()) {
+        e_vars_end = true;
+      } 
+      else {
+        evar_iterator = std::next(evar_iterator);
+      }
+    } else {
+      dcnf_variables[i].initialise_qtype('e');
+    }
+  }
+
+  /*
   if (e_vars.size() == dep_set.size()) {
     for (coord_t i = 0; i < e_vars.size(); ++i) {
       std::cout << "The e_vars " << e_vars[i] << " has dependency: ";
       print_1d_vector(dep_set[i]);
       std::cout << '\n';
     }
-  }
-
-  std::cout << "Only Handling the parsing now. Exiting." << '\n';
+  } */
 
   /* Todo: Implement a dependency Scheme in case no dependency given
     if ( dependency_var == 0 ) {
       // Implement a dependency scheme
     } */
 
-  /** Preprocessing */ 
   preprocess_fml(selected_bf, minsat_clause_assgmt, dcnf_fml, dep_set, a_vars,
                  e_vars, level);
 

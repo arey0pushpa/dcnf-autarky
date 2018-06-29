@@ -1,18 +1,18 @@
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <limits>
 #include <sstream>
 #include <vector>
-#include <algorithm>
 
-typedef std::int64_t lit_t; // literals
-typedef std::vector<lit_t> cl_t; // clauses
-typedef std::vector<cl_t> cls_t; // clause-sets
-typedef std::pair<lit_t,lit_t> pair_t;
+typedef std::int64_t lit_t;       // literals
+typedef std::vector<lit_t> cl_t;  // clauses
+typedef std::vector<cl_t> cls_t;  // clause-sets
+typedef std::pair<lit_t, lit_t> pair_t;
 typedef std::vector<pair_t> pairs_t;
-typedef std::vector<pairs_t> sel_bf;      // represent bf var set
-typedef std::vector<cls_t> minsat_ass;          // vector of clause set
-typedef std::uint32_t coord_t; // coordinates
+typedef std::vector<pairs_t> sel_bf;    // represent bf var set
+typedef std::vector<cls_t> minsat_ass;  // vector of clause set
+typedef std::uint32_t coord_t;          // coordinates
 
 namespace {
 
@@ -30,22 +30,27 @@ enum Error_codes {
   input_format_violation = 12
 };
 
-class Clause {
+/*
+class Clauses {
  public:
   cl_t lits_c;
   cl_t evar_c;
-  Clause (cl_t& l): lits_c(l) {}
-  int length() {
-    return lits_c.size();
-  }
-};
+  Clause(cl_t& l) : lits_c(l) {}
+  int length() { return lits_c.size(); }
+}; */
 
-class Depset {
-  public:
-    coord_t var;
-    cl_t deps_s; 
-};
+class Variables {
+  char m_quantype;
+  cl_t m_dependency;
 
+ public:
+  Variables() : m_quantype('a'), m_dependency({}) {}
+  void initialise_qtype(char c) { m_quantype = c; }
+  void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; }
+
+  char fetch_qtype() { return m_quantype; }
+  cl_t fetch_dependency() { return m_dependency; }
+};
 }
 
 inline cl_t extract_int(std::string line) {
@@ -78,7 +83,7 @@ inline cl_t vector_intersection(cl_t& v1, cl_t& v2) {
   std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(),
                         std::back_inserter(v));
   return v;
-} 
+}
 
 /** Find an element in a vector **/
 inline bool find_int_element(cl_t& vec, lit_t elem) {
@@ -156,7 +161,6 @@ inline void print_2d_vector(cls_t& vec) {
     std::cout << "\n";
   }
 }
-
 
 inline void print_3d_vector(minsat_ass& vec) {
   for (coord_t i = 0; i < vec.size(); ++i) {

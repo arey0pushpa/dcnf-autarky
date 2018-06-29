@@ -17,16 +17,12 @@ void quant_seperation(cl_t& c, cl_t& e_part, cl_t& a_part,
 void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
                     cls_t& dcnf_fml, cls_t& dep_set, cl_t& a_vars, cl_t& e_vars,
                     coord_t& level) {
-  /** Create Complete Dependency List **/
-  // Sort the dep set 
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
 
-  // Sort the dependent-e-var and a-var 
   std::sort(e_vars.begin(), e_vars.end());
   std::sort(a_vars.begin(), a_vars.end());
   
-  // Complete the partial e_var List: e-var with no dependency
   cl_t evars_outermost; 
 
   /** Fill the dependency for all exists vars **
@@ -106,7 +102,7 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
    */
 
   /** Minimal Satisfying Clauses **/
-  for (cl_t c : dcnf_fml) {
+  for (cl_t& c : dcnf_fml) {
     cls_t dummy_s;
     cl_t e_part;
     cl_t a_part;
