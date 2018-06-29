@@ -73,18 +73,18 @@ int main(int argc, char* argv[]) {
       // Implement a dependency scheme
     } */
 
-  /** Preprocessing 
+  /** Preprocessing */ 
   preprocess_fml(selected_bf, minsat_clause_assgmt, dcnf_fml, dep_set, a_vars,
                  e_vars, level);
 
   std::cout << "\nThe genearted bool func: s(v) is: "
             << "\n";
-//  print_2d_vector_pair(selected_bf);
+  print_2d_vector_pair(selected_bf);
   std::cout << "\nThe generated min sat clause assgmt S(C) is: "
             << "\n";
-//  print_3d_vector(minsat_clause_assgmt);
+  print_3d_vector(minsat_clause_assgmt);
 
-  ** Create traslation Variables/ordering *
+  /** Create traslation Variables/ordering *
   coord_t index = 1;
 
   // cs variable

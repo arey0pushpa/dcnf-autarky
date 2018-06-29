@@ -1,8 +1,8 @@
 #include <iterator>
 
-#include "util.h"
+#include "defs.h"
 
-void quant_seperation(Vec1D& c, Vec1D& e_part, Vec1D& a_part,
+void quant_seperation(cl_t& c, cl_t& e_part, cl_t& a_part,
                       std::vector<std::pair<int, char> >& union_var) {
   for (auto l : c) {
     auto index = union_var[abs(l) - 1];  // get the lth value
@@ -14,60 +14,58 @@ void quant_seperation(Vec1D& c, Vec1D& e_part, Vec1D& a_part,
   }
 }
 
-// void preprocess_fml(Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set, Vec2D&
-// cnf_fml,
-//                    Vec2DPair& T, Vec3D& S, coord_t level) {
-
 void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
                     cls_t& dcnf_fml, cls_t& dep_set, cl_t& a_vars, cl_t& e_vars,
                     coord_t& level) {
-  /** Create Complete Dependency List **/
+  
+  /** Create Complete Dependency List **
   std::sort(dep_set.begin(), dep_set.end(),
             [](const std::vector<int>& a, const std::vector<int>& b) {
               return a[0] < b[0];
-            });
+            }); */
 
-  assert(e_var.size() >= dep_set.size());
-  Vec1D e_pr;
+  assert(e_vars.size() >= dep_set.size());
+  cl_t e_pr;
   for (auto& i : dep_set) {
     e_pr.push_back(i[0]);
   }
 
   /** Fill the dependency for all exists vars **/
   coord_t ctr = 0;
-  for (auto e : e_var) {
+  for (auto e : e_vars) {
     if (e == e_pr[ctr]) {
       ctr += 1;
     } else {
-      auto dummy_vec = a_var;
+      auto dummy_vec = a_vars;
       dummy_vec.insert(dummy_vec.begin(), e);
       dep_set.push_back(dummy_vec);
     }
   }
 
+  /*
   std::sort(dep_set.begin(), dep_set.end(),
             [](const std::vector<int>& a, const std::vector<int>& b) {
               return a[0] < b[0];
             });
-
+  */
   /** Selected Boolean Function **/
-  for (coord_t i = 0; i < e_var.size(); ++i) {
-    std::vector<std::pair<int, int> > t_vec;
+  for (coord_t i = 0; i < e_vars.size(); ++i) {
+    pairs_t t_vec;
     // Base Case [bf(0), bf(1)]
-    t_vec.emplace_back(e_var[i], 500);   // false
-    t_vec.emplace_back(e_var[i], 1000);  // true
+    t_vec.emplace_back(e_vars[i], 500);   // false
+    t_vec.emplace_back(e_vars[i], 1000);  // true
     if (level > 0) {
       // Other Cases
       for (coord_t j = 0; j < dep_set[i].size(); ++j) {
         if (j == 0)
           continue;
         else {
-          t_vec.emplace_back(e_var[i], -dep_set[i][j]);
-          t_vec.emplace_back(e_var[i], dep_set[i][j]);
+          t_vec.emplace_back(e_vars[i], -dep_set[i][j]);
+          t_vec.emplace_back(e_vars[i], dep_set[i][j]);
         }
       }
     }
-    T.push_back(t_vec);
+    selected_bf.push_back(t_vec);
   }
 
   /*
@@ -80,10 +78,10 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
   // todo: do it while parsing the file
   std::vector<std::pair<int, char> > union_var;
 
-  for (auto i : e_var) {
+  for (auto i : e_vars) {
     union_var.emplace_back(i, 'e');
   }
-  for (auto j : a_var) {
+  for (auto j : a_vars) {
     union_var.emplace_back(j, 'a');
   }
 
@@ -98,25 +96,25 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
   }
   */
   /** Three cases to consider
-   * 1. Basic case: handle all are e_variables
-   * 2. Handle dependency case for all e_variable
+   * 1. Basic case: handle all are e_varsiables
+   * 2. Handle dependency case for all e_varsiable
    * 3. Handle e-var and a-var case
    */
 
   /** Minimal Satisfying Clauses **/
-  for (auto c : cnf_fml) {
-    Vec2D dummy_s;
-    Vec1D e_part;
-    Vec1D a_part;
+  for (cl_t c : dcnf_fml) {
+    cls_t dummy_s;
+    cl_t e_part;
+    cl_t a_part;
 
     quant_seperation(c, e_part, a_part, union_var);
 
     /** All e-var case **/
     for (auto& e : e_part) {
       if (e > 0) {
-        dummy_s.push_back(Vec1D{e, 1000});
+        dummy_s.push_back(cl_t{e, 1000});
       } else {
-        dummy_s.push_back(Vec1D{abs(e), 500});
+        dummy_s.push_back(cl_t{abs(e), 500});
       }
     }
 
@@ -125,15 +123,15 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
       // todo: check with variations: May have Bugs
       auto size = e_part.size();
       for (coord_t i = 0; i < size - 1; ++i) {
-        auto index = find_index(e_var, abs(e_part[i]));
+        auto index = find_index(e_vars, abs(e_part[i]));
         auto dep1 = dep_set[index];
         for (coord_t j = i + 1; j < size; ++j) {
-          auto index = find_index(e_var, abs(e_part[j]));
+          auto index = find_index(e_vars, abs(e_part[j]));
           auto dep2 = dep_set[index];
-          Vec1D d_vec = vector_intersection(dep1, dep2);
+          cl_t d_vec = vector_intersection(dep1, dep2);
           for (auto& d : d_vec) {
-            Vec1D inner_vec1 = {abs(e_part[i]), d, abs(e_part[j]), -d};
-            Vec1D inner_vec2 = {abs(e_part[i]), -d, abs(e_part[j]), d};
+            cl_t inner_vec1 = {abs(e_part[i]), d, abs(e_part[j]), -d};
+            cl_t inner_vec2 = {abs(e_part[i]), -d, abs(e_part[j]), d};
             dummy_s.push_back(inner_vec1);
             dummy_s.push_back(inner_vec2);
           }
@@ -142,18 +140,18 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
 
       /** e-var a-var case **/
       for (auto e : e_part) {
-        const auto i = find_index(e_var, abs(e));
+        const auto i = find_index(e_vars, abs(e));
         auto dep = dep_set[i];
         /** todo : implement with intersection **/
         for (auto a : a_part) {
           auto presence_a = find_int_element(dep, abs(a));
           if (presence_a) {
-            dummy_s.push_back(Vec1D{abs(e), -a});
+            dummy_s.push_back(cl_t{abs(e), -a});
           }
         }
       }
     }
     // final push on the S
-    S.push_back(dummy_s);
+    minsat_clause_assgmt.push_back(dummy_s);
   }
 }

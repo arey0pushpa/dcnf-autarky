@@ -8,26 +8,11 @@
 typedef std::int64_t lit_t; // literals
 typedef std::vector<lit_t> cl_t; // clauses
 typedef std::vector<cl_t> cls_t; // clause-sets
-
-typedef std::pair<lit_t,lit_t> pair;
-typedef std::vector<pair> pair_t;
-
-typedef std::vector<pair_t> sel_bf;      // represent bf var set
+typedef std::pair<lit_t,lit_t> pair_t;
+typedef std::vector<pair_t> pairs_t;
+typedef std::vector<pairs_t> sel_bf;      // represent bf var set
 typedef std::vector<cls_t> minsat_ass;          // vector of clause set
-
-typedef std::uint32_t var; // variable type
-typedef std::vector<var> var_t; //  variable set
-typedef std::vector<var_t> vars_t; // clause-sets
 typedef std::uint32_t coord_t; // coordinates
-
-
-typedef std::pair<int, int> Pair;
-typedef std::vector<Pair> Vec1Dpair;
-typedef std::vector<int> Vec1D;            // clauses
-typedef std::vector<Vec1D> Vec2D;          // clause-sets
-typedef std::vector<Vec2D> Vec3D;          // vector of clause set
-typedef std::vector<Vec1Dpair> Vec2DPair;  // represent bf var set
-
 
 namespace {
 
@@ -47,9 +32,9 @@ enum Error_codes {
 
 class Clause {
  public:
-  Vec1D lits_c;
-  Vec1D evar_c;
-  Clause (Vec1D& l): lits_c(l) {}
+  cl_t lits_c;
+  cl_t evar_c;
+  Clause (cl_t& l): lits_c(l) {}
   int length() {
     return lits_c.size();
   }
@@ -58,7 +43,7 @@ class Clause {
 class Depset {
   public:
     coord_t var;
-    Vec1D deps_s; 
+    cl_t deps_s; 
 };
 
 }
@@ -96,13 +81,13 @@ inline cl_t vector_intersection(cl_t& v1, cl_t& v2) {
 } 
 
 /** Find an element in a vector **/
-inline bool find_int_element(Vec1D& vec, int elem) {
+inline bool find_int_element(cl_t& vec, lit_t elem) {
   return std::find(vec.begin(), vec.end(), elem) != vec.end();
 }
 
 /** Implement a template */
 /** Return index of the element **/
-inline int find_index(Vec1D& vec, int elem) {
+inline lit_t find_index(cl_t& vec, lit_t elem) {
   auto it = std::find(vec.begin(), vec.end(), elem);
   if (it == vec.end()) {
     // Todo: implement exception handling
@@ -116,7 +101,7 @@ inline int find_index(Vec1D& vec, int elem) {
 }
 
 /** Return index of the element **/
-inline int find_vector_index(Vec2D& vec, Vec1D& elem) {
+inline lit_t find_vector_index(cls_t& vec, cl_t& elem) {
   auto it = std::find(vec.begin(), vec.end(), elem);
   if (it == vec.end()) {
     // Todo: implement exception handling
@@ -130,7 +115,7 @@ inline int find_vector_index(Vec2D& vec, Vec1D& elem) {
 }
 
 /** Return index of the element */
-inline int find_scd_index(Vec1Dpair& vec, int elem) {
+inline lit_t find_scd_index(pairs_t& vec, lit_t elem) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     if (vec[i].second == elem) {
       return i;
@@ -180,21 +165,21 @@ inline void print_3d_vector(minsat_ass& vec) {
   }
 }
 
-inline void print_1d_vector_pair(std::vector<std::pair<int, char> >& T) {
+inline void print_1d_vector_pair(std::vector<std::pair<lit_t, char> >& T) {
   for (const auto& p : T) {
     std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
   }
 }
 
-inline void print_1d_vector_int_pair(std::vector<std::pair<int, int> >& T) {
-  for (const auto& p : T) {
+inline void print_1d_vector_int_pair(pairs_t& T) {
+  for (pair_t& p : T) {
     std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
   }
 }
 
-inline void print_2d_vector_pair(Vec2DPair& T) {
-  for (const auto& i : T) {
-    for (const auto& p : i) {
+inline void print_2d_vector_pair(sel_bf& T) {
+  for (const pairs_t& i : T) {
+    for (const pair_t& p : i) {
       std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
     }
     std::cout << "\n";
