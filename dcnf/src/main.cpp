@@ -49,7 +49,6 @@ int main(int argc, char* argv[]) {
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_var,
                      no_of_clauses, dependency_var);
   
-  std::cout << "The number of variables: " << no_of_var << '\n'; 
   Variables dcnf_variables[no_of_var]; 
 
   std::sort(dep_set.begin(), dep_set.end(),
