@@ -16,7 +16,7 @@ void parse_qdimacs_file(std::string filename, unsigned& dependency_var,
                         Vec1D& e_var, Vec1D& a_var, Vec2D& dep_set,
                         Vec2D& cnf_fml) {
   std::string line;
-  int var_count = 0;
+  unsigned int var_count = 0;
   unsigned clause_count = 0;
   unsigned matrix_cnt = 0;
   bool p_line = false;
