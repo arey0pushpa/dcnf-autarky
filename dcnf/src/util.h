@@ -30,14 +30,18 @@ enum Error_codes {
   input_format_violation = 12
 };
 
-/*
 class Clauses {
+ cl_t m_lits;
+ cl_t m_evars;
  public:
-  cl_t lits_c;
-  cl_t evar_c;
-  Clause(cl_t& l) : lits_c(l) {}
-  int length() { return lits_c.size(); }
-}; */
+   Clauses() {};
+  //Clauses(cl_t& l) : m_lits(l) {}
+  void initialise_lits(cl_t c) { m_lits = c; }
+  void initialise_evars(cl_t e) { m_evars = e; }
+  
+  cl_t fetch_lits() { return m_lits; }
+  cl_t fetch_evars() { return m_evars; }
+}; 
 
 class Variables {
   char m_quantype;
