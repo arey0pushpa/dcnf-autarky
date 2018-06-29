@@ -19,16 +19,16 @@ $(PROGRAM): $(CXXOBJECTS)
 	$(CXX) -o $@ $(CXXOBJECTS)
 
 main.o: main.cpp defs.h util.h constraints.o  preprocess.o  parse-qdimacs.o Makefile
-	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c main.cpp
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
-constraints.o: defs.h util.h constraints.cpp
-	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c constraints.cpp
+constraints.o: constraints.cpp defs.h util.h
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $<
 
-preprocess.o: defs.h util.h preprocess.cpp
-	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c preprocess.cpp
+preprocess.o: preprocess.cpp defs.h util.h
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $<
 
-parse-qdimacs.o: defs.h util.h parse-qdimacs.cpp
-	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c parse-qdimacs.cpp
+parse-qdimacs.o: parse-qdimacs.cpp defs.h util.h
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $<
 
 clean:
 	$(RM) -f $(CXXOBJECTS) $(PROGRAM)
