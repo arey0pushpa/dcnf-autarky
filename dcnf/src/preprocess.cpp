@@ -17,22 +17,21 @@ void quant_seperation(cl_t& c, cl_t& e_part, cl_t& a_part,
 void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
                     cls_t& dcnf_fml, cls_t& dep_set, cl_t& a_vars, cl_t& e_vars,
                     coord_t& level) {
-  
-  /** Create Complete Dependency List **
+  /** Create Complete Dependency List **/
+  // Sort the dep set 
   std::sort(dep_set.begin(), dep_set.end(),
-            [](const std::vector<int>& a, const std::vector<int>& b) {
-              return a[0] < b[0];
-            }); */
+            [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
 
-  assert(e_vars.size() >= dep_set.size());
-  cl_t e_pr;
-  for (auto& i : dep_set) {
-    e_pr.push_back(i[0]);
-  }
+  // Sort the dependent-e-var and a-var 
+  std::sort(e_vars.begin(), e_vars.end());
+  std::sort(a_vars.begin(), a_vars.end());
+  
+  // Complete the partial e_var List: e-var with no dependency
+  cl_t evars_outermost; 
 
-  /** Fill the dependency for all exists vars **/
+  /** Fill the dependency for all exists vars **
   coord_t ctr = 0;
-  for (auto e : e_vars) {
+  for (coord_t i = 0; i < no_of_var; ++i) {
     if (e == e_pr[ctr]) {
       ctr += 1;
     } else {
@@ -40,14 +39,19 @@ void preprocess_fml(sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
       dummy_vec.insert(dummy_vec.begin(), e);
       dep_set.push_back(dummy_vec);
     }
-  }
+  } 
 
-  /*
   std::sort(dep_set.begin(), dep_set.end(),
-            [](const std::vector<int>& a, const std::vector<int>& b) {
+            [](const cl_t& a, const cl_t& b) {
               return a[0] < b[0];
             });
+  for (coord_t i = 0; i < dep_set.size(); ++i) {
+      print_1d_vector(dep_set[i]);
+      std::cout << '\n';
+  }
+  exit(0);
   */
+
   /** Selected Boolean Function **/
   for (coord_t i = 0; i < e_vars.size(); ++i) {
     pairs_t t_vec;
