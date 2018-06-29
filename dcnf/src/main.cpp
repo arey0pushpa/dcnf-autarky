@@ -48,8 +48,10 @@ int main(int argc, char* argv[]) {
 
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_var,
                      no_of_clauses, dependency_var);
-  
-  Variables dcnf_variables[no_of_var]; 
+
+  /** Create no_of_var Objects and for each obj representing a
+   * variable (uni and exist) set qtype of the var and fix it's dependency */
+  Variables dcnf_variables[no_of_var];
 
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
@@ -59,25 +61,29 @@ int main(int argc, char* argv[]) {
 
   auto avar_iterator = a_vars.begin();
   auto evar_iterator = e_vars.begin();
-  
+
+  coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
   if (avar_iterator == a_vars.end()) a_vars_end = true;
   if (evar_iterator == e_vars.end()) e_vars_end = true;
 
   for (coord_t i = 0; i < no_of_var; ++i) {
-    if (!a_vars_end && i == *avar_iterator-1) {
-      if (std::next(avar_iterator) == a_vars.end()) { 
+    if (!a_vars_end && i == *avar_iterator - 1) {
+      if (std::next(avar_iterator) == a_vars.end()) {
         a_vars_end = true;
       } else {
         avar_iterator = std::next(avar_iterator);
       }
-    } else if (!e_vars_end && i == *evar_iterator-1) {
+    } else if (!e_vars_end && i == *evar_iterator - 1) {
       dcnf_variables[i].initialise_qtype('e');
+      dep_set[dep_index].erase(dep_set[dep_index].begin());
+      cl_t dep_vars = dep_set[dep_index];
+      dcnf_variables[i].initialise_dependency(dep_vars);
+      ++dep_index;
       if (std::next(evar_iterator) == e_vars.end()) {
         e_vars_end = true;
-      } 
-      else {
+      } else {
         evar_iterator = std::next(evar_iterator);
       }
     } else {
@@ -86,6 +92,13 @@ int main(int argc, char* argv[]) {
   }
 
   /*
+  for (coord_t i = 0; i < no_of_var; ++i) {
+    auto vec = dcnf_variables[i].fetch_dependency();
+    std::cout << "The " << i << "th depset is: ";
+    print_1d_vector(vec);
+    std::cout << '\n';
+  }
+
   if (e_vars.size() == dep_set.size()) {
     for (coord_t i = 0; i < e_vars.size(); ++i) {
       std::cout << "The e_vars " << e_vars[i] << " has dependency: ";
