@@ -76,15 +76,4 @@ void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[],
     }  // level > 0 close
     minsat_clause_assgmt.push_back(m_ca);
   }
-
-  for (coord_t i = 0; i < num_of_clause; ++i) {
-    auto l = dcnf_clauses[i].fetch_evars();
-    std::cout << "The " << i << "th lit-set is: ";
-    print_1d_vector(l);
-    std::cout << '\n';
-  }
-
-  std::cout << "\nThe generated min sat clause assgmt S(C) is: "
-            << "\n";
-  print_3d_vector(minsat_clause_assgmt);
 }

@@ -11,7 +11,7 @@ typedef std::vector<cl_t> cls_t;  // clause-sets
 typedef std::pair<lit_t, lit_t> pair_t;
 typedef std::vector<pair_t> pairs_t;
 typedef std::vector<pairs_t> sel_bf;    // represent bf var set
-typedef std::vector<cls_t> minsat_ass;  // vector of clause set
+typedef std::vector<cls_t> minsat_ass;  // vector of clause-set
 typedef std::uint32_t coord_t;          // coordinates
 
 enum Error_codes {
