@@ -91,7 +91,6 @@ inline cl_t extract_int(std::string line) {
       vec_int.push_back(found);
     }
   }
-  assert(!vec_string.empty());
   if (vec_int.back() != 0) {
     std::cerr
         << "Input format violation [Missing 0]. Every Line should end with 0"

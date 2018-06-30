@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
   if (file_name) {
     filename = file_name;
   } else {
-    filename = "./examples/qbflib.qdimacs";
+    filename = "../examples/qbflib.dqdimacs";
   }
 
   if (level_set) {

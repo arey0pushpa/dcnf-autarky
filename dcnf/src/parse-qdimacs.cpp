@@ -1,5 +1,6 @@
-#include <defs.h>
 #include <fstream>
+
+#include "defs.h"
 
 void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
                         cl_t& a_vars, cl_t& e_vars, coord_t& no_of_clauses,
@@ -61,7 +62,7 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         cl_t clause = extract_int(line);
         assert(clause.size() >= 1);
         for (lit_t i : clause) {
-          if (i >= 0 && abs(i) > no_of_var) {
+          if (unsigned(abs(i)) > no_of_var) {
             std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
@@ -91,7 +92,7 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         cl_t clause = extract_int(line);
         assert(clause.size() >= 1);
         for (lit_t i : clause) {
-          if (i >= 0 && abs(i) > no_of_var) {
+          if (unsigned(abs(i)) > no_of_var) {
             std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
