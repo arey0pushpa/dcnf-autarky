@@ -42,10 +42,11 @@ void touched_clauses(cl_t& cs_var, cl_t& pa_var, cls_t& dummy_pa, minsat_ass& S,
 }
 
 /** Constraint 4 **/
-void untouched_clauses(cl_t& e_var, cl_t& cs_var, cls_t& bf_var,
-                       cls_t& dcnf_fml, cls_t& cnf_fml) {
-  for (unsigned i = 0; i < dcnf_fml.size(); i++) {
-    for (auto d : dcnf_fml[i]) {
+void untouched_clauses(Clauses dcnf_clauses[], cls_t& bf_var, cl_t& cs_var,
+                       cls_t& cnf_fml) {
+  for (coord_t i = 0; i < num_of_clause; ++i) {
+    cl_t clause = dcnf_clauses[i].fetch_evars(); 
+    for (lit_t e : clause) {
       auto id = find_index(e_var, abs(d));
       if (id < 0) {
         continue;
