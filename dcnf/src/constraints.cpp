@@ -13,9 +13,8 @@ void at_most_one(cl_t& vec, cls_t& cnf_fml) {
 }
 
 /** Constraint 2 **/
-void satisfied_clauses(cl_t& e_var, cl_t& pa_var, cls_t& dep_set,
-                       cls_t& bf_var, cls_t& dummy_pa, sel_bf& T,
-                       cls_t& cnf_fml) {
+void satisfied_clauses(cl_t& e_var, cl_t& pa_var, cls_t& dep_set, cls_t& bf_var,
+                       cls_t& dummy_pa, sel_bf& T, cls_t& cnf_fml) {
   for (unsigned i = 0; i < dummy_pa.size(); i++) {
     for (unsigned j = 0; j < dummy_pa[i].size(); j = j + 2) {
       auto var = dummy_pa[i][j];
