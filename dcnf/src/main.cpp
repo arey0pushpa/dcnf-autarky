@@ -12,8 +12,6 @@
 
 int main(int argc, char* argv[]) {
   std::string filename;
-  bool input_file = false;
-  bool level_func = false;
   coord_t dependency_var = 0;
   coord_t level = 0;
   coord_t encoding = 0;
