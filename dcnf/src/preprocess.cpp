@@ -20,8 +20,8 @@ void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[],
           t_vec.emplace_back(i + 1, -dvar[j]);
         }
       }
+      selected_bf.push_back(t_vec);
     }
-    selected_bf.push_back(t_vec);
   }
 
   /** Minimal Satisfying Clauses

@@ -6,6 +6,7 @@
 #include <chrono>
 #include <cmath>
 #include <fstream>
+#include <string>
 
 #include "defs.h"
 
@@ -42,8 +43,8 @@ int main(int argc, char* argv[]) {
   cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
   cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
 
-  cl_t cs_var;
-  cls_t bf_var;
+  cl_t cs_vars;
+  cls_t bf_vars;
   cl_t pa_vars;
 
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
@@ -126,13 +127,14 @@ int main(int argc, char* argv[]) {
   preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
                  minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
+  std::cout << "The size of the selcted bf " << selected_bf.size() << "\n";
   /** Create traslation Variables/ordering */
   // minsat_ass sat_encoding_var;
   coord_t index = 1;
 
   // cs variable := #no_of_clauses
   for (coord_t i = 0; i < no_of_clauses; ++i) {
-    cs_var.push_back(index);
+    cs_vars.push_back(index);
     index += 1;
   }
 
@@ -144,7 +146,7 @@ int main(int argc, char* argv[]) {
         s_bf.push_back(index);
         index += 1;
       }
-      bf_var.push_back(s_bf);
+      bf_vars.push_back(s_bf);
       s_bf.clear();
     }
   } else {
@@ -174,28 +176,28 @@ int main(int argc, char* argv[]) {
 
   //** Create Constraints ***/
   // 4.5 Non trivial Autarky
-  non_trivial_autarky(cs_var, cnf_fml);
+  non_trivial_autarky(cs_vars, cnf_fml);
 
   // 4.3 Selected clauses: t(C) -> P(C)
-  touched_clauses(cs_var, pa_vars, s_pa, minsat_clause_assgmt, cnf_fml);
+  touched_clauses(cs_vars, pa_vars, s_pa, minsat_clause_assgmt, cnf_fml);
 
   if (encoding == 0) {
     // 4.2 pa-variable constraint
-    satisfied_clauses(e_vars, pa_vars, dep_set, bf_var, s_pa, selected_bf,
+    satisfied_clauses(e_vars, pa_vars, dep_set, bf_vars, s_pa, selected_bf,
                       cnf_fml);
 
     // 4.4. Untoched clauses: !t(C) -> N(C)
-    untouched_clauses(e_vars, cs_var, bf_var, dcnf_fml, cnf_fml);
+    untouched_clauses(e_vars, cs_vars, bf_vars, dcnf_fml, cnf_fml);
 
     // 4.1 At Most One Constraint
-    for (coord_t i = 0; i < cs_var.size(); ++i) {
-      at_most_one(bf_var[i], cnf_fml);
+    for (coord_t i = 0; i < cs_vars.size(); ++i) {
+      at_most_one(bf_vars[i], cnf_fml);
     }
   } else {
     // todo: Implement Lograthemic encoding.
   }
 
-  std::string fname = "/tmp/dcnf.dimacs";
+  std::string fname = filename + "_output.dimacs";
   std::cout << "Writing the DIMACS file to .. " << fname << "\n";
   std::ofstream fout(fname);
 
@@ -205,6 +207,34 @@ int main(int argc, char* argv[]) {
   }
 
   // Writing the dcnf output in dimacs format
+  fout << "c This is a output dimacs file of input file: " << filename << '\n';
+  fout << "c Total sat variables are: "
+       << cs_vars.size() + bf_vars.size() + pa_vars.size() << '\n';
+  fout << "c There are total " << cs_vars.size()
+       << " clause selector variables. ";
+  for (lit_t c : cs_vars) {
+    fout << c << " ";
+  }
+
+  fout << "\n";
+  std::string bf_var_line;   
+  coord_t total = 0;
+
+  for (coord_t i = 0; i < bf_vars.size(); ++i) {
+    bf_var_line = bf_var_line + " [level" +  std::to_string(i) + "]: ";
+    total += bf_vars[i].size();
+    for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
+      bf_var_line = bf_var_line + std::to_string(bf_vars[i][j]) + " ";
+    }
+  }
+
+  fout << "c There are total " << total << " distinct bf variables. " << bf_var_line;
+  fout << "\n";
+  fout << "c There are total " << pa_vars.size() << " distinct pa variables. ";
+  for (coord_t i = 0; i < pa_vars.size(); ++i) {
+    fout << pa_vars[i] << " ";
+  }
+  fout << '\n';
   fout << "p cnf " << index - 1 << " " << cnf_fml.size() << "\n";
 
   for (auto& C : cnf_fml) {
