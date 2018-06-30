@@ -34,7 +34,6 @@ void touched_clauses(cl_t& cs_var, cl_t& pa_var, cls_t& dummy_pa, minsat_ass& S,
     v3.push_back(-cs_var[i]);
     for (auto& c : S[i]) {
       auto id = find_vector_index(dummy_pa, c);
-      // std::cout << "the chosen pa-var:" << pa_var[id] << "\n";
       v3.push_back(pa_var[id]);
     }
     cnf_fml.push_back(v3);
