@@ -2,52 +2,52 @@
 
 #include "defs.h"
 
-void quant_seperation(cl_t& c, cl_t& e_part, cl_t& a_part,
-                      std::vector<std::pair<int, char> >& union_var) {
-  for (auto l : c) {
-    auto index = union_var[abs(l) - 1];  // get the lth value
-    auto var = std::get<1>(index);
-    if (var == 'e')
-      e_part.push_back(l);
-    else
-      a_part.push_back(l);
-  }
-}
-
 void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[],
                     sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
-                    coord_t& num_of_vars, coord_t& level) {
+                    const coord_t num_of_clause, const coord_t num_of_vars,
+                    const coord_t level) {
   /** Selected Boolean Function **/
   for (coord_t i = 0; i < num_of_vars; ++i) {
     pairs_t t_vec;
     if (dcnf_variables[i].fetch_qtype() == 'e') {
       // Base Case [bf(0), bf(1)]; level == 0
-      t_vec.emplace_back(i+1, 500);   // false
-      t_vec.emplace_back(i+1, 1000);  // true
+      t_vec.emplace_back(i + 1, 500);   // false
+      t_vec.emplace_back(i + 1, 1000);  // true
       if (level > 0) {
         cl_t dvar = dcnf_variables[i].fetch_dependency();
         for (coord_t j = 0; j < dvar.size(); ++j) {
-          t_vec.emplace_back( i+1, dvar[j]);
-          t_vec.emplace_back( i+1, -dvar[j]);
+          t_vec.emplace_back(i + 1, dvar[j]);
+          t_vec.emplace_back(i + 1, -dvar[j]);
         }
       }
     }
     selected_bf.push_back(t_vec);
   }
 
-  std::cout << "\nThe genearted bool func: s(v) is: "
-            << "\n";
-  print_2d_vector_pair(selected_bf);
-
-  exit(0);
-
-  /** Three cases to consider
-   * 1. Basic case: handle all are e_varsiables
-   * 2. Handle dependency case for all e_varsiable
+  /** Minimal Satisfying Clauses
+   * Three cases to consider
+   * 1. Basic case: handle all are e_variables
+   * 2. Handle dependency case for all e_variable
    * 3. Handle e-var and a-var case
-   *
+   */
+  for (coord_t i = 0; i < num_of_clause; ++i) {
+    cls_t m_ca;
+    // 1. basic Case
+    cl_t elit_part = dcnf_clauses[i].fetch_elits();
+    for (lit_t e : elit_part) {
+      if (e > 0) {
+        m_ca.push_back(cl_t{e, 1000});
+      } else {
+        m_ca.push_back(cl_t{std::abs(e), 500});
+      }
+    }
 
-  ** Minimal Satisfying Clauses **
+    if (level > 0) {
+    }
+    minsat_clause_assgmt.push_back(m_ca);
+  }
+
+  /*
   for (cl_t& c : dcnf_fml) {
     cls_t dummy_s;
     cl_t e_part;

@@ -4,11 +4,11 @@ void command_line_parsing(int, char* av[], std::string&, unsigned&, unsigned&,
                           bool&, bool&);
 
 void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
-                        cl_t& a_vars, cl_t& e_vars, coord_t& no_of_var,
-                        coord_t& no_of_clauses, coord_t& dependency_var);
+                        cl_t& a_vars, cl_t& e_vars, coord_t& no_of_clauses, coord_t& no_of_var,
+                        coord_t& dependency_var);
 
 void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[], sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
-                    coord_t& num_var, coord_t& level);
+                   const coord_t num_of_clause, const coord_t num_of_vars, const coord_t level);
 
 void quant_seperation(cl_t&, cl_t&, cl_t&);
 

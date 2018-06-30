@@ -2,8 +2,8 @@
 #include <fstream>
 
 void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
-                        cl_t& a_vars, cl_t& e_vars, coord_t& no_of_var,
-                        coord_t& no_of_clauses, coord_t& dependency_var) {
+                        cl_t& a_vars, cl_t& e_vars, coord_t& no_of_clauses,
+                        coord_t& no_of_var, coord_t& dependency_var) {
   std::string line;
   unsigned matrix_cnt = 0;
   bool p_line = false;

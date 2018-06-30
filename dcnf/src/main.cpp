@@ -46,8 +46,8 @@ int main(int argc, char* argv[]) {
   cls_t bf_var;
   cl_t pa_vars;
 
-  parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_var,
-                     no_of_clauses, dependency_var);
+  parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
+                     no_of_var, dependency_var);
 
   /** Create no_of_var Objects and for each obj representing a
    * variable (uni and exist) set qtype of the var and fix it's dependency */
@@ -98,12 +98,27 @@ int main(int argc, char* argv[]) {
 
   for (coord_t i = 0; i < dsize; ++i) {
     cl_t c_evars;
+    cl_t c_elits;
+    cl_t c_avars;
+    cl_t c_alits;
     dcnf_clauses[i].initialise_lits(dcnf_fml[i]);
     for (const lit_t l : dcnf_fml[i]) {
-      c_evars.push_back(std::abs(l));
+      if (dcnf_variables[std::abs(l) - 1].fetch_qtype() == 'e') {
+        // todo: Should we add var or lit ?
+        c_evars.push_back(std::abs(l));
+        c_elits.push_back(l);
+      } else {
+        c_avars.push_back(std::abs(l));
+        c_alits.push_back(l);
+      }
     }
     dcnf_clauses[i].initialise_evars(c_evars);
+    dcnf_clauses[i].initialise_elits(c_elits);
+
+    dcnf_clauses[i].initialise_avars(c_avars);
+    dcnf_clauses[i].initialise_alits(c_alits);
   }
+
 
   /* Todo: Implement a dependency Scheme in case no dependency given
     if ( dependency_var == 0 ) {
@@ -111,7 +126,7 @@ int main(int argc, char* argv[]) {
     } */
 
   preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
-                 minsat_clause_assgmt, no_of_var, level);
+                 minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
   std::cout << "\nThe genearted bool func: s(v) is: "
             << "\n";

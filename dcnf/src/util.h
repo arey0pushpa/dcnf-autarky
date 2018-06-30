@@ -30,16 +30,30 @@ enum Error_codes {
 
 class Clauses {
   cl_t m_lits;
+ 
   cl_t m_evars;
+  cl_t m_elits;
+  
+  cl_t m_avars;
+  cl_t m_alits;
 
  public:
   Clauses(){};
-  // Clauses(cl_t& l) : m_lits(l) {}
   void initialise_lits(cl_t c) { m_lits = c; }
+  
   void initialise_evars(cl_t e) { m_evars = e; }
+  void initialise_elits(cl_t e) { m_elits = e; }
+
+  void initialise_avars(cl_t a) { m_avars = a; }
+  void initialise_alits(cl_t a) { m_alits = a; }
 
   cl_t fetch_lits() { return m_lits; }
+ 
   cl_t fetch_evars() { return m_evars; }
+  cl_t fetch_elits() { return m_elits; }
+  
+  cl_t fetch_avars() { return m_avars; }
+  cl_t fetch_alits() { return m_alits; }
 };
 
 class Variables {
