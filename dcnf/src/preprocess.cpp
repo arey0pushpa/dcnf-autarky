@@ -62,12 +62,12 @@ void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[],
       }
       // 3. e-var a-var case **
       for (lit_t e : evar_part) {
-        cl_t dep_e = dcnf_variables[e-1].fetch_dependency();
+        cl_t dep_e = dcnf_variables[e - 1].fetch_dependency();
         for (lit_t a : alit_part) {
           if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) !=
               dep_e.end()) {
             if (a < 0)
-              m_ca.push_back(cl_t{e, a});
+              m_ca.push_back(cl_t{e, std::abs(a)});
             else
               m_ca.push_back(cl_t{e, -a});
           }
