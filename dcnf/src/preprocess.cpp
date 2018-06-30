@@ -34,6 +34,8 @@ void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[],
     cls_t m_ca;
     // 1. basic Case
     cl_t elit_part = dcnf_clauses[i].fetch_elits();
+    cl_t alit_part = dcnf_clauses[i].fetch_alits();
+    cl_t evar_part = dcnf_clauses[i].fetch_evars();
     for (lit_t e : elit_part) {
       if (e > 0) {
         m_ca.push_back(cl_t{e, 1000});
@@ -41,63 +43,43 @@ void preprocess_fml(Clauses dcnf_clauses[], Variables dcnf_variables[],
         m_ca.push_back(cl_t{std::abs(e), 500});
       }
     }
-
     if (level > 0) {
-    }
+      coord_t esize = evar_part.size(); 
+      std::cout << "Evar is ";
+      print_1d_vector(evar_part);
+      std::cout << '\n';
+      // 2. e-var pairs case
+      for (coord_t e1 = 0; e1 < esize - 1; ++e1) {
+        for (coord_t e2 = e1 + 1; e2 < esize; ++e2) {
+          cl_t dep_e1 = dcnf_variables[evar_part[e1]].fetch_dependency();
+          cl_t dep_e2 = dcnf_variables[evar_part[e2]].fetch_dependency();
+          cl_t common_dependency = vector_intersection(dep_e1, dep_e2);
+          for (const lit_t& d : common_dependency) {
+            cl_t sat_ca1 = {evar_part[e1], d, evar_part[e2], -d};
+            cl_t sat_ca2 = {evar_part[e1], -d, evar_part[e2], d};
+            m_ca.push_back(sat_ca1);
+            m_ca.push_back(sat_ca2);
+          }
+        }
+      }
+      // 3. e-var a-var case **
+      for (lit_t e : evar_part) {
+        cl_t dep_e = dcnf_variables[e].fetch_dependency();
+        for (lit_t a : alit_part) {
+          if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) !=
+              dep_e.end()) {
+            if (a < 0)
+              m_ca.push_back(cl_t{e, a});
+            else
+              m_ca.push_back(cl_t{e, -a});
+          }
+        }
+      }
+    }  // level > 0 close
     minsat_clause_assgmt.push_back(m_ca);
   }
 
-  /*
-  for (cl_t& c : dcnf_fml) {
-    cls_t dummy_s;
-    cl_t e_part;
-    cl_t a_part;
-
-    quant_seperation(c, e_part, a_part, union_var);
-
-    ** All e-var case **
-    for (auto& e : e_part) {
-      if (e > 0) {
-        dummy_s.push_back(cl_t{e, 1000});
-      } else {
-        dummy_s.push_back(cl_t{abs(e), 500});
-      }
-    }
-
-    if (level > 0) {
-      ** e-var pairs case *
-      // todo: check with variations: May have Bugs
-      auto size = e_part.size();
-      for (coord_t i = 0; i < size - 1; ++i) {
-        auto index = find_index(e_vars, abs(e_part[i]));
-        auto dep1 = dep_set[index];
-        for (coord_t j = i + 1; j < size; ++j) {
-          auto index = find_index(e_vars, abs(e_part[j]));
-          auto dep2 = dep_set[index];
-          cl_t d_vec = vector_intersection(dep1, dep2);
-          for (auto& d : d_vec) {
-            cl_t inner_vec1 = {abs(e_part[i]), d, abs(e_part[j]), -d};
-            cl_t inner_vec2 = {abs(e_part[i]), -d, abs(e_part[j]), d};
-            dummy_s.push_back(inner_vec1);
-            dummy_s.push_back(inner_vec2);
-          }
-        }
-      }
-
-      ** e-var a-var case **
-      for (auto e : e_part) {
-        const auto i = find_index(e_vars, abs(e));
-        auto dep = dep_set[i];
-        ** todo : implement with intersection **
-        for (auto a : a_part) {
-          auto presence_a = find_int_element(dep, abs(a));
-          if (presence_a) {
-            dummy_s.push_back(cl_t{abs(e), -a});
-          }
-        }
-      }
-    }
-    // final push on the S
-    minsat_clause_assgmt.push_back(dummy_s);
-  } */
+  std::cout << "\nThe generated min sat clause assgmt S(C) is: "
+            << "\n";
+  print_3d_vector(minsat_clause_assgmt);
 }

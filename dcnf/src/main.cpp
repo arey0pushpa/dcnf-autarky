@@ -49,8 +49,8 @@ int main(int argc, char* argv[]) {
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
                      no_of_var, dependency_var);
 
-  /** Create no_of_var Objects and for each obj representing a
-   * variable (uni and exist) set qtype of the var and fix it's dependency */
+  // Create no_of_var Objects and for each obj representing a
+  // variable (uni and exist) set qtype of the var and fix it's dependency
   Variables dcnf_variables[no_of_var];
 
   std::sort(dep_set.begin(), dep_set.end(),
@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  /* Each Clause */
+  // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
   Clauses dcnf_clauses[dsize];
 
@@ -104,7 +104,6 @@ int main(int argc, char* argv[]) {
     dcnf_clauses[i].initialise_lits(dcnf_fml[i]);
     for (const lit_t l : dcnf_fml[i]) {
       if (dcnf_variables[std::abs(l) - 1].fetch_qtype() == 'e') {
-        // todo: Should we add var or lit ?
         c_evars.push_back(std::abs(l));
         c_elits.push_back(l);
       } else {
@@ -119,7 +118,6 @@ int main(int argc, char* argv[]) {
     dcnf_clauses[i].initialise_alits(c_alits);
   }
 
-
   /* Todo: Implement a dependency Scheme in case no dependency given
     if ( dependency_var == 0 ) {
       // Implement a dependency scheme
@@ -127,13 +125,6 @@ int main(int argc, char* argv[]) {
 
   preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
                  minsat_clause_assgmt, no_of_clauses, no_of_var, level);
-
-  std::cout << "\nThe genearted bool func: s(v) is: "
-            << "\n";
-  print_2d_vector_pair(selected_bf);
-  std::cout << "\nThe generated min sat clause assgmt S(C) is: "
-            << "\n";
-  print_3d_vector(minsat_clause_assgmt);
 
   /** Create traslation Variables/ordering *
   coord_t index = 1;
