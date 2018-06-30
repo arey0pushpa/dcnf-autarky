@@ -21,11 +21,24 @@ int main(int argc, char* argv[]) {
   coord_t no_of_clauses = 0;
   coord_t no_of_var = 0;
 
-  command_line_parsing(argc, argv, filename, level, encoding, input_file,
-                       level_func);
+  if (cmd_option_exists(argv, argv + argc, "-h")) {
+    std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
+                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-l "
+                 "level]\n";
+    exit(0);
+  }
 
-  if (input_file == false) {
+  char* file_name = get_cmd_option(argv, argv + argc, "-i");
+  char* level_set = get_cmd_option(argv, argv + argc, "-l");
+
+  if (file_name) {
+    filename = file_name;
+  } else {
     filename = "./examples/qbflib.qdimacs";
+  }
+
+  if (level_set) {
+    level = std::stoi(level_set);
   }
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -197,7 +210,8 @@ int main(int argc, char* argv[]) {
     // todo: Implement Lograthemic encoding.
   }
 
-  std::string fname = filename + "_output.dimacs";
+  std::string fname =
+      filename + "_level" + std::to_string(level) + "_output.dimacs";
   std::cout << "Writing the DIMACS file to .. " << fname << "\n";
   std::ofstream fout(fname);
 
@@ -217,18 +231,19 @@ int main(int argc, char* argv[]) {
   }
 
   fout << "\n";
-  std::string bf_var_line;   
+  std::string bf_var_line;
   coord_t total = 0;
 
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
-    bf_var_line = bf_var_line + " [level" +  std::to_string(i) + "]: ";
+    bf_var_line = bf_var_line + " [level" + std::to_string(i) + "]: ";
     total += bf_vars[i].size();
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_line = bf_var_line + std::to_string(bf_vars[i][j]) + " ";
     }
   }
 
-  fout << "c There are total " << total << " distinct bf variables. " << bf_var_line;
+  fout << "c There are total " << total << " distinct bf variables. "
+       << bf_var_line;
   fout << "\n";
   fout << "c There are total " << pa_vars.size() << " distinct pa variables. ";
   for (coord_t i = 0; i < pa_vars.size(); ++i) {

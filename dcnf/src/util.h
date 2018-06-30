@@ -66,6 +66,19 @@ class Variables {
 };
 
 
+// Command line 
+inline char* get_cmd_option( char** begin, char** end, 
+                      const std::string& option){
+  char ** itr = std::find( begin, end, option );
+  if ( itr != end && ++itr != end ) return *itr;
+  return 0;
+}
+
+inline bool cmd_option_exists( char** begin, char** end, 
+                        const std::string& option ) {
+  return std::find( begin, end, option ) != end;
+}
+
 inline cl_t extract_int(std::string line) {
   cl_t vec_int;
   std::stringstream ss;

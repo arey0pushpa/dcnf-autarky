@@ -59,6 +59,6 @@ void untouched_clauses(cl_t& e_var, cl_t& cs_var, cls_t& bf_var,
 /** Constraint 5 **/
 void non_trivial_autarky(cl_t& cs_var, cls_t& cnf_fml) {
   cl_t dummy_vec;
-  for (auto i : cs_var) dummy_vec.push_back(i);
+  for (lit_t i : cs_var) dummy_vec.push_back(i);
   cnf_fml.push_back(dummy_vec);
 }
