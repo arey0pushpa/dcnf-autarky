@@ -1,13 +1,13 @@
 #include "defs.h"
 
-/** Constraint 1
+/** 4.1. /\_f,f' !t(v,f) || !t(v,f') 
  * At Most One Constraint **/
-void at_most_one(cl_t& vec, cls_t& cnf_fml) {
-  const unsigned N = vec.size();
+void at_most_one(cl_t& bf_vars, cls_t& cnf_fml) {
+  const unsigned N = bf_vars.size();
   if (N <= 1) return;
   for (unsigned i = 0; i < N - 1; i++) {
     for (unsigned j = i + 1; j < N; j++) {
-      cnf_fml.push_back(cl_t{-vec[i], -vec[j]});
+      cnf_fml.push_back(cl_t{-bf_vars[i], -bf_vars[j]});
     }
   }
 }
