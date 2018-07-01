@@ -43,7 +43,7 @@ void touched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
   }
 }
 
-/** /\_v,f t(C) || !t(v,f) **/
+/** 4.4. /\_v,f t(C) || !t(v,f) **/
 void untouched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
                        cls_t& bf_vars, cl_t& cs_vars,
                        const coord_t& num_of_clause, cls_t& cnf_fml) {
@@ -56,7 +56,7 @@ void untouched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
   }
 }
 
-/** Constraint 5 **/
+/** 4.5. t(C) **/
 void non_trivial_autarky(cl_t& cs_vars, cls_t& cnf_fml) {
   cl_t dummy_vec;
   for (lit_t i : cs_vars) dummy_vec.push_back(i);
