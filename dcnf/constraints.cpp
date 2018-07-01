@@ -32,7 +32,7 @@ void touched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
                      cl_t& cs_vars, cl_t& pa_vars, cls_t& pa_var_set,
                      minsat_ass& minsat_clause_assgmt, cls_t& cnf_fml) {
   cl_t t_phi_vector;
-  for (unsigned i = 0; i < cs_vars.size(); i++) {
+  for (unsigned i = 0; i < cs_vars.size(); ++i) {
     t_phi_vector.push_back(-cs_vars[i]);
     for (auto& c : minsat_clause_assgmt[i]) {
       coord_t id = find_vector_index(pa_var_set, c);
@@ -43,7 +43,7 @@ void touched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
   }
 }
 
-/** Constraint 4 **/
+/** /\_v,f t(C) || !t(v,f) **/
 void untouched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
                        cls_t& bf_vars, cl_t& cs_vars,
                        const coord_t& num_of_clause, cls_t& cnf_fml) {
