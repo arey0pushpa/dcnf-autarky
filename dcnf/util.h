@@ -147,7 +147,7 @@ inline lit_t find_vector_index(cls_t& vec, cl_t& elem) {
   }
 }
 
-/** Return index of the element */
+/** Return index of the second element */
 inline lit_t find_scd_index(pairs_t& vec, lit_t elem) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     if (vec[i].second == elem) {

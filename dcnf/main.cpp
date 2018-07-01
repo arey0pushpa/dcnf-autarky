@@ -171,47 +171,43 @@ int main(int argc, char* argv[]) {
   }
 
   // pa variable
-  /** Improved Encoding than Blockwise encoding.
-   * Straigten, sort and remove duplicates and then map
-   * todo: add flattern function:  2D-1D 3D-2D in util.cpp */
-  cls_t s_pa;
+  // todo: Implement directly using sets.
+  cls_t pa_var_set;
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
-      s_pa.push_back(minsat_clause_assgmt[i][j]);
+      pa_var_set.push_back(minsat_clause_assgmt[i][j]);
     }
   }
 
-  // todo: Implement using sets.
-  // In the case of large duplicate that approach works better.
-  sort(s_pa.begin(), s_pa.end());
-  s_pa.erase(unique(s_pa.begin(), s_pa.end()), s_pa.end());
+  sort(pa_var_set.begin(), pa_var_set.end());
+  pa_var_set.erase(unique(pa_var_set.begin(), pa_var_set.end()),
+                   pa_var_set.end());
 
-  for (coord_t i = 0; i < s_pa.size(); ++i) {
+  for (coord_t i = 0; i < pa_var_set.size(); ++i) {
     pa_vars.push_back(index);
     index += 1;
   }
 
-  //** Create Constraints ***/
-  // 4.5 Non trivial Autarky
-  non_trivial_autarky(cs_vars, cnf_fml);
+  // --- Build Constraints
+  non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
-  // 4.3 Selected clauses: t(C) -> P(C)
-  touched_clauses(cs_vars, pa_vars, s_pa, minsat_clause_assgmt, cnf_fml);
+  touched_clauses(cs_vars, pa_vars, pa_var_set, minsat_clause_assgmt,
+                  cnf_fml);  // (4.3)
 
   if (encoding == 0) {
-    // 4.2 pa-variable constraint
-    satisfied_clauses(e_vars, pa_vars, dep_set, bf_vars, s_pa, selected_bf,
-                      cnf_fml);
+    
+    satisfied_clauses(dcnf_clauses, dcnf_variables,
+                       pa_vars, bf_vars, pa_var_set,
+                       selected_bf, cnf_fml);  // (4.2)
 
-    // 4.4. Untoched clauses: !t(C) -> N(C)
-    untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars, no_of_clauses, cnf_fml);
+    untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars,
+                      no_of_clauses, cnf_fml);  // (4.4)
 
-    // 4.1 At Most One Constraint
-    for (coord_t i = 0; i < cs_vars.size(); ++i) {
-     // at_most_one(bf_vars[i], cnf_fml);
+    for (coord_t i = 0; i < cs_vars.size(); ++i) {  // (4.1)
+      // at_most_one(bf_vars[i], cnf_fml);
     }
   } else {
-    // todo: Implement Lograthemic encoding.
+    // todo: Implement Log encoding.
   }
 
   std::string fname =

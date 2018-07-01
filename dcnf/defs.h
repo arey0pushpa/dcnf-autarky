@@ -14,7 +14,9 @@ void quant_seperation(cl_t&, cl_t&, cl_t&);
 
 void non_trivial_autarky(cl_t&, cls_t&);
 
-void satisfied_clauses(cl_t&, cl_t&, cls_t&, cls_t&, cls_t&, sel_bf&, cls_t&);
+void satisfied_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
+                       cl_t& pa_vars, cls_t& bf_vars, cls_t& pa_var_set,
+                       sel_bf& selected_bf, cls_t& cnf_fml);
 
 void touched_clauses(cl_t&, cl_t&, cls_t&, minsat_ass&, cls_t&);
 
