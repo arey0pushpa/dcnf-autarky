@@ -204,8 +204,12 @@ int main(int argc, char* argv[]) {
     untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars,
                       no_of_clauses, cnf_fml);  // (4.4)
 
-    for (coord_t i = 0; i < cs_vars.size(); ++i) {  // (4.1)
-      // at_most_one(bf_vars[i], cnf_fml);
+    //for (coord_t i = 0; i < dcnf_.size(); ++i) {  // (4.1)
+    for (coord_t i = 0; i < no_of_var; ++i) {
+      if(dcnf_variables[i].fetch_qtype() == 'e') {
+         coord_t indx = dcnf_variables[i].fetch_eindex();
+         at_most_one(bf_vars[indx], cnf_fml);
+      }
     }
   } else {
     // todo: Implement Log encoding.
