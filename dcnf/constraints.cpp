@@ -17,13 +17,17 @@ void satisfied_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
                        cl_t& pa_vars, cls_t& bf_vars, cls_t& pa_var_set,
                        sel_bf& selected_bf, cls_t& cnf_fml) {
   for (unsigned i = 0; i < pa_var_set.size(); ++i) {
+    cl_t v2;
+    v2.push_back(pa_vars[i]);
     for (unsigned j = 0; j < pa_var_set[i].size(); j = j + 2) {
       lit_t var = pa_var_set[i][j];
       lit_t depdt = pa_var_set[i][j + 1];
       coord_t t_indx = dcnf_variables[std::abs(var) - 1].fetch_eindex();
       coord_t indx = find_scd_index(selected_bf[t_indx], depdt);
+      v2.push_back(-bf_vars[t_indx][indx]);
       cnf_fml.push_back(cl_t{-pa_vars[i], bf_vars[t_indx][indx]});
     }
+    cnf_fml.push_back(v2);
   }
 }
 
