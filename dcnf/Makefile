@@ -8,7 +8,7 @@ CXXOBJECTS = $(CXXSOURCES:.cpp=.o)
 CXX = g++
 
 Standard_options = --std=c++11 -pedantic
-Warning_options = -Wall
+Warning_options = -Wall -Werror
 Optimisation_options = -Ofast -DNDEBUG
 debug_options = -g
 
