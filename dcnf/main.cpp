@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
 
   // Create no_of_var Objects and for each obj representing a
   // variable (uni and exist) set qtype of the var and fix it's dependency
-  Variables dcnf_variables[no_of_var];
+  std::vector<Variables> dcnf_variables; dcnf_variables.resize(no_of_var);
 
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
 
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
-  Clauses dcnf_clauses[dsize];
+  std::vector<Clauses> dcnf_clauses; dcnf_clauses.resize(dsize);
 
   for (coord_t i = 0; i < dsize; ++i) {
     cl_t c_evars;
