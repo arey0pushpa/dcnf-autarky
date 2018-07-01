@@ -191,8 +191,9 @@ int main(int argc, char* argv[]) {
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
-  touched_clauses(cs_vars, pa_vars, pa_var_set, minsat_clause_assgmt,
-                  cnf_fml);  // (4.3)
+  touched_clauses(dcnf_clauses, dcnf_variables,
+                       cs_vars, pa_vars, pa_var_set,
+                       minsat_clause_assgmt, cnf_fml);  // (4.3)
 
   if (encoding == 0) {
     

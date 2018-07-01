@@ -12,11 +12,11 @@ void at_most_one(cl_t& vec, cls_t& cnf_fml) {
   }
 }
 
-/** Constraint 2 **/
+/** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
 void satisfied_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
                        cl_t& pa_vars, cls_t& bf_vars, cls_t& pa_var_set,
                        sel_bf& selected_bf, cls_t& cnf_fml) {
-  for (unsigned i = 0; i < pa_var_set.size(); i++) {
+  for (unsigned i = 0; i < pa_var_set.size(); ++i) {
     for (unsigned j = 0; j < pa_var_set[i].size(); j = j + 2) {
       lit_t var = pa_var_set[i][j];
       lit_t depdt = pa_var_set[i][j + 1];
@@ -27,18 +27,19 @@ void satisfied_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
   }
 }
 
-/** Constraint 3 **/
-void touched_clauses(cl_t& cs_vars, cl_t& pa_vars, cls_t& pa_var_set,
-                     minsat_ass& S, cls_t& cnf_fml) {
-  cl_t v3;
+/** 4.3. !t(C) || \/_phi t(phi)  **/
+void touched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
+                     cl_t& cs_vars, cl_t& pa_vars, cls_t& pa_var_set,
+                     minsat_ass& minsat_clause_assgmt, cls_t& cnf_fml) {
+  cl_t t_phi_vector;
   for (unsigned i = 0; i < cs_vars.size(); i++) {
-    v3.push_back(-cs_vars[i]);
-    for (auto& c : S[i]) {
-      auto id = find_vector_index(pa_var_set, c);
-      v3.push_back(pa_vars[id]);
+    t_phi_vector.push_back(-cs_vars[i]);
+    for (auto& c : minsat_clause_assgmt[i]) {
+      coord_t id = find_vector_index(pa_var_set, c);
+      t_phi_vector.push_back(pa_vars[id]);
     }
-    cnf_fml.push_back(v3);
-    v3.clear();
+    cnf_fml.push_back(t_phi_vector);
+    t_phi_vector.clear();
   }
 }
 

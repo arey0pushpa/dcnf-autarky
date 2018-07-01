@@ -18,7 +18,9 @@ void satisfied_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
                        cl_t& pa_vars, cls_t& bf_vars, cls_t& pa_var_set,
                        sel_bf& selected_bf, cls_t& cnf_fml);
 
-void touched_clauses(cl_t&, cl_t&, cls_t&, minsat_ass&, cls_t&);
+void touched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[],
+                     cl_t& cs_vars, cl_t& pa_vars, cls_t& pa_var_set,
+                     minsat_ass& minsat_clause_assgmt, cls_t& cnf_fml);
 
 void untouched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[], 
                        cls_t& bf_vars, cl_t& cs_vars, const coord_t& num_of_clause, cls_t& cnf_fmls);

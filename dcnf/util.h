@@ -134,7 +134,7 @@ inline lit_t find_index(cl_t& vec, lit_t elem) {
 }
 
 /** Return index of the element **/
-inline lit_t find_vector_index(cls_t& vec, cl_t& elem) {
+inline coord_t find_vector_index(cls_t& vec, cl_t& elem) {
   auto it = std::find(vec.begin(), vec.end(), elem);
   if (it == vec.end()) {
     // Todo: implement exception handling
