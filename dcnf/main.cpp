@@ -80,6 +80,9 @@ int main(int argc, char* argv[]) {
   if (avar_iterator == a_vars.end()) a_vars_end = true;
   if (evar_iterator == e_vars.end()) e_vars_end = true;
 
+  coord_t e_var_cntr = 0;
+  // Create a big vector[used Classes to attach additional info]
+  // of all variables access based on their index.
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
       if (std::next(avar_iterator) == a_vars.end()) {
@@ -94,6 +97,8 @@ int main(int argc, char* argv[]) {
       cl_t dep_vars = d_s;
       dcnf_variables[i].initialise_dependency(dep_vars);
       ++dep_index;
+      dcnf_variables[i].initialise_eindex(e_var_cntr);
+      ++e_var_cntr;
       if (std::next(evar_iterator) == e_vars.end()) {
         e_vars_end = true;
       } else {
@@ -101,6 +106,8 @@ int main(int argc, char* argv[]) {
       }
     } else {
       dcnf_variables[i].initialise_qtype('e');
+      dcnf_variables[i].initialise_eindex(e_var_cntr);
+      ++e_var_cntr;
     }
   }
 
@@ -138,9 +145,7 @@ int main(int argc, char* argv[]) {
   preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
                  minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
-  std::cout << "The size of the selcted bf " << selected_bf.size() << "\n";
-  /** Create traslation Variables/ordering */
-  // minsat_ass sat_encoding_var;
+  /** Traslation variables with ordering */
   coord_t index = 1;
 
   // cs variable := #no_of_clauses
@@ -161,6 +166,7 @@ int main(int argc, char* argv[]) {
       s_bf.clear();
     }
   } else {
+    // todo: Implement Log Encoding
     // coord_t m = ceil(log(selected_bf.size() + 1) / log(2));
   }
 
@@ -198,11 +204,11 @@ int main(int argc, char* argv[]) {
                       cnf_fml);
 
     // 4.4. Untoched clauses: !t(C) -> N(C)
-    untouched_clauses(e_vars, cs_vars, bf_vars, dcnf_fml, cnf_fml);
+    untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars, no_of_clauses, cnf_fml);
 
     // 4.1 At Most One Constraint
     for (coord_t i = 0; i < cs_vars.size(); ++i) {
-      at_most_one(bf_vars[i], cnf_fml);
+     // at_most_one(bf_vars[i], cnf_fml);
     }
   } else {
     // todo: Implement Lograthemic encoding.

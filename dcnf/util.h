@@ -55,14 +55,17 @@ class Clauses {
 class Variables {
   char m_quantype;
   cl_t m_dependency;
+  coord_t m_eindex;
 
  public:
   Variables() : m_quantype('a'), m_dependency({}) {}
   void initialise_qtype(char c) { m_quantype = c; }
+  void initialise_eindex(coord_t i) { m_eindex = i; }
   void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; }
 
   char fetch_qtype() { return m_quantype; }
   cl_t fetch_dependency() { return m_dependency; }
+  coord_t fetch_eindex() { return m_eindex; }
 };
 
 

@@ -18,6 +18,7 @@ void satisfied_clauses(cl_t&, cl_t&, cls_t&, cls_t&, cls_t&, sel_bf&, cls_t&);
 
 void touched_clauses(cl_t&, cl_t&, cls_t&, minsat_ass&, cls_t&);
 
-void untouched_clauses(cl_t&, cl_t&, cls_t&, cls_t&, cls_t&);
+void untouched_clauses(Clauses dcnf_clauses[], Variables dcnf_variables[], 
+                       cls_t& bf_vars, cl_t& cs_vars, const coord_t& num_of_clause, cls_t& cnf_fmls);
 
 void at_most_one(cl_t&, cls_t&);
