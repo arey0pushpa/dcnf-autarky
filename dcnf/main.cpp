@@ -3,6 +3,15 @@
  * This is a free software.
  * */
 
+/* BUGS:
+
+1. Wrong rejection of input due to
+   Input format violation [e-line]. Last quant line should be an e-line.
+
+   This can also be a d-line.
+
+*/
+
 #include <chrono>
 #include <cmath>
 #include <fstream>
