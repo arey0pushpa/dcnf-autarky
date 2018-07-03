@@ -17,6 +17,11 @@
    error issued without input --- otherwise the command-line handling is too
    error-prone.
 
+3. Default should be level 1
+
+   The default should be what the user expects: level 1 is the interesting
+   thing here, level 0 only a special case.
+
 */
 
 #include <chrono>
