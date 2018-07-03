@@ -9,6 +9,13 @@
    Input format violation [e-line]. Last quant line should be an e-line.
 
    This can also be a d-line.
+   For example examples/Maxima_562.dqdimacs is correct, but rejected.
+
+2. Hardcoded input-file
+
+   The hard-coded input file qbflib.dqdimacs must be removed, and an
+   error issued without input --- otherwise the command-line handling is too
+   error-prone.
 
 */
 
