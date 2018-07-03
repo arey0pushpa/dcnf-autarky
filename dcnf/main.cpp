@@ -22,6 +22,13 @@
    The default should be what the user expects: level 1 is the interesting
    thing here, level 0 only a special case.
 
+4. A specific open-source license is needed.
+
+   See
+   https://web.archive.org/web/20000815065020/https://www.gnu.org/philosophy/license-list.html
+   for a discussion of possibilities.
+   If a "license" is too vague, it is invalid.
+
 */
 
 #include <chrono>
