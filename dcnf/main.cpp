@@ -45,6 +45,9 @@ p cnf 72 267
    The pa-variables-count is wrong.
    Counting yields 644 solutions, which isn't correct.
 
+6. On examples/Maxima_52.dqdimacs the program apparently runs into an
+   infinite loop.
+
 */
 
 #include <chrono>
