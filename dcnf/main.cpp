@@ -22,12 +22,13 @@ int main(int argc, char* argv[]) {
   if (cmd_option_exists(argv, argv + argc, "-h")) {
     std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
                  "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-l "
-                 "level]\n";
+                 "level] [-e encoding]\n";
     exit(0);
   }
 
   char* file_name = get_cmd_option(argv, argv + argc, "-i");
   char* level_set = get_cmd_option(argv, argv + argc, "-l");
+  char* encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
 
   if (file_name) {
     filename = file_name;
@@ -37,6 +38,12 @@ int main(int argc, char* argv[]) {
 
   if (level_set) {
     level = std::stoi(level_set);
+    std::cout << "The chosen Level is: " << level << '\n';
+  } 
+  
+  if (encoding_chosen) {
+    encoding = std::stoi(encoding_chosen);
+    std::cout << "The chosen Encoding[0:Quad, 1:Lin, 2:Log] is " << encoding << '\n';
   }
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -167,7 +174,8 @@ int main(int argc, char* argv[]) {
     }
   } else {
     // todo: Implement Log Encoding
-    // coord_t m = ceil(log(selected_bf.size() + 1) / log(2));
+    coord_t m = ceil(log(selected_bf.size() + 1) / log(2));
+    std::cout << "The total number of additional var " << m << '\n';
   }
 
   // pa variable
@@ -215,8 +223,8 @@ int main(int argc, char* argv[]) {
     // todo: Implement Log encoding.
   }
 
-  std::string fname =
-      filename + "_level" + std::to_string(level) + "_output.dimacs";
+  std::string fname = "/tmp/out.dimacs";
+  //    filename + "_level" + std::to_string(level) + "_output.dimacs";
   std::cout << "Writing the DIMACS file to .. " << fname << "\n";
   std::ofstream fout(fname);
 
