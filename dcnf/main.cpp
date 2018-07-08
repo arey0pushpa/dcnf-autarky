@@ -1,7 +1,70 @@
-// Ankit Shukla, 22.June.2018 (Swansea)
-/* Copyright 2018 Ankit Shukla
- * This is a free software.
+// dcnfAutarky -- A basic implementation for autarky search in DQCNF  
+// Ankit Shukla 22.June.2018 (Swansea)
+//
+/* Copyright 2018 Oliver Kullmann, Ankit Shukla
+ *
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
  * */
+
+/* BUGS:
+
+1. Wrong rejection of input due to
+   Input format violation [e-line]. Last quant line should be an e-line.
+
+   This can also be a d-line.
+   For example examples/Maxima_562.dqdimacs is correct, but rejected.
+
+2. Hardcoded input-file
+
+   The hard-coded input file qbflib.dqdimacs must be removed, and an
+   error issued without input --- otherwise the command-line handling is too
+   error-prone.
+   >> Addressed! Fixed.
+
+3. Default should be level 1
+
+   The default should be what the user expects: level 1 is the interesting
+   thing here, level 0 only a special case.
+   >> Addressed! Fixed.
+
+4. A specific open-source license is needed.
+
+   See
+   https://web.archive.org/web/20000815065020/https://www.gnu.org/philosophy/license-list.html
+   for a discussion of possibilities.
+   If a "license" is too vague, it is invalid.
+   >> Addressed! Partially Fixed.
+
+5. The output on examples/Maxima_271.dqdimacs is wrong.
+
+   The comments read
+
+c This is a output dimacs file of input file: examples/Maxima_271.dqdimacs
+c Total sat variables are: 39
+c There are total 5 clause selector variables. 1 2 3 4 5
+c There are total 38 distinct bf variables.  [level0]: 6 7 8 9 10 11 12 13  [level1]: 14 15 16 17 18 19 20 21  [level2]: 22 23 24 25 26 27 28 29  [level3]: 30 31 32 33 34 35 36 37  [level4]: 38 39 40 41 42 43
+c There are total 29 distinct pa variables. 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
+p cnf 72 267
+
+   What are "sat variables" ?
+   What are the "levels" for the bf-variables?
+   The pa-variables-count is wrong.
+   Counting yields 644 solutions, which isn't correct.
+
+6. On examples/Maxima_52.dqdimacs the program apparently runs into an
+   infinite loop.
+
+*/
 
 #include <chrono>
 #include <cmath>
@@ -13,7 +76,7 @@
 int main(int argc, char* argv[]) {
   std::string filename;
   coord_t dependency_var = 0;
-  coord_t level = 0;
+  coord_t level = 1;
   coord_t encoding = 0;
 
   coord_t no_of_clauses = 0;
@@ -33,7 +96,8 @@ int main(int argc, char* argv[]) {
   if (file_name) {
     filename = file_name;
   } else {
-    filename = "examples/qbflib.dqdimacs";
+    std::cout << "Please provide an input file. Use [-i filename] or see help [-h] for more options\n";
+    exit(0);
   }
 
   if (level_set) {
