@@ -18,36 +18,7 @@
 
 /* BUGS:
 
-1. Wrong rejection of input due to
-   Input format violation [e-line]. Last quant line should be an e-line.
-
-   This can also be a d-line.
-   For example examples/Maxima_562.dqdimacs is correct, but rejected.
-   >> Was not giving this error. But yes this can be a problem.
-   >> Addressed! Fixed.
-
-2. Hardcoded input-file
-
-   The hard-coded input file qbflib.dqdimacs must be removed, and an
-   error issued without input --- otherwise the command-line handling is too
-   error-prone.
-   >> Addressed! Fixed.
-
-3. Default should be level 1
-
-   The default should be what the user expects: level 1 is the interesting
-   thing here, level 0 only a special case.
-   >> Addressed! Fixed.
-
-4. A specific open-source license is needed.
-
-   See
-   https://web.archive.org/web/20000815065020/https://www.gnu.org/philosophy/license-list.html
-   for a discussion of possibilities.
-   If a "license" is too vague, it is invalid.
-   >> Addressed! Fixed.
-
-5. The output on examples/Maxima_271.dqdimacs is wrong.
+1. The output on examples/Maxima_271.dqdimacs is wrong.
 
    The comments read
 
@@ -70,7 +41,7 @@ p cnf 72 267
    Counting yields 644 solutions, which isn't correct.
    >> Need to resolve the upper one first.
 
-6. On examples/Maxima_52.dqdimacs the program apparently runs into an
+2. On examples/Maxima_52.dqdimacs the program apparently runs into an
    infinite loop.
    >> It's just taking some time :)
 
@@ -231,7 +202,6 @@ int main(int argc, char* argv[]) {
 
   preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
                  minsat_clause_assgmt, no_of_clauses, no_of_var, level);
-
 
   auto pre_time = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> el = pre_time-start1;

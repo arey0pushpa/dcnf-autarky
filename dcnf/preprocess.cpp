@@ -2,7 +2,8 @@
 
 #include "defs.h"
 
-void preprocess_fml(const std::vector<Clauses> dcnf_clauses, const std::vector<Variables> dcnf_variables,
+void preprocess_fml( std::vector<Clauses>& dcnf_clauses,
+                     std::vector<Variables>& dcnf_variables,
                     sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
                     const coord_t num_of_clause, const coord_t num_of_vars,
                     const coord_t level) {
@@ -12,8 +13,8 @@ void preprocess_fml(const std::vector<Clauses> dcnf_clauses, const std::vector<V
     if (dcnf_variables[i].fetch_qtype() == 'e') {
       // Todo: remove pair and only implement by second elem
       // Base Case [bf(0), bf(1)]; level == 0
-      t_vec.emplace_back(i + 1, num_of_vars+1);   // false
-      t_vec.emplace_back(i + 1, num_of_vars+2);  // true
+      t_vec.emplace_back(i + 1, num_of_vars + 1);  // false
+      t_vec.emplace_back(i + 1, num_of_vars + 2);  // true
       if (level > 0) {
         cl_t dvar = dcnf_variables[i].fetch_dependency();
         for (coord_t j = 0; j < dvar.size(); ++j) {
@@ -40,16 +41,19 @@ void preprocess_fml(const std::vector<Clauses> dcnf_clauses, const std::vector<V
     cl_t evar_part = dcnf_clauses[i].fetch_evars();
     for (lit_t e : elit_part) {
       if (e > 0) {
-        m_ca.push_back(cl_t{e, num_of_vars+2});
+        m_ca.push_back(cl_t{e, num_of_vars + 2});
       } else {
-        m_ca.push_back(cl_t{std::abs(e), num_of_vars+1});
+        m_ca.push_back(cl_t{std::abs(e), num_of_vars + 1});
       }
     }
+    
     if (level > 0) {
       coord_t esize = evar_part.size();
-      // 2. e-var pairs case
+      std::cout <<  "The esize is: " << esize << "\n";
+      /* 2. e-var pairs case */
       for (coord_t e1 = 0; e1 < esize - 1; ++e1) {
         for (coord_t e2 = e1 + 1; e2 < esize; ++e2) {
+        /*
           cl_t dep_e1 = dcnf_variables[evar_part[e1] - 1].fetch_dependency();
           cl_t dep_e2 = dcnf_variables[evar_part[e2] - 1].fetch_dependency();
           cl_t common_dependency = vector_intersection(dep_e1, dep_e2);
@@ -59,6 +63,7 @@ void preprocess_fml(const std::vector<Clauses> dcnf_clauses, const std::vector<V
             m_ca.push_back(sat_ca1);
             m_ca.push_back(sat_ca2);
           }
+          * */
         }
       }
       // 3. e-var a-var case **
