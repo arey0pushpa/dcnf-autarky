@@ -1,4 +1,4 @@
-// dcnfAutarky -- A basic implementation for autarky search in DQCNF  
+// dcnfAutarky -- A basic implementation for autarky search in DQCNF
 // Ankit Shukla 22.June.2018 (Swansea)
 //
 /* Copyright 2018 Oliver Kullmann, Ankit Shukla
@@ -23,6 +23,8 @@
 
    This can also be a d-line.
    For example examples/Maxima_562.dqdimacs is correct, but rejected.
+   >> Was not giving this error. But yes this can be a problem.
+   >> Addressed! Fixed.
 
 2. Hardcoded input-file
 
@@ -43,7 +45,7 @@
    https://web.archive.org/web/20000815065020/https://www.gnu.org/philosophy/license-list.html
    for a discussion of possibilities.
    If a "license" is too vague, it is invalid.
-   >> Addressed! Partially Fixed.
+   >> Addressed! Fixed.
 
 5. The output on examples/Maxima_271.dqdimacs is wrong.
 
@@ -52,17 +54,25 @@
 c This is a output dimacs file of input file: examples/Maxima_271.dqdimacs
 c Total sat variables are: 39
 c There are total 5 clause selector variables. 1 2 3 4 5
-c There are total 38 distinct bf variables.  [level0]: 6 7 8 9 10 11 12 13  [level1]: 14 15 16 17 18 19 20 21  [level2]: 22 23 24 25 26 27 28 29  [level3]: 30 31 32 33 34 35 36 37  [level4]: 38 39 40 41 42 43
-c There are total 29 distinct pa variables. 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
+c There are total 38 distinct bf variables.  [level0]: 6 7 8 9 10 11 12 13
+[level1]: 14 15 16 17 18 19 20 21  [level2]: 22 23 24 25 26 27 28 29  [level3]:
+30 31 32 33 34 35 36 37  [level4]: 38 39 40 41 42 43
+c There are total 29 distinct pa variables. 44 45 46 47 48 49 50 51 52 53 54 55
+56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
 p cnf 72 267
 
    What are "sat variables" ?
+   >> Removed. unneccesary.
    What are the "levels" for the bf-variables?
+   >> Wrong naming. i =: for ith e-var: bf[i].
    The pa-variables-count is wrong.
+   >> I consider {v1=T,v2=F} different from {v1=T}, {v2=F}
    Counting yields 644 solutions, which isn't correct.
+   >> Need to resolve the upper one first.
 
 6. On examples/Maxima_52.dqdimacs the program apparently runs into an
    infinite loop.
+   >> It's just taking some time :)
 
 */
 
@@ -96,18 +106,20 @@ int main(int argc, char* argv[]) {
   if (file_name) {
     filename = file_name;
   } else {
-    std::cout << "Please provide an input file. Use [-i filename] or see help [-h] for more options\n";
+    std::cout << "Please provide an input file. Use [-i filename] or see help "
+                 "[-h] for more options\n";
     exit(0);
   }
 
   if (level_set) {
     level = std::stoi(level_set);
     std::cout << "The chosen Level is: " << level << '\n';
-  } 
-  
+  }
+
   if (encoding_chosen) {
     encoding = std::stoi(encoding_chosen);
-    std::cout << "The chosen Encoding[0:Quad, 1:Lin, 2:Log] is " << encoding << '\n';
+    std::cout << "The chosen Encoding[0:Quad, 1:Lin, 2:Log] is " << encoding
+              << '\n';
   }
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -134,7 +146,8 @@ int main(int argc, char* argv[]) {
 
   // Create no_of_var Objects and for each obj representing a
   // variable (uni and exist) set qtype of the var and fix it's dependency
-  std::vector<Variables> dcnf_variables; dcnf_variables.resize(no_of_var);
+  std::vector<Variables> dcnf_variables;
+  dcnf_variables.resize(no_of_var);
 
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
@@ -184,7 +197,8 @@ int main(int argc, char* argv[]) {
 
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
-  std::vector<Clauses> dcnf_clauses; dcnf_clauses.resize(dsize);
+  std::vector<Clauses> dcnf_clauses;
+  dcnf_clauses.resize(dsize);
 
   for (coord_t i = 0; i < dsize; ++i) {
     cl_t c_evars;
@@ -212,9 +226,16 @@ int main(int argc, char* argv[]) {
     if ( dependency_var == 0 ) {
       // Implement a dependency scheme
     } */
+  
+  auto start1 = std::chrono::high_resolution_clock::now();
 
   preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
                  minsat_clause_assgmt, no_of_clauses, no_of_var, level);
+
+
+  auto pre_time = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> el = pre_time-start1;
+  std::cout << "pretime took took " << el.count() << " secs\n";
 
   /** Traslation variables with ordering */
   coord_t index = 1;
@@ -225,7 +246,7 @@ int main(int argc, char* argv[]) {
     index += 1;
   }
 
-  // bf variable := two_dim _v*f
+  // bf variable := two_dim [v] [f_v]
   if (encoding == 0) {
     cl_t s_bf;
     for (coord_t i = 0; i < selected_bf.size(); ++i) {
@@ -248,12 +269,19 @@ int main(int argc, char* argv[]) {
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
       pa_var_set.push_back(minsat_clause_assgmt[i][j]);
+      print_1d_vector(minsat_clause_assgmt[i][j]);
+      std::cout << "\n";
     }
+    std::cout << "\n\n\n";
   }
 
   sort(pa_var_set.begin(), pa_var_set.end());
   pa_var_set.erase(unique(pa_var_set.begin(), pa_var_set.end()),
                    pa_var_set.end());
+
+  std::cout << "Sorted S(C) set is : \n";
+  print_2d_vector(pa_var_set);
+  std::cout << "\n";
 
   for (coord_t i = 0; i < pa_var_set.size(); ++i) {
     pa_vars.push_back(index);
@@ -263,24 +291,21 @@ int main(int argc, char* argv[]) {
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
-  touched_clauses(dcnf_clauses, dcnf_variables,
-                       cs_vars, pa_vars, pa_var_set,
-                       minsat_clause_assgmt, cnf_fml);  // (4.3)
+  touched_clauses(dcnf_clauses, dcnf_variables, cs_vars, pa_vars, pa_var_set,
+                  minsat_clause_assgmt, cnf_fml);  // (4.3)
 
   if (encoding == 0) {
-    
-    satisfied_clauses(dcnf_clauses, dcnf_variables,
-                       pa_vars, bf_vars, pa_var_set,
-                       selected_bf, cnf_fml);  // (4.2)
+    satisfied_clauses(dcnf_clauses, dcnf_variables, pa_vars, bf_vars,
+                      pa_var_set, selected_bf, cnf_fml);  // (4.2)
 
     untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars,
                       no_of_clauses, cnf_fml);  // (4.4)
 
-    //for (coord_t i = 0; i < dcnf_.size(); ++i) {  // (4.1)
+    // for (coord_t i = 0; i < dcnf_.size(); ++i) {  // (4.1)
     for (coord_t i = 0; i < no_of_var; ++i) {
-      if(dcnf_variables[i].fetch_qtype() == 'e') {
-         coord_t indx = dcnf_variables[i].fetch_eindex();
-         at_most_one(bf_vars[indx], cnf_fml);
+      if (dcnf_variables[i].fetch_qtype() == 'e') {
+        coord_t indx = dcnf_variables[i].fetch_eindex();
+        at_most_one(bf_vars[indx], cnf_fml);
       }
     }
   } else {
@@ -299,30 +324,29 @@ int main(int argc, char* argv[]) {
 
   // Writing the dcnf output in dimacs format
   fout << "c This is a output dimacs file of input file: " << filename << '\n';
-  fout << "c Total sat variables are: "
-       << cs_vars.size() + bf_vars.size() + pa_vars.size() << '\n';
   fout << "c There are total " << cs_vars.size()
-       << " clause selector variables. ";
+       << " cs-variables. ";
   for (lit_t c : cs_vars) {
     fout << c << " ";
   }
 
   fout << "\n";
+
   std::string bf_var_line;
   coord_t total = 0;
 
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
-    bf_var_line = bf_var_line + " [level" + std::to_string(i) + "]: ";
     total += bf_vars[i].size();
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_line = bf_var_line + std::to_string(bf_vars[i][j]) + " ";
     }
+    if (i < bf_vars.size() - 1) bf_var_line = bf_var_line + " +  ";
   }
 
-  fout << "c There are total " << total << " distinct bf variables. "
+  fout << "c There are total " << total << " distinct bf-variables. "
        << bf_var_line;
   fout << "\n";
-  fout << "c There are total " << pa_vars.size() << " distinct pa variables. ";
+  fout << "c There are total " << pa_vars.size() << " distinct pa-variables. ";
   for (coord_t i = 0; i < pa_vars.size(); ++i) {
     fout << pa_vars[i] << " ";
   }

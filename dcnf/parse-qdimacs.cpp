@@ -101,6 +101,12 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         break;
       }
       case 'd': {
+        if (q_line == 'q') {
+          std::cerr << "Input format violation. No starting d line" << '\n';
+          exit(input_format_violation);
+        } else {
+          q_line = 'd';
+        }
         std::cout << "D Line.\n";
         cl_t inner_vec;
         ++dependency_var;
@@ -117,7 +123,7 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
       }
 
       default: {
-        if (q_line != 'e') {
+        if (q_line != 'e' && q_line != 'd') {
           std::cerr << "Input format violation [e-line]. Last quant line "
                        "should be an e-line."
                     << '\n';

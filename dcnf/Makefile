@@ -20,7 +20,7 @@ dcnf_autarky : $(CXXOBJECTS)
 	$(CXX) -o $@ $(CXXOBJECTS)
 
 dcnf_autarky_debug : $(CXXOBJECTS_debug)
-	$(CXX) -o $@ $(CXXOBJECTS)
+	$(CXX) -g -o $@ $(CXXOBJECTS)
 
 main.o: main.cpp defs.h util.h constraints.o  preprocess.o  parse-qdimacs.o Makefile
 	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<

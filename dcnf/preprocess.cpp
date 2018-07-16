@@ -10,9 +10,10 @@ void preprocess_fml(const std::vector<Clauses> dcnf_clauses, const std::vector<V
   for (coord_t i = 0; i < num_of_vars; ++i) {
     pairs_t t_vec;
     if (dcnf_variables[i].fetch_qtype() == 'e') {
+      // Todo: remove pair and only implement by second elem
       // Base Case [bf(0), bf(1)]; level == 0
-      t_vec.emplace_back(i + 1, 500);   // false
-      t_vec.emplace_back(i + 1, 1000);  // true
+      t_vec.emplace_back(i + 1, num_of_vars+1);   // false
+      t_vec.emplace_back(i + 1, num_of_vars+2);  // true
       if (level > 0) {
         cl_t dvar = dcnf_variables[i].fetch_dependency();
         for (coord_t j = 0; j < dvar.size(); ++j) {
@@ -39,9 +40,9 @@ void preprocess_fml(const std::vector<Clauses> dcnf_clauses, const std::vector<V
     cl_t evar_part = dcnf_clauses[i].fetch_evars();
     for (lit_t e : elit_part) {
       if (e > 0) {
-        m_ca.push_back(cl_t{e, 1000});
+        m_ca.push_back(cl_t{e, num_of_vars+2});
       } else {
-        m_ca.push_back(cl_t{std::abs(e), 500});
+        m_ca.push_back(cl_t{std::abs(e), num_of_vars+1});
       }
     }
     if (level > 0) {
