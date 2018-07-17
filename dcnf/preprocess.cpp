@@ -53,9 +53,10 @@ void preprocess_fml( std::vector<Clauses>& dcnf_clauses,
       /* 2. e-var pairs case */
       for (coord_t e1 = 0; e1 < esize - 1; ++e1) {
         for (coord_t e2 = e1 + 1; e2 < esize; ++e2) {
-        /*
+        
           cl_t dep_e1 = dcnf_variables[evar_part[e1] - 1].fetch_dependency();
           cl_t dep_e2 = dcnf_variables[evar_part[e2] - 1].fetch_dependency();
+           /*
           cl_t common_dependency = vector_intersection(dep_e1, dep_e2);
           for (const lit_t& d : common_dependency) {
             cl_t sat_ca1 = {evar_part[e1], d, evar_part[e2], -d};
