@@ -1,4 +1,5 @@
 #include <iterator>
+#include <algorithm>
 
 #include "defs.h"
 
@@ -51,16 +52,21 @@ void preprocess_fml( std::vector<Clauses>& dcnf_clauses,
       coord_t esize = evar_part.size();
       std::cout <<  "The esize is: " << esize << "\n";
 
+      pairs_t V;
       // 2. e-literal as neg of a-literal case **
       for (lit_t e : evar_part) {
         cl_t dep_e = dcnf_variables[e - 1].dependency();
         for (lit_t a : alit_part) {
           if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) !=
               dep_e.end()) {
-            if (a < 0)
+            if (a < 0) {
               m_ca.push_back(cl_t{e, std::abs(a)});
-            else
+              V.emplace_back(cl_t{e, std::abs(a)});
+            }
+            else {
               m_ca.push_back(cl_t{e, -a});
+              V.emplace_back(cl_t{e, -a});
+            }
           }
         }
       }
@@ -72,10 +78,27 @@ void preprocess_fml( std::vector<Clauses>& dcnf_clauses,
           cl_t dep_e2 = dcnf_variables[evar_part[e2] - 1].dependency();
           cl_t common_dependency = vector_intersection(dep_e1, dep_e2);
           for (const lit_t& d : common_dependency) {
-            cl_t sat_ca1 = {evar_part[e1], d, evar_part[e2], -d};
-            cl_t sat_ca2 = {evar_part[e1], -d, evar_part[e2], d};
-            m_ca.push_back(sat_ca1);
-            m_ca.push_back(sat_ca2);
+            const lit_t e1_var = evar_part[e1];
+            const lit_t e2_var = evar_part[e2];
+            if(std::find(V.begin(), V.end(), {e1_var,d}) != V.end()) {
+              continue;
+            }
+            else if(std::find(V.begin(), V.end(), {e2_var,-d}) != V.end()) {
+              continue;
+            } else {
+              cl_t sat_ca1 = {e1_var, d, e2_var, -d};
+              m_ca.push_back(sat_ca1);
+            }
+            if(std::find(V.begin(), V.end(), {e1_var,-d}) != V.end()) {
+              continue;
+            }
+            else if(std::find(V.begin(), V.end(), {e2_var,d}) != V.end()) {
+              continue;
+            }
+            else {
+              cl_t sat_ca2 = {e1_var, -d, e2_var, d};
+              m_ca.push_back(sat_ca2);
+            }
           }
           
         }
