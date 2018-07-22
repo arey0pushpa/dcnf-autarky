@@ -22,7 +22,7 @@ void satisfied_clauses(const std::vector<Clauses> dcnf_clauses, const std::vecto
     for (unsigned j = 0; j < pa_var_set[i].size(); j = j + 2) {
       lit_t var = pa_var_set[i][j];
       lit_t depdt = pa_var_set[i][j + 1];
-      coord_t t_indx = dcnf_variables[std::abs(var) - 1].fetch_eindex();
+      coord_t t_indx = dcnf_variables[std::abs(var) - 1].eindex();
       coord_t indx = find_scd_index(selected_bf[t_indx], depdt);
       v2.push_back(-bf_vars[t_indx][indx]);
       cnf_fml.push_back(cl_t{-pa_vars[i], bf_vars[t_indx][indx]});
@@ -52,9 +52,9 @@ void untouched_clauses(const std::vector<Clauses> dcnf_clauses, const std::vecto
                        cls_t& bf_vars, cl_t& cs_vars,
                        const coord_t& num_of_clause, cls_t& cnf_fml) {
   for (coord_t i = 0; i < num_of_clause; ++i) {
-    cl_t clause = dcnf_clauses[i].fetch_evars();
+    cl_t clause = dcnf_clauses[i].evars();
     for (lit_t e : clause) {
-      coord_t indx = dcnf_variables[e - 1].fetch_eindex();
+      coord_t indx = dcnf_variables[e - 1].eindex();
       for (lit_t l : bf_vars[indx]) cnf_fml.push_back(cl_t{cs_vars[i], -l});
     }
   }

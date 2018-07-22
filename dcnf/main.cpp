@@ -37,10 +37,6 @@ p cnf 72 267
    Counting yields 644 solutions, which isn't correct.
    >> Need to resolve the upper one first.
 
-2. On examples/Maxima_52.dqdimacs the program apparently runs into an
-   infinite loop.
-   >> It's just taking some time :)
-
 */
 
 #include <chrono>
@@ -174,7 +170,7 @@ int main(int argc, char* argv[]) {
     cl_t c_alits;
     dcnf_clauses[i].initialise_lits(dcnf_fml[i]);
     for (const lit_t l : dcnf_fml[i]) {
-      if (dcnf_variables[std::abs(l) - 1].fetch_qtype() == 'e') {
+      if (dcnf_variables[std::abs(l) - 1].qtype() == 'e') {
         c_evars.push_back(std::abs(l));
         c_elits.push_back(l);
       } else {
@@ -269,8 +265,8 @@ int main(int argc, char* argv[]) {
 
     // for (coord_t i = 0; i < dcnf_.size(); ++i) {  // (4.1)
     for (coord_t i = 0; i < no_of_var; ++i) {
-      if (dcnf_variables[i].fetch_qtype() == 'e') {
-        coord_t indx = dcnf_variables[i].fetch_eindex();
+      if (dcnf_variables[i].qtype() == 'e') {
+        coord_t indx = dcnf_variables[i].eindex();
         at_most_one(bf_vars[indx], cnf_fml);
       }
     }

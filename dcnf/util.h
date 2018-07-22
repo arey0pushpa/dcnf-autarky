@@ -45,11 +45,11 @@ class Clauses {
   void initialise_avars(cl_t a) { m_avars = a; }
   void initialise_alits(cl_t a) { m_alits = a; }
 
-  cl_t fetch_lits() const { return m_lits; }
-  cl_t fetch_evars() const { return m_evars; }
-  cl_t fetch_elits() const { return m_elits; }
-  cl_t fetch_avars() const { return m_avars; }
-  cl_t fetch_alits() const { return m_alits; }
+  cl_t lits() const { return m_lits; }
+  cl_t evars() const { return m_evars; }
+  cl_t elits() const { return m_elits; }
+  cl_t avars() const { return m_avars; }
+  cl_t alits() const { return m_alits; }
 };
 
 class Variables {
@@ -63,9 +63,9 @@ class Variables {
   void initialise_eindex(coord_t i) { m_eindex = i; }
   void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; }
 
-  char fetch_qtype() const { return m_quantype; }
-  cl_t fetch_dependency() const { return m_dependency; }
-  coord_t fetch_eindex() const { return m_eindex; }
+  char qtype() const { return m_quantype; }
+  cl_t dependency() const { return m_dependency; }
+  coord_t eindex() const { return m_eindex; }
 };
 
 
