@@ -80,19 +80,19 @@ void preprocess_fml( std::vector<Clauses>& dcnf_clauses,
           for (const lit_t& d : common_dependency) {
             const lit_t e1_var = evar_part[e1];
             const lit_t e2_var = evar_part[e2];
-            if(std::find(V.begin(), V.end(), {e1_var,d}) != V.end()) {
+            if(std::find(V.begin(), V.end(), pair_t{e1_var,d}) != V.end()) {
               continue;
             }
-            else if(std::find(V.begin(), V.end(), {e2_var,-d}) != V.end()) {
+            else if(std::find(V.begin(), V.end(), pair_t{e2_var,-d}) != V.end()) {
               continue;
             } else {
               cl_t sat_ca1 = {e1_var, d, e2_var, -d};
               m_ca.push_back(sat_ca1);
             }
-            if(std::find(V.begin(), V.end(), {e1_var,-d}) != V.end()) {
+            if(std::find(V.begin(), V.end(), pair_t{e1_var,-d}) != V.end()) {
               continue;
             }
-            else if(std::find(V.begin(), V.end(), {e2_var,d}) != V.end()) {
+            else if(std::find(V.begin(), V.end(), pair_t{e2_var,d}) != V.end()) {
               continue;
             }
             else {
