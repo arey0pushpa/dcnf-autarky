@@ -1,11 +1,11 @@
-#include <iterator>
 #include <algorithm>
+#include <iterator>
 
 #include "defs.h"
 
-void preprocess_fml( std::vector<Clauses>& dcnf_clauses,
-                     std::vector<Variables>& dcnf_variables,
-                    sel_bf& selected_bf, minsat_ass& minsat_clause_assgmt,
+void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
+                    std::vector<Variables>& dcnf_variables, sel_bf& selected_bf,
+                    minsat_ass& minsat_clause_assgmt,
                     const coord_t num_of_clause, const coord_t num_of_vars,
                     const coord_t level) {
   /** Selected Boolean Function **/
@@ -47,62 +47,83 @@ void preprocess_fml( std::vector<Clauses>& dcnf_clauses,
         m_ca.push_back(cl_t{std::abs(e), num_of_vars + 1});
       }
     }
-    
+
     if (level > 0) {
       coord_t esize = evar_part.size();
-      std::cout <<  "The esize is: " << esize << "\n";
-
       pairs_t V;
       // 2. e-literal as neg of a-literal case **
-      for (lit_t e : evar_part) {
-        cl_t dep_e = dcnf_variables[e - 1].dependency();
+      for (lit_t e : elit_part) {
+        cl_t dep_e = dcnf_variables[ABS(e) - 1].dependency();
         for (lit_t a : alit_part) {
           if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) !=
               dep_e.end()) {
-            if (a < 0) {
-              m_ca.push_back(cl_t{e, std::abs(a)});
-              V.emplace_back(cl_t{e, std::abs(a)});
-            }
-            else {
-              m_ca.push_back(cl_t{e, -a});
-              V.emplace_back(cl_t{e, -a});
+            LOG("The e a parts are: <" + STR(e) + ", " + STR(a) + ">" );
+            if ( e * a >= 1 ) {
+              m_ca.push_back(cl_t{ABS(e), -ABS(a)});
+              V.emplace_back(ABS(e), -ABS(a));
+            } else {
+              m_ca.push_back(cl_t{ABS(e), ABS(a)});
+              V.emplace_back(ABS(e), ABS(a));
             }
           }
         }
       }
-
       /* 3. e-literal negation of another e-literal case */
-      for (coord_t e1 = 0; e1+1 < esize; ++e1) {
+      for (coord_t e1 = 0; e1 + 1 < esize; ++e1) {
         for (coord_t e2 = e1 + 1; e2 < esize; ++e2) {
           cl_t dep_e1 = dcnf_variables[evar_part[e1] - 1].dependency();
           cl_t dep_e2 = dcnf_variables[evar_part[e2] - 1].dependency();
           cl_t common_dependency = vector_intersection(dep_e1, dep_e2);
           for (const lit_t& d : common_dependency) {
-            const lit_t e1_var = evar_part[e1];
-            const lit_t e2_var = evar_part[e2];
-            if(std::find(V.begin(), V.end(), {e1_var,d}) != V.end()) {
-              continue;
-            }
-            else if(std::find(V.begin(), V.end(), {e2_var,-d}) != V.end()) {
-              continue;
+            const lit_t e1_lit = elit_part[e1];
+            const lit_t e2_lit = elit_part[e2];
+            pair_t p1 = PAIR(std::abs(e1_lit), d);
+            pair_t p2 = PAIR(std::abs(e2_lit), -d);
+            pair_t p3 = PAIR(std::abs(e1_lit), -d);
+            pair_t p4 = PAIR(std::abs(e2_lit), d);
+            if (e1_lit * e2_lit >= 1) {
+              if (pair_present(V, p1)) {
+                continue;
+              } else if (pair_present(V, p2)) {
+                continue;
+              } else {
+                cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), -d};
+                m_ca.push_back(sat_ca1);
+              }
+              if (pair_present(V, p3)) {
+                continue;
+              } else if (pair_present(V, p4)) {
+                continue;
+              } else {
+                cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), d};
+                m_ca.push_back(sat_ca2);
+              }
             } else {
-              cl_t sat_ca1 = {e1_var, d, e2_var, -d};
-              m_ca.push_back(sat_ca1);
-            }
-            if(std::find(V.begin(), V.end(), {e1_var,-d}) != V.end()) {
-              continue;
-            }
-            else if(std::find(V.begin(), V.end(), {e2_var,d}) != V.end()) {
-              continue;
-            }
-            else {
-              cl_t sat_ca2 = {e1_var, -d, e2_var, d};
-              m_ca.push_back(sat_ca2);
+              if (pair_present(V, p1)) {
+                continue;
+              } else if (pair_present(V, p4)) {
+                continue;
+              } else {
+                cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), d};
+                m_ca.push_back(sat_ca1);
+              }
+              if (pair_present(V, p2)) {
+                continue;
+              } else if (pair_present(V, p3)) {
+                continue;
+              } else {
+                cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), -d};
+                m_ca.push_back(sat_ca2);
+              }
             }
           }
-          
         }
       }
+
+      LOG("The pushed loaded pairs are: ");
+      // print_1d_vector_int_pair (V);
+      print_2d_vector(m_ca);
+      LOG('\n');
     }  // level > 0 close
     minsat_clause_assgmt.push_back(m_ca);
   }

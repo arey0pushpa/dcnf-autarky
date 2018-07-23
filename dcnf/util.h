@@ -5,6 +5,11 @@
 #include <sstream>
 #include <vector>
 
+#define LOG(x) std::cout << x << std::endl
+#define PAIR(x,y) std::make_pair(x,y)
+#define ABS(x) std::abs(x)
+#define STR(x) std::to_string(x)
+
 typedef std::int64_t lit_t;       // literals
 typedef std::vector<lit_t> cl_t;  // clauses
 typedef std::vector<cl_t> cls_t;  // clause-sets
@@ -117,6 +122,16 @@ inline cl_t vector_intersection(cl_t& v1, cl_t& v2) {
 inline bool find_int_element(cl_t& vec, lit_t elem) {
   return std::find(vec.begin(), vec.end(), elem) != vec.end();
 }
+
+// Find a pair in a vector */
+inline bool pair_present( pairs_t& V, pair_t elem) {
+  if (std::find(V.begin(), V.end(), elem) != V.end()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 /** Implement a template */
 /** Return index of the element **/
