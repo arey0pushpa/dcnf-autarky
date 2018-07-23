@@ -18,25 +18,6 @@
 
 /* BUGS:
 
-1. The output on examples/Maxima_271.dqdimacs is wrong.
-
-   The comments read
-
-c This is a output dimacs file of input file: examples/Maxima_271.dqdimacs
-c Total sat variables are: 39
-c There are total 5 clause selector variables. 1 2 3 4 5
-c There are total 38 distinct bf variables.  [level0]: 6 7 8 9 10 11 12 13
-[level1]: 14 15 16 17 18 19 20 21  [level2]: 22 23 24 25 26 27 28 29  [level3]:
-30 31 32 33 34 35 36 37  [level4]: 38 39 40 41 42 43
-c There are total 29 distinct pa variables. 44 45 46 47 48 49 50 51 52 53 54 55
-56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72
-p cnf 72 267
-
-   The pa-variables-count is wrong.
-   >> I consider {v1=T,v2=F} different from {v1=T}, {v2=F}
-   Counting yields 644 solutions, which isn't correct.
-   >> Need to resolve the upper one first.
-
 */
 
 #include <chrono>
@@ -190,14 +171,8 @@ int main(int argc, char* argv[]) {
       // Implement a dependency scheme
     } */
   
-  auto start1 = std::chrono::high_resolution_clock::now();
-
   preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
                  minsat_clause_assgmt, no_of_clauses, no_of_var, level);
-
-  auto pre_time = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> el = pre_time-start1;
-  std::cout << "pretime took took " << el.count() << " secs\n";
 
   /** Traslation variables with ordering */
   coord_t index = 1;
@@ -231,19 +206,12 @@ int main(int argc, char* argv[]) {
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
       pa_var_set.push_back(minsat_clause_assgmt[i][j]);
-      print_1d_vector(minsat_clause_assgmt[i][j]);
-      std::cout << "\n";
     }
-    std::cout << "\n\n\n";
   }
 
   sort(pa_var_set.begin(), pa_var_set.end());
   pa_var_set.erase(unique(pa_var_set.begin(), pa_var_set.end()),
                    pa_var_set.end());
-
-  std::cout << "Sorted S(C) set is : \n";
-  print_2d_vector(pa_var_set);
-  std::cout << "\n";
 
   for (coord_t i = 0; i < pa_var_set.size(); ++i) {
     pa_vars.push_back(index);

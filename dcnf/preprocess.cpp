@@ -44,7 +44,7 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
       if (e > 0) {
         m_ca.push_back(cl_t{e, num_of_vars + 2});
       } else {
-        m_ca.push_back(cl_t{std::abs(e), num_of_vars + 1});
+        m_ca.push_back(cl_t{ABS(e), num_of_vars + 1});
       }
     }
 
@@ -55,10 +55,8 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
       for (lit_t e : elit_part) {
         cl_t dep_e = dcnf_variables[ABS(e) - 1].dependency();
         for (lit_t a : alit_part) {
-          if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) !=
-              dep_e.end()) {
-            LOG("The e a parts are: <" + STR(e) + ", " + STR(a) + ">" );
-            if ( e * a >= 1 ) {
+          if (std::find(dep_e.begin(), dep_e.end(), ABS(a)) != dep_e.end()) {
+            if (e * a >= 1) {
               m_ca.push_back(cl_t{ABS(e), -ABS(a)});
               V.emplace_back(ABS(e), -ABS(a));
             } else {
@@ -77,17 +75,17 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
           for (const lit_t& d : common_dependency) {
             const lit_t e1_lit = elit_part[e1];
             const lit_t e2_lit = elit_part[e2];
-            pair_t p1 = PAIR(std::abs(e1_lit), d);
-            pair_t p2 = PAIR(std::abs(e2_lit), -d);
-            pair_t p3 = PAIR(std::abs(e1_lit), -d);
-            pair_t p4 = PAIR(std::abs(e2_lit), d);
+            pair_t p1 = PAIR(ABS(e1_lit), d);
+            pair_t p2 = PAIR(ABS(e2_lit), -d);
+            pair_t p3 = PAIR(ABS(e1_lit), -d);
+            pair_t p4 = PAIR(ABS(e2_lit), d);
             if (e1_lit * e2_lit >= 1) {
               if (pair_present(V, p1)) {
                 continue;
               } else if (pair_present(V, p2)) {
                 continue;
               } else {
-                cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), -d};
+                cl_t sat_ca1 = {ABS(e1_lit), d, ABS(e2_lit), -d};
                 m_ca.push_back(sat_ca1);
               }
               if (pair_present(V, p3)) {
@@ -95,7 +93,7 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
               } else if (pair_present(V, p4)) {
                 continue;
               } else {
-                cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), d};
+                cl_t sat_ca2 = {ABS(e1_lit), -d, ABS(e2_lit), d};
                 m_ca.push_back(sat_ca2);
               }
             } else {
@@ -104,7 +102,7 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
               } else if (pair_present(V, p4)) {
                 continue;
               } else {
-                cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), d};
+                cl_t sat_ca1 = {ABS(e1_lit), d, ABS(e2_lit), d};
                 m_ca.push_back(sat_ca1);
               }
               if (pair_present(V, p2)) {
@@ -112,18 +110,14 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
               } else if (pair_present(V, p3)) {
                 continue;
               } else {
-                cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), -d};
+                cl_t sat_ca2 = {ABS(e1_lit), -d, ABS(e2_lit), -d};
                 m_ca.push_back(sat_ca2);
               }
+            }
           }
         }
       }
-      }
 
-      LOG("The pushed loaded pairs are: ");
-      // print_1d_vector_int_pair (V);
-      print_2d_vector(m_ca);
-      LOG('\n');
     }  // level > 0 close
     minsat_clause_assgmt.push_back(m_ca);
   }
