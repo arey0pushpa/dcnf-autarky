@@ -115,9 +115,9 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
                 cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), -d};
                 m_ca.push_back(sat_ca2);
               }
-            }
           }
         }
+      }
       }
 
       LOG("The pushed loaded pairs are: ");
