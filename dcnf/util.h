@@ -5,10 +5,11 @@
 #include <sstream>
 #include <vector>
 
-#define LOG(x) std::cout << x << std::endl
-#define PAIR(x,y) std::make_pair(x,y)
-#define ABS(x) std::abs(x)
-#define STR(x) std::to_string(x)
+// None of the following macros should exist:
+#define LOG(x) std::cout << x << std::endl // this needs to be done in C++
+#define PAIR(x,y) std::make_pair(x,y) // always use std::make_pair
+#define ABS(x) std::abs(x) // always use std::abs
+#define STR(x) std::to_string(x) // this is actually WRONG -- STR is a kind of standard macro for stringisation -- see the code of the tawSolver for example
 
 typedef std::int64_t lit_t;       // literals
 typedef std::vector<lit_t> cl_t;  // clauses

@@ -3,6 +3,17 @@
 
 #include "defs.h"
 
+/* Comment OK:
+
+   Macros are used, like ABS??
+
+   Macro-usage must absolutely be minimised, and std::abs is precisely
+   what one needs to see here.
+
+   This should be modern C++, not pre-90s C.
+
+*/
+
 void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
                     std::vector<Variables>& dcnf_variables, sel_bf& selected_bf,
                     minsat_ass& minsat_clause_assgmt,
