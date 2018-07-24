@@ -9,6 +9,7 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
   unsigned matrix_cnt = 0;
   bool p_line = false;
   char q_line = 'q';
+  cl_t prefix_var;
   std::cout << "Trying to open and read [" << filename << "]\n";
   std::ifstream file(filename);
 
@@ -66,6 +67,12 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
             std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
+          if (find_int_element(prefix_var, i)) {
+            std::cerr << "Input format violation. Multiple var entry in prefix."
+                      << '\n';
+            exit(input_format_violation);
+          }
+          prefix_var.push_back(i);
           cl_t dummy_dep = a_vars;
           dummy_dep.insert(dummy_dep.begin(), i);
 
@@ -96,6 +103,12 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
             std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
+          if (find_int_element(prefix_var, i)) {
+            std::cerr << "Input format violation. Multiple var entry in prefix."
+                      << '\n';
+            exit(input_format_violation);
+          }
+          prefix_var.push_back(i);
           a_vars.push_back(i);
         }
         break;
@@ -112,6 +125,12 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         ++dependency_var;
         cl_t clause = extract_int(line);
         lit_t elem = clause.front();
+        if (find_int_element(prefix_var, elem)) {
+          std::cerr << "Input format violation. Multiple var entry in prefix."
+                    << '\n';
+          exit(input_format_violation);
+        }
+        prefix_var.push_back(elem);
         e_vars.push_back(elem);
         // clause.erase(clause.begin());
         assert(clause.size() >= 1);
