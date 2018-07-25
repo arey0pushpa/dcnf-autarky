@@ -16,9 +16,11 @@
  *
  * */
 
-/* BUGS:
-
-*/
+/* Todo list
+ * 1. Add conformity(strictness) level. 0: general, 1: strict 
+ * 2. Add statistics and test output information.
+ * 3. Implement Lograthemic encoding.
+ */
 
 #include <chrono>
 #include <cmath>
@@ -29,8 +31,10 @@
 
 int main(int argc, char* argv[]) {
   std::string filename;
+  std::string output_file_name = "/tmp/a.out";
   coord_t dependency_var = 0;
   coord_t level = 1;
+  coord_t s_level = 0;
   coord_t encoding = 0;
 
   coord_t no_of_clauses = 0;
@@ -38,14 +42,16 @@ int main(int argc, char* argv[]) {
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
     std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
-                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-l "
-                 "level] [-e encoding]\n";
+                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o filename] [-l "
+                 "level] [-e encoding] [-s strictness; 0:general, 1:strict]\n";
     exit(0);
   }
 
   char* file_name = get_cmd_option(argv, argv + argc, "-i");
+  char* output_file = get_cmd_option(argv, argv + argc, "-o");
   char* level_set = get_cmd_option(argv, argv + argc, "-l");
   char* encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
+  char* strict_level = get_cmd_option(argv, argv + argc, "-s");
 
   if (file_name) {
     filename = file_name;
@@ -54,16 +60,26 @@ int main(int argc, char* argv[]) {
                  "[-h] for more options\n";
     exit(0);
   }
+  
+  if (output_file) {
+    output_file_name = output_file;
+  } 
+
+  if (filename == output_file_name) {
+    std::cout << "Please provide differnt filenames for input and output file.";
+    exit(0);
+  }
 
   if (level_set) {
     level = std::stoi(level_set);
-    std::cout << "The chosen Level is: " << level << '\n';
+  }
+  
+  if (strict_level) {
+    s_level = std::stoi(strict_level);
   }
 
   if (encoding_chosen) {
     encoding = std::stoi(encoding_chosen);
-    std::cout << "The chosen Encoding[0:Quad, 1:Lin, 2:Log] is " << encoding
-              << '\n';
   }
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -86,7 +102,7 @@ int main(int argc, char* argv[]) {
   cl_t pa_vars;
 
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
-                     no_of_var, dependency_var);
+                     no_of_var, dependency_var, s_level);
 
   // Create no_of_var Objects and for each obj representing a
   // variable (uni and exist) set qtype of the var and fix it's dependency
@@ -242,13 +258,13 @@ int main(int argc, char* argv[]) {
     // todo: Implement Log encoding.
   }
 
-  std::string fname = "/tmp/out.dimacs";
+  //std::string fname = "/tmp/out.dimacs";
   //    filename + "_level" + std::to_string(level) + "_output.dimacs";
-  std::cout << "Writing the DIMACS file to .. " << fname << "\n";
-  std::ofstream fout(fname);
+  std::cout << "Writing the DIMACS file to .. " << output_file_name << "\n";
+  std::ofstream fout(output_file_name);
 
   if (!fout) {
-    std::cerr << "Error opening file..." << fname << "\n";
+    std::cerr << "Error opening file..." << output_file_name << "\n";
     return 1;
   }
 

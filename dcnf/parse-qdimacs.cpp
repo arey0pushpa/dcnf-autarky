@@ -4,20 +4,18 @@
 
 void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
                         cl_t& a_vars, cl_t& e_vars, coord_t& no_of_clauses,
-                        coord_t& no_of_var, coord_t& dependency_var) {
+                        coord_t& no_of_var, coord_t& dependency_var,
+                        coord_t s_level) {
   std::string line;
   unsigned matrix_cnt = 0;
   bool p_line = false;
   char q_line = 'q';
   cl_t prefix_var;
-  std::cout << "Trying to open and read [" << filename << "]\n";
   std::ifstream file(filename);
-
   if (!file.is_open()) {
     perror(("Error while opening file " + filename).c_str());
     exit(file_reading_error);
   }
-
   while (std::getline(file, line)) {
     if (line == "") {
       std::cout << "Ignoring empty lines.\n";
@@ -58,7 +56,6 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
           exit(input_format_violation);
         } else {
           q_line = 'e';
-          std::cout << "E Line.\n";
         }
         cl_t clause = extract_int(line);
         assert(clause.size() >= 1);
@@ -83,19 +80,18 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
       }
 
       case 'a': {
-        if (q_line == 'a') {
+        if (s_level == 1 && q_line == 'a') {
           std::cerr << "Input format violation [a-line]. Consecutive a lines."
                     << '\n';
           exit(input_format_violation);
-        } else if (matrix_cnt > 0) {
+        }
+        if (matrix_cnt > 0) {
           std::cerr << "Input format violation [a-line]. a-line not allowed "
                        "after matrix line. "
                     << '\n';
           exit(input_format_violation);
-        } else {
-          q_line = 'a';
-          std::cout << "A Line.\n";
         }
+        q_line = 'a';
         cl_t clause = extract_int(line);
         assert(clause.size() >= 1);
         for (lit_t i : clause) {
@@ -115,12 +111,13 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
       }
       case 'd': {
         if (q_line == 'q') {
-          std::cerr << "Input format violation. No starting d line" << '\n';
+          std::cerr << "Input format violation. Starting d line. Require at "
+                       "least one a line."
+                    << '\n';
           exit(input_format_violation);
         } else {
           q_line = 'd';
         }
-        std::cout << "D Line.\n";
         cl_t inner_vec;
         ++dependency_var;
         cl_t clause = extract_int(line);
