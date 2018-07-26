@@ -1,6 +1,6 @@
 #include "defs.h"
 
-/** 4.1. /\_f,f' !t(v,f) || !t(v,f') 
+/** 4.1. /\_f,f' !t(v,f) || !t(v,f')
  * At Most One Constraint **/
 void at_most_one(cl_t& bf_vars, cls_t& cnf_fml) {
   const unsigned N = bf_vars.size();
@@ -13,7 +13,8 @@ void at_most_one(cl_t& bf_vars, cls_t& cnf_fml) {
 }
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
-void satisfied_clauses(const std::vector<Clauses> dcnf_clauses, const std::vector<Variables> dcnf_variables,
+void satisfied_clauses(const std::vector<Clauses> dcnf_clauses,
+                       const std::vector<Variables> dcnf_variables,
                        cl_t& pa_vars, cls_t& bf_vars, cls_t& pa_var_set,
                        sel_bf& selected_bf, cls_t& cnf_fml) {
   for (unsigned i = 0; i < pa_var_set.size(); ++i) {
@@ -32,8 +33,9 @@ void satisfied_clauses(const std::vector<Clauses> dcnf_clauses, const std::vecto
 }
 
 /** 4.3. !t(C) || \/_phi t(phi)  **/
-void touched_clauses(const std::vector<Clauses> dcnf_clauses, const std::vector<Variables> dcnf_variables,
-                     cl_t& cs_vars, cl_t& pa_vars, cls_t& pa_var_set,
+void touched_clauses(const std::vector<Clauses> dcnf_clauses,
+                     const std::vector<Variables> dcnf_variables, cl_t& cs_vars,
+                     cl_t& pa_vars, cls_t& pa_var_set,
                      minsat_ass& minsat_clause_assgmt, cls_t& cnf_fml) {
   cl_t t_phi_vector;
   for (unsigned i = 0; i < cs_vars.size(); ++i) {
@@ -48,7 +50,8 @@ void touched_clauses(const std::vector<Clauses> dcnf_clauses, const std::vector<
 }
 
 /** 4.4. /\_v,f t(C) || !t(v,f) **/
-void untouched_clauses(const std::vector<Clauses> dcnf_clauses, const std::vector<Variables> dcnf_variables,
+void untouched_clauses(const std::vector<Clauses> dcnf_clauses,
+                       const std::vector<Variables> dcnf_variables,
                        cls_t& bf_vars, cl_t& cs_vars,
                        const coord_t& num_of_clause, cls_t& cnf_fml) {
   for (coord_t i = 0; i < num_of_clause; ++i) {

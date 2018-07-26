@@ -166,7 +166,5 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
   } else if (!p_line) {
     std::cerr << "Input format violation. No p-line found!" << '\n';
     exit(input_format_violation);
-  } else {
-    std::cout << "\nInput parsed successfully.\n";
   }
 }
