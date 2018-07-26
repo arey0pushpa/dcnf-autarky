@@ -3,17 +3,6 @@
 
 #include "defs.h"
 
-/* Comment OK:
-
-   Macros are used, like ABS??
-
-   Macro-usage must absolutely be minimised, and std::abs is precisely
-   what one needs to see here.
-
-   This should be modern C++, not pre-90s C.
-
-*/
-
 void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
                     std::vector<Variables>& dcnf_variables, sel_bf& selected_bf,
                     minsat_ass& minsat_clause_assgmt,
@@ -55,7 +44,7 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
       if (e > 0) {
         m_ca.push_back(cl_t{e, num_of_vars + 2});
       } else {
-        m_ca.push_back(cl_t{ABS(e), num_of_vars + 1});
+        m_ca.push_back(cl_t{std::abs(e), num_of_vars + 1});
       }
     }
 
@@ -64,15 +53,15 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
       pairs_t V;
       // 2. e-literal as neg of a-literal case **
       for (lit_t e : elit_part) {
-        cl_t dep_e = dcnf_variables[ABS(e) - 1].dependency();
+        cl_t dep_e = dcnf_variables[std::abs(e) - 1].dependency();
         for (lit_t a : alit_part) {
-          if (std::find(dep_e.begin(), dep_e.end(), ABS(a)) != dep_e.end()) {
+          if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) != dep_e.end()) {
             if (e * a >= 1) {
-              m_ca.push_back(cl_t{ABS(e), -ABS(a)});
-              V.emplace_back(ABS(e), -ABS(a));
+              m_ca.push_back(cl_t{std::abs(e), -std::abs(a)});
+              V.emplace_back(std::abs(e), -std::abs(a));
             } else {
-              m_ca.push_back(cl_t{ABS(e), ABS(a)});
-              V.emplace_back(ABS(e), ABS(a));
+              m_ca.push_back(cl_t{std::abs(e), std::abs(a)});
+              V.emplace_back(std::abs(e), std::abs(a));
             }
           }
         }
@@ -86,17 +75,17 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
           for (const lit_t& d : common_dependency) {
             const lit_t e1_lit = elit_part[e1];
             const lit_t e2_lit = elit_part[e2];
-            pair_t p1 = PAIR(ABS(e1_lit), d);
-            pair_t p2 = PAIR(ABS(e2_lit), -d);
-            pair_t p3 = PAIR(ABS(e1_lit), -d);
-            pair_t p4 = PAIR(ABS(e2_lit), d);
+            pair_t p1 = std::make_pair(std::abs(e1_lit), d);
+            pair_t p2 = std::make_pair(std::abs(e2_lit), -d);
+            pair_t p3 = std::make_pair(std::abs(e1_lit), -d);
+            pair_t p4 = std::make_pair(std::abs(e2_lit), d);
             if (e1_lit * e2_lit >= 1) {
               if (pair_present(V, p1)) {
                 continue;
               } else if (pair_present(V, p2)) {
                 continue;
               } else {
-                cl_t sat_ca1 = {ABS(e1_lit), d, ABS(e2_lit), -d};
+                cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), -d};
                 m_ca.push_back(sat_ca1);
               }
               if (pair_present(V, p3)) {
@@ -104,7 +93,7 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
               } else if (pair_present(V, p4)) {
                 continue;
               } else {
-                cl_t sat_ca2 = {ABS(e1_lit), -d, ABS(e2_lit), d};
+                cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), d};
                 m_ca.push_back(sat_ca2);
               }
             } else {
@@ -113,7 +102,7 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
               } else if (pair_present(V, p4)) {
                 continue;
               } else {
-                cl_t sat_ca1 = {ABS(e1_lit), d, ABS(e2_lit), d};
+                cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), d};
                 m_ca.push_back(sat_ca1);
               }
               if (pair_present(V, p2)) {
@@ -121,7 +110,7 @@ void preprocess_fml(std::vector<Clauses>& dcnf_clauses,
               } else if (pair_present(V, p3)) {
                 continue;
               } else {
-                cl_t sat_ca2 = {ABS(e1_lit), -d, ABS(e2_lit), -d};
+                cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), -d};
                 m_ca.push_back(sat_ca2);
               }
             }
