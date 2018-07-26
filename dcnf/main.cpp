@@ -31,6 +31,17 @@
 
 #include "defs.h"
 
+template <typename t>
+std::vector<std::vector<t> > unique_vectors(
+    std::vector<std::vector<t> > input) {
+  for (auto& i : input) {
+    i.erase(i.begin());
+  }
+  std::sort(input.begin(), input.end());
+  input.erase(std::unique(input.begin(), input.end()), input.end());
+  return input;
+}
+
 int main(int argc, char* argv[]) {
   std::string filename;
   std::string output_file_name = "/tmp/a.out";
@@ -104,8 +115,12 @@ int main(int argc, char* argv[]) {
   cls_t bf_vars;
   cl_t pa_vars;
 
+  coord_t min_dep_size = 0;
+  coord_t max_dep_size = 0;
+
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
-                     no_of_var, dependency_var, s_level);
+                     no_of_var, dependency_var, s_level, min_dep_size,
+                     max_dep_size);
 
   // Create no_of_var Objects and for each obj representing a
   // variable (uni and exist) set qtype of the var and fix it's dependency
@@ -158,6 +173,8 @@ int main(int argc, char* argv[]) {
     }
   }
 
+  cls_t unique_dep_set = unique_vectors(dep_set);
+
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
   std::vector<Clauses> dcnf_clauses;
@@ -191,7 +208,7 @@ int main(int argc, char* argv[]) {
     } */
 
   set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
-                 minsat_clause_assgmt, no_of_clauses, no_of_var, level);
+                    minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
   /** Traslation variables with ordering */
   coord_t index = 1;
@@ -306,8 +323,9 @@ int main(int argc, char* argv[]) {
          << "\n";
   }
 
-
-  output( filename, output_file_name, level, s_level, encoding, no_of_var, no_of_clauses );
+  output(filename, output_file_name, level, s_level, encoding, no_of_var,
+         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
+         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
 
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;
