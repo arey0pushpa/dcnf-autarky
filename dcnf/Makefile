@@ -1,5 +1,5 @@
 # Ankit Shukla, 22.June.2018 (Swansea)
-# Copyright 2018 Ankit Shukla
+# Copyright 2018 Ankit Shukla, Oliver Kullmann
 
 PROGRAM = dcnf_autarky dcnf_autarky_debug
 
