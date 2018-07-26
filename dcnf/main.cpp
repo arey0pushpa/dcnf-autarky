@@ -17,11 +17,8 @@
  * */
 
 /* Todo list
- * 1. Add conformity(strictness) level. 0: general, 1: strict
- * >> Completed.
- * 2. Add statistics and test output information.
- * 3. Implement Lograthemic encoding.
- * 4. Handle empty clause and tautology.
+ * 1. Implement Lograthemic encoding.
+ * 2. Handle empty clause and tautology.
  */
 
 #include <chrono>
