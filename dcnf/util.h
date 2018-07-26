@@ -6,7 +6,7 @@
 #include <vector>
 
 // None of the following macros should exist:
-#define LOG(x) std::cout << x << std::endl 
+#define LOG(x) std::cout << x << std::endl
 
 typedef std::int64_t lit_t;       // literals
 typedef std::vector<lit_t> cl_t;  // clauses
@@ -33,16 +33,16 @@ enum Error_codes {
 
 class Clauses {
   cl_t m_lits;
- 
+
   cl_t m_evars;
   cl_t m_elits;
-  
+
   cl_t m_avars;
   cl_t m_alits;
 
  public:
   Clauses(){};
-  void initialise_lits(cl_t c) { m_lits = c; } 
+  void initialise_lits(cl_t c) { m_lits = c; }
   void initialise_evars(cl_t e) { m_evars = e; }
   void initialise_elits(cl_t e) { m_elits = e; }
   void initialise_avars(cl_t a) { m_avars = a; }
@@ -71,20 +71,37 @@ class Variables {
   coord_t eindex() const { return m_eindex; }
 };
 
-
-// Command line 
-inline char* get_cmd_option( char** begin, char** end, 
-                      const std::string& option){
-  char ** itr = std::find( begin, end, option );
-  if ( itr != end && ++itr != end ) return *itr;
+// command line
+inline char* get_cmd_option(char** begin, char** end,
+                            const std::string& option) {
+  char** itr = std::find(begin, end, option);
+  if (itr != end && ++itr != end) return *itr;
   return 0;
 }
 
-inline bool cmd_option_exists( char** begin, char** end, 
-                        const std::string& option ) {
-  return std::find( begin, end, option ) != end;
+inline bool cmd_option_exists(char** begin, char** end,
+                              const std::string& option) {
+  return std::find(begin, end, option) != end;
 }
 
+// output
+inline void output(const std::string filename,
+                   const std::string output_file_name, const coord_t level,
+                   const coord_t s_level, const coord_t encoding, const coord_t no_of_var, const coord_t no_of_clauses )
+
+{
+
+  std::cout << "filename         " << filename << '\n';
+  std::cout << "output_filename  " << output_file_name << '\n';
+  std::cout << "autarky_level    " << level << '\n';
+  std::cout << "conformity_level " << s_level << '\n';
+  std::cout << "encoding_type    " << encoding << '\n';
+  std::cout << "no_of_var        " << no_of_var << '\n';
+  std::cout << "no_of_clauses    " << no_of_clauses << '\n';
+
+}
+
+// Basic util
 inline cl_t extract_int(std::string line) {
   cl_t vec_int;
   std::stringstream ss;
@@ -122,14 +139,13 @@ inline bool find_int_element(cl_t& vec, lit_t elem) {
 }
 
 // Find a pair in a vector */
-inline bool pair_present( pairs_t& V, pair_t elem) {
+inline bool pair_present(pairs_t& V, pair_t elem) {
   if (std::find(V.begin(), V.end(), elem) != V.end()) {
     return true;
   } else {
     return false;
   }
 }
-
 
 /** Implement a template */
 /** Return index of the element **/

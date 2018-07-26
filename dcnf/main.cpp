@@ -17,9 +17,11 @@
  * */
 
 /* Todo list
- * 1. Add conformity(strictness) level. 0: general, 1: strict 
+ * 1. Add conformity(strictness) level. 0: general, 1: strict
+ * >> Completed.
  * 2. Add statistics and test output information.
  * 3. Implement Lograthemic encoding.
+ * 4. Handle empty clause and tautology.
  */
 
 #include <chrono>
@@ -42,7 +44,8 @@ int main(int argc, char* argv[]) {
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
     std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
-                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o filename] [-l "
+                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
+                 "filename] [-l "
                  "level] [-e encoding] [-s strictness; 0:general, 1:strict]\n";
     exit(0);
   }
@@ -60,10 +63,10 @@ int main(int argc, char* argv[]) {
                  "[-h] for more options\n";
     exit(0);
   }
-  
+
   if (output_file) {
     output_file_name = output_file;
-  } 
+  }
 
   if (filename == output_file_name) {
     std::cout << "Please provide differnt filenames for input and output file.";
@@ -73,7 +76,7 @@ int main(int argc, char* argv[]) {
   if (level_set) {
     level = std::stoi(level_set);
   }
-  
+
   if (strict_level) {
     s_level = std::stoi(strict_level);
   }
@@ -186,8 +189,8 @@ int main(int argc, char* argv[]) {
     if ( dependency_var == 0 ) {
       // Implement a dependency scheme
     } */
-  
-  preprocess_fml(dcnf_clauses, dcnf_variables, selected_bf,
+
+  set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                  minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
   /** Traslation variables with ordering */
@@ -258,9 +261,6 @@ int main(int argc, char* argv[]) {
     // todo: Implement Log encoding.
   }
 
-  //std::string fname = "/tmp/out.dimacs";
-  //    filename + "_level" + std::to_string(level) + "_output.dimacs";
-  std::cout << "Writing the DIMACS file to .. " << output_file_name << "\n";
   std::ofstream fout(output_file_name);
 
   if (!fout) {
@@ -270,8 +270,7 @@ int main(int argc, char* argv[]) {
 
   // Writing the dcnf output in dimacs format
   fout << "c This is a output dimacs file of input file: " << filename << '\n';
-  fout << "c There are total " << cs_vars.size()
-       << " cs-variables. ";
+  fout << "c There are total " << cs_vars.size() << " cs-variables. ";
   for (lit_t c : cs_vars) {
     fout << c << " ";
   }
@@ -307,9 +306,11 @@ int main(int argc, char* argv[]) {
          << "\n";
   }
 
+
+  output( filename, output_file_name, level, s_level, encoding, no_of_var, no_of_clauses );
+
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;
   std::cout << "entire run took " << elapsed.count() << " secs\n";
-
   return 0;
 }

@@ -41,8 +41,6 @@ void touched_clauses(const std::vector<Clauses> dcnf_clauses,
   for (unsigned i = 0; i < cs_vars.size(); ++i) {
     t_phi_vector.push_back(-cs_vars[i]);
     for (cl_t c : minsat_clause_assgmt[i]) {
-      print_1d_vector( c );
-      LOG('\n');
       coord_t id = find_vector_index(pa_var_set, c);
       t_phi_vector.push_back(pa_vars[id]);
     }
