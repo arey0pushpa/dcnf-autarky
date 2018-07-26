@@ -1,5 +1,10 @@
 # Ankit Shukla, 22.June.2018 (Swansea)
-# Copyright 2018 Ankit Shukla
+# Copyright 2018 Ankit Shukla, Oliver Kullmann
+
+# Bug:
+# make
+# g++ --std=c++11 -pedantic -Wall -Werror -Ofast -DNDEBUG    -c constraints.cpp
+# make: *** No rule to make target `all-solutions.cpp', needed by `all-solutions.o'.  Stop.
 
 PROGRAM = dcnf_autarky dcnf_autarky_debug
 
