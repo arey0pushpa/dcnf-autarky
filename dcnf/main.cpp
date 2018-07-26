@@ -17,8 +17,10 @@
  * */
 
 /* Todo list
- * 1. Implement Lograthemic encoding.
- * 2. Handle empty clause and tautology.
+ *
+ * 1. Remove find() and improve runtime.
+ * 2. Implement Lograthemic encoding.
+ * 3. Handle empty clause and tautology.
  */
 
 #include <chrono>
