@@ -101,9 +101,9 @@ inline void output(const std::string filename,
   std::cout << "no_of_avars      " << no_of_avars << '\n';
   std::cout << "no_of_evars      " << no_of_evars << '\n';
   std::cout << "unique_dep_sets  " << uni_dep_set << '\n';
-  std::cout << "pa_vars          " << pa_var << '\n';
-  std::cout << "bf_vars          " << bf_var << '\n';
   std::cout << "cs_var           " << cs_var << '\n';
+  std::cout << "bf_vars          " << bf_var << '\n';
+  std::cout << "pa_vars          " << pa_var << '\n';
   std::cout << "vars_in_dimacs   " << vars_in_dimacs << '\n';
   std::cout << "mtx_size_dimacs  " << matrix_size_dimacs << '\n';
 
@@ -171,7 +171,7 @@ inline lit_t find_index(cl_t& vec, lit_t elem) {
 }
 
 /** Return index of the element **/
-inline coord_t find_vector_index(cls_t& vec, cl_t& elem) {
+inline lit_t find_vector_index(cls_t& vec, cl_t& elem) {
   auto it = std::find(vec.begin(), vec.end(), elem);
   if (it == vec.end()) {
     // Todo: implement exception handling

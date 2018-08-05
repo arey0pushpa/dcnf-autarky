@@ -18,9 +18,12 @@
 
 /* Todo list
  *
- * 1. Remove find() and improve runtime.
- * 2. Implement Lograthemic encoding.
- * 3. Handle empty clause and tautology.
+ * 1. Implement Lograthemic encoding.
+ *    - First check the linear encoding possibility.
+ * 2. Handle empty clause and tautology.
+ *    - Add checks to avoid basic SAT and UNSAT cases.
+ * 3. namespace creation : do using the classes or namespace.
+ *    - Passing the parameters all the time looks ugly.
  */
 
 #include <chrono>
@@ -235,39 +238,45 @@ int main(int argc, char* argv[]) {
     std::cout << "The total number of additional var " << m << '\n';
   }
 
-  // pa variable
-  // todo: Implement directly using sets.
   cls_t pa_var_set;
+  minsat_ass pa_var_msat_ass(e_vars.size());
+  cls_t msat_concrete_var_map(e_vars.size());
+  cls_t clausewise_pa_var_map(no_of_clauses);
+  coord_t msat_cntr = 1;
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
-      pa_var_set.push_back(minsat_clause_assgmt[i][j]);
+      cl_t dummy = minsat_clause_assgmt[i][j];
+      lit_t slit = std::abs(dummy[0]);
+      assert(slit > 0);
+      lit_t elit = dcnf_variables[slit - 1].eindex();
+      lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
+      if (pa_indx != -1) {
+        clausewise_pa_var_map[i].push_back(
+            msat_concrete_var_map[elit][pa_indx]);
+      } else {
+        pa_var_msat_ass[elit].push_back(dummy);
+        msat_concrete_var_map[elit].push_back(index);
+        ++msat_cntr;
+        clausewise_pa_var_map[i].push_back(index);
+        pa_vars.push_back(index);
+        ++index;
+      }
     }
-  }
-
-  sort(pa_var_set.begin(), pa_var_set.end());
-  pa_var_set.erase(unique(pa_var_set.begin(), pa_var_set.end()),
-                   pa_var_set.end());
-
-  for (coord_t i = 0; i < pa_var_set.size(); ++i) {
-    pa_vars.push_back(index);
-    index += 1;
   }
 
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
-  touched_clauses(dcnf_clauses, dcnf_variables, cs_vars, pa_vars, pa_var_set,
-                  minsat_clause_assgmt, cnf_fml);  // (4.3)
+  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
   if (encoding == 0) {
-    satisfied_clauses(dcnf_clauses, dcnf_variables, pa_vars, bf_vars,
-                      pa_var_set, selected_bf, cnf_fml);  // (4.2)
+    satisfied_clauses(dcnf_clauses, dcnf_variables, bf_vars, pa_var_msat_ass,
+                      msat_concrete_var_map, selected_bf, cnf_fml);  // (4.2)
 
     untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars,
                       no_of_clauses, cnf_fml);  // (4.4)
 
-    // for (coord_t i = 0; i < dcnf_.size(); ++i) {  // (4.1)
-    for (coord_t i = 0; i < no_of_var; ++i) {
+    for (coord_t i = 0; i < no_of_var; ++i) {  // (4.1)
       if (dcnf_variables[i].qtype() == 'e') {
         coord_t indx = dcnf_variables[i].eindex();
         at_most_one(bf_vars[indx], cnf_fml);
