@@ -1,6 +1,6 @@
 // dcnfAutarky -- A basic implementation for autarky search in DQCNF
 // Ankit Shukla 22.June.2018 (Swansea)
-//
+
 /* Copyright 2018 Oliver Kullmann, Ankit Shukla
  *
  *
@@ -124,6 +124,8 @@ int main(int argc, char* argv[]) {
                      no_of_var, dependency_var, s_level, min_dep_size,
                      max_dep_size);
 
+  // TEMP FIX. IMPLEMENT THE CASE OF THE VARIABLE ABSENCE IN THE MATRIX CASE DIRECTLY
+  no_of_var = e_vars.size() + a_vars.size();
   // Create no_of_var Objects and for each obj representing a
   // variable (uni and exist) set qtype of the var and fix it's dependency
   std::vector<Variables> dcnf_variables;
