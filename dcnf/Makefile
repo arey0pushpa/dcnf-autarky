@@ -22,10 +22,10 @@ Debug_options = -g
 all: dcnf_autarky dcnf_autarky_debug
 
 dcnf_autarky : $(CXXOBJECTS)
-	$(CXX) -o $@ $(CXXOBJECTS)
+	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(CXXOBJECTS)
 
 dcnf_autarky_debug : $(CXXOBJECTS_debug)
-	$(CXX) $(Debug_options) -o $@ $(CXXOBJECTS)
+	$(CXX) $(Debug_options) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(CXXOBJECTS)
 
 main.o: main.cpp defs.h util.h constraints.o  all-solutions.o  parse-qdimacs.o Makefile
 	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
