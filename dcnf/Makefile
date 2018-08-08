@@ -22,34 +22,34 @@ Debug_options = -g
 all: dcnf_autarky dcnf_autarky_debug
 
 dcnf_autarky : $(CXXOBJECTS)
-	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(CXXOBJECTS)
+	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)
 
 dcnf_autarky_debug : $(CXXOBJECTS_debug)
-	$(CXX) $(Debug_options) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(CXXOBJECTS)
+	$(CXX) $(Debug_options) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)
 
 main.o: main.cpp defs.h util.h constraints.o  all-solutions.o  parse-qdimacs.o Makefile
 	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 constraints.o: constraints.cpp defs.h util.h
-	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $<
+	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 all-solutions.o: all-solutions.cpp defs.h util.h
-	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $<
+	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 parse-qdimacs.o: parse-qdimacs.cpp defs.h util.h
-	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $<
+	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 main_debug.o: main.cpp defs.h util.h constraints_debug.o  all-solutions_debug.o  parse-qdimacs_debug.o Makefile
 	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 constraints_debug.o: constraints.cpp defs.h util.h
-	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $< -o $@
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 all-solutions_debug.o: all-solutions.cpp defs.h util.h
-	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $< -o $@
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 parse-qdimacs_debug.o: parse-qdimacs.cpp defs.h util.h
-	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -c $< -o $@
+	$(CXX) $(Standard_options) $(Warning_options) $(Debug_options) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	$(RM) -f $(CXXOBJECTS) $(PROGRAM)
