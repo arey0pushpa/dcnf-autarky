@@ -57,9 +57,9 @@ int main(int argc, char* argv[]) {
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
     std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
-                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
-                 "filename] [-l "
-                 "level] [-e encoding] [-s strictness; 0:general, 1:strict]\n";
+		 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
+		 "filename] [-l "
+		 "level] [-e encoding] [-s strictness; 0:general, 1:strict]\n";
     exit(0);
   }
 
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
     filename = file_name;
   } else {
     std::cout << "Please provide an input file. Use [-i filename] or see help "
-                 "[-h] for more options\n";
+		 "[-h] for more options\n";
     exit(0);
   }
 
@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
   cl_t a_vars;    // {forall-var}
   cls_t dep_set;  // {{dep-var}...}
 
-  sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
+  sel_bf selected_bf;		    // All bf (v,f) pairs {(e-var, )...}
   minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
 
   cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
@@ -121,10 +121,11 @@ int main(int argc, char* argv[]) {
   coord_t max_dep_size = 0;
 
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
-                     no_of_var, dependency_var, s_level, min_dep_size,
-                     max_dep_size);
+		     no_of_var, dependency_var, s_level, min_dep_size,
+		     max_dep_size);
 
-  // TEMP FIX. IMPLEMENT THE CASE OF THE VARIABLE ABSENCE IN THE MATRIX CASE DIRECTLY
+  // TEMP FIX. IMPLEMENT THE CASE OF THE VARIABLE ABSENCE IN THE MATRIX CASE
+  // DIRECTLY
   no_of_var = e_vars.size() + a_vars.size();
   // Create no_of_var Objects and for each obj representing a
   // variable (uni and exist) set qtype of the var and fix it's dependency
@@ -132,7 +133,7 @@ int main(int argc, char* argv[]) {
   dcnf_variables.resize(no_of_var);
 
   std::sort(dep_set.begin(), dep_set.end(),
-            [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
+	    [](const cl_t& a, const cl_t& b) { return a[0] < b[0]; });
 
   std::sort(e_vars.begin(), e_vars.end());
   std::sort(a_vars.begin(), a_vars.end());
@@ -152,9 +153,9 @@ int main(int argc, char* argv[]) {
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
       if (std::next(avar_iterator) == a_vars.end()) {
-        a_vars_end = true;
+	a_vars_end = true;
       } else {
-        avar_iterator = std::next(avar_iterator);
+	avar_iterator = std::next(avar_iterator);
       }
     } else if (!e_vars_end && i == *evar_iterator - 1) {
       dcnf_variables[i].initialise_qtype('e');
@@ -166,9 +167,9 @@ int main(int argc, char* argv[]) {
       dcnf_variables[i].initialise_eindex(e_var_cntr);
       ++e_var_cntr;
       if (std::next(evar_iterator) == e_vars.end()) {
-        e_vars_end = true;
+	e_vars_end = true;
       } else {
-        evar_iterator = std::next(evar_iterator);
+	evar_iterator = std::next(evar_iterator);
       }
     } else {
       dcnf_variables[i].initialise_qtype('e');
@@ -192,11 +193,11 @@ int main(int argc, char* argv[]) {
     dcnf_clauses[i].initialise_lits(dcnf_fml[i]);
     for (const lit_t l : dcnf_fml[i]) {
       if (dcnf_variables[std::abs(l) - 1].qtype() == 'e') {
-        c_evars.push_back(std::abs(l));
-        c_elits.push_back(l);
+	c_evars.push_back(std::abs(l));
+	c_elits.push_back(l);
       } else {
-        c_avars.push_back(std::abs(l));
-        c_alits.push_back(l);
+	c_avars.push_back(std::abs(l));
+	c_alits.push_back(l);
       }
     }
     dcnf_clauses[i].initialise_evars(c_evars);
@@ -212,7 +213,7 @@ int main(int argc, char* argv[]) {
     } */
 
   set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
-                    minsat_clause_assgmt, no_of_clauses, no_of_var, level);
+		    minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
   /** Traslation variables with ordering */
   coord_t index = 1;
@@ -224,20 +225,28 @@ int main(int argc, char* argv[]) {
   }
 
   // bf variable := two_dim [v] [f_v]
-  if (encoding == 0) {
-    cl_t s_bf;
+  cl_t s_bf;
+  coord_t bf_var_count = 0;
+  if (encoding == 1) {  // LOG Encoding
+    for (coord_t i = 0; i < selected_bf.size(); ++i) {
+      bf_var_count += selected_bf[i].size();
+    }
+    // m := |bf_vars|
+    coord_t m = ceil(log(bf_var_count + 1) / log(2));
+    for (coord_t k = 0; k < m; ++k) {
+      s_bf.push_back(index);
+      index += 1;
+    }
+    std::cout << "The total number of additional var " << m << '\n';
+  } else {
     for (coord_t i = 0; i < selected_bf.size(); ++i) {
       for (coord_t j = 0; j < selected_bf[i].size(); ++j) {
-        s_bf.push_back(index);
-        index += 1;
+	s_bf.push_back(index);
+	index += 1;
       }
       bf_vars.push_back(s_bf);
       s_bf.clear();
     }
-  } else {
-    // todo: Implement Log Encoding
-    coord_t m = ceil(log(selected_bf.size() + 1) / log(2));
-    std::cout << "The total number of additional var " << m << '\n';
   }
 
   cls_t pa_var_set;
@@ -253,15 +262,15 @@ int main(int argc, char* argv[]) {
       lit_t elit = dcnf_variables[slit - 1].eindex();
       lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
       if (pa_indx != -1) {
-        clausewise_pa_var_map[i].push_back(
-            msat_concrete_var_map[elit][pa_indx]);
+	clausewise_pa_var_map[i].push_back(
+	    msat_concrete_var_map[elit][pa_indx]);
       } else {
-        pa_var_msat_ass[elit].push_back(dummy);
-        msat_concrete_var_map[elit].push_back(index);
-        ++msat_cntr;
-        clausewise_pa_var_map[i].push_back(index);
-        pa_vars.push_back(index);
-        ++index;
+	pa_var_msat_ass[elit].push_back(dummy);
+	msat_concrete_var_map[elit].push_back(index);
+	++msat_cntr;
+	clausewise_pa_var_map[i].push_back(index);
+	pa_vars.push_back(index);
+	++index;
       }
     }
   }
@@ -273,15 +282,15 @@ int main(int argc, char* argv[]) {
 
   if (encoding == 0) {
     satisfied_clauses(dcnf_clauses, dcnf_variables, bf_vars, pa_var_msat_ass,
-                      msat_concrete_var_map, selected_bf, cnf_fml);  // (4.2)
+		      msat_concrete_var_map, selected_bf, cnf_fml);  // (4.2)
 
     untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars,
-                      no_of_clauses, cnf_fml);  // (4.4)
+		      no_of_clauses, cnf_fml);  // (4.4)
 
     for (coord_t i = 0; i < no_of_var; ++i) {  // (4.1)
       if (dcnf_variables[i].qtype() == 'e') {
-        coord_t indx = dcnf_variables[i].eindex();
-        at_most_one(bf_vars[indx], cnf_fml);
+	coord_t indx = dcnf_variables[i].eindex();
+	at_most_one(bf_vars[indx], cnf_fml);
       }
     }
   } else {
@@ -330,12 +339,12 @@ int main(int argc, char* argv[]) {
       fout << lit << " ";
     }
     fout << "0"
-         << "\n";
+	 << "\n";
   }
 
   output(filename, output_file_name, level, s_level, encoding, no_of_var,
-         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
-         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
+	 no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
+	 pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
 
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;
