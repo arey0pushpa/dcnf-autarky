@@ -8,14 +8,14 @@
 // None of the following macros should exist:
 #define LOG(x) std::cout << x << std::endl
 
-typedef std::int64_t lit_t;       // literals
-typedef std::vector<lit_t> cl_t;  // clauses
-typedef std::vector<cl_t> cls_t;  // clause-sets
+typedef std::int64_t lit_t;      // literals
+typedef std::vector<lit_t> cl_t; // clauses
+typedef std::vector<cl_t> cls_t; // clause-sets
 typedef std::pair<lit_t, lit_t> pair_t;
 typedef std::vector<pair_t> pairs_t;
-typedef std::vector<pairs_t> sel_bf;    // represent bf var set
-typedef std::vector<cls_t> minsat_ass;  // vector of clause-set
-typedef std::uint32_t coord_t;          // coordinates
+typedef std::vector<pairs_t> sel_bf;   // represent bf var set
+typedef std::vector<cls_t> minsat_ass; // vector of clause-set
+typedef std::uint32_t coord_t;         // coordinates
 
 enum Error_codes {
   file_reading_error = 1,
@@ -40,7 +40,7 @@ class Clauses {
   cl_t m_avars;
   cl_t m_alits;
 
- public:
+public:
   Clauses(){};
   void initialise_lits(cl_t c) { m_lits = c; }
   void initialise_evars(cl_t e) { m_evars = e; }
@@ -60,7 +60,7 @@ class Variables {
   cl_t m_dependency;
   coord_t m_eindex;
 
- public:
+public:
   Variables() : m_quantype('a'), m_dependency({}) {}
   void initialise_qtype(char c) { m_quantype = c; }
   void initialise_eindex(coord_t i) { m_eindex = i; }
@@ -71,23 +71,36 @@ class Variables {
   coord_t eindex() const { return m_eindex; }
 };
 
+class bf_lbf_converter {
+
+public:
+  bool is_present;
+  cl_t lbf_fml;
+};
+
 // command line
-inline char* get_cmd_option(char** begin, char** end,
-                            const std::string& option) {
-  char** itr = std::find(begin, end, option);
-  if (itr != end && ++itr != end) return *itr;
+inline char *get_cmd_option(char **begin, char **end,
+                            const std::string &option) {
+  char **itr = std::find(begin, end, option);
+  if (itr != end && ++itr != end)
+    return *itr;
   return 0;
 }
 
-inline bool cmd_option_exists(char** begin, char** end,
-                              const std::string& option) {
+inline bool cmd_option_exists(char **begin, char **end,
+                              const std::string &option) {
   return std::find(begin, end, option) != end;
 }
 
 // output
-inline void output(const std::string filename,
-                   const std::string output_file_name, const coord_t level,
-                   const coord_t s_level, const coord_t encoding, const coord_t no_of_var, const coord_t no_of_clauses, const coord_t no_of_avars, const coord_t no_of_evars, const coord_t uni_dep_set, const coord_t pa_var, const coord_t bf_var, const coord_t cs_var, const coord_t vars_in_dimacs, const coord_t matrix_size_dimacs )
+inline void
+output(const std::string filename, const std::string output_file_name,
+       const coord_t level, const coord_t s_level, const coord_t encoding,
+       const coord_t no_of_var, const coord_t no_of_clauses,
+       const coord_t no_of_avars, const coord_t no_of_evars,
+       const coord_t uni_dep_set, const coord_t pa_var, const coord_t bf_var,
+       const coord_t cs_var, const coord_t vars_in_dimacs,
+       const coord_t matrix_size_dimacs)
 
 {
 
@@ -106,7 +119,6 @@ inline void output(const std::string filename,
   std::cout << "pa_vars          " << pa_var << '\n';
   std::cout << "vars_in_dimacs   " << vars_in_dimacs << '\n';
   std::cout << "mtx_size_dimacs  " << matrix_size_dimacs << '\n';
-
 }
 
 // Basic util
@@ -133,8 +145,15 @@ inline cl_t extract_int(std::string line) {
   return vec_int;
 }
 
+/** Create lbf formula **/
+
+inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {
+  // Implement the bf to lbf conversion
+  return lbf_vars;
+}
+
 /** Vector intersection */
-inline cl_t vector_intersection(cl_t& v1, cl_t& v2) {
+inline cl_t vector_intersection(cl_t &v1, cl_t &v2) {
   cl_t v;
   std::set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(),
                         std::back_inserter(v));
@@ -142,12 +161,12 @@ inline cl_t vector_intersection(cl_t& v1, cl_t& v2) {
 }
 
 /** Find an element in a vector **/
-inline bool find_int_element(cl_t& vec, lit_t elem) {
+inline bool find_int_element(cl_t &vec, lit_t elem) {
   return std::find(vec.begin(), vec.end(), elem) != vec.end();
 }
 
 // Find a pair in a vector */
-inline bool pair_present(pairs_t& V, pair_t elem) {
+inline bool pair_present(pairs_t &V, pair_t elem) {
   if (std::find(V.begin(), V.end(), elem) != V.end()) {
     return true;
   } else {
@@ -157,7 +176,7 @@ inline bool pair_present(pairs_t& V, pair_t elem) {
 
 /** Implement a template */
 /** Return index of the element **/
-inline lit_t find_index(cl_t& vec, lit_t elem) {
+inline lit_t find_index(cl_t &vec, lit_t elem) {
   auto it = std::find(vec.begin(), vec.end(), elem);
   if (it == vec.end()) {
     // Todo: implement exception handling
@@ -171,7 +190,7 @@ inline lit_t find_index(cl_t& vec, lit_t elem) {
 }
 
 /** Return index of the element **/
-inline lit_t find_vector_index(cls_t& vec, cl_t& elem) {
+inline lit_t find_vector_index(cls_t &vec, cl_t &elem) {
   auto it = std::find(vec.begin(), vec.end(), elem);
   if (it == vec.end()) {
     // Todo: implement exception handling
@@ -185,7 +204,7 @@ inline lit_t find_vector_index(cls_t& vec, cl_t& elem) {
 }
 
 /** Return index of the second element */
-inline lit_t find_scd_index(pairs_t& vec, lit_t elem) {
+inline lit_t find_scd_index(pairs_t &vec, lit_t elem) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     if (vec[i].second == elem) {
       return i;
@@ -197,58 +216,58 @@ inline lit_t find_scd_index(pairs_t& vec, lit_t elem) {
 
 /** Trim Operations */
 // trim from left
-inline std::string& ltrim(std::string& s, const char* t = " \t\n\r\f\v") {
+inline std::string &ltrim(std::string &s, const char *t = " \t\n\r\f\v") {
   s.erase(0, s.find_first_not_of(t));
   return s;
 }
 
 // trim from right
-inline std::string& rtrim(std::string& s, const char* t = " \t\n\r\f\v") {
+inline std::string &rtrim(std::string &s, const char *t = " \t\n\r\f\v") {
   s.erase(s.find_last_not_of(t) + 1);
   return s;
 }
 
 // trim from left & right
-inline std::string& trim(std::string& s, const char* t = " \t\n\r\f\v") {
+inline std::string &trim(std::string &s, const char *t = " \t\n\r\f\v") {
   return ltrim(rtrim(s, t), t);
 }
 
 /** Print n-dimentional vector **/
-inline void print_1d_vector(cl_t& vec) {
+inline void print_1d_vector(cl_t &vec) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     std::cout << vec[i] << " ";
   }
 }
 
-inline void print_2d_vector(cls_t& vec) {
+inline void print_2d_vector(cls_t &vec) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     print_1d_vector(vec[i]);
     std::cout << "\n";
   }
 }
 
-inline void print_3d_vector(minsat_ass& vec) {
+inline void print_3d_vector(minsat_ass &vec) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     print_2d_vector(vec[i]);
     std::cout << "\n";
   }
 }
 
-inline void print_1d_vector_pair(std::vector<std::pair<lit_t, char> >& T) {
-  for (const auto& p : T) {
+inline void print_1d_vector_pair(std::vector<std::pair<lit_t, char>> &T) {
+  for (const auto &p : T) {
     std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
   }
 }
 
-inline void print_1d_vector_int_pair(pairs_t& T) {
-  for (pair_t& p : T) {
+inline void print_1d_vector_int_pair(pairs_t &T) {
+  for (pair_t &p : T) {
     std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
   }
 }
 
-inline void print_2d_vector_pair(sel_bf& T) {
-  for (const pairs_t& i : T) {
-    for (const pair_t& p : i) {
+inline void print_2d_vector_pair(sel_bf &T) {
+  for (const pairs_t &i : T) {
+    for (const pair_t &p : i) {
       std::cout << "(" << p.first << "," << p.second << ")" << std::endl;
     }
     std::cout << "\n";
