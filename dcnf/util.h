@@ -8,14 +8,14 @@
 // None of the following macros should exist:
 #define LOG(x) std::cout << x << std::endl
 
-typedef std::int64_t lit_t;      // literals
-typedef std::vector<lit_t> cl_t; // clauses
-typedef std::vector<cl_t> cls_t; // clause-sets
+typedef std::int64_t lit_t;       // literals
+typedef std::vector<lit_t> cl_t;  // clauses
+typedef std::vector<cl_t> cls_t;  // clause-sets
 typedef std::pair<lit_t, lit_t> pair_t;
 typedef std::vector<pair_t> pairs_t;
-typedef std::vector<pairs_t> sel_bf;   // represent bf var set
-typedef std::vector<cls_t> minsat_ass; // vector of clause-set
-typedef std::uint32_t coord_t;         // coordinates
+typedef std::vector<pairs_t> sel_bf;    // represent bf var set
+typedef std::vector<cls_t> minsat_ass;  // vector of clause-set
+typedef std::uint32_t coord_t;          // coordinates
 
 enum Error_codes {
   file_reading_error = 1,
@@ -40,7 +40,7 @@ class Clauses {
   cl_t m_avars;
   cl_t m_alits;
 
-public:
+ public:
   Clauses(){};
   void initialise_lits(cl_t c) { m_lits = c; }
   void initialise_evars(cl_t e) { m_evars = e; }
@@ -60,7 +60,7 @@ class Variables {
   cl_t m_dependency;
   coord_t m_eindex;
 
-public:
+ public:
   Variables() : m_quantype('a'), m_dependency({}) {}
   void initialise_qtype(char c) { m_quantype = c; }
   void initialise_eindex(coord_t i) { m_eindex = i; }
@@ -72,8 +72,7 @@ public:
 };
 
 class bf_lbf_converter {
-
-public:
+ public:
   bool is_present;
   cl_t lbf_fml;
 };
@@ -82,8 +81,7 @@ public:
 inline char *get_cmd_option(char **begin, char **end,
                             const std::string &option) {
   char **itr = std::find(begin, end, option);
-  if (itr != end && ++itr != end)
-    return *itr;
+  if (itr != end && ++itr != end) return *itr;
   return 0;
 }
 
@@ -93,17 +91,17 @@ inline bool cmd_option_exists(char **begin, char **end,
 }
 
 // output
-inline void
-output(const std::string filename, const std::string output_file_name,
-       const coord_t level, const coord_t s_level, const coord_t encoding,
-       const coord_t no_of_var, const coord_t no_of_clauses,
-       const coord_t no_of_avars, const coord_t no_of_evars,
-       const coord_t uni_dep_set, const coord_t pa_var, const coord_t bf_var,
-       const coord_t cs_var, const coord_t vars_in_dimacs,
-       const coord_t matrix_size_dimacs)
+inline void output(const std::string filename,
+                   const std::string output_file_name, const coord_t level,
+                   const coord_t s_level, const coord_t encoding,
+                   const coord_t no_of_var, const coord_t no_of_clauses,
+                   const coord_t no_of_avars, const coord_t no_of_evars,
+                   const coord_t uni_dep_set, const coord_t pa_var,
+                   const coord_t bf_var, const coord_t cs_var,
+                   const coord_t vars_in_dimacs,
+                   const coord_t matrix_size_dimacs)
 
 {
-
   std::cout << "filename         " << filename << '\n';
   std::cout << "output_filename  " << output_file_name << '\n';
   std::cout << "autarky_level    " << level << '\n';
@@ -147,21 +145,22 @@ inline cl_t extract_int(std::string line) {
 
 /** Create lbf formula **/
 inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {
-	cl_t binary_repr, fml_repr;
-	coord_t blen = 0;
-	while (bf_var > 0) {
-		binary_repr.push_back(bf_var % 2);
-		bf_var = bf_var / 2;
-		++blen;
-	}
-	assert(blen <= lbf_vars.size());
-	// Enforce the resultant vector is of size of lbf_vars
-	for (coord_t i = blen; i < lbf_vars.size(); ++i) {
-		binary_repr.push_back(0);
-	}
-	for (coord_t i = 0; i < lbf_vars.size(); ++i) {
-		(binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i]) : fml_repr.push_back(lbf_vars[i]));  
-	}
+  cl_t binary_repr, fml_repr;
+  coord_t blen = 0;
+  while (bf_var > 0) {
+    binary_repr.push_back(bf_var % 2);
+    bf_var = bf_var / 2;
+    ++blen;
+  }
+  assert(blen <= lbf_vars.size());
+  // Enforce the resultant vector is of size of lbf_vars
+  for (coord_t i = blen; i < lbf_vars.size(); ++i) {
+    binary_repr.push_back(0);
+  }
+  for (coord_t i = 0; i < lbf_vars.size(); ++i) {
+    (binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i])
+                         : fml_repr.push_back(lbf_vars[i]));
+  }
   return fml_repr;
 }
 
