@@ -4,8 +4,7 @@
  * At Most One Constraint **/
 void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
   const unsigned N = bf_vars.size();
-  if (N <= 1)
-    return;
+  if (N <= 1) return;
   for (unsigned i = 0; i < N - 1; i++) {
     for (unsigned j = i + 1; j < N; j++) {
       cnf_fml.push_back(cl_t{-bf_vars[i], -bf_vars[j]});
@@ -62,8 +61,7 @@ void untouched_clauses(const std::vector<Clauses> dcnf_clauses,
     cl_t clause = dcnf_clauses[i].evars();
     for (lit_t e : clause) {
       coord_t indx = dcnf_variables[e - 1].eindex();
-      for (lit_t l : bf_vars[indx])
-        cnf_fml.push_back(cl_t{cs_vars[i], -l});
+      for (lit_t l : bf_vars[indx]) cnf_fml.push_back(cl_t{cs_vars[i], -l});
     }
   }
 }
@@ -71,7 +69,6 @@ void untouched_clauses(const std::vector<Clauses> dcnf_clauses,
 /** 4.5. t(C) **/
 void non_trivial_autarky(cl_t &cs_vars, cls_t &cnf_fml) {
   cl_t dummy_vec;
-  for (lit_t i : cs_vars)
-    dummy_vec.push_back(i);
+  for (lit_t i : cs_vars) dummy_vec.push_back(i);
   cnf_fml.push_back(dummy_vec);
 }

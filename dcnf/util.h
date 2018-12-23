@@ -146,10 +146,23 @@ inline cl_t extract_int(std::string line) {
 }
 
 /** Create lbf formula **/
-
 inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {
-  // Implement the bf to lbf conversion
-  return lbf_vars;
+	cl_t binary_repr, fml_repr;
+	coord_t blen = 0;
+	while (bf_var > 0) {
+		binary_repr.push_back(bf_var % 2);
+		bf_var = bf_var / 2;
+		++blen;
+	}
+	assert(blen <= lbf_vars.size());
+	// Enforce the resultant vector is of size of lbf_vars
+	for (coord_t i = blen; i < lbf_vars.size(); ++i) {
+		binary_repr.push_back(0);
+	}
+	for (coord_t i = 0; i < lbf_vars.size(); ++i) {
+		(binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i]) : fml_repr.push_back(lbf_vars[i]));  
+	}
+  return fml_repr;
 }
 
 /** Vector intersection */
