@@ -284,7 +284,7 @@ int main(int argc, char *argv[]) {
 
   touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
-  satisfied_clauses(dcnf_clauses, dcnf_variables, bf_vars, pa_var_msat_ass,
+  satisfied_clauses(encoding, no_of_clauses, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,
                     bf2lbf_var_map);  // (4.2)
 

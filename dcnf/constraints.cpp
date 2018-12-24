@@ -4,7 +4,8 @@
  * At Most One Constraint **/
 void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
   const unsigned N = bf_vars.size();
-  if (N <= 1) return;
+  if (N <= 1)
+    return;
   for (unsigned i = 0; i < N - 1; i++) {
     for (unsigned j = i + 1; j < N; j++) {
       cnf_fml.push_back(cl_t{-bf_vars[i], -bf_vars[j]});
@@ -13,7 +14,8 @@ void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
 }
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
-void satisfied_clauses(std::vector<Clauses> dcnf_clauses,
+void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t lbf_vars,
+                       std::vector<Clauses> dcnf_clauses,
                        std::vector<Variables> dcnf_variables, cls_t &bf_vars,
                        minsat_ass &pa_var_msat_ass,
                        cls_t &msat_concrete_var_map, sel_bf &selected_bf,
@@ -28,9 +30,30 @@ void satisfied_clauses(std::vector<Clauses> dcnf_clauses,
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
         coord_t t_indx = dcnf_variables[std::abs(var) - 1].eindex();
         coord_t indx = find_scd_index(selected_bf[t_indx], depdt);
-        v2.push_back(-bf_vars[t_indx][indx]);
-        cnf_fml.push_back(
-            cl_t{-msat_concrete_var_map[i][j], bf_vars[t_indx][indx]});
+        lit_t current_bf_var = bf_vars[t_indx][indx];
+        // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
+        coord_t bf_id = current_bf_var - no_of_clauses;
+        if (encoding == 1) {
+          if (bf2lbf_var_map[bf_id].is_present == 0) {
+            bf2lbf_var_map[bf_id].is_present = 1;
+            bf2lbf_var_map[bf_id].lbf_fml = lbf_fml(lbf_vars, current_bf_var);
+          }
+          cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
+          for (lit_t li : cls_lbf) {
+            v2.push_back(-li);
+          }
+        } else {
+          v2.push_back(-bf_vars[t_indx][indx]);
+        }
+        if (encoding == 1) {
+          cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
+          for (lit_t li : cls_lbf) {
+            cnf_fml.push_back(cl_t{-msat_concrete_var_map[i][j], li});
+          }
+        } else {
+          cnf_fml.push_back(
+              cl_t{-msat_concrete_var_map[i][j], bf_vars[t_indx][indx]});
+        }
       }
       cnf_fml.push_back(v2);
     }
@@ -61,7 +84,8 @@ void untouched_clauses(const std::vector<Clauses> dcnf_clauses,
     cl_t clause = dcnf_clauses[i].evars();
     for (lit_t e : clause) {
       coord_t indx = dcnf_variables[e - 1].eindex();
-      for (lit_t l : bf_vars[indx]) cnf_fml.push_back(cl_t{cs_vars[i], -l});
+      for (lit_t l : bf_vars[indx])
+        cnf_fml.push_back(cl_t{cs_vars[i], -l});
     }
   }
 }
@@ -69,6 +93,7 @@ void untouched_clauses(const std::vector<Clauses> dcnf_clauses,
 /** 4.5. t(C) **/
 void non_trivial_autarky(cl_t &cs_vars, cls_t &cnf_fml) {
   cl_t dummy_vec;
-  for (lit_t i : cs_vars) dummy_vec.push_back(i);
+  for (lit_t i : cs_vars)
+    dummy_vec.push_back(i);
   cnf_fml.push_back(dummy_vec);
 }
