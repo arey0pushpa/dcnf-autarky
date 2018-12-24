@@ -288,7 +288,7 @@ int main(int argc, char *argv[]) {
                     msat_concrete_var_map, selected_bf, cnf_fml,
                     bf2lbf_var_map);  // (4.2)
 
-  untouched_clauses(dcnf_clauses, dcnf_variables, bf_vars, cs_vars,
+  untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars, cs_vars,
                     no_of_clauses, cnf_fml, bf2lbf_var_map);  // (4.4)
 
   if (encoding == 0) {  // Quadratic encoding has AtMostOne() constraint

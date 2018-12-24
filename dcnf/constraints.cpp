@@ -14,7 +14,7 @@ void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
 }
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
-void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t lbf_vars,
+void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
                        std::vector<Clauses> dcnf_clauses,
                        std::vector<Variables> dcnf_variables, cls_t &bf_vars,
                        minsat_ass &pa_var_msat_ass,
@@ -75,7 +75,8 @@ void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 }
 
 /** 4.4. /\_v,f t(C) || !t(v,f) **/
-void untouched_clauses(const std::vector<Clauses> dcnf_clauses,
+void untouched_clauses(const coord_t encoding, cl_t& lbf_vars,
+                       const std::vector<Clauses> dcnf_clauses,
                        const std::vector<Variables> dcnf_variables,
                        cls_t &bf_vars, cl_t &cs_vars,
                        const coord_t &num_of_clause, cls_t &cnf_fml,
@@ -84,8 +85,14 @@ void untouched_clauses(const std::vector<Clauses> dcnf_clauses,
     cl_t clause = dcnf_clauses[i].evars();
     for (lit_t e : clause) {
       coord_t indx = dcnf_variables[e - 1].eindex();
-      for (lit_t l : bf_vars[indx])
-        cnf_fml.push_back(cl_t{cs_vars[i], -l});
+      if (encoding == 1) {
+        for (lit_t l : lbf_vars) {
+          cnf_fml.push_back(cl_t{cs_vars[i], -l});
+        }
+      } else {
+        for (lit_t l : bf_vars[indx])
+          cnf_fml.push_back(cl_t{cs_vars[i], -l});
+      }
     }
   }
 }
