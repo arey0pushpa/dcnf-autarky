@@ -14,7 +14,7 @@ void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
 }
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
-void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
+void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t &lbf_vars,
                        std::vector<Clauses> dcnf_clauses,
                        std::vector<Variables> dcnf_variables, cls_t &bf_vars,
                        minsat_ass &pa_var_msat_ass,
@@ -27,25 +27,24 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
       v2.push_back(msat_concrete_var_map[i][j]);
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
-				//std::cout << "Existential min ass var is: " << var << "\n";
+        // std::cout << "Existential min ass var is: " << var << "\n";
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
-				//std::cout << "Univ min ass dep var is: " << depdt << "\n";
+        // std::cout << "Univ min ass dep var is: " << depdt << "\n";
         coord_t t_indx = dcnf_variables[std::abs(var) - 1].eindex();
-				//std::cout << "Existential min ass var index is: " << t_indx << "\n";
+        // std::cout << "Existential min ass var index is: " << t_indx << "\n";
         coord_t indx = find_scd_index(selected_bf[t_indx], depdt);
-				//std::cout << "Univ min ass dep var index  is: " << indx << "\n";
+        // std::cout << "Univ min ass dep var index  is: " << indx << "\n";
         lit_t current_bf_var = bf_vars[t_indx][indx];
-				//std::cout << "The current bf var is: " << current_bf_var << "\n\n";
+        // std::cout << "The current bf var is: " << current_bf_var << "\n\n";
         // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
         coord_t bf_id = current_bf_var - no_of_clauses;
-				//std::cout << "The current bf id is: " << bf_id << "\n\n";
+        // std::cout << "The current bf id is: " << bf_id << "\n\n";
         if (encoding == 1) {
           if (bf2lbf_var_map[bf_id].is_present == 0) {
             bf2lbf_var_map[bf_id].is_present = 1;
-            bf2lbf_var_map[bf_id].lbf_fml = lbf_fml(lbf_vars, current_bf_var);
-						std::cout << "LBF converstion of " << bf_id << " is \t";
-					 	print_1d_vector (bf2lbf_var_map[bf_id].lbf_fml);
-						std::cout << "\n";
+            bf2lbf_var_map[bf_id].lbf_fml = lbf_fml(lbf_vars, bf_id);
+            std::cout << "LBF converstion of " << bf_id << " is: ";
+            print_1d_vector(bf2lbf_var_map[bf_id].lbf_fml);
           }
           cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
           for (lit_t li : cls_lbf) {
@@ -54,8 +53,7 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
           }
         } else {
           v2.push_back(-current_bf_var);
-          cnf_fml.push_back(
-              cl_t{-msat_concrete_var_map[i][j], current_bf_var});
+          cnf_fml.push_back(cl_t{-msat_concrete_var_map[i][j], current_bf_var});
         }
       }
       cnf_fml.push_back(v2);
@@ -78,7 +76,7 @@ void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 }
 
 /** 4.4. /\_v,f t(C) || !t(v,f) **/
-void untouched_clauses(const coord_t encoding, cl_t& lbf_vars,
+void untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                        const std::vector<Clauses> dcnf_clauses,
                        const std::vector<Variables> dcnf_variables,
                        cls_t &bf_vars, cl_t &cs_vars,

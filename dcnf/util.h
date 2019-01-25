@@ -3,10 +3,13 @@
 #include <iostream>
 #include <limits>
 #include <sstream>
+#include <bitset>
 #include <vector>
 
 // None of the following macros should exist:
 #define LOG(x) std::cout << x << std::endl
+
+typedef std::vector<bool> boolv_t; 
 
 typedef std::int64_t lit_t;       // literals
 typedef std::vector<lit_t> cl_t;  // clauses
@@ -146,15 +149,17 @@ inline cl_t extract_int(std::string line) {
 
 /** Create lbf formula **/
 inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {
-  cl_t binary_repr, fml_repr;
   coord_t blen = 0;
-  while (bf_var > 0) {
+  boolv_t binary_repr;
+  cl_t fml_repr;
+	
+	while (bf_var > 0) {
     binary_repr.push_back(bf_var % 2);
     bf_var = bf_var / 2;
     ++blen;
   }
   assert(blen <= lbf_vars.size());
-  // Enforce the resultant vector is of size of lbf_vars
+ 	// Enforce the resultant vector is of size of lbf_vars
   for (coord_t i = blen; i < lbf_vars.size(); ++i) {
     binary_repr.push_back(0);
   }
