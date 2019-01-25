@@ -26,7 +26,7 @@
  *    - Passing the parameters all the time looks ugly.
  */
 
-#include <bitset> // std::bitset
+#include <bitset>  // std::bitset
 #include <chrono>
 #include <cmath>
 #include <fstream>
@@ -101,17 +101,17 @@ int main(int argc, char *argv[]) {
   auto start = std::chrono::high_resolution_clock::now();
 
   /** Global Variables ***/
-  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
+  cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
 
-  cl_t e_vars;   // {exists-var}
-  cl_t a_vars;   // {forall-var}
-  cls_t dep_set; // {{dep-var}...}
+  cl_t e_vars;    // {exists-var}
+  cl_t a_vars;    // {forall-var}
+  cls_t dep_set;  // {{dep-var}...}
 
-  sel_bf selected_bf;              // All bf (v,f) pairs {(e-var, )...}
-  minsat_ass minsat_clause_assgmt; // All S(C)'s: {<e-var,bf(k)>...}
+  sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
+  minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
 
-  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
-  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
+  cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
+  cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
 
   cl_t cs_vars;
   cls_t bf_vars;
@@ -143,10 +143,8 @@ int main(int argc, char *argv[]) {
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
+  if (avar_iterator == a_vars.end()) a_vars_end = true;
+  if (evar_iterator == e_vars.end()) e_vars_end = true;
 
   coord_t e_var_cntr = 0;
   // Create a big vector[used Classes to attach additional info]
@@ -180,7 +178,6 @@ int main(int argc, char *argv[]) {
   }
 
   cls_t unique_dep_set = unique_vectors(dep_set);
-
 
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
@@ -225,8 +222,7 @@ int main(int argc, char *argv[]) {
     index += 1;
   }
 
- 
-	coord_t lbf_var_size = 0;
+  coord_t lbf_var_size = 0;
   cl_t lbf_vars, s_bf;
   // bf variable := two_dim [v] [f_v] -------------------------
   coord_t preindex = index;
@@ -239,8 +235,12 @@ int main(int argc, char *argv[]) {
     }
     bf_vars.push_back(s_bf);
     s_bf.clear();
-  }	
-  if (encoding == 1) { // LOG Encoding
+  }
+
+  // Additional 1 due to index count is incremented after last use.
+  std::vector<bf_lbf_converter> bf2lbf_var_map(index - (no_of_clauses + 1));
+
+  if (encoding == 1) {  // LOG Encoding
     index = preindex;
     for (coord_t i = 0; i < selected_bf.size(); ++i) {
       bf_var_count += selected_bf[i].size();
@@ -252,9 +252,6 @@ int main(int argc, char *argv[]) {
       index += 1;
     }
   }
-
-  // Additional 1 due to index count is incremented after last use.
-  std::vector<bf_lbf_converter> bf2lbf_var_map(index - (no_of_clauses+1));
 
   // pa variable := Only consider unique mapping
   cls_t pa_var_set;
@@ -282,38 +279,37 @@ int main(int argc, char *argv[]) {
       }
     }
   }
-	
 
-	std::cout << "selected Bf_vars is : ";
-	print_2d_vector(bf_vars);
-	std::cout << "\n";
-	
-	std::cout << "pa var m ass is : ";
-	print_3d_vector(pa_var_msat_ass);
-	std::cout << "\n";
-	
-	std::cout << "selected Bf_vars is : ";
-	print_2d_vector_pair(selected_bf);
+  /*
+          std::cout << "selected Bf_vars is : ";
+          print_2d_vector(bf_vars);
+          std::cout << "\n";
 
-	std::cout << "Min sat concrete var map is : ";
-	print_2d_vector(msat_concrete_var_map);
+          std::cout << "pa var m ass is : ";
+          print_3d_vector(pa_var_msat_ass);
+          std::cout << "\n";
 
+          std::cout << "selected Bf_vars is : ";
+          print_2d_vector_pair(selected_bf);
+
+          std::cout << "Min sat concrete var map is : ";
+          print_2d_vector(msat_concrete_var_map);
+  */
   // --- Build Constraints
-  non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
+  non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
-  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
-  
+  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
+
   satisfied_clauses(encoding, no_of_clauses, lbf_vars, dcnf_clauses,
                     dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,
-                    bf2lbf_var_map); // (4.2)
-	std::cout << "Constraint creation .... 4.2 done";
+                    bf2lbf_var_map);  // (4.2)
 
   untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars,
-                    cs_vars, no_of_clauses, cnf_fml, bf2lbf_var_map); // (4.4)
+                    cs_vars, no_of_clauses, cnf_fml, bf2lbf_var_map);  // (4.4)
 
-  if (encoding == 0) { // Quadratic encoding has AtMostOne() constraint
-    for (coord_t i = 0; i < no_of_var; ++i) { // (4.1)
+  if (encoding == 0) {  // Quadratic encoding has AtMostOne() constraint
+    for (coord_t i = 0; i < no_of_var; ++i) {  // (4.1)
       if (dcnf_variables[i].qtype() == 'e') {
         coord_t indx = dcnf_variables[i].eindex();
         at_most_one(bf_vars[indx], cnf_fml);
@@ -345,12 +341,16 @@ int main(int argc, char *argv[]) {
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_line = bf_var_line + std::to_string(bf_vars[i][j]) + " ";
     }
-    if (i < bf_vars.size() - 1)
-      bf_var_line = bf_var_line + " +  ";
+    if (i < bf_vars.size() - 1) bf_var_line = bf_var_line + " +  ";
   }
 
-  fout << "c There are total " << total << " distinct bf-variables. "
-       << bf_var_line;
+  if (encoding == 1) {
+    fout << "c There are total " << total << " distinct lbf-variables. "
+         << lbf_var_size;
+  } else {
+    fout << "c There are total " << total << " distinct bf-variables. "
+         << bf_var_line;
+  }
   fout << "\n";
   fout << "c There are total " << pa_vars.size() << " distinct pa-variables. ";
   for (coord_t i = 0; i < pa_vars.size(); ++i) {
