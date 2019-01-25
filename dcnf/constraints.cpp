@@ -38,24 +38,22 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
 				//std::cout << "The current bf var is: " << current_bf_var << "\n\n";
         // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
         coord_t bf_id = current_bf_var - no_of_clauses;
+				//std::cout << "The current bf id is: " << bf_id << "\n\n";
         if (encoding == 1) {
           if (bf2lbf_var_map[bf_id].is_present == 0) {
             bf2lbf_var_map[bf_id].is_present = 1;
             bf2lbf_var_map[bf_id].lbf_fml = lbf_fml(lbf_vars, current_bf_var);
+						std::cout << "LBF converstion of " << bf_id << " is \t";
+					 	print_1d_vector (bf2lbf_var_map[bf_id].lbf_fml);
+						std::cout << "\n";
           }
           cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
           for (lit_t li : cls_lbf) {
             v2.push_back(-li);
-          }
-        } else {
-          v2.push_back(-current_bf_var);
-        }
-        if (encoding == 1) {
-          cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
-          for (lit_t li : cls_lbf) {
             cnf_fml.push_back(cl_t{-msat_concrete_var_map[i][j], li});
           }
         } else {
+          v2.push_back(-current_bf_var);
           cnf_fml.push_back(
               cl_t{-msat_concrete_var_map[i][j], current_bf_var});
         }
