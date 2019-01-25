@@ -181,6 +181,7 @@ int main(int argc, char *argv[]) {
 
   cls_t unique_dep_set = unique_vectors(dep_set);
 
+
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
   std::vector<Clauses> dcnf_clauses;
@@ -212,28 +213,25 @@ int main(int argc, char *argv[]) {
     if ( dependency_var == 0 ) {
       // Implement a dependency scheme
     } */
-	std::cout << "Creating the set of all solutions...\n";
-
   set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                     minsat_clause_assgmt, no_of_clauses, no_of_var, level);
-	std::cout << "Created set of all solutions...\n";
 
   /** Traslation variables with ordering */
   coord_t index = 1;
 
-  // cs variable := #no_of_clauses
+  // cs variable := #no_of_clauses -----------------------------
   for (coord_t i = 0; i < no_of_clauses; ++i) {
     cs_vars.push_back(index);
     index += 1;
   }
 
-  coord_t lbf_var_size = 0;
+ 
+	coord_t lbf_var_size = 0;
   cl_t lbf_vars, s_bf;
-  // bf variable := two_dim [v] [f_v]
+  // bf variable := two_dim [v] [f_v] -------------------------
   coord_t preindex = index;
   coord_t bf_var_count = 0;
 
-	std::cout << "BF var creating";
   for (coord_t i = 0; i < selected_bf.size(); ++i) {
     for (coord_t j = 0; j < selected_bf[i].size(); ++j) {
       s_bf.push_back(index);
@@ -241,8 +239,7 @@ int main(int argc, char *argv[]) {
     }
     bf_vars.push_back(s_bf);
     s_bf.clear();
-  }
-	std::cout << "Going to Log encoding...\n";
+  }	
   if (encoding == 1) { // LOG Encoding
     index = preindex;
     for (coord_t i = 0; i < selected_bf.size(); ++i) {
@@ -255,9 +252,9 @@ int main(int argc, char *argv[]) {
       index += 1;
     }
   }
-	std::cout << "BF var done";
 
-  std::vector<bf_lbf_converter> bf2lbf_var_map(index - no_of_clauses);
+  // Additional 1 due to index count is incremented after last use.
+  std::vector<bf_lbf_converter> bf2lbf_var_map(index - (no_of_clauses+1));
 
   // pa variable := Only consider unique mapping
   cls_t pa_var_set;
@@ -286,15 +283,26 @@ int main(int argc, char *argv[]) {
     }
   }
 	
-	std::cout << "BF var done";
+
+	std::cout << "selected Bf_vars is : ";
+	print_2d_vector(bf_vars);
+	std::cout << "\n";
+	
+	std::cout << "pa var m ass is : ";
+	print_3d_vector(pa_var_msat_ass);
+	std::cout << "\n";
+	
+	std::cout << "selected Bf_vars is : ";
+	print_2d_vector_pair(selected_bf);
+
+	std::cout << "Min sat concrete var map is : ";
+	print_2d_vector(msat_concrete_var_map);
 
   // --- Build Constraints
-	std::cout << "Constraint creation .... 4.5";
   non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
 
   touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
-
-	std::cout << "Constraint creation .... 4.3 done";
+  
   satisfied_clauses(encoding, no_of_clauses, lbf_vars, dcnf_clauses,
                     dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,

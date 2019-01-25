@@ -27,10 +27,15 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
       v2.push_back(msat_concrete_var_map[i][j]);
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
+				//std::cout << "Existential min ass var is: " << var << "\n";
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
+				//std::cout << "Univ min ass dep var is: " << depdt << "\n";
         coord_t t_indx = dcnf_variables[std::abs(var) - 1].eindex();
+				//std::cout << "Existential min ass var index is: " << t_indx << "\n";
         coord_t indx = find_scd_index(selected_bf[t_indx], depdt);
+				//std::cout << "Univ min ass dep var index  is: " << indx << "\n";
         lit_t current_bf_var = bf_vars[t_indx][indx];
+				//std::cout << "The current bf var is: " << current_bf_var << "\n\n";
         // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
         coord_t bf_id = current_bf_var - no_of_clauses;
         if (encoding == 1) {
@@ -43,7 +48,7 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
             v2.push_back(-li);
           }
         } else {
-          v2.push_back(-bf_vars[t_indx][indx]);
+          v2.push_back(-current_bf_var);
         }
         if (encoding == 1) {
           cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
@@ -52,7 +57,7 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t& lbf_vars,
           }
         } else {
           cnf_fml.push_back(
-              cl_t{-msat_concrete_var_map[i][j], bf_vars[t_indx][indx]});
+              cl_t{-msat_concrete_var_map[i][j], current_bf_var});
         }
       }
       cnf_fml.push_back(v2);

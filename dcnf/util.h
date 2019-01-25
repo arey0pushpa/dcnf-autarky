@@ -75,6 +75,7 @@ class bf_lbf_converter {
  public:
   bool is_present;
   cl_t lbf_fml;
+	bf_lbf_converter() : is_present (false) { }
 };
 
 // command line
