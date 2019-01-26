@@ -80,36 +80,20 @@ void set_all_solutions(std::vector<Clauses>& dcnf_clauses,
             pair_t p3 = std::make_pair(std::abs(e1_lit), -d);
             pair_t p4 = std::make_pair(std::abs(e2_lit), d);
             if (e1_lit * e2_lit >= 1) {
-              if (pair_present(V, p1)) {
-                continue;
-              } else if (pair_present(V, p2)) {
-                continue;
-              } else {
+              if (! (pair_present(V, p1) || pair_present(V, p2)) ) {
                 cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), -d};
                 m_ca.push_back(sat_ca1);
               }
-              if (pair_present(V, p3)) {
-                continue;
-              } else if (pair_present(V, p4)) {
-                continue;
-              } else {
+              if (! (pair_present(V, p3) ||  pair_present(V, p4) ) ) {
                 cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), d};
                 m_ca.push_back(sat_ca2);
               }
             } else {
-              if (pair_present(V, p1)) {
-                continue;
-              } else if (pair_present(V, p4)) {
-                continue;
-              } else {
+              if ( ! ( pair_present(V, p1) || pair_present(V, p4) ) ) {
                 cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), d};
                 m_ca.push_back(sat_ca1);
               }
-              if (pair_present(V, p2)) {
-                continue;
-              } else if (pair_present(V, p3)) {
-                continue;
-              } else {
+              if ( !( pair_present(V, p2) || pair_present(V, p3) ) ) {
                 cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), -d};
                 m_ca.push_back(sat_ca2);
               }

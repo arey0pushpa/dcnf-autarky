@@ -213,6 +213,8 @@ int main(int argc, char *argv[]) {
   set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                     minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
+  //print_3d_vector(minsat_clause_assgmt);
+
   /** Traslation variables with ordering */
   coord_t index = 1;
 
@@ -280,21 +282,22 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  /*
-          std::cout << "selected Bf_vars is : ";
-          print_2d_vector(bf_vars);
-          std::cout << "\n";
+  std::cout << "selected Bf_vars is : ";
+  print_2d_vector(bf_vars);
+  std::cout << "\n";
 
-          std::cout << "pa var m ass is : ";
-          print_3d_vector(pa_var_msat_ass);
-          std::cout << "\n";
+  std::cout << "pa var m ass is : ";
+  print_3d_vector(pa_var_msat_ass);
+  std::cout << "\n";
 
-          std::cout << "selected Bf_vars is : ";
-          print_2d_vector_pair(selected_bf);
+  std::cout << "selected Bf_vars is : ";
+  print_2d_vector_pair(selected_bf);
+  std::cout << "\n";
 
-          std::cout << "Min sat concrete var map is : ";
-          print_2d_vector(msat_concrete_var_map);
-  */
+  std::cout << "Min sat concrete var map is : ";
+  print_2d_vector(msat_concrete_var_map);
+  std::cout << "\n";
+
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
@@ -304,6 +307,8 @@ int main(int argc, char *argv[]) {
                     dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,
                     bf2lbf_var_map);  // (4.2)
+
+	std::cout << "The 4.2 constratints are done!... \n";
 
   untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars,
                     cs_vars, no_of_clauses, cnf_fml, bf2lbf_var_map);  // (4.4)
