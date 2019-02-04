@@ -33,6 +33,7 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t &lbf_vars,
         lit_t current_bf_var = bf_vars[t_indx][indx];
         // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
         coord_t bf_id = current_bf_var - no_of_clauses;
+				bf_id = bf_id - 1;
         if (encoding == 1) {
           if (bf2lbf_var_map[bf_id].is_present == 0) {
             bf2lbf_var_map[bf_id].is_present = 1;

@@ -303,11 +303,11 @@ int main(int argc, char *argv[]) {
 
   touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
+	std::cout << "Begining the 4.2 constraint\n";
   satisfied_clauses(encoding, no_of_clauses, lbf_vars, dcnf_clauses,
                     dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,
                     bf2lbf_var_map);  // (4.2)
-
 	std::cout << "The 4.2 constratints are done!... \n";
 
   untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars,
