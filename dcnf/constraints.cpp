@@ -13,6 +13,19 @@ void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
   }
 }
 
+
+/** 4.1. Linear encoding: AMO constraint, **/
+void at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml) {
+  const unsigned N = bf_vars.size();
+  if (N <= 1)
+    return;
+  for (unsigned i = 0; i < N - 1; i++) {
+    for (unsigned j = i + 1; j < N; j++) {
+      cnf_fml.push_back(cl_t{-bf_vars[i], -bf_vars[j]});
+    }
+  }
+}
+
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
 void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t &lbf_vars,
                        std::vector<Clauses> dcnf_clauses,
@@ -80,6 +93,8 @@ void untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
     for (lit_t e : clause) {
       coord_t indx = dcnf_variables[e - 1].eindex();
       if (encoding == 1) {
+				// care has to taken to make sure overflowing bits too
+				// are the bottom : REVISIT!
         for (lit_t l : lbf_vars) {
           cnf_fml.push_back(cl_t{cs_vars[i], -l});
         }

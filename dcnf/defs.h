@@ -36,3 +36,4 @@ void untouched_clauses(coord_t encoding, cl_t &lbf_vars,
                        cls_t &cnf_fmls, std::vector<bf_lbf_converter> &);
 
 void at_most_one(cl_t &, cls_t &);
+void at_most_one_linear(cl_t &, cls_t &);
