@@ -18,8 +18,9 @@
 
 /* Todo list
  *
- * 1. Implement Lograthemic encoding.
- * 2. Implement linear encoding.
+ * 1. Implement linear encoding.
+ *   - Add the "Command-variable" Encoding for AMO constraint.
+ *   - Make sure that uep is preserved.
  * 2. Handle empty clause and tautology.
  *    - Add checks to avoid basic SAT and UNSAT cases.
  * 3. namespace creation : do using the classes or namespace.
