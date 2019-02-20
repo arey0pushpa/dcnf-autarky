@@ -27,10 +27,10 @@
  *   Given X = {x1,..,xn} 
  *   seco(x1, ..., xn) is defined recursively
  *    
- *    1.  Base case n <= 4:
+ *    i.  Base case n <= 4:
  *       seco(x1,x2,x3,x4) = the binomial(4,2)=6 prime-clauses for
  *                           amo(x1,x2,x3,x4)
- *    2.  Recursion for n >= 5:
+ *    ii.  Recursion for n >= 5:
  *       seco(x1,...,xn) = Conjunction of
  *                       binomial(3,2)=3 prime-clauses for amo(x1,x2,x3)
  *                       and x1->w, x2->w, x3->w for the commander-variable w
@@ -44,10 +44,11 @@
  *		For ALO one takes the disjunction of the final w with the initial 3
  *     resp. 4 "uncommanded" x1,x2,x3,x4.
  *
-
  * 2. Handle empty clause and tautology.
  *    - Add checks to avoid basic SAT and UNSAT cases.
- * 3. namespace creation : do using the classes or namespace.
+ *    - Add code to remove non ocuuring variables in the matrix.
+ *
+ * 3. Namespace creation : do using the classes or namespace.
  *    - Passing the parameters all the time looks ugly.
  */
 
