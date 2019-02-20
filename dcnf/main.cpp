@@ -24,31 +24,32 @@
  *
  *   Sequential Commander encoding:
  *   The encoding  uses 3n-6 binary clauses (without uep) and < n/2 variables.
- *   Given X = {x1,..,xn} 
- *   seco(x1, ..., xn) is defined recursively
- *    
+ *   Given V = {v1,..,vn}
+ *   seco(v1, ..., vn) is defined recursively
+ *
  *    i.  Base case n <= 4:
- *       seco(x1,x2,x3,x4) = the binomial(4,2)=6 prime-clauses for
- *                           amo(x1,x2,x3,x4)
+ *       seco(v1,v2,v3,v4) = the binomial(4,2)=6 prime-clauses for
+ *                           amo(v1,v2,v3,v4)
  *    ii.  Recursion for n >= 5:
- *       seco(x1,...,xn) = Conjunction of
- *                       binomial(3,2)=3 prime-clauses for amo(x1,x2,x3)
- *                       and x1->w, x2->w, x3->w for the commander-variable w
- *                       and seco(w,x3,...,xn).
- *		Handle UEP: 
- *      The problem is that x1=...=xn=0 admits many solutions.
- *    
+ *       seco(v1,...,vn) = Conjunction of
+ *                       binomial(3,2)=3 prime-clauses for amo(v1,v2,v3)
+ *                       and v1->w, v2->w, v3->w for the commander-variable w
+ *                       and seco(w,v3,...,vn).
+ *		Handle UEP:
+ *      The problem is that v1=...=vn=0 admits many solutions.
+ *
  *	 	For each commander-variable w(x,y,z) add
  *       w -> x v y v z (i.e., the 4-clause {-w,x,y,z}).
- *		
- *		For ALO one takes the disjunction of the final w with the initial 3
- *     resp. 4 "uncommanded" x1,x2,x3,x4.
  *
  * 2. Handle empty clause and tautology.
  *    - Add checks to avoid basic SAT and UNSAT cases.
- *    - Add code to remove non ocuuring variables in the matrix.
+ *    - Add code to remove non occuring variables in the matrix.
  *
- * 3. Namespace creation : do using the classes or namespace.
+ * 3. Cleaning:
+ *    - The use of index is not clear or what is the use of cnf_vars.
+ *       The purpose should be clear.
+ *
+ * 4. Namespace creation: do using the classes or namespace.
  *    - Passing the parameters all the time looks ugly.
  */
 
@@ -310,20 +311,8 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  std::cout << "selected Bf_vars is : ";
+	std::cout << "selected Bf_vars is : ";
   print_2d_vector(bf_vars);
-  std::cout << "\n";
-
-  std::cout << "pa var m ass is : ";
-  print_3d_vector(pa_var_msat_ass);
-  std::cout << "\n";
-
-  std::cout << "selected Bf_vars is : ";
-  print_2d_vector_pair(selected_bf);
-  std::cout << "\n";
-
-  std::cout << "Min sat concrete var map is : ";
-  print_2d_vector(msat_concrete_var_map);
   std::cout << "\n";
 
   // --- Build Constraints
@@ -331,25 +320,22 @@ int main(int argc, char *argv[]) {
 
   touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
 
-  std::cout << "Begining the 4.2 constraint\n";
   satisfied_clauses(encoding, no_of_clauses, lbf_vars, dcnf_clauses,
                     dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,
                     bf2lbf_var_map); // (4.2)
-  std::cout << "The 4.2 constratints are done!... \n";
 
   untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars,
                     cs_vars, no_of_clauses, cnf_fml, bf2lbf_var_map); // (4.4)
 
-  if (encoding == 0 ||
-      encoding == 2) { // Quadratic encoding has AtMostOne() constraint
+  if (encoding == 0 || encoding == 2) {
     for (coord_t i = 0; i < no_of_var; ++i) { // (4.1)
       if (dcnf_variables[i].qtype() == 'e') {
         coord_t indx = dcnf_variables[i].eindex();
-        if (encoding == 1) {
+        if (encoding == 0) {
           at_most_one(bf_vars[indx], cnf_fml);
         } else {
-          at_most_one_linear(bf_vars[indx], cnf_fml);
+          at_most_one_linear(bf_vars[indx], cnf_fml, index);
         }
       }
     }
@@ -371,16 +357,16 @@ int main(int argc, char *argv[]) {
 
   fout << "\n";
 
-  std::string bf_var_line;
+  std::string bf_var_size;
   coord_t total = 0;
 
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
     total += bf_vars[i].size();
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
-      bf_var_line = bf_var_line + std::to_string(bf_vars[i][j]) + " ";
+      bf_var_size = bf_var_size + std::to_string(bf_vars[i][j]) + " ";
     }
     if (i < bf_vars.size() - 1)
-      bf_var_line = bf_var_line + " +  ";
+      bf_var_size = bf_var_size + " +  ";
   }
 
   if (encoding == 1) {
@@ -388,7 +374,7 @@ int main(int argc, char *argv[]) {
          << lbf_var_size;
   } else {
     fout << "c There are total " << total << " distinct bf-variables. "
-         << bf_var_line;
+         << bf_var_size;
   }
   fout << "\n";
   fout << "c There are total " << pa_vars.size() << " distinct pa-variables. ";
