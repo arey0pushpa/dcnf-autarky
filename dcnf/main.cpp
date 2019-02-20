@@ -21,6 +21,30 @@
  * 1. Implement linear encoding.
  *   - Add the "Command-variable" Encoding for AMO constraint.
  *   - Make sure that uep is preserved.
+ *
+ *   Sequential Commander encoding:
+ *   The encoding  uses 3n-6 binary clauses (without uep) and < n/2 variables.
+ *   Given X = {x1,..,xn} 
+ *   seco(x1, ..., xn) is defined recursively
+ *    
+ *    1.  Base case n <= 4:
+ *       seco(x1,x2,x3,x4) = the binomial(4,2)=6 prime-clauses for
+ *                           amo(x1,x2,x3,x4)
+ *    2.  Recursion for n >= 5:
+ *       seco(x1,...,xn) = Conjunction of
+ *                       binomial(3,2)=3 prime-clauses for amo(x1,x2,x3)
+ *                       and x1->w, x2->w, x3->w for the commander-variable w
+ *                       and seco(w,x3,...,xn).
+ *		Handle UEP: 
+ *      The problem is that x1=...=xn=0 admits many solutions.
+ *    
+ *	 	For each commander-variable w(x,y,z) add
+ *       w -> x v y v z (i.e., the 4-clause {-w,x,y,z}).
+ *		
+ *		For ALO one takes the disjunction of the final w with the initial 3
+ *     resp. 4 "uncommanded" x1,x2,x3,x4.
+ *
+
  * 2. Handle empty clause and tautology.
  *    - Add checks to avoid basic SAT and UNSAT cases.
  * 3. namespace creation : do using the classes or namespace.
