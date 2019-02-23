@@ -1,14 +1,14 @@
 # Ankit Shukla, 22.June.2018 (Swansea)
 # Copyright 2018 Ankit Shukla, Oliver Kullmann
 
-# Bug:
-# make
-# g++ --std=c++11 -pedantic -Wall -Werror -Ofast -DNDEBUG    -c constraints.cpp
-# make: *** No rule to make target `all-solutions.cpp', needed by `all-solutions.o'.  Stop.
+git = git -c user.name="Auto" -c user.email="auto@auto.com"
+
+BUILDDIR = $(PWD)/build
+SRCDIR = $(PWD)/src
 
 PROGRAM = dcnf_autarky dcnf_autarky_debug
 
-CXXSOURCES = main.cpp constraints.cpp all-solutions.cpp parse-qdimacs.cpp 
+CXXSOURCES = $(SRCDIR)/main.cpp $(SRCDIR)/constraints.cpp $(SRCDIR)/all-solutions.cpp $(SRCDIR)/parse-qdimacs.cpp $(SRCDIR)/translations.cpp
 CXXOBJECTS = $(CXXSOURCES:.cpp=.o)
 CXXOBJECTS_debug = $(CXXSOURCES:.cpp=_debug.o)
 CXX = g++
@@ -18,8 +18,21 @@ Warning_options = -Wall -Werror
 Optimisation_options = -Ofast -DNDEBUG
 Debug_options = -g
 
+all: release dcnf_autarky 
+#dcnf_autarky_debug
 
-all: dcnf_autarky dcnf_autarky_debug
+release: $(BUILDDIR)/buildr/Makefile
+#	$(BUILDDIR)/cryptominisat/cryptominisat 
+
+$(BUILDDIR)/buildr/Makefile: 
+	mkdir -p $(BUILDDIR)/buildr
+#	cd $(BUILDDIR)/buildr
+
+$(BUILDDIR)/cryptominisat/cryptominisat: $(BUILDDIR)/cryptominisat/build/cryptominisat_simple 
+	cd $(BUILDDIR); rm -rf cryptominisat; $(git) clone https://github.com/msoos/cryptominisat.git; cd cryptominisat; mkdir build && cd build; cmake ..; make -j4
+
+$(BUILDDIR)/cryptominisat/build/cryptominisat_simple:
+	touch $(BUILDDIR)/cryptominisat/build
 
 dcnf_autarky : $(CXXOBJECTS)
 	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)
@@ -27,7 +40,7 @@ dcnf_autarky : $(CXXOBJECTS)
 dcnf_autarky_debug : $(CXXOBJECTS_debug)
 	$(CXX) $(Debug_options) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)
 
-main.o: main.cpp defs.h util.h constraints.o  all-solutions.o  parse-qdimacs.o Makefile
+main.o: main.cpp defs.h util.h constraints.o  all-solutions.o  parse-qdimacs.o translations.o Makefile
 	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 constraints.o: constraints.cpp defs.h util.h
@@ -37,6 +50,9 @@ all-solutions.o: all-solutions.cpp defs.h util.h
 	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 parse-qdimacs.o: parse-qdimacs.cpp defs.h util.h
+	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
+
+translations.o: translations.cpp defs.h util.h
 	$(CXX) $(Standard_options) $(Warning_options) $(Optimisation_options) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 main_debug.o: main.cpp defs.h util.h constraints_debug.o  all-solutions_debug.o  parse-qdimacs_debug.o Makefile

@@ -94,6 +94,17 @@ inline bool cmd_option_exists(char **begin, char **end,
   return std::find(begin, end, option) != end;
 }
 
+// Unique vector
+template <typename t>
+std::vector<std::vector<t>> unique_vectors(std::vector<std::vector<t>> input) {
+  for (auto &i : input) {
+    i.erase(i.begin());
+  }
+  std::sort(input.begin(), input.end());
+  input.erase(std::unique(input.begin(), input.end()), input.end());
+  return input;
+}
+
 // output
 inline void output(const std::string filename,
                    const std::string output_file_name, const coord_t level,

@@ -23,6 +23,7 @@ void at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
     at_most_one(bf_vars, cnf_fml);
     return;
   }
+	// TODO: Avoid reverse and dropping the element
   std::reverse(bf_vars.begin(), bf_vars.end());
   // AMO for first 3 vars: amo(v1,v2,v3)
   coord_t v1 = bf_vars[N - 1];
