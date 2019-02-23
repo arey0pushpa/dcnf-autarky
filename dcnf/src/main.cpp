@@ -70,7 +70,7 @@
 
 int main(int argc, char *argv[]) {
   std::string filename;
-  std::string output_file_name = "/tmp/a.out";
+  std::string output_file_name = "/tmp/dcnfAutarky.dimacs";
   coord_t dependency_var = 0;
   coord_t level = 1;
   coord_t s_level = 0;

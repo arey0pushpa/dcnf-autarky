@@ -32,7 +32,7 @@ $(BUILDDIR) $(BUILDDIR)/buildr:
 	mkdir -p $@
 
 dcnf_autarky : $(CXXOBJECTS)
-	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)
+	$(CXX) -pthread -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)
 
 dcnf_autarky_debug : $(CXXOBJECTS_debug)
 	$(CXX) $(Debug_options) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)

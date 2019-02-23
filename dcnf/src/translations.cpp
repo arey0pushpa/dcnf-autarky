@@ -1,9 +1,11 @@
+#include <future>
+
 #include "defs.h"
 
-coord_t bfs_autarky ( std::string filename, std::string output_file_name, 
-              coord_t dependency_var, coord_t level, coord_t s_level, 
-              coord_t encoding ) {
-				  
+coord_t bfs_autarky(std::string filename, std::string output_file_name,
+                    coord_t dependency_var, coord_t level, coord_t s_level,
+                    coord_t encoding) {
+
   coord_t no_of_clauses = 0;
   coord_t no_of_var = 0;
 
@@ -191,7 +193,7 @@ coord_t bfs_autarky ( std::string filename, std::string output_file_name,
     }
   }
 
-	std::cout << "selected Bf_vars is : ";
+  std::cout << "selected Bf_vars is : ";
   print_2d_vector(bf_vars);
   std::cout << "\n";
 
@@ -272,13 +274,34 @@ coord_t bfs_autarky ( std::string filename, std::string output_file_name,
          << "\n";
   }
 
+  std::future<int> future = std::async(std::launch::async, []() {
+    auto retVal =
+        system("cd ./build/cryptominisat/build;timeout 600s "
+               "./cryptominisat5_simple /tmp/dcnfAutarky.dimacs > /tmp/out.txt");
+    return retVal;
+  });
+
+  std::cout << "Running CryptominiSat ... " << "\n";
+  std::future_status status;
+
+  status = future.wait_for(std::chrono::seconds(600));
+
+	 if ( status == std::future_status::timeout ) {
+      std::cout << "TimeOut! \n";
+      exit(0);
+      std::terminate();
+      return 1;
+    }
+
+	 if ( status == std::future_status::ready ) {
+      std::cout << "Program run was sucessful!\n";
+    }
+
   output(filename, output_file_name, level, s_level, encoding, no_of_var,
          no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
          pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
-         
+
   return 0;
-
 }
 
-void e_autarky ( ) {
-}
+void e_autarky() {}
