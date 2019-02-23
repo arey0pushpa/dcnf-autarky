@@ -18,21 +18,18 @@ Warning_options = -Wall -Werror
 Optimisation_options = -Ofast -DNDEBUG
 Debug_options = -g
 
+.PHONY: all release
+
 all: release dcnf_autarky 
 #dcnf_autarky_debug
 
-release: $(BUILDDIR)/buildr/Makefile
-#	$(BUILDDIR)/cryptominisat/cryptominisat 
+release: $(BUILDDIR)/buildr $(BUILDDIR)/cryptominisat
 
-$(BUILDDIR)/buildr/Makefile: 
-	mkdir -p $(BUILDDIR)/buildr
-#	cd $(BUILDDIR)/buildr
+$(BUILDDIR)/cryptominisat: | $(BUILDDIR)
+	cd $(dir $@); $(git) clone https://github.com/msoos/cryptominisat.git; cd cryptominisat; mkdir build && cd build; cmake ..; make -j4 
 
-$(BUILDDIR)/cryptominisat/cryptominisat: $(BUILDDIR)/cryptominisat/build/cryptominisat_simple 
-	cd $(BUILDDIR); rm -rf cryptominisat; $(git) clone https://github.com/msoos/cryptominisat.git; cd cryptominisat; mkdir build && cd build; cmake ..; make -j4
-
-$(BUILDDIR)/cryptominisat/build/cryptominisat_simple:
-	touch $(BUILDDIR)/cryptominisat/build
+$(BUILDDIR) $(BUILDDIR)/buildr:
+	mkdir -p $@
 
 dcnf_autarky : $(CXXOBJECTS)
 	$(CXX) -o $@ $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) $(CXXOBJECTS)
