@@ -275,31 +275,45 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   }
 
   std::future<int> future = std::async(std::launch::async, []() {
-    auto retVal =
-        system("cd ./build/cryptominisat/build;timeout 600s "
-               "./cryptominisat5_simple /tmp/dcnfAutarky.dimacs > /tmp/out.txt");
+    auto retVal = system("cd ./build/cryptominisat/build;timeout 600s "
+                         "./cryptominisat5_simple /tmp/dcnfAutarky.dimacs > "
+                         "/tmp/a.out; tail -1 /tmp/a.out > /tmp/res.out");
     return retVal;
   });
 
-  std::cout << "Running CryptominiSat ... " << "\n";
+  std::cout << "Running CryptominiSat ... "
+            << "\n";
   std::future_status status;
 
   status = future.wait_for(std::chrono::seconds(600));
 
-	 if ( status == std::future_status::timeout ) {
-      std::cout << "TimeOut! \n";
-      exit(0);
-      std::terminate();
-      return 1;
-    }
+  if (status == std::future_status::timeout) {
+    std::cout << "TimeOut! \n";
+    exit(0);
+    std::terminate();
+    return 1;
+  }
 
-	 if ( status == std::future_status::ready ) {
-      std::cout << "Program run was sucessful!\n";
+  if (status == std::future_status::ready) {
+    std::ifstream file("/tmp/res.out");
+    std::string satRes;
+    if (file.good()) {
+      std::string firstLine;
+      getline(file, firstLine);
+      satRes = firstLine;
     }
+    file.close();
+    if (satRes == "s UNSATISFIABLE") {
+      return 20;
+    } else {
+      std::cout << satRes << "\n";
+    }
+    std::cout << "Program run was sucessful!\n";
+  }
 
-  output(filename, output_file_name, level, s_level, encoding, no_of_var,
-         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
-         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
+  //  output(filename, output_file_name, level, s_level, encoding, no_of_var,
+  //         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
+  //         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
 
   return 0;
 }
