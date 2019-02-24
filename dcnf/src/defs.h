@@ -12,6 +12,8 @@ void command_line_parsing(int, char *av[], std::string &, unsigned &,
 coord_t bfs_autarky(std::string filename, std::string output_file_name, 
                  coord_t dependency_var, coord_t level, coord_t s_level, 
                  coord_t encoding);
+
+coord_t e_autarky();
               
 void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
                         cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,

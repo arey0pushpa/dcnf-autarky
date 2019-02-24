@@ -75,12 +75,15 @@ int main(int argc, char *argv[]) {
   coord_t level = 1;
   coord_t s_level = 0;
   coord_t encoding = 0;
+  coord_t reduction_type = 0;
+  coord_t aut_present = 10;
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
     std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
                  "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
                  "filename] [-l "
-                 "level] [-e encoding] [-s strictness; 0:general, 1:strict]\n";
+                 "level] [-e encoding] [-s strictness; 0:general, 1:strict] "
+                 "[-r reduction]\n";
     exit(0);
   }
 
@@ -89,6 +92,7 @@ int main(int argc, char *argv[]) {
   char *level_set = get_cmd_option(argv, argv + argc, "-l");
   char *encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
   char *strict_level = get_cmd_option(argv, argv + argc, "-s");
+  char *red_type = get_cmd_option(argv, argv + argc, "-r");
 
   if (file_name) {
     filename = file_name;
@@ -119,13 +123,23 @@ int main(int argc, char *argv[]) {
     encoding = std::stoi(encoding_chosen);
   }
 
+  if (red_type) {
+    reduction_type = std::stoi(red_type);
+  }
+
   auto start = std::chrono::high_resolution_clock::now();
 
-  bfs_autarky ( filename, output_file_name, 
-                dependency_var, level, s_level, encoding);
-              
+  if (reduction_type = 0) {
+    while (aut_present != 20) {
+      aut_present = bfs_autarky(filename, output_file_name, dependency_var,
+                                level, s_level, encoding);
+    }
+  } else {
+    aut_present = e_autarky();
+  }
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;
   std::cout << "entire run took " << elapsed.count() << " secs\n";
+
   return 0;
 }

@@ -343,4 +343,6 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   return 0;
 }
 
-void e_autarky() {}
+coord_t e_autarky() {
+   return 20;
+}
