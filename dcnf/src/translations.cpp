@@ -314,7 +314,7 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
         std::string temp;
         while (!ss.eof() || (csvar_index == cs_vars.size()) ) {
           ss >> temp;
-          if (std::stoi(temp)) {
+          if (std::stoi(temp) > 0) {
             // Update the clauses
           }
           ++csvar_index; 
