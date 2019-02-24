@@ -193,8 +193,8 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
     }
   }
 
-  std::cout << "selected Bf_vars is : ";
-  print_2d_vector(bf_vars);
+  std::cout << "The cs_vars are: ";
+  print_1d_vector(cs_vars);
   std::cout << "\n";
 
   // --- Build Constraints
@@ -273,15 +273,16 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
     fout << "0"
          << "\n";
   }
+	fout.close();
+
 
   std::future<int> future = std::async(std::launch::async, []() {
-    auto retVal = system("cd ./build/cryptominisat/build;timeout 600s "
-                         "./cryptominisat5_simple /tmp/dcnfAutarky.dimacs > "
-                         "/tmp/a.out; tail -1 /tmp/a.out > /tmp/res.out");
+    auto retVal = 
+		system("./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > /tmp/a.out");
     return retVal;
   });
 
-  std::cout << "Running CryptominiSat ... "
+  std::cout << "Running Lingeling ... "
             << "\n";
   std::future_status status;
 
@@ -295,7 +296,7 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   }
 
   if (status == std::future_status::ready) {
-    std::ifstream file("/tmp/res.out");
+    std::ifstream file("/tmp/a.out");
     std::string satRes;
     if (file.good()) {
       std::string firstLine;
@@ -308,10 +309,9 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
     } else {
       std::cout << satRes << "\n";
     }
-    std::cout << "Program run was sucessful!\n";
   }
-
-  //  output(filename, output_file_name, level, s_level, encoding, no_of_var,
+  
+	//  output(filename, output_file_name, level, s_level, encoding, no_of_var,
   //         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
   //         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
 

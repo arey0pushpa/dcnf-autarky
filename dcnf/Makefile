@@ -23,10 +23,10 @@ Debug_options = -g
 all: release dcnf_autarky 
 #dcnf_autarky_debug
 
-release: $(BUILDDIR)/buildr $(BUILDDIR)/cryptominisat
+release: $(BUILDDIR)/buildr $(BUILDDIR)/lingeling
 
-$(BUILDDIR)/cryptominisat: | $(BUILDDIR)
-	cd $(dir $@); $(git) clone https://github.com/msoos/cryptominisat.git; cd cryptominisat; mkdir build && cd build; cmake ..; make -j4 
+$(BUILDDIR)/lingeling: | $(BUILDDIR)
+	cd $(dir $@); $(git) clone https://github.com/arminbiere/lingeling.git; cd lingeling; ./configure.sh && make 
 
 $(BUILDDIR) $(BUILDDIR)/buildr:
 	mkdir -p $@
