@@ -18,12 +18,12 @@ Warning_options = -Wall -Werror
 Optimisation_options = -Ofast -DNDEBUG
 Debug_options = -g
 
-.PHONY: all release
+.PHONY: all dev
 
-all: release dcnf_autarky 
+all: dev dcnf_autarky 
 #dcnf_autarky_debug
 
-release: $(BUILDDIR)/buildr $(BUILDDIR)/lingeling
+dev: $(BUILDDIR)/buildr $(BUILDDIR)/lingeling
 
 $(BUILDDIR)/lingeling: | $(BUILDDIR)
 	cd $(dir $@); $(git) clone https://github.com/arminbiere/lingeling.git; cd lingeling; ./configure.sh && make 
