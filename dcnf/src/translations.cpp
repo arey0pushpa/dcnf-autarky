@@ -273,12 +273,11 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
     fout << "0"
          << "\n";
   }
-	fout.close();
-
+  fout.close();
 
   std::future<int> future = std::async(std::launch::async, []() {
-    auto retVal = 
-		system("./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > /tmp/a.out");
+    auto retVal = system(
+        "./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > /tmp/a.out");
     return retVal;
   });
 
@@ -296,22 +295,48 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   }
 
   if (status == std::future_status::ready) {
-    std::ifstream file("/tmp/a.out");
-    std::string satRes;
-    if (file.good()) {
-      std::string firstLine;
-      getline(file, firstLine);
-      satRes = firstLine;
+    std::string filenm = "/tmp/a.out";
+		std::string line;
+    std::ifstream file(filenm);
+    coord_t csvar_index = 0;
+    if (!file.is_open()) {
+      perror(("Error while opening file " + filenm).c_str());
+      exit(file_reading_error);
+    }
+    while (std::getline(file, line)) {
+      char s1 = line[0];
+      char s2 = line[2];
+      switch (s1) {
+      case 'v': {
+        line = line.substr(line.find_first_of(" \t") + 1);
+        std::stringstream ss;
+        ss << line;
+        std::string temp;
+        while (!ss.eof() || (csvar_index == cs_vars.size()) ) {
+          ss >> temp;
+          if (std::stoi(temp)) {
+            // Update the clauses
+          }
+          ++csvar_index; 
+        }
+        break;
+      }
+      case 's': {
+        if (s2 == 'U') {
+          return 20;
+        }
+        break;
+      }
+      }
+    }
+    if (file.bad()) {
+      perror(("Error while reading file " + filenm).c_str());
+      exit(file_reading_error);
     }
     file.close();
-    if (satRes == "s UNSATISFIABLE") {
-      return 20;
-    } else {
-      std::cout << satRes << "\n";
-    }
   }
-  
-	//  output(filename, output_file_name, level, s_level, encoding, no_of_var,
+
+  //  output(filename, output_file_name, level, s_level, encoding, no_of_var,
   //         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
   //         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
 
