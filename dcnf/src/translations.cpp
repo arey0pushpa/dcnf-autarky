@@ -234,22 +234,46 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
 
 coord_t e_autarky(std::vector<Clauses> &dcnf_clauses, lit e) {
   set_t intersect;
-  lit_t s1 = dcnf_variables[e - 1].pos_pol();
-  lit_t s2 = dcnf_variables[e - 1].neg_pol();
+  set_t s1 = dcnf_variables[e - 1].pos_pol();
+  set_t s2 = dcnf_variables[e - 1].neg_pol();
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
                    std::inserter(intersect, intersect.begin()));
   if (intersect.empty()) {
     set_t vactive_cls = dcnf_variables[e - 1].var_active();
-    for (coord_t i : vactive_cls) {
+    for (lit_t i : vactive_cls) {
       // Check i or i-1
       dcnf_clauses[i].update_presence(0);
     }
   } else {
-		for (coord_t j: s1) {
-			for (coord_t k: s2) {
-				// Remove the variable from the respective clauses and take intersection
-			}
+    for (lit_t j : s1) {
+      // Check i or i-1
+      cls_t cls_s1 = dcnf_clauses[j].lits();
+      set_t compl_s1;
+      set_t compl_s2;
+      for (lit_t l1 : cls_s1) {
+        if (l1 > 0) {
+          compl_s1.insert(-l1);
+        } else {
+          compl_s1.insert(l1);
+        }
+      }
+      for (coord_t k : s2) {
+        set_t intersect_cls;
+        cls_t cls_s2 = dcnf_clauses[j].lits();
+        for (lit_t l2 : cls_s2) {
+          compl_s2.insert(l2);
+        }
+        set_intersection(compl_s1.begin(), compl_s1.end(), compl_s2.begin(),
+                         compl_s2.end(),
+                         std::inserter(intersect_cls, intersect_cls.begin()));
+        assert(intersect_cls.size() >= 1);
+        if (intersect_cls.size() < 2) {
+					break;
+        }
+      }
+    }
+	  for (lit_t l : dcnf_clauses[e-1].lits() ) {
+      dcnf_clauses[i].update_presence(0);
 		}	
   }
-
 }
