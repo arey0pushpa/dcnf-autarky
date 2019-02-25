@@ -5,8 +5,8 @@
 #include <sstream>
 #include <bitset>
 #include <vector>
+#include <set>
 
-// None of the following macros should exist:
 #define LOG(x) std::cout << x << std::endl
 
 typedef std::vector<bool> boolv_t; 
@@ -19,6 +19,7 @@ typedef std::vector<pair_t> pairs_t;
 typedef std::vector<pairs_t> sel_bf;    // represent bf var set
 typedef std::vector<cls_t> minsat_ass;  // vector of clause-set
 typedef std::uint32_t coord_t;          // coordinates
+typedef std::set<coord_t> set_t;          // coordinates
 
 enum Error_codes {
   file_reading_error = 1,
@@ -43,35 +44,50 @@ class Clauses {
   cl_t m_avars;
   cl_t m_alits;
 
+	bool present;
+
  public:
-  Clauses(){};
+  Clauses(): present(1) {};
   void initialise_lits(cl_t c) { m_lits = c; }
   void initialise_evars(cl_t e) { m_evars = e; }
   void initialise_elits(cl_t e) { m_elits = e; }
+
   void initialise_avars(cl_t a) { m_avars = a; }
   void initialise_alits(cl_t a) { m_alits = a; }
+  void update_presence(bool p) { present = p; }
 
   cl_t lits() const { return m_lits; }
   cl_t evars() const { return m_evars; }
   cl_t elits() const { return m_elits; }
   cl_t avars() const { return m_avars; }
   cl_t alits() const { return m_alits; }
+  bool cls_present() const { return present; }
 };
 
 class Variables {
   char m_quantype;
   cl_t m_dependency;
   coord_t m_eindex;
+	set_t active_cls;
+	set_t pos_cls;
+	set_t neg_cls;
 
  public:
   Variables() : m_quantype('a'), m_dependency({}) {}
   void initialise_qtype(char c) { m_quantype = c; }
   void initialise_eindex(coord_t i) { m_eindex = i; }
-  void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; }
+  void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; } 
+	void insert_activity(coord_t cls) { active_cls.insert(cls) }
+	void pos_polarity(coord_t cls) { pos_cls.insert(cls) }
+	void neg_polarity(coord_t cls) { neg_cls.insert(cls) }
 
   char qtype() const { return m_quantype; }
   cl_t dependency() const { return m_dependency; }
   coord_t eindex() const { return m_eindex; }
+  set_t var_active() const { return active_cls}; 
+  set_t pos_pol() const { return pos_cls}; 
+  set_t neg_pol() const { return neg_cls}; 
+
 };
 
 class bf_lbf_converter {

@@ -6,121 +6,10 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
                     coord_t dependency_var, coord_t level, coord_t s_level,
                     coord_t encoding) {
 
-  coord_t no_of_clauses = 0;
-  coord_t no_of_var = 0;
-
-  /** Global Variables ***/
-  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
-
-  cl_t e_vars;   // {exists-var}
-  cl_t a_vars;   // {forall-var}
-  cls_t dep_set; // {{dep-var}...}
-
-  sel_bf selected_bf;              // All bf (v,f) pairs {(e-var, )...}
-  minsat_ass minsat_clause_assgmt; // All S(C)'s: {<e-var,bf(k)>...}
-
-  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
-  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
-
-  cl_t cs_vars;
-  cls_t bf_vars;
-  cl_t pa_vars;
-
-  coord_t min_dep_size = 0;
-  coord_t max_dep_size = 0;
-
-  parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
-                     no_of_var, dependency_var, s_level, min_dep_size,
-                     max_dep_size);
-
-  // TEMP FIX. IMPLEMENT THE CASE OF VAR ABSENCE IN MATRIX CASE DIRECTLY
-  no_of_var = e_vars.size() + a_vars.size();
-  // Create no_of_var Objects and for each obj representing a
-  // variable (uni and exist) set qtype of the var and fix it's dependency
-  std::vector<Variables> dcnf_variables;
-  dcnf_variables.resize(no_of_var);
-
-  std::sort(dep_set.begin(), dep_set.end(),
-            [](const cl_t &a, const cl_t &b) { return a[0] < b[0]; });
-
-  std::sort(e_vars.begin(), e_vars.end());
-  std::sort(a_vars.begin(), a_vars.end());
-
-  auto avar_iterator = a_vars.begin();
-  auto evar_iterator = e_vars.begin();
-
-  coord_t dep_index = 0;
-  bool a_vars_end = false;
-  bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
-
-  coord_t e_var_cntr = 0;
-  // Create a big vector[used Classes to attach additional info]
-  // of all variables access based on their index.
-  for (coord_t i = 0; i < no_of_var; ++i) {
-    if (!a_vars_end && i == *avar_iterator - 1) {
-      if (std::next(avar_iterator) == a_vars.end()) {
-        a_vars_end = true;
-      } else {
-        avar_iterator = std::next(avar_iterator);
-      }
-    } else if (!e_vars_end && i == *evar_iterator - 1) {
-      dcnf_variables[i].initialise_qtype('e');
-      cl_t d_s = dep_set[dep_index];
-      d_s.erase(d_s.begin());
-      cl_t dep_vars = d_s;
-      dcnf_variables[i].initialise_dependency(dep_vars);
-      ++dep_index;
-      dcnf_variables[i].initialise_eindex(e_var_cntr);
-      ++e_var_cntr;
-      if (std::next(evar_iterator) == e_vars.end()) {
-        e_vars_end = true;
-      } else {
-        evar_iterator = std::next(evar_iterator);
-      }
-    } else {
-      dcnf_variables[i].initialise_qtype('e');
-      dcnf_variables[i].initialise_eindex(e_var_cntr);
-      ++e_var_cntr;
-    }
-  }
-
-  cls_t unique_dep_set = unique_vectors(dep_set);
-
-  // Create no_of_clauses Objects and initialise exits and forall quant var
-  lit_t dsize = dcnf_fml.size();
-  std::vector<Clauses> dcnf_clauses;
-  dcnf_clauses.resize(dsize);
-
-  for (coord_t i = 0; i < dsize; ++i) {
-    cl_t c_evars;
-    cl_t c_elits;
-    cl_t c_avars;
-    cl_t c_alits;
-    dcnf_clauses[i].initialise_lits(dcnf_fml[i]);
-    for (const lit_t l : dcnf_fml[i]) {
-      if (dcnf_variables[std::abs(l) - 1].qtype() == 'e') {
-        c_evars.push_back(std::abs(l));
-        c_elits.push_back(l);
-      } else {
-        c_avars.push_back(std::abs(l));
-        c_alits.push_back(l);
-      }
-    }
-    dcnf_clauses[i].initialise_evars(c_evars);
-    dcnf_clauses[i].initialise_elits(c_elits);
-
-    dcnf_clauses[i].initialise_avars(c_avars);
-    dcnf_clauses[i].initialise_alits(c_alits);
-  }
-
   /* Todo: Implement a dependency Scheme in case no dependency given
-    if ( dependency_var == 0 ) {
-      // Implement a dependency scheme
-    } */
+     if ( dependency_var == 0 ) {
+       // Implement a dependency scheme
+     } */
   set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                     minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
@@ -296,14 +185,14 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
 
   if (status == std::future_status::ready) {
     std::string filenm = "/tmp/a.out";
-		std::string line;
+    std::string line;
     std::ifstream file(filenm);
     coord_t csvar_index = 0;
     if (!file.is_open()) {
       perror(("Error while opening file " + filenm).c_str());
       exit(file_reading_error);
     }
-    while (std::getline(file, line)) {
+    while (std::getline(file, line) || cs_var_index == cs_vars.size()) {
       char s1 = line[0];
       char s2 = line[2];
       switch (s1) {
@@ -312,12 +201,12 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
         std::stringstream ss;
         ss << line;
         std::string temp;
-        while (!ss.eof() || (csvar_index == cs_vars.size()) ) {
+        while (!ss.eof() || (csvar_index == cs_vars.size())) {
           ss >> temp;
           if (std::stoi(temp) > 0) {
-            // Update the clauses
+            dcnf_clauses[cs_var_index].update_presence(0);
           }
-          ++csvar_index; 
+          ++csvar_index;
         }
         break;
       }
@@ -343,6 +232,24 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   return 0;
 }
 
-coord_t e_autarky() {
-   return 20;
+coord_t e_autarky(std::vector<Clauses> &dcnf_clauses, lit e) {
+  set_t intersect;
+  lit_t s1 = dcnf_variables[e - 1].pos_pol();
+  lit_t s2 = dcnf_variables[e - 1].neg_pol();
+  set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
+                   std::inserter(intersect, intersect.begin()));
+  if (intersect.empty()) {
+    set_t vactive_cls = dcnf_variables[e - 1].var_active();
+    for (coord_t i : vactive_cls) {
+      // Check i or i-1
+      dcnf_clauses[i].update_presence(0);
+    }
+  } else {
+		for (coord_t j: s1) {
+			for (coord_t k: s2) {
+				// Remove the variable from the respective clauses and take intersection
+			}
+		}	
+  }
+
 }
