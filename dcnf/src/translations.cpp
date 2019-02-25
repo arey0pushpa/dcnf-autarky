@@ -191,6 +191,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     std::string line;
     std::ifstream file(filenm);
     coord_t csvar_index = 0;
+    coord_t cls_count = 0;
     if (!file.is_open()) {
       perror(("Error while opening file " + filenm).c_str());
       exit(file_reading_error);
@@ -206,8 +207,13 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
         std::string temp;
         while (!ss.eof() || (csvar_index == cs_vars.size())) {
           ss >> temp;
-          if (std::stoi(temp) > 0) {
-            dcnf_clauses[csvar_index].update_presence(0);
+          coord_t currt_var = std::stoi(temp);
+          // Check the correcteness
+          while (dcnf_clauses[cls_count].cls_present() == 0) {
+            ++cls_count;
+          }
+          if (currt_var > 0) {
+            dcnf_clauses[cls_count].update_presence(0);
           }
           ++csvar_index;
         }
