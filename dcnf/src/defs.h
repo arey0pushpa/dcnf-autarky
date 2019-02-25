@@ -9,12 +9,17 @@
 void command_line_parsing(int, char *av[], std::string &, unsigned &,
                           unsigned &, bool &, bool &);
 
-coord_t bfs_autarky(std::string filename, std::string output_file_name, 
-                 coord_t dependency_var, coord_t level, coord_t s_level, 
-                 coord_t encoding);
+coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
+                    std::vector<Variables> &dcnf_variables, sel_bf &selected_bf,
+                    minsat_ass &minsat_clause_assgmt, cls_t cnf_fml,
+                    const coord_t num_of_clause, cl_t e_vars, cl_t &cs_vars,
+                    cls_t &bf_vars, cl_t pa_vars, std::string filename,
+                    std::string output_file_name, coord_t dependency_var,
+                    coord_t level, coord_t s_level, coord_t encoding);
 
-coord_t e_autarky( std::vector<Clauses>& dcnf_clauses );
-              
+coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
+                  std::vector<Variables> &dcnf_variables, lit_t e);
+
 void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
                         cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
                         coord_t &no_of_var, coord_t &dependency_var,

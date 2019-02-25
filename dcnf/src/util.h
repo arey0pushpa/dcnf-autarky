@@ -68,25 +68,32 @@ class Variables {
   char m_quantype;
   cl_t m_dependency;
   coord_t m_eindex;
+	
 	set_t active_cls;
 	set_t pos_cls;
 	set_t neg_cls;
 
+	bool present;
+
  public:
-  Variables() : m_quantype('a'), m_dependency({}) {}
+  Variables() : m_quantype('a'), m_dependency({}), present(1) {}
   void initialise_qtype(char c) { m_quantype = c; }
   void initialise_eindex(coord_t i) { m_eindex = i; }
   void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; } 
-	void insert_activity(coord_t cls) { active_cls.insert(cls) }
-	void pos_polarity(coord_t cls) { pos_cls.insert(cls) }
-	void neg_polarity(coord_t cls) { neg_cls.insert(cls) }
+	
+	void update_presence(bool p) { present = p;}
+	void activein_cls(coord_t cls) { active_cls.insert(cls); }
+	void pos_polarity(coord_t cls) { pos_cls.insert(cls); }
+	void neg_polarity(coord_t cls) { neg_cls.insert(cls); }
+
 
   char qtype() const { return m_quantype; }
   cl_t dependency() const { return m_dependency; }
   coord_t eindex() const { return m_eindex; }
-  set_t var_active() const { return active_cls}; 
-  set_t pos_pol() const { return pos_cls}; 
-  set_t neg_pol() const { return neg_cls}; 
+  set_t act_cls() const { return active_cls; } 
+  set_t pos_pol() const { return pos_cls; } 
+  set_t neg_pol() const { return neg_cls; } 
+  bool var_present() const { return present; }
 
 };
 

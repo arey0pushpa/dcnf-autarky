@@ -2,35 +2,34 @@
 
 #include "defs.h"
 
-coord_t bfs_autarky(std::string filename, std::string output_file_name,
-                    coord_t dependency_var, coord_t level, coord_t s_level,
-                    coord_t encoding) {
-
-  /* Todo: Implement a dependency Scheme in case no dependency given
-     if ( dependency_var == 0 ) {
-       // Implement a dependency scheme
-     } */
-  set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
-                    minsat_clause_assgmt, no_of_clauses, no_of_var, level);
-
-  // print_3d_vector(minsat_clause_assgmt);
-
+coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
+                    std::vector<Variables> &dcnf_variables, sel_bf &selected_bf,
+                    minsat_ass &minsat_clause_assgmt, cls_t cnf_fml,
+                    const coord_t no_of_clauses, cl_t e_vars, cl_t &cs_vars,
+                    cls_t &bf_vars, cl_t pa_vars, std::string filename,
+                    std::string output_file_name, coord_t dependency_var,
+                    coord_t level, coord_t s_level, coord_t encoding) {
   /** Traslation variables with ordering */
   coord_t index = 1;
+  coord_t no_of_var = dcnf_variables.size();
 
   // cs variable := #no_of_clauses -----------------------------
   for (coord_t i = 0; i < no_of_clauses; ++i) {
+    if (dcnf_clauses[i].cls_present() == 0)
+      continue;
     cs_vars.push_back(index);
     index += 1;
   }
 
+  // bf variable := two_dim [v] [f_v] -------------------------
   coord_t lbf_var_size = 0;
   cl_t lbf_vars, s_bf;
-  // bf variable := two_dim [v] [f_v] -------------------------
   coord_t preindex = index;
   coord_t bf_var_count = 0;
-
   for (coord_t i = 0; i < selected_bf.size(); ++i) {
+    // Check i or i-1
+    if (dcnf_variables[e_vars[i]].var_present() == 0)
+      continue;
     for (coord_t j = 0; j < selected_bf[i].size(); ++j) {
       s_bf.push_back(index);
       index += 1;
@@ -62,6 +61,8 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   cls_t clausewise_pa_var_map(no_of_clauses);
   coord_t msat_cntr = 1;
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
+    if (dcnf_clauses[i].cls_present() == 0)
+      continue;
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[i][j];
       lit_t slit = std::abs(dummy[0]);
@@ -102,6 +103,8 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   if (encoding == 0 || encoding == 2) {
     for (coord_t i = 0; i < no_of_var; ++i) { // (4.1)
       if (dcnf_variables[i].qtype() == 'e') {
+        if (dcnf_variables[i].var_present() == 0)
+          continue;
         coord_t indx = dcnf_variables[i].eindex();
         if (encoding == 0) {
           at_most_one(bf_vars[indx], cnf_fml);
@@ -192,7 +195,7 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
       perror(("Error while opening file " + filenm).c_str());
       exit(file_reading_error);
     }
-    while (std::getline(file, line) || cs_var_index == cs_vars.size()) {
+    while (std::getline(file, line) || csvar_index == cs_vars.size()) {
       char s1 = line[0];
       char s2 = line[2];
       switch (s1) {
@@ -204,7 +207,7 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
         while (!ss.eof() || (csvar_index == cs_vars.size())) {
           ss >> temp;
           if (std::stoi(temp) > 0) {
-            dcnf_clauses[cs_var_index].update_presence(0);
+            dcnf_clauses[csvar_index].update_presence(0);
           }
           ++csvar_index;
         }
@@ -232,14 +235,15 @@ coord_t bfs_autarky(std::string filename, std::string output_file_name,
   return 0;
 }
 
-coord_t e_autarky(std::vector<Clauses> &dcnf_clauses, lit e) {
+coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
+                  std::vector<Variables> &dcnf_variables, lit_t e) {
   set_t intersect;
   set_t s1 = dcnf_variables[e - 1].pos_pol();
   set_t s2 = dcnf_variables[e - 1].neg_pol();
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
                    std::inserter(intersect, intersect.begin()));
   if (intersect.empty()) {
-    set_t vactive_cls = dcnf_variables[e - 1].var_active();
+    set_t vactive_cls = dcnf_variables[e - 1].act_cls();
     for (lit_t i : vactive_cls) {
       // Check i or i-1
       dcnf_clauses[i].update_presence(0);
@@ -247,9 +251,10 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses, lit e) {
   } else {
     for (lit_t j : s1) {
       // Check i or i-1
-      cls_t cls_s1 = dcnf_clauses[j].lits();
+      cl_t cls_s1 = dcnf_clauses[j - 1].lits();
       set_t compl_s1;
       set_t compl_s2;
+      // Todo:  Create a function or change vector to a set
       for (lit_t l1 : cls_s1) {
         if (l1 > 0) {
           compl_s1.insert(-l1);
@@ -259,7 +264,7 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses, lit e) {
       }
       for (coord_t k : s2) {
         set_t intersect_cls;
-        cls_t cls_s2 = dcnf_clauses[j].lits();
+        cl_t cls_s2 = dcnf_clauses[j - 1].lits();
         for (lit_t l2 : cls_s2) {
           compl_s2.insert(l2);
         }
@@ -268,12 +273,12 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses, lit e) {
                          std::inserter(intersect_cls, intersect_cls.begin()));
         assert(intersect_cls.size() >= 1);
         if (intersect_cls.size() < 2) {
-					break;
+          break;
         }
       }
     }
-	  for (lit_t l : dcnf_clauses[e-1].lits() ) {
-      dcnf_clauses[i].update_presence(0);
-		}	
+    for (lit_t l : dcnf_clauses[e - 1].lits()) {
+      dcnf_clauses[l].update_presence(0);
+    }
   }
 }

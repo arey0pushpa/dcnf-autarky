@@ -150,11 +150,13 @@ int main(int argc, char *argv[]) {
   coord_t min_dep_size = 0;
   coord_t max_dep_size = 0;
 
+  auto start = std::chrono::high_resolution_clock::now();
+
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
                      no_of_var, dependency_var, s_level, min_dep_size,
                      max_dep_size);
 
-  // TEMP FIX. IMPLEMENT THE CASE OF VAR ABSENCE IN MATRIX CASE DIRECTLY
+  // TEMP FIX. TODO:IMPLEMENT THE CASE OF VAR ABSENCE IN MATRIX CASE DIRECTLY
   no_of_var = e_vars.size() + a_vars.size();
   // Create no_of_var Objects and for each obj representing a
   // variable (uni and exist) set qtype of the var and fix it's dependency
@@ -223,7 +225,7 @@ int main(int argc, char *argv[]) {
     cl_t c_alits;
     dcnf_clauses[i].initialise_lits(dcnf_fml[i]);
     for (const lit_t l : dcnf_fml[i]) {
-      dcnf_variables[std::abs(l) - 1].insert_activity(i);
+      dcnf_variables[std::abs(l) - 1].activein_cls(i);
       if (l > 0) {
         dcnf_variables[std::abs(l) - 1].pos_polarity(i);
       } else {
@@ -244,21 +246,21 @@ int main(int argc, char *argv[]) {
     dcnf_clauses[i].initialise_alits(c_alits);
   }
 
-  /* Todo: Implement a dependency Scheme in case no dependency given
-    if ( dependency_var == 0 ) {
-      // Implement a dependency scheme
-    } */
-
-  auto start = std::chrono::high_resolution_clock::now();
+  /* Todo: Implement a dependency Scheme in case no dependency given */
 
   if (reduction_type = 0) {
+    set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
+                      minsat_clause_assgmt, no_of_clauses, no_of_var, level);
+
     while (aut_present != 20) {
-      aut_present = bfs_autarky(filename, output_file_name, dependency_var,
-                                level, s_level, encoding);
+      aut_present = bfs_autarky(
+          dcnf_clauses, dcnf_variables, selected_bf, minsat_clause_assgmt,
+          cnf_fml, no_of_clauses, e_vars, cs_vars, bf_vars, pa_vars, filename,
+          output_file_name, dependency_var, level, s_level, encoding);
     }
   } else {
-    for (e : e_vars) {
-      aut_present = e_autarky(dcnf_clauses, e);
+    for (lit_t e : e_vars) {
+      aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
     }
   }
 

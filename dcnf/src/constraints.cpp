@@ -115,6 +115,8 @@ void untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                        const coord_t &num_of_clause, cls_t &cnf_fml,
                        std::vector<bf_lbf_converter> &bf2lbf_var_map) {
   for (coord_t i = 0; i < num_of_clause; ++i) {
+		if (dcnf_clauses[i].cls_present() == 0)
+      continue;
     cl_t clause = dcnf_clauses[i].evars();
     for (lit_t e : clause) {
       coord_t indx = dcnf_variables[e - 1].eindex();
