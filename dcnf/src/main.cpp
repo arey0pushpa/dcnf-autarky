@@ -258,6 +258,16 @@ int main(int argc, char *argv[]) {
           cnf_fml, no_of_clauses, e_vars, cs_vars, bf_vars, pa_vars, filename,
           output_file_name, dependency_var, level, s_level, encoding);
     }
+    if (aut_present == 20) {
+      std::cout << "The input QBF formula is UNSAT. \n";
+      std::cout << "The UNSAT/remaining clauses are. \n";
+      for (coord_t i = 0; i < no_of_clauses; ++i) {
+        if (dcnf_clauses[i].cls_present() == 0) continue;
+	//print_1d_vector(dcnf_clauses[i].lits());
+      }
+    } else {
+      std::cout << "The input QBF formula is Satisfiable.\n";
+    }
   } else {
     for (lit_t e : e_vars) {
       aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
