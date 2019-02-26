@@ -29,6 +29,11 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     index += 1;
   }
 
+	if (index == 1) {
+		// return that the formula is True
+		return 11;
+	}
+
   // bf variable := two_dim [v] [f_v] -------------------------
   coord_t lbf_var_size = 0;
   cl_t lbf_vars, s_bf;
@@ -191,7 +196,6 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     std::cout << "TimeOut! \n";
     exit(0);
     std::terminate();
-    return 11;
   }
 
   if (status == std::future_status::ready) {

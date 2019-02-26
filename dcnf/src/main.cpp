@@ -265,7 +265,7 @@ int main(int argc, char *argv[]) {
         if (dcnf_clauses[i].cls_present() == 0) continue;
 	//print_1d_vector(dcnf_clauses[i].lits());
       }
-    } else {
+    } else if (aut_present == 11) {
       std::cout << "The input QBF formula is Satisfiable.\n";
     }
   } else {
