@@ -68,11 +68,11 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   // pa variable := Only consider unique mapping
-	// TODO: Do not work in the case of MAXIMA_271
+  // TODO: Do not work in the case of MAXIMA_271
   cls_t pa_var_set;
-  minsat_ass pa_var_msat_ass(e_vars.size());
-  cls_t msat_concrete_var_map(e_vars.size());
-  cls_t clausewise_pa_var_map(no_of_clauses);
+  minsat_ass pa_var_msat_ass(e_vars.size());  // bigbag to push all assmts
+  cls_t msat_concrete_var_map(e_vars.size()); // dqbf Var to Cnf var Map
+  cls_t clausewise_pa_var_map(no_of_clauses); // create clausewise cnf vars
   coord_t msat_cntr = 1;
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
     if (dcnf_clauses[i].cls_present() == 0)
@@ -81,6 +81,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
       cl_t dummy = minsat_clause_assgmt[i][j];
       lit_t slit = std::abs(dummy[0]);
       assert(slit > 0);
+      // Extract the position of the existential var in evars
       lit_t elit = dcnf_variables[slit - 1].eindex();
       lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
       if (pa_indx != -1) {
