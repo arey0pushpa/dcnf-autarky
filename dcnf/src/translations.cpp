@@ -30,7 +30,6 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   if (index == 1) {
-    // return that the formula is True
     return 11;
   }
 
@@ -67,7 +66,6 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   // pa variable := Only consider unique mapping
-  // TODO: Do not work in the case of MAXIMA_271
   cls_t pa_var_set;
   minsat_ass pa_var_msat_ass(e_vars.size());  // bigbag to push all assmts
   cls_t msat_concrete_var_map(e_vars.size()); // dqbf Var to Cnf var Map
@@ -97,16 +95,12 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     }
   }
 
-  std::cout << "The cs_vars are: ";
-  print_1d_vector(cs_vars);
-  std::cout << "\n";
-
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
 
   touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
 
-  satisfied_clauses(encoding, no_of_clauses, lbf_vars, dcnf_clauses,
+  satisfied_clauses(encoding, cs_vars.size(), lbf_vars, dcnf_clauses,
                     dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,
                     bf2lbf_var_map); // (4.2)

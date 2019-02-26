@@ -258,6 +258,7 @@ int main(int argc, char *argv[]) {
         if (dcnf_clauses[i].cls_present() == 0)
           continue;
         print_1d_vector(dcnf_clauses[i].lits());
+				std::cout << "\n";
       }
     } else if (aut_present == 11) {
       std::cout << "The input QBF formula is Satisfiable.\n";
@@ -277,7 +278,8 @@ int main(int argc, char *argv[]) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
       for (cl_t &c : unsat_cls) {
-        print_1d_vector(c);
+        print_1d_vector(c); 
+				std::cout << "\n";
       }
     } else {
       std::cout << "The input QBF formula is Satisfiable.\n";

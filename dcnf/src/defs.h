@@ -35,7 +35,7 @@ void quant_seperation(cl_t &, cl_t &, cl_t &);
 
 void non_trivial_autarky(cl_t &, cls_t &);
 
-void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t &lbf_vars,
+void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
                        std::vector<Clauses> dcnf_clauses,
                        std::vector<Variables> dcnf_variables, cls_t &bf_vars,
                        minsat_ass &pa_var_msat_ass,

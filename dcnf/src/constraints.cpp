@@ -53,7 +53,8 @@ void at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
 }
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
-void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t &lbf_vars,
+// TODO: Check the code for Varibles mis-match and wrong var use
+void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
                        std::vector<Clauses> dcnf_clauses,
                        std::vector<Variables> dcnf_variables, cls_t &bf_vars,
                        minsat_ass &pa_var_msat_ass,
@@ -75,7 +76,7 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t &lbf_vars,
         if (encoding == 1) {
           // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
           coord_t bf_id = current_bf_var -
-                          no_of_clauses; // TODO: Change it to cs_vars.size()
+                          cls_cnt; // TODO: Change it to cs_vars.size()
           bf_id = bf_id - 1;
           if (bf2lbf_var_map[bf_id].is_present == 0) {
             bf2lbf_var_map[bf_id].is_present = 1;
