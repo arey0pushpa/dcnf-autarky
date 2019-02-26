@@ -4,14 +4,22 @@
 
 coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
                     std::vector<Variables> &dcnf_variables, sel_bf &selected_bf,
-                    minsat_ass &minsat_clause_assgmt, cls_t cnf_fml,
-                    const coord_t no_of_clauses, cl_t e_vars, cl_t &cs_vars,
-                    cls_t &bf_vars, cl_t pa_vars, std::string filename,
-                    std::string output_file_name, coord_t dependency_var,
-                    coord_t level, coord_t s_level, coord_t encoding) {
+                    minsat_ass &minsat_clause_assgmt, cl_t e_vars,
+                    std::string filename, std::string output_file_name,
+                    coord_t dependency_var, coord_t level, coord_t s_level,
+                    coord_t encoding) {
+
   /** Traslation variables with ordering */
+  cl_t cs_vars;
+  cls_t bf_vars;
+  cl_t pa_vars;
+
+  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
+  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
+
   coord_t index = 1;
-  coord_t no_of_var = dcnf_variables.size();
+  const coord_t no_of_var = dcnf_variables.size();
+  const coord_t no_of_clauses = dcnf_clauses.size();
 
   // cs variable := #no_of_clauses -----------------------------
   for (coord_t i = 0; i < no_of_clauses; ++i) {
@@ -183,7 +191,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     std::cout << "TimeOut! \n";
     exit(0);
     std::terminate();
-    return 1;
+    return 11;
   }
 
   if (status == std::future_status::ready) {

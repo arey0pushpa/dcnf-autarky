@@ -21,7 +21,12 @@ Debug_options = -g
 .PHONY: all dev
 
 all: dev dcnf_autarky 
+#dcnf_aut_debug 
 #dcnf_autarky_debug
+
+
+#dcnf_aut_debug : 
+#	$(CXX) -g -pthread $(CXXSOURCES)
 
 dev: $(BUILDDIR)/buildr $(BUILDDIR)/lingeling
 

@@ -140,12 +140,12 @@ int main(int argc, char *argv[]) {
   sel_bf selected_bf;              // All bf (v,f) pairs {(e-var, )...}
   minsat_ass minsat_clause_assgmt; // All S(C)'s: {<e-var,bf(k)>...}
 
-  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
-  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
+  //  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
+  //  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
 
-  cl_t cs_vars;
-  cls_t bf_vars;
-  cl_t pa_vars;
+  //  cl_t cs_vars;
+  //  cls_t bf_vars;
+  //  cl_t pa_vars;
 
   coord_t min_dep_size = 0;
   coord_t max_dep_size = 0;
@@ -248,15 +248,15 @@ int main(int argc, char *argv[]) {
 
   /* Todo: Implement a dependency Scheme in case no dependency given */
 
-  if (reduction_type = 0) {
+  if (reduction_type == 0) {
     set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                       minsat_clause_assgmt, no_of_clauses, no_of_var, level);
 
-    while (aut_present != 20) {
-      aut_present = bfs_autarky(
-          dcnf_clauses, dcnf_variables, selected_bf, minsat_clause_assgmt,
-          cnf_fml, no_of_clauses, e_vars, cs_vars, bf_vars, pa_vars, filename,
-          output_file_name, dependency_var, level, s_level, encoding);
+    while (aut_present == 10) {
+      aut_present =
+          bfs_autarky(dcnf_clauses, dcnf_variables, selected_bf,
+                      minsat_clause_assgmt, e_vars, filename, output_file_name,
+                      dependency_var, level, s_level, encoding);
     }
   } else {
     for (lit_t e : e_vars) {
