@@ -40,8 +40,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   coord_t preindex = index;
   coord_t bf_var_count = 0;
   for (coord_t i = 0; i < selected_bf.size(); ++i) {
-    // Check i or i-1
-    if (dcnf_variables[e_vars[i]].var_present() == 0)
+    if (dcnf_variables[e_vars[i] - 1].var_present() == 0)
       continue;
     for (coord_t j = 0; j < selected_bf[i].size(); ++j) {
       s_bf.push_back(index);

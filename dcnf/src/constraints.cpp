@@ -23,7 +23,7 @@ void at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
     at_most_one(bf_vars, cnf_fml);
     return;
   }
-	// TODO: Avoid reverse and dropping the element
+  // TODO: Avoid reverse and dropping the element
   std::reverse(bf_vars.begin(), bf_vars.end());
   // AMO for first 3 vars: amo(v1,v2,v3)
   coord_t v1 = bf_vars[N - 1];
@@ -67,13 +67,16 @@ void satisfied_clauses(coord_t encoding, coord_t no_of_clauses, cl_t &lbf_vars,
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
-        coord_t t_indx = dcnf_variables[std::abs(var) - 1].eindex();
-        coord_t indx = find_scd_index(selected_bf[t_indx], depdt);
-        lit_t current_bf_var = bf_vars[t_indx][indx];
-        // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
-        coord_t bf_id = current_bf_var - no_of_clauses;
-        bf_id = bf_id - 1;
+        // dcnf exist var to evars
+        coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex();
+        // index
+        coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
+        lit_t current_bf_var = bf_vars[v_indx][d_indx];
         if (encoding == 1) {
+          // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
+          coord_t bf_id = current_bf_var -
+                          no_of_clauses; // TODO: Change it to cs_vars.size()
+          bf_id = bf_id - 1;
           if (bf2lbf_var_map[bf_id].is_present == 0) {
             bf2lbf_var_map[bf_id].is_present = 1;
             bf2lbf_var_map[bf_id].lbf_fml = lbf_fml(lbf_vars, bf_id);
@@ -115,7 +118,7 @@ void untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                        const coord_t &num_of_clause, cls_t &cnf_fml,
                        std::vector<bf_lbf_converter> &bf2lbf_var_map) {
   for (coord_t i = 0; i < num_of_clause; ++i) {
-		if (dcnf_clauses[i].cls_present() == 0)
+    if (dcnf_clauses[i].cls_present() == 0)
       continue;
     cl_t clause = dcnf_clauses[i].evars();
     for (lit_t e : clause) {
