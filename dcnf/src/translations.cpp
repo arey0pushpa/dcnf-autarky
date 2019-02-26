@@ -68,6 +68,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   // pa variable := Only consider unique mapping
+	// TODO: Do not work in the case of MAXIMA_271
   cls_t pa_var_set;
   minsat_ass pa_var_msat_ass(e_vars.size());
   cls_t msat_concrete_var_map(e_vars.size());
