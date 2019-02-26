@@ -29,10 +29,10 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     index += 1;
   }
 
-	if (index == 1) {
-		// return that the formula is True
-		return 11;
-	}
+  if (index == 1) {
+    // return that the formula is True
+    return 11;
+  }
 
   // bf variable := two_dim [v] [f_v] -------------------------
   coord_t lbf_var_size = 0;
@@ -208,7 +208,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
       perror(("Error while opening file " + filenm).c_str());
       exit(file_reading_error);
     }
-    while (std::getline(file, line) || csvar_index == cs_vars.size()) {
+    while (std::getline(file, line) && csvar_index < cs_vars.size()) {
       char s1 = line[0];
       char s2 = line[2];
       switch (s1) {
@@ -217,18 +217,18 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
         std::stringstream ss;
         ss << line;
         std::string temp;
-        while (!ss.eof() || (csvar_index == cs_vars.size())) {
+        while (!ss.eof() && (csvar_index < cs_vars.size())) {
           ss >> temp;
           coord_t currt_var = std::stoi(temp);
-          // Check the correcteness
           while (dcnf_clauses[cls_count].cls_present() == 0 &&
-                 cls_count <= no_of_clauses) {
+                 cls_count < no_of_clauses) {
             ++cls_count;
           }
           if (currt_var > 0) {
             dcnf_clauses[cls_count].update_presence(0);
           }
           ++csvar_index;
+          ++cls_count;
         }
       } break;
       case 's': {
@@ -250,7 +250,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   //         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
   //         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
 
-  return 0;
+  return 10;
 }
 
 coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
