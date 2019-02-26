@@ -140,13 +140,6 @@ int main(int argc, char *argv[]) {
   sel_bf selected_bf;              // All bf (v,f) pairs {(e-var, )...}
   minsat_ass minsat_clause_assgmt; // All S(C)'s: {<e-var,bf(k)>...}
 
-  //  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
-  //  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
-
-  //  cl_t cs_vars;
-  //  cls_t bf_vars;
-  //  cl_t pa_vars;
-
   coord_t min_dep_size = 0;
   coord_t max_dep_size = 0;
 
@@ -262,15 +255,32 @@ int main(int argc, char *argv[]) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
       for (coord_t i = 0; i < no_of_clauses; ++i) {
-        if (dcnf_clauses[i].cls_present() == 0) continue;
-	//print_1d_vector(dcnf_clauses[i].lits());
+        if (dcnf_clauses[i].cls_present() == 0)
+          continue;
+        print_1d_vector(dcnf_clauses[i].lits());
       }
     } else if (aut_present == 11) {
       std::cout << "The input QBF formula is Satisfiable.\n";
     }
-  } else {
-    for (lit_t e : e_vars) {
+  } else { // reduction of e_autarky
+    for (lit_t &e : e_vars) {
       aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
+    }
+
+    cls_t unsat_cls;
+    for (coord_t i = 0; i < no_of_clauses; ++i) {
+      if (dcnf_clauses[i].cls_present() == 1) {
+        unsat_cls.push_back(dcnf_clauses[i].lits());
+      }
+    }
+    if (unsat_cls.size() > 0) {
+      std::cout << "The input QBF formula is UNSAT. \n";
+      std::cout << "The UNSAT/remaining clauses are. \n";
+      for (cl_t &c : unsat_cls) {
+        print_1d_vector(c);
+      }
+    } else {
+      std::cout << "The input QBF formula is Satisfiable.\n";
     }
   }
 

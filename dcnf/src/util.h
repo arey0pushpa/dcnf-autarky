@@ -285,7 +285,7 @@ inline std::string &trim(std::string &s, const char *t = " \t\n\r\f\v") {
 }
 
 /** Print n-dimentional vector **/
-inline void print_1d_vector(cl_t &vec) {
+inline void print_1d_vector(cl_t vec) {
   for (coord_t i = 0; i < vec.size(); ++i) {
     std::cout << vec[i] << " ";
   }
