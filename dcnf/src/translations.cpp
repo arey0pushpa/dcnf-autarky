@@ -217,7 +217,8 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
           ss >> temp;
           coord_t currt_var = std::stoi(temp);
           // Check the correcteness
-          while (dcnf_clauses[cls_count].cls_present() == 0) {
+          while (dcnf_clauses[cls_count].cls_present() == 0 &&
+                 cls_count <= no_of_clauses) {
             ++cls_count;
           }
           if (currt_var > 0) {
@@ -225,8 +226,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
           }
           ++csvar_index;
         }
-        break;
-      }
+      } break;
       case 's': {
         if (s2 == 'U') {
           return 20;
