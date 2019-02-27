@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
                  "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
                  "filename] [-l "
                  "level] [-e encoding] [-s strictness; 0:general, 1:strict] "
-                 "[-r reduction]\n";
+                 "[-r reduction; 0:bf_autarky, 1:e_autarky]\n";
     exit(0);
   }
 
@@ -206,6 +206,7 @@ int main(int argc, char *argv[]) {
 
   cls_t unique_dep_set = unique_vectors(dep_set);
 
+	// TODO: Add code to handle Tautology: remove Tautologus clauses.
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
   std::vector<Clauses> dcnf_clauses;
