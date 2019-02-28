@@ -207,7 +207,6 @@ int main(int argc, char *argv[]) {
 
   cls_t unique_dep_set = unique_vectors(dep_set);
 
-  // TODO: Add code to handle Tautology: remove Tautologus clauses.
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
   std::vector<Clauses> dcnf_clauses;
@@ -225,14 +224,14 @@ int main(int argc, char *argv[]) {
       if (l > 0) {
         dcnf_variables[std::abs(l) - 1].pos_polarity(i);
         if (dcnf_variables[std::abs(l) - 1].neg_pol().count(i)) {
-          std::cout << "Found a tautogous clause \n";
+          std::cout << "Removing the Tautogous clause \n";
           dcnf_clauses.erase(dcnf_clauses.begin() + cls_indx);
           break;
         }
       } else {
         dcnf_variables[std::abs(l) - 1].neg_polarity(i);
         if (dcnf_variables[std::abs(l) - 1].pos_pol().count(i)) {
-          std::cout << "Found a tautogous clause \n";
+          std::cout << "Removing the Tautogous clause \n";
           dcnf_clauses.erase(dcnf_clauses.begin() + cls_indx);
           break;
         }
@@ -265,7 +264,8 @@ int main(int argc, char *argv[]) {
   }
 
   // Create a Clause list of the present clauses
-  // bool present_clauses [dcnf_]
+	no_of_clauses = dcnf_variables.sie();
+  boolv_t present_clauses [no_of_clauses];
 
   /* Todo: Implement a dependency Scheme in case no dependency given */
 
