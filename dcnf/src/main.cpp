@@ -207,52 +207,45 @@ int main(int argc, char *argv[]) {
 
   cls_t unique_dep_set = unique_vectors(dep_set);
 
-  // Create no_of_clauses Objects and initialise exits and forall quant var
+  // create Clause vector objects and initialize E, A Qvar
   lit_t dsize = dcnf_fml.size();
   std::vector<Clauses> dcnf_clauses;
-  dcnf_clauses.resize(dsize);
-
-  coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    cl_t c_evars;
-    cl_t c_elits;
-    cl_t c_avars;
-    cl_t c_alits;
-    dcnf_clauses[cls_indx].initialise_lits(dcnf_fml[i]);
-    for (const lit_t l : dcnf_fml[i]) {
-      dcnf_variables[std::abs(l) - 1].activein_cls(i);
-      if (l > 0) {
-        dcnf_variables[std::abs(l) - 1].pos_polarity(i);
-        if (dcnf_variables[std::abs(l) - 1].neg_pol().count(i)) {
-          std::cout << "Removing the Tautogous clause \n";
-          dcnf_clauses.erase(dcnf_clauses.begin() + cls_indx);
-          break;
+    [&] {
+      cl_t c_evars, c_elits, c_avars, c_alits;
+      set_t actv, posv, negv;
+      for (const lit_t l : dcnf_fml[i]) {
+        coord_t indx = std::abs(l) - 1;
+        actv.insert(i);
+        if (l > 0) {
+          posv.insert(l);
+          if (negv.count(l))
+            return;
+        } else {
+          negv.insert(l);
+          if (posv.count(l))
+            return;
         }
-      } else {
-        dcnf_variables[std::abs(l) - 1].neg_polarity(i);
-        if (dcnf_variables[std::abs(l) - 1].pos_pol().count(i)) {
-          std::cout << "Removing the Tautogous clause \n";
-          dcnf_clauses.erase(dcnf_clauses.begin() + cls_indx);
-          break;
+        if (dcnf_variables[indx].qtype() == 'e') {
+          c_evars.push_back(std::abs(l));
+          c_elits.push_back(l);
+        } else {
+          c_avars.push_back(std::abs(l));
+          c_alits.push_back(l);
         }
       }
-      if (dcnf_variables[std::abs(l) - 1].qtype() == 'e') {
-        c_evars.push_back(std::abs(l));
-        c_elits.push_back(l);
-      } else {
-        c_avars.push_back(std::abs(l));
-        c_alits.push_back(l);
-      }
-    }
-    dcnf_clauses[cls_indx].initialise_evars(c_evars);
-    dcnf_clauses[cls_indx].initialise_elits(c_elits);
+      Clauses *cls = new Clauses;
+      cls->initialise_lits(dcnf_fml[i]);
 
-    dcnf_clauses[cls_indx].initialise_avars(c_avars);
-    dcnf_clauses[cls_indx].initialise_alits(c_alits);
-    ++cls_indx;
+      cls->initialise_evars(c_evars);
+      cls->initialise_elits(c_elits);
+
+      cls->initialise_avars(c_avars);
+      cls->initialise_alits(c_alits);
+
+      dcnf_clauses.push_back(*cls);
+    }();
   }
-
-  dcnf_clauses.resize(cls_indx);
 
   // Every existential variable that do not occur in the clause is
   // not considered for the bf_vars
@@ -264,8 +257,8 @@ int main(int argc, char *argv[]) {
   }
 
   // Create a Clause list of the present clauses
-	no_of_clauses = dcnf_variables.sie();
-  boolv_t present_clauses [no_of_clauses];
+  // no_of_clauses = cls_indx;
+  // boolv_t present_clauses [no_of_clauses];
 
   /* Todo: Implement a dependency Scheme in case no dependency given */
 
