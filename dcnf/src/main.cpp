@@ -210,20 +210,22 @@ int main(int argc, char *argv[]) {
   // create Clause vector objects and initialize E, A Qvar
   lit_t dsize = dcnf_fml.size();
   std::vector<Clauses> dcnf_clauses;
+  coord_t cls_indx = 0;
+
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] {
+    [&] { // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
-      set_t actv, posv, negv;
+      set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
         coord_t indx = std::abs(l) - 1;
-        actv.insert(i);
+        // actv.insert(i); // Use combination of neg and pos
         if (l > 0) {
-          posv.insert(l);
-          if (negv.count(l))
+          posv.insert(indx);
+          if (negv.count(indx))
             return;
         } else {
-          negv.insert(l);
-          if (posv.count(l))
+          negv.insert(indx);
+          if (posv.count(indx))
             return;
         }
         if (dcnf_variables[indx].qtype() == 'e') {
@@ -234,6 +236,15 @@ int main(int argc, char *argv[]) {
           c_alits.push_back(l);
         }
       }
+      // Variable presence info update
+      for (coord_t v : posv) {
+        dcnf_variables[v].pos_polarity(cls_indx);
+      }
+      for (coord_t v : negv) {
+        dcnf_variables[v].neg_polarity(cls_indx);
+      }
+
+      // Push the clause in the dcnf_clauses
       Clauses *cls = new Clauses;
       cls->initialise_lits(dcnf_fml[i]);
 
@@ -244,6 +255,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       dcnf_clauses.push_back(*cls);
+      ++cls_indx;
     }();
   }
 
