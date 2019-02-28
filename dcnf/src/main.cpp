@@ -64,6 +64,7 @@
 #include <chrono>
 #include <cmath>
 #include <fstream>
+#include <iterator> // std::advance
 #include <string>
 
 #include "defs.h"
@@ -174,8 +175,8 @@ int main(int argc, char *argv[]) {
     e_vars_end = true;
 
   coord_t e_var_cntr = 0;
-  // Create a big vector[used Classes to attach additional info]
-  // of all variables access based on their index.
+  // Create a class vector for the Variables
+  // attach add info and access based on their index
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
       if (std::next(avar_iterator) == a_vars.end()) {
@@ -206,24 +207,35 @@ int main(int argc, char *argv[]) {
 
   cls_t unique_dep_set = unique_vectors(dep_set);
 
-	// TODO: Add code to handle Tautology: remove Tautologus clauses.
+  // TODO: Add code to handle Tautology: remove Tautologus clauses.
   // Create no_of_clauses Objects and initialise exits and forall quant var
   lit_t dsize = dcnf_fml.size();
   std::vector<Clauses> dcnf_clauses;
   dcnf_clauses.resize(dsize);
 
+  coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
     cl_t c_evars;
     cl_t c_elits;
     cl_t c_avars;
     cl_t c_alits;
-    dcnf_clauses[i].initialise_lits(dcnf_fml[i]);
+    dcnf_clauses[cls_indx].initialise_lits(dcnf_fml[i]);
     for (const lit_t l : dcnf_fml[i]) {
       dcnf_variables[std::abs(l) - 1].activein_cls(i);
       if (l > 0) {
         dcnf_variables[std::abs(l) - 1].pos_polarity(i);
+        if (dcnf_variables[std::abs(l) - 1].neg_pol().count(i)) {
+          std::cout << "Found a tautogous clause \n";
+          dcnf_clauses.erase(dcnf_clauses.begin() + cls_indx);
+          break;
+        }
       } else {
         dcnf_variables[std::abs(l) - 1].neg_polarity(i);
+        if (dcnf_variables[std::abs(l) - 1].pos_pol().count(i)) {
+          std::cout << "Found a tautogous clause \n";
+          dcnf_clauses.erase(dcnf_clauses.begin() + cls_indx);
+          break;
+        }
       }
       if (dcnf_variables[std::abs(l) - 1].qtype() == 'e') {
         c_evars.push_back(std::abs(l));
@@ -233,12 +245,15 @@ int main(int argc, char *argv[]) {
         c_alits.push_back(l);
       }
     }
-    dcnf_clauses[i].initialise_evars(c_evars);
-    dcnf_clauses[i].initialise_elits(c_elits);
+    dcnf_clauses[cls_indx].initialise_evars(c_evars);
+    dcnf_clauses[cls_indx].initialise_elits(c_elits);
 
-    dcnf_clauses[i].initialise_avars(c_avars);
-    dcnf_clauses[i].initialise_alits(c_alits);
+    dcnf_clauses[cls_indx].initialise_avars(c_avars);
+    dcnf_clauses[cls_indx].initialise_alits(c_alits);
+    ++cls_indx;
   }
+
+  dcnf_clauses.resize(cls_indx);
 
   // Every existential variable that do not occur in the clause is
   // not considered for the bf_vars
@@ -248,6 +263,9 @@ int main(int argc, char *argv[]) {
       dcnf_variables[e - 1].update_presence(0);
     }
   }
+
+  // Create a Clause list of the present clauses
+  // bool present_clauses [dcnf_]
 
   /* Todo: Implement a dependency Scheme in case no dependency given */
 
