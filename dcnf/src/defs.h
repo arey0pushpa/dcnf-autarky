@@ -28,7 +28,7 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
 void set_all_solutions(std::vector<Clauses> &dcnf_clauses,
                        std::vector<Variables> &dcnf_variables,
                        sel_bf &selected_bf, minsat_ass &minsat_clause_assgmt,
-                       const coord_t num_of_clause, const coord_t num_of_vars,
+                       const coord_t num_of_vars,
                        const coord_t level);
 
 void quant_seperation(cl_t &, cl_t &, cl_t &);

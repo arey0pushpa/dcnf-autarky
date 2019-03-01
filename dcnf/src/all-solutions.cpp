@@ -6,7 +6,7 @@
 void set_all_solutions(std::vector<Clauses>& dcnf_clauses,
                     std::vector<Variables>& dcnf_variables, sel_bf& selected_bf,
                     minsat_ass& minsat_clause_assgmt,
-                    const coord_t num_of_clause, const coord_t num_of_vars,
+                    const coord_t num_of_vars,
                     const coord_t level) {
   /** Selected Boolean Function **/
   for (coord_t i = 0; i < num_of_vars; ++i) {
@@ -34,7 +34,7 @@ void set_all_solutions(std::vector<Clauses>& dcnf_clauses,
    * 3. Handle e-var and a-var case
    */
 
-  for (coord_t i = 0; i < num_of_clause; ++i) {
+  for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
     cls_t m_ca;
     // 1. e-literals set to true
     cl_t elit_part = dcnf_clauses[i].elits();

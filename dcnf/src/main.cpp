@@ -152,8 +152,8 @@ int main(int argc, char *argv[]) {
 
   // TEMP FIX. TODO:IMPLEMENT THE CASE OF VAR ABSENCE IN MATRIX CASE DIRECTLY
   no_of_var = e_vars.size() + a_vars.size();
-  // Create no_of_var Objects and for each obj representing a
-  // variable (uni and exist) set qtype of the var and fix it's dependency
+  // Create Variable Objects.
+  // Label the qtype of the var and it's dependency
   std::vector<Variables> dcnf_variables;
   dcnf_variables.resize(no_of_var);
 
@@ -174,9 +174,9 @@ int main(int argc, char *argv[]) {
   if (evar_iterator == e_vars.end())
     e_vars_end = true;
 
-  coord_t e_var_cntr = 0;
   // Create a class vector for the Variables
   // attach add info and access based on their index
+  coord_t e_var_cntr = 0;
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
       if (std::next(avar_iterator) == a_vars.end()) {
@@ -258,6 +258,7 @@ int main(int argc, char *argv[]) {
     }();
   }
 
+  //TODO: Check if not considering univ variable harm? NO, for now.
   // Every existential variable that do not occur in the clause is
   // not considered for the bf_vars
   for (const lit_t e : e_vars) {
@@ -276,7 +277,7 @@ int main(int argc, char *argv[]) {
 
   if (reduction_type == 0) {
     set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
-                      minsat_clause_assgmt, no_of_clauses, no_of_var, level);
+                      minsat_clause_assgmt, no_of_var, level);
 
     while (aut_present == 10) {
       aut_present =
