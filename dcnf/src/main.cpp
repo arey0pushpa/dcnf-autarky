@@ -206,12 +206,11 @@ int main(int argc, char *argv[]) {
   }
 
   cls_t unique_dep_set = unique_vectors(dep_set);
-
-  // create Clause vector objects and initialize E, A Qvar
   lit_t dsize = dcnf_fml.size();
+
+  // create Clause vector objects to initialize E, A Qvar
   std::vector<Clauses> dcnf_clauses;
   coord_t cls_indx = 0;
-
   for (coord_t i = 0; i < dsize; ++i) {
     [&] { // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
@@ -262,9 +261,10 @@ int main(int argc, char *argv[]) {
   // Every existential variable that do not occur in the clause is
   // not considered for the bf_vars
   for (const lit_t e : e_vars) {
-    // check the e or e-1
-    if (dcnf_variables[e - 1].act_cls().empty()) {
-      dcnf_variables[e - 1].update_presence(0);
+    coord_t i = e - 1;
+    if (dcnf_variables[i].pos_pol().empty() && 
+		    dcnf_variables[i].neg_pol().empty()) {
+      dcnf_variables[i].update_presence(0);
     }
   }
 
