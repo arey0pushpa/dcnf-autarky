@@ -23,6 +23,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   const coord_t no_of_var = dcnf_variables.size();
   const coord_t no_of_clauses = dcnf_clauses.size();
 
+  // TODO: Change it to the present clauses
   // cs variable := #no_of_clauses -----------------------------
   for (coord_t i = 0; i < no_of_clauses; ++i) {
     if (dcnf_clauses[i].cls_present() == 0)
@@ -35,8 +36,8 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     return 11;
   }
 
-  // TODO: Add the code for: C removal -> e removal	
-
+  // TODO: Add the code for: C removal -> e removal	 
+ 
   // bf variable := two_dim [v] [f_v] -------------------------
   coord_t lbf_var_size = 0;
   cl_t lbf_vars, s_bf;
@@ -54,7 +55,8 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   // Additional 1 due to index count is incremented after last use.
-  std::vector<bf_lbf_converter> bf2lbf_var_map(index - (no_of_clauses + 1));
+  // TODO: Check the correct use of no_of_clauses, use the  
+  std::vector<bf_lbf_converter> bf2lbf_var_map(index - (dcnf_clauses.size() + 1));
 
   if (encoding == 1) { // LOG Encoding
     index = preindex;
