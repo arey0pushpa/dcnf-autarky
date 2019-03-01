@@ -270,11 +270,7 @@ int main(int argc, char *argv[]) {
   }
 
   // Create a Clause list of the present clauses
-  std::cout << "the present values of the cluases o\n";
   boolv_t present_clauses (dcnf_clauses.size(), 1);
-  for (coord_t i: present_clauses) {
-	  std::cout << i << "\n";
-  }
 
   /* Todo: Implement a dependency Scheme in case no dependency given */
 
@@ -285,8 +281,9 @@ int main(int argc, char *argv[]) {
     while (aut_present == 10) {
       aut_present =
           bfs_autarky(dcnf_clauses, dcnf_variables, selected_bf,
-                      minsat_clause_assgmt, e_vars, filename, output_file_name,
-                      dependency_var, level, s_level, encoding);
+                      minsat_clause_assgmt, e_vars, present_clauses,
+		      filename, output_file_name,
+                      dependency_var, encoding);
     }
     if (aut_present == 20) {
       std::cout << "The input QBF formula is UNSAT. \n";

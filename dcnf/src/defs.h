@@ -11,10 +11,10 @@ void command_line_parsing(int, char *av[], std::string &, unsigned &,
 
 coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
                     std::vector<Variables> &dcnf_variables, sel_bf &selected_bf,
-                    minsat_ass &minsat_clause_assgmt, cl_t e_vars,
+                    minsat_ass &minsat_clause_assgmt, cl_t e_vars, boolv_t &present_clauses,
+
                     std::string filename, std::string output_file_name,
-                    coord_t dependency_var, coord_t level, coord_t s_level,
-                    coord_t encoding);
+                    coord_t dependency_var, coord_t encoding);
 
 coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
                   std::vector<Variables> &dcnf_variables, lit_t e);

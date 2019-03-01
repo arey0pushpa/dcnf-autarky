@@ -4,12 +4,12 @@
 
 coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
                     std::vector<Variables> &dcnf_variables, sel_bf &selected_bf,
-                    minsat_ass &minsat_clause_assgmt, cl_t e_vars,
+                    minsat_ass &minsat_clause_assgmt, cl_t e_vars, boolv_t &present_clauses,
                     std::string filename, std::string output_file_name,
-                    coord_t dependency_var, coord_t level, coord_t s_level,
-                    coord_t encoding) {
+                    coord_t dependency_var, const coord_t encoding) {
 
-  /** Traslation variables with ordering */
+  /** Traslation variables with ordering 
+   * no_of_clauses will be the input matrix size modulo tauto */
   cl_t cs_vars;
   cls_t bf_vars;
   cl_t pa_vars;
@@ -18,6 +18,8 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
 
   coord_t index = 1;
+  // Deleting the non-appearing will save some loop iteration
+  // Not on priority
   const coord_t no_of_var = dcnf_variables.size();
   const coord_t no_of_clauses = dcnf_clauses.size();
 
