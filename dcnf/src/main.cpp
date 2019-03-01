@@ -270,8 +270,11 @@ int main(int argc, char *argv[]) {
   }
 
   // Create a Clause list of the present clauses
-  // no_of_clauses = cls_indx;
-  // boolv_t present_clauses [no_of_clauses];
+  std::cout << "the present values of the cluases o\n";
+  boolv_t present_clauses (dcnf_clauses.size(), 1);
+  for (coord_t i: present_clauses) {
+	  std::cout << i << "\n";
+  }
 
   /* Todo: Implement a dependency Scheme in case no dependency given */
 
