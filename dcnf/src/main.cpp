@@ -60,11 +60,11 @@
  * 		- Create a Wrapper for doing Autarky reduction.
  */
 
-#include <bitset> // std::bitset
+#include <bitset>  // std::bitset
 #include <chrono>
 #include <cmath>
 #include <fstream>
-#include <iterator> // std::advance
+#include <iterator>  // std::advance
 #include <string>
 
 #include "defs.h"
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
   coord_t level = 1;
   coord_t s_level = 0;
   coord_t encoding = 0;
-  coord_t reduction_type = 0;
+  coord_t reduction_type = 1;  // Start with search for e_var autarkies
   coord_t aut_present = 10;
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
@@ -132,14 +132,14 @@ int main(int argc, char *argv[]) {
   coord_t no_of_var = 0;
 
   /** Global Variables ***/
-  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
+  cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
 
-  cl_t e_vars;   // {exists-var}
-  cl_t a_vars;   // {forall-var}
-  cls_t dep_set; // {{dep-var}...}
+  cl_t e_vars;    // {exists-var}
+  cl_t a_vars;    // {forall-var}
+  cls_t dep_set;  // {{dep-var}...}
 
-  sel_bf selected_bf;              // All bf (v,f) pairs {(e-var, )...}
-  minsat_ass minsat_clause_assgmt; // All S(C)'s: {<e-var,bf(k)>...}
+  sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
+  minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
 
   coord_t min_dep_size = 0;
   coord_t max_dep_size = 0;
@@ -157,6 +157,7 @@ int main(int argc, char *argv[]) {
   std::vector<Variables> dcnf_variables;
   dcnf_variables.resize(no_of_var);
 
+  // make dep set sorted linearly accdn to evar
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t &a, const cl_t &b) { return a[0] < b[0]; });
 
@@ -166,16 +167,23 @@ int main(int argc, char *argv[]) {
   auto avar_iterator = a_vars.begin();
   auto evar_iterator = e_vars.begin();
 
+  /*
+  std::cout << "Printing universal variables" << '\n';
+  print_1d_vector(a_vars);
+  std::cout << "\nPrinting existenial variables" << '\n';
+  print_1d_vector(e_vars);
+  std::cout << "\n";
+  */
+
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
+  if (avar_iterator == a_vars.end()) a_vars_end = true;
+  if (evar_iterator == e_vars.end()) e_vars_end = true;
 
-  // Create a class vector for the Variables
+  // Create a vector of Class Variables
   // attach add info and access based on their index
+  // TODO: check if the e-var and a-var order is like e1,..en,a1,...,an
   coord_t e_var_cntr = 0;
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
@@ -187,6 +195,7 @@ int main(int argc, char *argv[]) {
     } else if (!e_vars_end && i == *evar_iterator - 1) {
       dcnf_variables[i].initialise_qtype('e');
       cl_t d_s = dep_set[dep_index];
+      // erase evar frm dep set: d_s shld be just dependent vars
       d_s.erase(d_s.begin());
       cl_t dep_vars = d_s;
       dcnf_variables[i].initialise_dependency(dep_vars);
@@ -205,14 +214,15 @@ int main(int argc, char *argv[]) {
     }
   }
 
+
   cls_t unique_dep_set = unique_vectors(dep_set);
   lit_t dsize = dcnf_fml.size();
 
-  // create Clause vector objects to initialize E, A Qvar
+  // Create vector of Clause Class to initialize E, A Qvar
   std::vector<Clauses> dcnf_clauses;
   coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] { // Use of Lambda :) Yeahhh...
+    [&] {  // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
@@ -220,12 +230,11 @@ int main(int argc, char *argv[]) {
         // actv.insert(i); // Use combination of neg and pos
         if (l > 0) {
           posv.insert(indx);
-          if (negv.count(indx))
-            return;
+	  // In case negaion of the variable is also presen on the 
+          if (negv.count(indx)) return;
         } else {
           negv.insert(indx);
-          if (posv.count(indx))
-            return;
+          if (posv.count(indx)) return;
         }
         if (dcnf_variables[indx].qtype() == 'e') {
           c_evars.push_back(std::abs(l));
@@ -257,23 +266,26 @@ int main(int argc, char *argv[]) {
       ++cls_indx;
     }();
   }
+  
+  exit(0);
 
-  //TODO: Check if not considering univ variable harm? NO, for now.
+  // TODO: Check if not considering univ variable harm? NO, for now.
   // Every existential variable that do not occur in the clause is
   // not considered for the bf_vars
   for (const lit_t e : e_vars) {
     coord_t i = e - 1;
-    if (dcnf_variables[i].pos_pol().empty() && 
-		    dcnf_variables[i].neg_pol().empty()) {
+    if (dcnf_variables[i].pos_pol().empty() &&
+        dcnf_variables[i].neg_pol().empty()) {
       dcnf_variables[i].update_presence(0);
     }
   }
 
   // Create a Clause list of the present clauses
-  boolv_t present_clauses (dcnf_clauses.size(), 1);
+  boolv_t present_clauses(dcnf_clauses.size(), 1);
 
-  /* Todo: Implement a dependency Scheme in case no dependency given */
+  /*TODO: Implement a dependency Scheme in case no dependency given */
 
+  // Type 0 is a_var autarky
   if (reduction_type == 0) {
     set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                       minsat_clause_assgmt, no_of_var, level);
@@ -281,23 +293,22 @@ int main(int argc, char *argv[]) {
     while (aut_present == 10) {
       aut_present =
           bfs_autarky(dcnf_clauses, dcnf_variables, selected_bf,
-                      minsat_clause_assgmt, e_vars, present_clauses,
-		      filename, output_file_name,
-                      dependency_var, encoding);
+                      minsat_clause_assgmt, e_vars, present_clauses, filename,
+                      output_file_name, dependency_var, encoding);
     }
     if (aut_present == 20) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
       for (coord_t i = 0; i < no_of_clauses; ++i) {
-        if (dcnf_clauses[i].cls_present() == 0)
-          continue;
+        if (dcnf_clauses[i].cls_present() == 0) continue;
         print_1d_vector(dcnf_clauses[i].lits());
         std::cout << "\n";
       }
     } else if (aut_present == 11) {
       std::cout << "The input QBF formula is Satisfiable.\n";
     }
-  } else { // reduction of e_autarky
+  } else {  // reduction of e_autarky
+    // TODO: Check if variable is inactive and then proceed
     for (lit_t &e : e_vars) {
       aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
     }

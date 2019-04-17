@@ -4,18 +4,18 @@
 
 coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
                     std::vector<Variables> &dcnf_variables, sel_bf &selected_bf,
-                    minsat_ass &minsat_clause_assgmt, cl_t e_vars, boolv_t &present_clauses,
-                    std::string filename, std::string output_file_name,
-                    coord_t dependency_var, const coord_t encoding) {
-
-  /** Traslation variables with ordering 
+                    minsat_ass &minsat_clause_assgmt, cl_t e_vars,
+                    boolv_t &present_clauses, std::string filename,
+                    std::string output_file_name, coord_t dependency_var,
+                    const coord_t encoding) {
+  /** Traslation variables with ordering
    * no_of_clauses will be the input matrix size modulo tauto */
   cl_t cs_vars;
   cls_t bf_vars;
   cl_t pa_vars;
 
-  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
-  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
+  cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
+  cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
 
   coord_t index = 1;
   // Deleting the non-appearing will save some loop iteration
@@ -26,8 +26,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   // TODO: Change it to the present clauses
   // cs variable := #no_of_clauses -----------------------------
   for (coord_t i = 0; i < no_of_clauses; ++i) {
-    if (dcnf_clauses[i].cls_present() == 0)
-      continue;
+    if (dcnf_clauses[i].cls_present() == 0) continue;
     cs_vars.push_back(index);
     index += 1;
   }
@@ -36,16 +35,15 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     return 11;
   }
 
-  // TODO: Add the code for: C removal -> e removal	 
- 
+  // TODO: Add the code for: C removal -> e removal
+
   // bf variable := two_dim [v] [f_v] -------------------------
   coord_t lbf_var_size = 0;
   cl_t lbf_vars, s_bf;
   coord_t preindex = index;
   coord_t bf_var_count = 0;
   for (coord_t i = 0; i < selected_bf.size(); ++i) {
-    if (dcnf_variables[e_vars[i] - 1].var_present() == 0)
-      continue;
+    if (dcnf_variables[e_vars[i] - 1].var_present() == 0) continue;
     for (coord_t j = 0; j < selected_bf[i].size(); ++j) {
       s_bf.push_back(index);
       index += 1;
@@ -55,10 +53,11 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   // Additional 1 due to index count is incremented after last use.
-  // TODO: Check the correct use of no_of_clauses, use the  
-  std::vector<bf_lbf_converter> bf2lbf_var_map(index - (dcnf_clauses.size() + 1));
+  // TODO: Check the correct use of no_of_clauses, use the
+  std::vector<bf_lbf_converter> bf2lbf_var_map(index -
+                                               (dcnf_clauses.size() + 1));
 
-  if (encoding == 1) { // LOG Encoding
+  if (encoding == 1) {  // LOG Encoding
     index = preindex;
     for (coord_t i = 0; i < selected_bf.size(); ++i) {
       bf_var_count += selected_bf[i].size();
@@ -73,13 +72,12 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
 
   // pa variable := Only consider unique mapping
   cls_t pa_var_set;
-  minsat_ass pa_var_msat_ass(e_vars.size());  // bigbag to push all assmts
-  cls_t msat_concrete_var_map(e_vars.size()); // dqbf Var to Cnf var Map
-  cls_t clausewise_pa_var_map(no_of_clauses); // create clausewise cnf vars
+  minsat_ass pa_var_msat_ass(e_vars.size());   // bigbag to push all assmts
+  cls_t msat_concrete_var_map(e_vars.size());  // dqbf Var to Cnf var Map
+  cls_t clausewise_pa_var_map(no_of_clauses);  // create clausewise cnf vars
   coord_t msat_cntr = 1;
   for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
-    if (dcnf_clauses[i].cls_present() == 0)
-      continue;
+    if (dcnf_clauses[i].cls_present() == 0) continue;
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[i][j];
       lit_t slit = std::abs(dummy[0]);
@@ -102,23 +100,22 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   // --- Build Constraints
-  non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
+  non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
-  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
+  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
   satisfied_clauses(encoding, cs_vars.size(), lbf_vars, dcnf_clauses,
                     dcnf_variables, bf_vars, pa_var_msat_ass,
                     msat_concrete_var_map, selected_bf, cnf_fml,
-                    bf2lbf_var_map); // (4.2)
+                    bf2lbf_var_map);  // (4.2)
 
   untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars,
-                    cs_vars, no_of_clauses, cnf_fml, bf2lbf_var_map); // (4.4)
+                    cs_vars, no_of_clauses, cnf_fml, bf2lbf_var_map);  // (4.4)
 
   if (encoding == 0 || encoding == 2) {
-    for (coord_t i = 0; i < no_of_var; ++i) { // (4.1)
+    for (coord_t i = 0; i < no_of_var; ++i) {  // (4.1)
       if (dcnf_variables[i].qtype() == 'e') {
-        if (dcnf_variables[i].var_present() == 0)
-          continue;
+        if (dcnf_variables[i].var_present() == 0) continue;
         coord_t indx = dcnf_variables[i].eindex();
         if (encoding == 0) {
           at_most_one(bf_vars[indx], cnf_fml);
@@ -153,8 +150,7 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_size = bf_var_size + std::to_string(bf_vars[i][j]) + " ";
     }
-    if (i < bf_vars.size() - 1)
-      bf_var_size = bf_var_size + " +  ";
+    if (i < bf_vars.size() - 1) bf_var_size = bf_var_size + " +  ";
   }
 
   if (encoding == 1) {
@@ -213,31 +209,31 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
       char s1 = line[0];
       char s2 = line[2];
       switch (s1) {
-      case 'v': {
-        line = line.substr(line.find_first_of(" \t") + 1);
-        std::stringstream ss;
-        ss << line;
-        std::string temp;
-        while (!ss.eof() && (csvar_index < cs_vars.size())) {
-          ss >> temp;
-          coord_t currt_var = std::stoi(temp);
-          while (dcnf_clauses[cls_count].cls_present() == 0 &&
-                 cls_count < no_of_clauses) {
+        case 'v': {
+          line = line.substr(line.find_first_of(" \t") + 1);
+          std::stringstream ss;
+          ss << line;
+          std::string temp;
+          while (!ss.eof() && (csvar_index < cs_vars.size())) {
+            ss >> temp;
+            coord_t currt_var = std::stoi(temp);
+            while (dcnf_clauses[cls_count].cls_present() == 0 &&
+                   cls_count < no_of_clauses) {
+              ++cls_count;
+            }
+            if (currt_var > 0) {
+              dcnf_clauses[cls_count].update_presence(0);
+            }
+            ++csvar_index;
             ++cls_count;
           }
-          if (currt_var > 0) {
-            dcnf_clauses[cls_count].update_presence(0);
+        } break;
+        case 's': {
+          if (s2 == 'U') {
+            return 20;
           }
-          ++csvar_index;
-          ++cls_count;
+          break;
         }
-      } break;
-      case 's': {
-        if (s2 == 'U') {
-          return 20;
-        }
-        break;
-      }
       }
     }
     if (file.bad()) {
@@ -262,9 +258,11 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
                    std::inserter(intersect, intersect.begin()));
   if (intersect.empty()) {
+    // BUG: use of act_cls() -> pos() + neg()
+    // TODO: Do not use active clause in the case
+    // Iterate over the pos and neg clause set
     set_t vactive_cls = dcnf_variables[e - 1].act_cls();
     for (lit_t i : vactive_cls) {
-      // Check i or i-1
       dcnf_clauses[i].update_presence(0);
     }
   } else {

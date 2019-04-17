@@ -1,15 +1,15 @@
 #include <algorithm>
+#include <bitset>
 #include <cassert>
 #include <iostream>
 #include <limits>
-#include <sstream>
-#include <bitset>
-#include <vector>
 #include <set>
+#include <sstream>
+#include <vector>
 
 #define LOG(x) std::cout << x << std::endl
 
-typedef std::vector<bool> boolv_t; 
+typedef std::vector<bool> boolv_t;
 
 typedef std::int64_t lit_t;       // literals
 typedef std::vector<lit_t> cl_t;  // clauses
@@ -35,6 +35,9 @@ enum Error_codes {
   input_format_violation = 12
 };
 
+/* The
+ * */ 
+
 class Clauses {
   cl_t m_lits;
 
@@ -44,10 +47,10 @@ class Clauses {
   cl_t m_avars;
   cl_t m_alits;
 
-	bool present;
+  bool present;
 
  public:
-  Clauses(): present(1) {};
+  Clauses() : present(1){};
   void initialise_lits(cl_t c) { m_lits = c; }
   void initialise_evars(cl_t e) { m_evars = e; }
   void initialise_elits(cl_t e) { m_elits = e; }
@@ -64,44 +67,52 @@ class Clauses {
   bool cls_present() const { return present; }
 };
 
+/* Class Variables provides information of each variables 
+ *   1. The quantifier type of the variable : quantype 
+ *   In case of E_Var 
+ *   2. Var dependency list: dependency
+ *   3. 0 based: Index of the existenial quantifier: eindex  
+ *   4. 0 based: Clauses the variable is active/present: active_cls
+ *   5. positive occurence in clauses: pos_cls
+ *   6. neg occurence in clauses: pos_cls
+ *   7. The clause is present after autarky reduction?: present
+ */
 class Variables {
   char m_quantype;
-  cl_t m_dependency;
-  coord_t m_eindex;
-	
-	set_t active_cls;
-	set_t pos_cls;
-	set_t neg_cls;
+  cl_t m_dependency; // absolute var list
+  coord_t m_eindex; // 0 based
 
-	bool present;
+  set_t active_cls; // 0 based
+  set_t pos_cls;
+  set_t neg_cls;
+
+  bool present;
 
  public:
   Variables() : m_quantype('a'), m_dependency({}), present(1) {}
   void initialise_qtype(char c) { m_quantype = c; }
   void initialise_eindex(coord_t i) { m_eindex = i; }
-  void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; } 
-	
-	void update_presence(bool p) { present = p;}
-	void activein_cls(coord_t cls) { active_cls.insert(cls); }
-	void pos_polarity(coord_t cls) { pos_cls.insert(cls); }
-	void neg_polarity(coord_t cls) { neg_cls.insert(cls); }
+  void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; }
 
+  void update_presence(bool p) { present = p; }
+  void activein_cls(coord_t cls) { active_cls.insert(cls); }
+  void pos_polarity(coord_t cls) { pos_cls.insert(cls); }
+  void neg_polarity(coord_t cls) { neg_cls.insert(cls); }
 
   char qtype() const { return m_quantype; }
   cl_t dependency() const { return m_dependency; }
   coord_t eindex() const { return m_eindex; }
-  set_t act_cls() const { return active_cls; } 
-  set_t pos_pol() const { return pos_cls; } 
-  set_t neg_pol() const { return neg_cls; } 
+  set_t act_cls() const { return active_cls; }
+  set_t pos_pol() const { return pos_cls; }
+  set_t neg_pol() const { return neg_cls; }
   bool var_present() const { return present; }
-
 };
 
 class bf_lbf_converter {
  public:
   bool is_present;
   cl_t lbf_fml;
-	bf_lbf_converter() : is_present (false) { }
+  bf_lbf_converter() : is_present(false) {}
 };
 
 // command line
@@ -187,13 +198,13 @@ inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {
   boolv_t binary_repr;
   cl_t fml_repr;
 
-	while (bf_var > 0) {
+  while (bf_var > 0) {
     binary_repr.push_back(bf_var % 2);
     bf_var = bf_var / 2;
     ++blen;
   }
-  assert(blen <= lbf_vars.size()); 	
-	// Enforce the resultant vector is of size of lbf_vars
+  assert(blen <= lbf_vars.size());
+  // Enforce the resultant vector is of size of lbf_vars
   for (coord_t i = blen; i < lbf_vars.size(); ++i) {
     binary_repr.push_back(0);
   }
