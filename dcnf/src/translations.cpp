@@ -253,8 +253,6 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
 coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
                   std::vector<Variables> &dcnf_variables, lit_t e) {
   set_t intersect;
-  // TODO: e-1 will not always give you the variable index need to call
-  // e-1.eindex() or restructure dcnf_variables to v_0,...,v_m+n
   set_t s1 = dcnf_variables[e - 1].pos_pol();
   set_t s2 = dcnf_variables[e - 1].neg_pol();
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
@@ -271,7 +269,7 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
   } else {
     for (lit_t j : s1) {
       // Check i or i-1
-      cl_t cls_s1 = dcnf_clauses[j - 1].lits();
+      cl_t cls_s1 = dcnf_clauses[j].lits();
       set_t compl_s1;
       set_t compl_s2;
       // Todo:  Create a function or change vector to a set
@@ -284,7 +282,8 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
       }
       for (coord_t k : s2) {
         set_t intersect_cls;
-        cl_t cls_s2 = dcnf_clauses[j - 1].lits();
+				// shld be k not k-1
+        cl_t cls_s2 = dcnf_clauses[k].lits();
         for (lit_t l2 : cls_s2) {
           compl_s2.insert(l2);
         }
@@ -293,11 +292,14 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
                          std::inserter(intersect_cls, intersect_cls.begin()));
         assert(intersect_cls.size() >= 1);
         if (intersect_cls.size() < 2) {
-          break;
+          break; // Check the control flow
         }
       }
     }
     for (lit_t l : dcnf_clauses[e - 1].lits()) {
+			// TODO: The variable presence is not getting used.
+			// It is possible that some variables are not active anymore 
+			// so always add a sanitation check in the above code.
       dcnf_clauses[l].update_presence(0);
     }
   }

@@ -183,6 +183,7 @@ int main(int argc, char *argv[]) {
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
+	// Structure is defined by the input dqdimacs file v_0,...,v_noofvars-1 
   coord_t e_var_cntr = 0;
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
