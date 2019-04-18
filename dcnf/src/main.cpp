@@ -305,7 +305,7 @@ int main(int argc, char *argv[]) {
         }
       }
       if (unsat_cls.size() == 0) {
-        std::cout << "The input QBF formula is Satisfiable via e_autarky "
+        std::cout << "The input QBF formula is Satisfiable bu an e_autarky "
                      "reduction.\n";
         // TODO: Print the satisfying assignments!!!
         exit(0);
@@ -335,8 +335,8 @@ int main(int argc, char *argv[]) {
         }
         exit(0);
       } else if (aut_present == 11) {
-        std::cout
-            << "The input QBF formula is Satisfiable by a_autarky reduction.\n";
+        std::cout << "The input QBF formula is Satisfiable by an a_autarky "
+                     "reduction.\n";
         // TODO: Print the satisfying assignments!!!
         exit(0);
       }
