@@ -268,11 +268,11 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
     }
   } else {
     for (lit_t j : s1) {
-      // Check i or i-1
       cl_t cls_s1 = dcnf_clauses[j].lits();
       set_t compl_s1;
-      set_t compl_s2;
-      // Todo:  Create a function or change vector to a set
+      set_t set_s2;
+      // Todo:  Create a function to get complement of a set 
+			// or change vector to a set
       for (lit_t l1 : cls_s1) {
         if (l1 > 0) {
           compl_s1.insert(-l1);
@@ -282,13 +282,12 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
       }
       for (coord_t k : s2) {
         set_t intersect_cls;
-				// shld be k not k-1
         cl_t cls_s2 = dcnf_clauses[k].lits();
         for (lit_t l2 : cls_s2) {
-          compl_s2.insert(l2);
+          set_s2.insert(l2);
         }
-        set_intersection(compl_s1.begin(), compl_s1.end(), compl_s2.begin(),
-                         compl_s2.end(),
+        set_intersection(compl_s1.begin(), compl_s1.end(), set_s2.begin(),
+                         set_s2.end(),
                          std::inserter(intersect_cls, intersect_cls.begin()));
         assert(intersect_cls.size() >= 1);
         if (intersect_cls.size() < 2) {

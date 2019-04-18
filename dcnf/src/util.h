@@ -35,7 +35,14 @@ enum Error_codes {
   input_format_violation = 12
 };
 
-/* The
+/* Clauses class provide information of each of the clauses
+ * attached with each clause
+ * 1. set of literals: mLits
+ * 2. set of existential variables: e_vars
+ * 3. set of existential literals: e_lits
+ * 4. set of uni variables: a_vars
+ * 5. set of uni literals: a_lits
+ * 6. activity of the clause: present 
  * */
 
 class Clauses {
