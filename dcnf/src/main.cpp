@@ -319,20 +319,19 @@ int main(int argc, char *argv[]) {
       }
     }
     cls_t unsat_cls;
-    for (coord_t i = 0; i < no_of_clauses; ++i) {
+    for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
       if (dcnf_clauses[i].cls_present() == 1) {
         unsat_cls.push_back(dcnf_clauses[i].lits());
       }
     }
-    if (unsat_cls.size() > 0) {
-      std::cout << "The input QBF formula is UNSAT. \n";
-      std::cout << "The UNSAT/remaining clauses are. \n";
+    if (unsat_cls.size() == 0) {
+      std::cout << "The input QBF formula is Satisfiable.\n";
+    } else {
+      std::cout << "The remaining clauses are: " << '\n';
       for (cl_t &c : unsat_cls) {
         print_1d_vector(c);
         std::cout << "\n";
       }
-    } else {
-      std::cout << "The input QBF formula is Satisfiable.\n";
     }
   }
 
