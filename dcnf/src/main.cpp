@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
   coord_t level = 1;
   coord_t s_level = 0;
   coord_t encoding = 0;
-  coord_t reduction_type = 1;  // Start with search for e_var autarkies
+  coord_t reduction_type = 0;  // Start with search for e_var autarkies
   coord_t aut_present = 10;
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
                  "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
                  "filename] [-l "
                  "level] [-e encoding] [-s strictness; 0:general, 1:strict] "
-                 "[-r reduction; 0:bf_autarky, 1:e_autarky]\n";
+                 "[-r reduction; 0:e_autarky, 1:a_autarky]\n";
     exit(0);
   }
 
@@ -283,58 +283,63 @@ int main(int argc, char *argv[]) {
 
   /*TODO: Implement a dependency Scheme in case no dependency given */
 
-  // Type 0 is a_var autarky
-  if (reduction_type == 0) {
-    set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
-                      minsat_clause_assgmt, no_of_var, level);
-
-    while (aut_present == 10) {
+  // TODO: implement all three possible combinations of e_autarky and a_autarky
+  while (true) {
+    if (reduction_type == 0) {  // reduction of e_autarky
+      for (lit_t e : e_vars) {
+        // TODO: Perform a SANITY check
+        aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
+        if (aut_present == 10) {
+          for (lit_t i : dcnf_variables[e - 1].pos_pol()) {
+            dcnf_clauses[i].update_presence(0);
+          }
+          for (lit_t i : dcnf_variables[e - 1].neg_pol()) {
+            dcnf_clauses[i].update_presence(0);
+          }
+        }
+      }
+      cls_t unsat_cls;
+      for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
+        if (dcnf_clauses[i].cls_present() == 1) {
+          unsat_cls.push_back(dcnf_clauses[i].lits());
+        }
+      }
+      if (unsat_cls.size() == 0) {
+        std::cout << "The input QBF formula is Satisfiable.\n";
+        // TODO: Print the satisfying assignments!!!
+        exit(0);
+      } else {
+        std::cout << "The remaining clauses after e_autarky reductions are: "
+                  << '\n';
+        for (cl_t &c : unsat_cls) {
+          print_1d_vector(c);
+          std::cout << "\n";
+        }
+      }
+      //    reduction_type = 1;
+      //  } else if (reduction_type == 1) {  // a_var autarky
+      set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
+                        minsat_clause_assgmt, no_of_var, level);
       aut_present =
           bfs_autarky(dcnf_clauses, dcnf_variables, selected_bf,
                       minsat_clause_assgmt, e_vars, present_clauses, filename,
                       output_file_name, dependency_var, encoding);
-    }
-    if (aut_present == 20) {
-      std::cout << "The input QBF formula is UNSAT. \n";
-      std::cout << "The UNSAT/remaining clauses are. \n";
-      for (coord_t i = 0; i < no_of_clauses; ++i) {
-        if (dcnf_clauses[i].cls_present() == 0) continue;
-        print_1d_vector(dcnf_clauses[i].lits());
-        std::cout << "\n";
-      }
-    } else if (aut_present == 11) {
-      std::cout << "The input QBF formula is Satisfiable.\n";
-    }
-  } else {  // reduction of e_autarky
-    for (lit_t e : e_vars) {
-      // TODO: Perform a SANITY check
-      aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
-      if (aut_present == 10) {
-        for (lit_t i : dcnf_variables[e - 1].pos_pol()) {
-          dcnf_clauses[i].update_presence(0);
+      if (aut_present == 20) {
+        std::cout << "The input QBF formula is UNSAT. \n";
+        std::cout << "The UNSAT/remaining clauses are. \n";
+        for (coord_t i = 0; i < no_of_clauses; ++i) {
+          if (dcnf_clauses[i].cls_present() == 0) continue;
+          print_1d_vector(dcnf_clauses[i].lits());
+          std::cout << "\n";
         }
-        for (lit_t i : dcnf_variables[e - 1].neg_pol()) {
-          dcnf_clauses[i].update_presence(0);
-        }
-      }
-    }
-    cls_t unsat_cls;
-    for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
-      if (dcnf_clauses[i].cls_present() == 1) {
-        unsat_cls.push_back(dcnf_clauses[i].lits());
-      }
-    }
-    if (unsat_cls.size() == 0) {
-      std::cout << "The input QBF formula is Satisfiable.\n";
-    } else {
-      std::cout << "The remaining clauses are: " << '\n';
-      for (cl_t &c : unsat_cls) {
-        print_1d_vector(c);
-        std::cout << "\n";
+        exit(0);
+      } else if (aut_present == 11) {
+        std::cout << "The input QBF formula is Satisfiable.\n";
+        // TODO: Print the satisfying assignments!!!
+        exit(0);
       }
     }
   }
-
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;
   std::cout << "entire run took " << elapsed.count() << " secs\n";
