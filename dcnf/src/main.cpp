@@ -317,8 +317,6 @@ int main(int argc, char *argv[]) {
           std::cout << "\n";
         }
       }
-      //    reduction_type = 1;
-      //  } else if (reduction_type == 1) {  // a_var autarky
       set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                         minsat_clause_assgmt, no_of_var, level);
       aut_present =
