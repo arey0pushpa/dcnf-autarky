@@ -183,7 +183,7 @@ int main(int argc, char *argv[]) {
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
-	// Structure is defined by the input dqdimacs file v_0,...,v_noofvars-1 
+  // Structure is defined by the input dqdimacs file v_0,...,v_noofvars-1
   coord_t e_var_cntr = 0;
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
@@ -229,7 +229,7 @@ int main(int argc, char *argv[]) {
         // actv.insert(i); // Use combination of neg and pos
         if (l > 0) {
           posv.insert(indx);
-					// If the clause is TAUTO ignore it
+          // If the clause is TAUTO ignore it
           if (negv.count(indx)) return;
         } else {
           negv.insert(indx);
@@ -247,7 +247,7 @@ int main(int argc, char *argv[]) {
       for (coord_t v : posv) {
         dcnf_variables[v].pos_polarity(cls_indx);
       }
-			// TODO: misuse of coord_t conversion
+      // TODO: misuse of coord_t conversion
       for (coord_t v : negv) {
         dcnf_variables[v].neg_polarity(cls_indx);
       }
@@ -266,9 +266,9 @@ int main(int argc, char *argv[]) {
       ++cls_indx;
     }();
   }
-  
+
   // TODO: Check if not considering univ variable harm? NO, for now.
-  // Every existential variable that do not occur in the clause is
+  // Every existential variable that do not occur anywhere in the formula is
   // not considered for the bf_vars
   for (const lit_t e : e_vars) {
     coord_t i = e - 1;
@@ -306,11 +306,18 @@ int main(int argc, char *argv[]) {
       std::cout << "The input QBF formula is Satisfiable.\n";
     }
   } else {  // reduction of e_autarky
-    // TODO: Check if variable is inactive and then proceed
-    for (lit_t &e : e_vars) {
+    for (lit_t e : e_vars) {
+      // TODO: Perform a SANITY check
       aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
+      if (aut_present == 10) {
+        for (lit_t i : dcnf_variables[e - 1].pos_pol()) {
+          dcnf_clauses[i].update_presence(0);
+        }
+        for (lit_t i : dcnf_variables[e - 1].neg_pol()) {
+          dcnf_clauses[i].update_presence(0);
+        }
+      }
     }
-
     cls_t unsat_cls;
     for (coord_t i = 0; i < no_of_clauses; ++i) {
       if (dcnf_clauses[i].cls_present() == 1) {

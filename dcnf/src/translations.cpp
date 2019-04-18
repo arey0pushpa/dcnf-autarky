@@ -257,49 +257,35 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
   set_t s2 = dcnf_variables[e - 1].neg_pol();
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
                    std::inserter(intersect, intersect.begin()));
-  if (intersect.empty()) {
-    set_t vpos_cls = dcnf_variables[e - 1].pos_pol();
-    set_t vneg_cls = dcnf_variables[e - 1].neg_pol();
-    for (lit_t i : vpos_cls) {
-      dcnf_clauses[i].update_presence(0);
-    }
-    for (lit_t i : vneg_cls) {
-      dcnf_clauses[i].update_presence(0);
-    }
-  } else {
+  if (!intersect.empty()) {
     for (lit_t j : s1) {
       cl_t cls_s1 = dcnf_clauses[j].lits();
-      set_t compl_s1;
-      set_t set_s2;
-      // Todo:  Create a function to get complement of a set 
-			// or change vector to a set
+      set_t compl_C;
+      set_t set_D;
+      // Implement a func or change vector to a set
       for (lit_t l1 : cls_s1) {
         if (l1 > 0) {
-          compl_s1.insert(-l1);
+          compl_C.insert(-l1);
         } else {
-          compl_s1.insert(l1);
+          compl_C.insert(l1);
         }
       }
       for (coord_t k : s2) {
         set_t intersect_cls;
         cl_t cls_s2 = dcnf_clauses[k].lits();
         for (lit_t l2 : cls_s2) {
-          set_s2.insert(l2);
+          set_D.insert(l2);
         }
-        set_intersection(compl_s1.begin(), compl_s1.end(), set_s2.begin(),
-                         set_s2.end(),
+        // \bar{C} \cap D != \phi
+        set_intersection(compl_C.begin(), compl_C.end(), set_D.begin(),
+                         set_D.end(),
                          std::inserter(intersect_cls, intersect_cls.begin()));
         assert(intersect_cls.size() >= 1);
         if (intersect_cls.size() < 2) {
-          break; // Check the control flow
+          return 1;
         }
       }
     }
-    for (lit_t l : dcnf_clauses[e - 1].lits()) {
-			// TODO: The variable presence is not getting used.
-			// It is possible that some variables are not active anymore 
-			// so always add a sanitation check in the above code.
-      dcnf_clauses[l].update_presence(0);
-    }
   }
+  return 10;
 }
