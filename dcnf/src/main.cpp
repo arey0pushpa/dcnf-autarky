@@ -284,7 +284,7 @@ int main(int argc, char *argv[]) {
   /*TODO: Implement a dependency Scheme in case no dependency given */
 
   // TODO: implement all three possible combinations of e_autarky and a_autarky
-  while (true) {
+  while (1) {
     if (reduction_type == 0) {  // reduction of e_autarky
       for (lit_t e : e_vars) {
         // TODO: Perform a SANITY check
