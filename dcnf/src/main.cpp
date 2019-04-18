@@ -183,7 +183,6 @@ int main(int argc, char *argv[]) {
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
-  // TODO: check if the e-var and a-var order is like e1,..en,a1,...,an
   coord_t e_var_cntr = 0;
   for (coord_t i = 0; i < no_of_var; ++i) {
     if (!a_vars_end && i == *avar_iterator - 1) {
@@ -214,7 +213,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-
   cls_t unique_dep_set = unique_vectors(dep_set);
   lit_t dsize = dcnf_fml.size();
 
@@ -230,7 +228,7 @@ int main(int argc, char *argv[]) {
         // actv.insert(i); // Use combination of neg and pos
         if (l > 0) {
           posv.insert(indx);
-	  // In case negaion of the variable is also presen on the 
+					// If the clause is TAUTO ignore it
           if (negv.count(indx)) return;
         } else {
           negv.insert(indx);
@@ -248,6 +246,7 @@ int main(int argc, char *argv[]) {
       for (coord_t v : posv) {
         dcnf_variables[v].pos_polarity(cls_indx);
       }
+			// TODO: misuse of coord_t conversion
       for (coord_t v : negv) {
         dcnf_variables[v].neg_polarity(cls_indx);
       }
@@ -267,8 +266,6 @@ int main(int argc, char *argv[]) {
     }();
   }
   
-  exit(0);
-
   // TODO: Check if not considering univ variable harm? NO, for now.
   // Every existential variable that do not occur in the clause is
   // not considered for the bf_vars

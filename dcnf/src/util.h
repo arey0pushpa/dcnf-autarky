@@ -36,7 +36,7 @@ enum Error_codes {
 };
 
 /* The
- * */ 
+ * */
 
 class Clauses {
   cl_t m_lits;
@@ -67,22 +67,23 @@ class Clauses {
   bool cls_present() const { return present; }
 };
 
-/* Class Variables provides information of each variables 
- *   1. The quantifier type of the variable : quantype 
- *   In case of E_Var 
+/* Class Variables provides information of each variables
+ *   1. The quantifier type of the variable : quantype
+ *   In case of E_Var
  *   2. Var dependency list: dependency
- *   3. 0 based: Index of the existenial quantifier: eindex  
+ *   3. 0 based: Index of the existenial quantifier in e1,..,en: eindex
+ *       Do you need same for the univ variable?
  *   4. 0 based: Clauses the variable is active/present: active_cls
  *   5. positive occurence in clauses: pos_cls
  *   6. neg occurence in clauses: pos_cls
- *   7. The clause is present after autarky reduction?: present
+ *   7. The variable is present in the formula after autarky reduction?: present
  */
 class Variables {
   char m_quantype;
-  cl_t m_dependency; // absolute var list
-  coord_t m_eindex; // 0 based
+  cl_t m_dependency;  // absolute var list
+  coord_t m_eindex;   // 0 based
 
-  set_t active_cls; // 0 based
+  set_t active_cls;  // 0 based
   set_t pos_cls;
   set_t neg_cls;
 

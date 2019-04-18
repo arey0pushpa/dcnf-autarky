@@ -253,16 +253,19 @@ coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
 coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
                   std::vector<Variables> &dcnf_variables, lit_t e) {
   set_t intersect;
+  // TODO: e-1 will not always give you the variable index need to call
+  // e-1.eindex() or restructure dcnf_variables to v_0,...,v_m+n
   set_t s1 = dcnf_variables[e - 1].pos_pol();
   set_t s2 = dcnf_variables[e - 1].neg_pol();
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
                    std::inserter(intersect, intersect.begin()));
   if (intersect.empty()) {
-    // BUG: use of act_cls() -> pos() + neg()
-    // TODO: Do not use active clause in the case
-    // Iterate over the pos and neg clause set
-    set_t vactive_cls = dcnf_variables[e - 1].act_cls();
-    for (lit_t i : vactive_cls) {
+    set_t vpos_cls = dcnf_variables[e - 1].pos_pol();
+    set_t vneg_cls = dcnf_variables[e - 1].neg_pol();
+    for (lit_t i : vpos_cls) {
+      dcnf_clauses[i].update_presence(0);
+    }
+    for (lit_t i : vneg_cls) {
       dcnf_clauses[i].update_presence(0);
     }
   } else {
