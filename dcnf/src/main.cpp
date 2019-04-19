@@ -284,30 +284,25 @@ int main(int argc, char *argv[]) {
   // TODO: implement all three possible combinations of e_autarky and a_autarky
   while (1) {
     // reduction of e_autarky
-		// TODO: Maintain an active variable and active cls list
-		// Avoid iteration over all e_vars by doing sanity check
+    // TODO: Maintain an active variable and active cls list
+    // Avoid iteration over all e_vars by doing sanity check
     for (lit_t e : e_vars) {
       // Perform a SANITY check
       if (!dcnf_variables[e - 1].var_present()) continue;
       aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
       if (aut_present == 10) {
-				// TODO: create a function for the below task
+        // TODO: create a function for the below task
         for (lit_t i : dcnf_variables[e - 1].pos_pol()) {
           dcnf_clauses[i].update_presence(0);
-          for (lit_t l : dcnf_clauses[i].lits()) {
-            dcnf_variables[std::abs(l) - 1].pos_pol().erase(i);
-            dcnf_variables[std::abs(l) - 1].neg_pol().erase(i);
-          }
+          propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
         }
         for (lit_t i : dcnf_variables[e - 1].neg_pol()) {
           dcnf_clauses[i].update_presence(0);
-          for (lit_t l : dcnf_clauses[i].lits()) {
-            dcnf_variables[std::abs(l) - 1].pos_pol().erase(i);
-            dcnf_variables[std::abs(l) - 1].neg_pol().erase(i);
-          }
+          propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
         }
       }
       // TODO: Check if this is required after each e_var e_autarky reduction
+			// Replace it with direct Active_clauses vector 
       cls_t remain_cls;
       for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
         if (dcnf_clauses[i].cls_present() == 1) {

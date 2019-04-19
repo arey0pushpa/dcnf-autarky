@@ -200,14 +200,18 @@ inline cl_t extract_int(std::string line) {
   return vec_int;
 }
 
-/** Remove the dead/inactive clauses from the active variable list **
-inline void update_varclslist() {
+/** Remove the dead/inactive clauses from the active variable list **/
+inline void propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
+                              std::vector<Variables> &dcnf_variables, lit_t i) {
   for (lit_t l : dcnf_clauses[i].lits()) {
     if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
-    dcnf_variables[std::abs(l) - 1].pos_pol().erase(i);
-    dcnf_variables[std::abs(l) - 1].neg_pol().erase(i);
+    if (l > 0) {
+      dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
+    } else {
+      dcnf_variables[std::abs(l) - 1].neg_cls.erase(i);
+    }
   }
-} */
+}
 
 /** Create lbf formula **/
 inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {
