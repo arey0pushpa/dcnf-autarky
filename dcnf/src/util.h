@@ -42,10 +42,11 @@ enum Error_codes {
  * 3. set of existential literals: e_lits
  * 4. set of uni variables: a_vars
  * 5. set of uni literals: a_lits
- * 6. activity of the clause: present 
+ * 6. activity of the clause: present
  * */
 
 class Clauses {
+ public:
   cl_t m_lits;
 
   cl_t m_evars;
@@ -56,7 +57,6 @@ class Clauses {
 
   bool present;
 
- public:
   Clauses() : present(1){};
   void initialise_lits(cl_t c) { m_lits = c; }
   void initialise_evars(cl_t e) { m_evars = e; }
@@ -86,6 +86,7 @@ class Clauses {
  *   7. The variable is present in the formula after autarky reduction?: present
  */
 class Variables {
+ public:
   char m_quantype;
   cl_t m_dependency;  // absolute var list
   coord_t m_eindex;   // 0 based
@@ -96,7 +97,6 @@ class Variables {
 
   bool present;
 
- public:
   Variables() : m_quantype('a'), m_dependency({}), present(1) {}
   void initialise_qtype(char c) { m_quantype = c; }
   void initialise_eindex(coord_t i) { m_eindex = i; }
@@ -199,6 +199,15 @@ inline cl_t extract_int(std::string line) {
 
   return vec_int;
 }
+
+/** Remove the dead/inactive clauses from the active variable list **
+inline void update_varclslist() {
+  for (lit_t l : dcnf_clauses[i].lits()) {
+    if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
+    dcnf_variables[std::abs(l) - 1].pos_pol().erase(i);
+    dcnf_variables[std::abs(l) - 1].neg_pol().erase(i);
+  }
+} */
 
 /** Create lbf formula **/
 inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {

@@ -255,10 +255,28 @@ coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
   set_t intersect;
   set_t s1 = dcnf_variables[e - 1].pos_pol();
   set_t s2 = dcnf_variables[e - 1].neg_pol();
+  // SANITY check: Remove all inactive clauses from s1
+	// Not required as Global update propogates the removal of the inactive cls
+	/*
+	set_t::iterator it;
+  it = s1.begin();
+  for (lit_t j : s1) {
+    if (!dcnf_clauses[j].cls_present()) {
+      s1.erase(it);
+      ++it;
+    }
+  }
+  it = s2.begin();
+  for (lit_t j : s2) {
+    if (!dcnf_clauses[j].cls_present()) continue;
+  }
+	*/
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
                    std::inserter(intersect, intersect.begin()));
   if (!intersect.empty()) {
     for (lit_t j : s1) {
+      // SANITY check: No Update policy; check each time the presence
+      if (!dcnf_clauses[j].cls_present()) continue;
       cl_t cls_s1 = dcnf_clauses[j].lits();
       set_t compl_C;
       set_t set_D;
