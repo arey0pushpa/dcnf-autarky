@@ -1,0 +1,183 @@
+// ---------------------------------------------------------
+// dcnf.h
+// class File for dcnf formula manipulation and associated operations.
+//
+// Author: Ankit Shukla <ankit.shukla.jku.at>
+// Last Modification: 20.4.2019
+//
+// (c) Ankit Shukla, 2019
+// ----------------------------------------------------------
+
+#ifndef DCNF_H
+#define DCNF_H
+
+#include <algorithm>
+#include <bitset>
+#include <cassert>
+#include <iostream>
+#include <limits>
+#include <set>
+#include <sstream>
+
+//#include <chrono>
+#include <cmath>
+#include <fstream>
+#include <memory>
+#include <string>
+
+#include "defs.h"
+
+/* Clauses class provide information of each of the clauses
+ * attached with each clause
+ * 1. set of literals: mLits
+ * 2. set of existential variables: e_vars
+ * 3. set of existential literals: e_lits
+ * 4. set of uni variables: a_vars
+ * 5. set of uni literals: a_lits
+ * 6. activity of the clause: present
+ * */
+
+class Clauses {
+ public:
+  cl_t m_lits;
+
+  cl_t m_evars;
+  cl_t m_elits;
+
+  cl_t m_avars;
+  cl_t m_alits;
+
+  bool present;
+
+  Clauses() : present(1){};
+  void initialise_lits(cl_t c) { m_lits = c; }
+  void initialise_evars(cl_t e) { m_evars = e; }
+  void initialise_elits(cl_t e) { m_elits = e; }
+
+  void initialise_avars(cl_t a) { m_avars = a; }
+  void initialise_alits(cl_t a) { m_alits = a; }
+  void update_presence(bool p) { present = p; }
+
+  cl_t lits() const { return m_lits; }
+  cl_t evars() const { return m_evars; }
+  cl_t elits() const { return m_elits; }
+  cl_t avars() const { return m_avars; }
+  cl_t alits() const { return m_alits; }
+  bool cls_present() const { return present; }
+};
+
+/* Class Variables provides information of each variables
+ *   1. The quantifier type of the variable : quantype
+ *   In case of E_Var
+ *   2. Var dependency list: dependency
+ *   3. 0 based: Index of the existenial quantifier in e1,..,en: eindex
+ *       Do you need same for the univ variable?
+ *   4. 0 based: Clauses the variable is active/present: active_cls
+ *   5. positive occurence in clauses: pos_cls
+ *   6. neg occurence in clauses: pos_cls
+ *   7. The variable is present in the formula after autarky reduction?: present
+ */
+class Variables {
+ public:
+  char m_quantype;
+  cl_t m_dependency;  // absolute var list
+  coord_t m_eindex;   // 0 based
+
+  set_t active_cls;  // 0 based
+  set_t pos_cls;
+  set_t neg_cls;
+
+  bool present;
+
+  Variables() : m_quantype('a'), m_dependency({}), present(1) {}
+  void initialise_qtype(char c) { m_quantype = c; }
+  void initialise_eindex(coord_t i) { m_eindex = i; }
+  void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; }
+
+  void update_presence(bool p) { present = p; }
+  void activein_cls(coord_t cls) { active_cls.insert(cls); }
+  void pos_polarity(coord_t cls) { pos_cls.insert(cls); }
+  void neg_polarity(coord_t cls) { neg_cls.insert(cls); }
+
+  char qtype() const { return m_quantype; }
+  cl_t dependency() const { return m_dependency; }
+  coord_t eindex() const { return m_eindex; }
+  set_t act_cls() const { return active_cls; }
+  set_t pos_pol() const { return pos_cls; }
+  set_t neg_pol() const { return neg_cls; }
+  bool var_present() const { return present; }
+};
+
+/* A class used for namescpace for the code.
+ */
+class dcnf {
+ public:
+  // variables
+  coord_t no_of_clauses;
+  coord_t no_of_vars;
+  std::vector<Variables> dcnf_variables;
+  std::vector<Clauses> dcnf_clauses;
+
+  cls_t dcnf_fml;
+  cl_t present_cls;
+  cl_t deleted_cls;
+
+  cl_t active_evars;
+  cl_t inactive_evars;
+  cl_t active_avars;
+  cl_t inactive_avars;
+
+  // helper functions
+  void command_line_parsing(int, char *av[], std::string &, unsigned &,
+                            unsigned &, bool &, bool &);
+
+  void propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
+                             std::vector<Variables> &dcnf_variables, lit_t i);
+
+  coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
+                      std::vector<Variables> &dcnf_variables,
+                      sel_bf &selected_bf, minsat_ass &minsat_clause_assgmt,
+                      cl_t e_vars, boolv_t &present_clauses,
+
+                      std::string filename, std::string output_file_name,
+                      coord_t dependency_var, coord_t encoding);
+
+  coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
+                    std::vector<Variables> &dcnf_variables, lit_t e);
+
+  void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
+                          cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
+                          coord_t &no_of_var, coord_t &dependency_var,
+                          coord_t s_level, coord_t &min_dep_size,
+                          coord_t &max_dep_size);
+
+  void set_all_solutions(std::vector<Clauses> &dcnf_clauses,
+                         std::vector<Variables> &dcnf_variables,
+                         sel_bf &selected_bf, minsat_ass &minsat_clause_assgmt,
+                         const coord_t num_of_vars, const coord_t level);
+
+  void quant_seperation(cl_t &, cl_t &, cl_t &);
+
+  void non_trivial_autarky(cl_t &, cls_t &);
+
+  void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
+                         std::vector<Clauses> dcnf_clauses,
+                         std::vector<Variables> dcnf_variables, cls_t &bf_vars,
+                         minsat_ass &pa_var_msat_ass,
+                         cls_t &msat_concrete_var_map, sel_bf &selected_bf,
+                         cls_t &cnf_fml, std::vector<bf_lbf_converter> &);
+
+  void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
+                       cls_t &cnf_fml);
+
+  void untouched_clauses(coord_t encoding, cl_t &lbf_vars,
+                         std::vector<Clauses> dcnf_clauses,
+                         std::vector<Variables> dcnf_variables, cls_t &bf_vars,
+                         cl_t &cs_vars, const coord_t &num_of_clause,
+                         cls_t &cnf_fmls, std::vector<bf_lbf_converter> &);
+};
+
+typedef std::shared_ptr<dcnf> dcnf_ptr;
+
+#endif
+
