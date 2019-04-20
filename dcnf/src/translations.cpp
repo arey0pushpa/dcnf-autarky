@@ -5,8 +5,7 @@
 
 
 /** Remove the dead/inactive clauses from the active variable list **/
-inline void dcnf::propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
-															std::vector<Variables> &dcnf_variables, lit_t i) {
+void dcnf::propagate_cls_removal(lit_t i) {
 	for (lit_t l : dcnf_clauses[i].lits()) {
 		if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
 		if (l > 0) {
@@ -266,8 +265,7 @@ coord_t dcnf::bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   return 10;
 }
 
-coord_t dcnf::e_autarky(std::vector<Clauses> &dcnf_clauses,
-                  std::vector<Variables> &dcnf_variables, lit_t e) {
+coord_t dcnf::e_autarky(lit_t e) {
   set_t intersect;
   set_t s1 = dcnf_variables[e - 1].pos_pol();
   set_t s2 = dcnf_variables[e - 1].neg_pol();

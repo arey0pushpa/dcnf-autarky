@@ -108,31 +108,43 @@ class Variables {
   bool var_present() const { return present; }
 };
 
+class bf_lbf_converter {
+ public:
+  bool is_present;
+  cl_t lbf_fml;
+  bf_lbf_converter() : is_present(false) {}
+};
+
+void command_line_parsing(int, char *av[], std::string &, unsigned &,
+                          unsigned &, bool &, bool &);
+
+void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
+                        cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
+                        coord_t &no_of_var, coord_t &dependency_var,
+                        coord_t s_level, coord_t &min_dep_size,
+                        coord_t &max_dep_size);
 /* A class used for namescpace for the code.
  */
 class dcnf {
  public:
   // variables
-  coord_t no_of_clauses;
-  coord_t no_of_vars;
-  std::vector<Variables> dcnf_variables;
-  std::vector<Clauses> dcnf_clauses;
+  coord_t no_of_clauses; // Input clause set
+  coord_t no_of_vars;    // No Of variables in the input
+  std::vector<Variables> dcnf_variables; // Data Struture for info about input variables
+  std::vector<Clauses> dcnf_clauses; // Data structure for info about each input clause
 
-  cls_t dcnf_fml;
-  cl_t present_cls;
-  cl_t deleted_cls;
+  cls_t dcnf_fml; // Input cnf fml 
+  boolv_t present_cls; // Present clauses at current iteration
+  boolv_t deleted_cls; // Set of deleted clause
 
-  cl_t active_evars;
-  cl_t inactive_evars;
-  cl_t active_avars;
-  cl_t inactive_avars;
+  cl_t active_evars; // Current evar set of active variables
+  cl_t assigned_evars; // Evar variables that got assigned 
+  cl_t active_avars;  // Current avar set of active variables
+  cl_t assigned_avars; // Avar variables that got assigned 
 
   // helper functions
-  void command_line_parsing(int, char *av[], std::string &, unsigned &,
-                            unsigned &, bool &, bool &);
 
-  void propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
-                             std::vector<Variables> &dcnf_variables, lit_t i);
+  void propagate_cls_removal(lit_t i);
 
   coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
                       std::vector<Variables> &dcnf_variables,
@@ -142,15 +154,10 @@ class dcnf {
                       std::string filename, std::string output_file_name,
                       coord_t dependency_var, coord_t encoding);
 
-  coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
-                    std::vector<Variables> &dcnf_variables, lit_t e);
+  coord_t e_autarky(lit_t e);
 
-  void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
-                          cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
-                          coord_t &no_of_var, coord_t &dependency_var,
-                          coord_t s_level, coord_t &min_dep_size,
-                          coord_t &max_dep_size);
-
+  //coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
+  //                  std::vector<Variables> &dcnf_variables, lit_t e);
   void set_all_solutions(std::vector<Clauses> &dcnf_clauses,
                          std::vector<Variables> &dcnf_variables,
                          sel_bf &selected_bf, minsat_ass &minsat_clause_assgmt,
@@ -159,6 +166,9 @@ class dcnf {
   void quant_seperation(cl_t &, cl_t &, cl_t &);
 
   void non_trivial_autarky(cl_t &, cls_t &);
+
+  void at_most_one(cl_t &, cls_t &);
+  void at_most_one_linear(cl_t &, cls_t &, coord_t &);
 
   void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
                          std::vector<Clauses> dcnf_clauses,

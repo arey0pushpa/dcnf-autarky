@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     exit(0);
   }
 
-	if (output_file) {
+  if (output_file) {
     output_file_name = output_file;
   }
 
@@ -146,6 +146,7 @@ int main(int argc, char *argv[]) {
   coord_t max_dep_size = 0;
 
   auto start = std::chrono::high_resolution_clock::now();
+  dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
 
   parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
                      no_of_var, dependency_var, s_level, min_dep_size,
@@ -155,8 +156,8 @@ int main(int argc, char *argv[]) {
   no_of_var = e_vars.size() + a_vars.size();
   // Create Variable Objects.
   // Label the qtype of the var and it's dependency
-  std::vector<Variables> dcnf_variables;
-  dcnf_variables.resize(no_of_var);
+  // std::vector<Variables> dcnf_variables;
+  d->dcnf_variables.resize(no_of_var);
 
   // make dep set sorted linearly accdn to evar
   std::sort(dep_set.begin(), dep_set.end(),
@@ -194,14 +195,14 @@ int main(int argc, char *argv[]) {
         avar_iterator = std::next(avar_iterator);
       }
     } else if (!e_vars_end && i == *evar_iterator - 1) {
-      dcnf_variables[i].initialise_qtype('e');
+      d->dcnf_variables[i].initialise_qtype('e');
       cl_t d_s = dep_set[dep_index];
       // erase evar frm dep set: d_s shld be just dependent vars
       d_s.erase(d_s.begin());
       cl_t dep_vars = d_s;
-      dcnf_variables[i].initialise_dependency(dep_vars);
+      d->dcnf_variables[i].initialise_dependency(dep_vars);
       ++dep_index;
-      dcnf_variables[i].initialise_eindex(e_var_cntr);
+      d->dcnf_variables[i].initialise_eindex(e_var_cntr);
       ++e_var_cntr;
       if (std::next(evar_iterator) == e_vars.end()) {
         e_vars_end = true;
@@ -209,8 +210,8 @@ int main(int argc, char *argv[]) {
         evar_iterator = std::next(evar_iterator);
       }
     } else {
-      dcnf_variables[i].initialise_qtype('e');
-      dcnf_variables[i].initialise_eindex(e_var_cntr);
+      d->dcnf_variables[i].initialise_qtype('e');
+      d->dcnf_variables[i].initialise_eindex(e_var_cntr);
       ++e_var_cntr;
     }
   }
@@ -219,7 +220,7 @@ int main(int argc, char *argv[]) {
   lit_t dsize = dcnf_fml.size();
 
   // Create vector of Clause Class to initialize E, A Qvar
-  std::vector<Clauses> dcnf_clauses;
+  // std::vector<Clauses> dcnf_clauses;
   coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
     [&] {  // Use of Lambda :) Yeahhh...
@@ -236,7 +237,7 @@ int main(int argc, char *argv[]) {
           negv.insert(indx);
           if (posv.count(indx)) return;
         }
-        if (dcnf_variables[indx].qtype() == 'e') {
+        if (d->dcnf_variables[indx].qtype() == 'e') {
           c_evars.push_back(std::abs(l));
           c_elits.push_back(l);
         } else {
@@ -246,11 +247,11 @@ int main(int argc, char *argv[]) {
       }
       // Variable presence info update
       for (coord_t v : posv) {
-        dcnf_variables[v].pos_polarity(cls_indx);
+        d->dcnf_variables[v].pos_polarity(cls_indx);
       }
       // TODO: misuse of coord_t conversion
       for (coord_t v : negv) {
-        dcnf_variables[v].neg_polarity(cls_indx);
+        d->dcnf_variables[v].neg_polarity(cls_indx);
       }
 
       // Push the clause in the dcnf_clauses
@@ -263,8 +264,8 @@ int main(int argc, char *argv[]) {
       cls->initialise_avars(c_avars);
       cls->initialise_alits(c_alits);
 
-      dcnf_clauses.push_back(*cls);
-			delete cls; // Avoid memory leak, My God!
+      d->dcnf_clauses.push_back(*cls);
+      delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -274,37 +275,55 @@ int main(int argc, char *argv[]) {
   // not considered for the bf_vars
   for (const lit_t e : e_vars) {
     coord_t i = e - 1;
-    if (dcnf_variables[i].pos_pol().empty() &&
-        dcnf_variables[i].neg_pol().empty()) {
-      dcnf_variables[i].update_presence(0);
+    if (d->dcnf_variables[i].pos_pol().empty() &&
+        d->dcnf_variables[i].neg_pol().empty()) {
+      d->dcnf_variables[i].update_presence(0);
     }
   }
 
-  // Create a Clause list of the present clauses
-  boolv_t present_clauses(dcnf_clauses.size(), 1);
+  d->no_of_clauses = d->dcnf_clauses.size();
+  for (coord_t i; i < d->dcnf_clauses.size(); ++i) {
+    d->dcnf_fml.push_back(d->dcnf_clauses[i].m_lits);
+    //		d->present_cls.insert
+  }
 
-  // TODO: implement all three possible combinations of e_autarky and a_autarky
+  boolv_t present_clauses(d->dcnf_clauses.size(), 1);
+  boolv_t deleted_clauses(d->dcnf_clauses.size(), 0);
+  d->present_cls = present_clauses;
+  d->deleted_cls = deleted_clauses;
+
+  for (lit_t e : e_vars) {
+    if (!d->dcnf_variables[e - 1].var_present()) continue;
+    d->active_evars.push_back(e);
+  }
+
+  for (lit_t a : a_vars) {
+    if (!d->dcnf_variables[a - 1].var_present()) continue;
+    d->active_avars.push_back(a);
+  }
+
+  // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
     // reduction of e_autarky
-    // TODO: Maintain an active variable and active cls list
-    // Avoid iteration over all e_vars by doing sanity check
-    for (lit_t e : e_vars) {
-      // Perform a SANITY check
-      if (!dcnf_variables[e - 1].var_present()) continue;
-      aut_present = e_autarky(dcnf_clauses, dcnf_variables, e);
+    for (lit_t e : d->active_evars) {
+      aut_present = d->e_autarky(e);
       if (aut_present == 10) {
-        // TODO: create a function for the below task
-        for (lit_t i : dcnf_variables[e - 1].pos_pol()) {
-          dcnf_clauses[i].update_presence(0);
-          //propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
+        for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
+          d->dcnf_clauses[i].present = 0;
+          d->present_cls[i] = 0;
+          d->deleted_cls[i] = 1;
+          d->propagate_cls_removal(i);
         }
-        for (lit_t i : dcnf_variables[e - 1].neg_pol()) {
-          dcnf_clauses[i].update_presence(0);
-          //propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
+        for (lit_t i : d->dcnf_variables[e - 1].neg_pol()) {
+          d->dcnf_clauses[i].present = 0;
+          d->present_cls[i] = 0;
+          d->deleted_cls[i] = 1;
+          d->propagate_cls_removal(i);
         }
       }
-      // TODO: Check if this is required after each e_var e_autarky reduction
-			// Replace it with direct Active_clauses vector 
+
+      // TODO: Check if this is required after each e_var e_autarky
+      // Replace it with direct Active_clauses vector
       cls_t remain_cls;
       for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
         if (dcnf_clauses[i].cls_present() == 1) {
@@ -317,7 +336,7 @@ int main(int argc, char *argv[]) {
         // TODO: Print the satisfying assignments!!!
         exit(0);
       } else {
-        std::cout << "The remaining clauses after e_autarky reductions are: "
+        std::cout << "The remaining clauses after e_autarky reductions are :"
                   << '\n';
         for (cl_t &c : remain_cls) {
           print_1d_vector(c);
@@ -329,8 +348,8 @@ int main(int argc, char *argv[]) {
     set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
                       minsat_clause_assgmt, no_of_var, level);
     aut_present = bfs_autarky(
-        dcnf_clauses, dcnf_variables, selected_bf, minsat_clause_assgmt, e_vars,
-        present_clauses, filename, output_file_name, dependency_var, encoding);
+        dcnf_clauses, dcnf_variables, selected_bf, minsat_clause_assgmt, vars,
+        present_clauses, filename, output_file_name, dependency_var, coding);
     if (aut_present == 20) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
@@ -341,10 +360,10 @@ int main(int argc, char *argv[]) {
       }
       exit(0);
     } else if (aut_present == 11) {
-      std::cout << "The input QBF formula is Satisfiable by an a_autarky "
-                   "reduction.\n";
-      // TODO: Print the satisfying assignments!!!
-      exit(0);
+      std::cout << "The input QBF formula is Satisfiable by an
+                   a_autarky " " reduction.\n ";
+                   // TODO: Print the satisfying assignments!!!
+                   exit(0);
     }
   }
   auto finish = std::chrono::high_resolution_clock::now();

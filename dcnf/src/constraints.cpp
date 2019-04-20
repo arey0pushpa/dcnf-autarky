@@ -5,7 +5,7 @@
 
 /** 4.1. /\_f,f' !t(v,f) || !t(v,f')
  * At Most One Constraint **/
-void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
+void dcnf::at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
   const unsigned N = bf_vars.size();
   if (N <= 1)
     return;
@@ -17,7 +17,7 @@ void at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
 }
 
 /** 4.1. Linear encoding: AMO constraint, **/
-void at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
+void dcnf::at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
   const unsigned N = bf_vars.size();
   if (N <= 1)
     return;

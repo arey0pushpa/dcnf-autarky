@@ -22,12 +22,12 @@
 #include "defs.h"
 #include "dcnf.h"
 
-class bf_lbf_converter {
- public:
-  bool is_present;
-  cl_t lbf_fml;
-  bf_lbf_converter() : is_present(false) {}
-};
+/* class bf_lbf_converter {
+ *  public:
+ *   bool is_present;
+ *   cl_t lbf_fml;
+ *   bf_lbf_converter() : is_present(false) {}
+ * }; */
 
 /* [>* Remove the dead/inactive clauses from the active variable list *<]
  * inline void propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
@@ -70,8 +70,8 @@ std::vector<std::vector<t>> unique_vectors(std::vector<std::vector<t>> input) {
 }
 
 // Basic util
-void at_most_one(cl_t &, cls_t &);
-void at_most_one_linear(cl_t &, cls_t &, coord_t &);
+//void at_most_one(cl_t &, cls_t &);
+//void at_most_one_linear(cl_t &, cls_t &, coord_t &);
                                                       
 inline cl_t extract_int(std::string line) {
   cl_t vec_int;
