@@ -1,8 +1,11 @@
 #include <fstream>
 
 #include "defs.h"
+#include "dcnf.h"
+#include "util.h"
 
-void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
+
+void vts::parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
                         cl_t& a_vars, cl_t& e_vars, coord_t& no_of_clauses,
                         coord_t& no_of_var, coord_t& dependency_var,
                         coord_t s_level, coord_t& min_dep_size,

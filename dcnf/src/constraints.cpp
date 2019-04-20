@@ -1,4 +1,7 @@
 #include "defs.h"
+#include "dcnf.h"
+#include "util.h"
+
 
 /** 4.1. /\_f,f' !t(v,f) || !t(v,f')
  * At Most One Constraint **/
@@ -54,7 +57,7 @@ void at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
 // TODO: Check the code for Varibles mis-match and wrong var use
-void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
+void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
                        std::vector<Clauses> dcnf_clauses,
                        std::vector<Variables> dcnf_variables, cls_t &bf_vars,
                        minsat_ass &pa_var_msat_ass,
@@ -98,7 +101,7 @@ void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
 }
 
 /** 4.3. !t(C) || \/_phi t(phi)  **/
-void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
+void dcnf::touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
                      cls_t &cnf_fml) {
   cl_t t_phi_vector;
   for (coord_t i = 0; i < cs_vars.size(); ++i) {
@@ -112,7 +115,7 @@ void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 }
 
 /** 4.4. /\_v,f t(C) || !t(v,f) **/
-void untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
+void dcnf::untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                        const std::vector<Clauses> dcnf_clauses,
                        const std::vector<Variables> dcnf_variables,
                        cls_t &bf_vars, cl_t &cs_vars,
@@ -139,7 +142,7 @@ void untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
 }
 
 /** 4.5. t(C) **/
-void non_trivial_autarky(cl_t &cs_vars, cls_t &cnf_fml) {
+void dcnf::non_trivial_autarky(cl_t &cs_vars, cls_t &cnf_fml) {
   cl_t dummy_vec;
   for (lit_t i : cs_vars)
     dummy_vec.push_back(i);

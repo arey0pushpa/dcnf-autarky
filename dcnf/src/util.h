@@ -1,120 +1,26 @@
-#include <algorithm>
-#include <bitset>
-#include <cassert>
-#include <iostream>
-#include <limits>
-#include <set>
-#include <sstream>
-#include <vector>
+// ---------------------------------------------------------
+// util.h
+// basic utilities and helper functions for autarky reduction.
+//
+// Author: Ankit Shukla <ankit.shukla.jku.at>
+// Last Modification: 20.4.2019
+//
+// (c) Ankit Shukla, 2019
+// ----------------------------------------------------------
 
-#define LOG(x) std::cout << x << std::endl
+#ifndef UTIL_H
+#define UTIL_H
 
-typedef std::vector<bool> boolv_t;
+/* #include <algorithm>
+ * #include <bitset>
+ * #include <cassert>
+ * #include <iostream>
+ * #include <limits>
+ * #include <set>
+ * #include <sstream> */
 
-typedef std::int64_t lit_t;       // literals
-typedef std::vector<lit_t> cl_t;  // clauses
-typedef std::vector<cl_t> cls_t;  // clause-sets
-typedef std::pair<lit_t, lit_t> pair_t;
-typedef std::vector<pair_t> pairs_t;
-typedef std::vector<pairs_t> sel_bf;    // represent bf var set
-typedef std::vector<cls_t> minsat_ass;  // vector of clause-set
-typedef std::uint32_t coord_t;          // coordinates
-typedef std::set<lit_t> set_t;          // coordinates
-
-enum Error_codes {
-  file_reading_error = 1,
-  file_writing_error = 2,
-  file_pline_error = 3,
-  num_vars_error = 4,
-  allocation_error = 5,
-  literal_read_error = 6,
-  variable_value_error = 7,
-  number_clauses_error = 8,
-  empty_clause_error = 9,
-  unit_clause_error = 11,
-  input_format_violation = 12
-};
-
-/* Clauses class provide information of each of the clauses
- * attached with each clause
- * 1. set of literals: mLits
- * 2. set of existential variables: e_vars
- * 3. set of existential literals: e_lits
- * 4. set of uni variables: a_vars
- * 5. set of uni literals: a_lits
- * 6. activity of the clause: present
- * */
-
-class Clauses {
- public:
-  cl_t m_lits;
-
-  cl_t m_evars;
-  cl_t m_elits;
-
-  cl_t m_avars;
-  cl_t m_alits;
-
-  bool present;
-
-  Clauses() : present(1){};
-  void initialise_lits(cl_t c) { m_lits = c; }
-  void initialise_evars(cl_t e) { m_evars = e; }
-  void initialise_elits(cl_t e) { m_elits = e; }
-
-  void initialise_avars(cl_t a) { m_avars = a; }
-  void initialise_alits(cl_t a) { m_alits = a; }
-  void update_presence(bool p) { present = p; }
-
-  cl_t lits() const { return m_lits; }
-  cl_t evars() const { return m_evars; }
-  cl_t elits() const { return m_elits; }
-  cl_t avars() const { return m_avars; }
-  cl_t alits() const { return m_alits; }
-  bool cls_present() const { return present; }
-};
-
-/* Class Variables provides information of each variables
- *   1. The quantifier type of the variable : quantype
- *   In case of E_Var
- *   2. Var dependency list: dependency
- *   3. 0 based: Index of the existenial quantifier in e1,..,en: eindex
- *       Do you need same for the univ variable?
- *   4. 0 based: Clauses the variable is active/present: active_cls
- *   5. positive occurence in clauses: pos_cls
- *   6. neg occurence in clauses: pos_cls
- *   7. The variable is present in the formula after autarky reduction?: present
- */
-class Variables {
- public:
-  char m_quantype;
-  cl_t m_dependency;  // absolute var list
-  coord_t m_eindex;   // 0 based
-
-  set_t active_cls;  // 0 based
-  set_t pos_cls;
-  set_t neg_cls;
-
-  bool present;
-
-  Variables() : m_quantype('a'), m_dependency({}), present(1) {}
-  void initialise_qtype(char c) { m_quantype = c; }
-  void initialise_eindex(coord_t i) { m_eindex = i; }
-  void initialise_dependency(cl_t dep_var) { m_dependency = dep_var; }
-
-  void update_presence(bool p) { present = p; }
-  void activein_cls(coord_t cls) { active_cls.insert(cls); }
-  void pos_polarity(coord_t cls) { pos_cls.insert(cls); }
-  void neg_polarity(coord_t cls) { neg_cls.insert(cls); }
-
-  char qtype() const { return m_quantype; }
-  cl_t dependency() const { return m_dependency; }
-  coord_t eindex() const { return m_eindex; }
-  set_t act_cls() const { return active_cls; }
-  set_t pos_pol() const { return pos_cls; }
-  set_t neg_pol() const { return neg_cls; }
-  bool var_present() const { return present; }
-};
+#include "defs.h"
+#include "dcnf.h"
 
 class bf_lbf_converter {
  public:
@@ -122,6 +28,22 @@ class bf_lbf_converter {
   cl_t lbf_fml;
   bf_lbf_converter() : is_present(false) {}
 };
+
+/* [>* Remove the dead/inactive clauses from the active variable list *<]
+ * inline void propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
+ *                               std::vector<Variables> &dcnf_variables, lit_t i) {
+ *   for (lit_t l : dcnf_clauses[i].lits()) {
+ *     if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
+ *     if (l > 0) {
+ *       dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
+ *     } else {
+ *       dcnf_variables[std::abs(l) - 1].neg_cls.erase(i);
+ *     }
+ *   }
+ * } */
+
+//void command_line_parsing(int, char *av[], std::string &, unsigned &,
+//                          unsigned &, bool &, bool &);
 
 // command line
 inline char *get_cmd_option(char **begin, char **end,
@@ -147,36 +69,10 @@ std::vector<std::vector<t>> unique_vectors(std::vector<std::vector<t>> input) {
   return input;
 }
 
-// output
-inline void output(const std::string filename,
-                   const std::string output_file_name, const coord_t level,
-                   const coord_t s_level, const coord_t encoding,
-                   const coord_t no_of_var, const coord_t no_of_clauses,
-                   const coord_t no_of_avars, const coord_t no_of_evars,
-                   const coord_t uni_dep_set, const coord_t pa_var,
-                   const coord_t bf_var, const coord_t cs_var,
-                   const coord_t vars_in_dimacs,
-                   const coord_t matrix_size_dimacs)
-
-{
-  std::cout << "filename         " << filename << '\n';
-  std::cout << "output_filename  " << output_file_name << '\n';
-  std::cout << "autarky_level    " << level << '\n';
-  std::cout << "conformity_level " << s_level << '\n';
-  std::cout << "encoding_type    " << encoding << '\n';
-  std::cout << "no_of_var        " << no_of_var << '\n';
-  std::cout << "no_of_clauses    " << no_of_clauses << '\n';
-  std::cout << "no_of_avars      " << no_of_avars << '\n';
-  std::cout << "no_of_evars      " << no_of_evars << '\n';
-  std::cout << "unique_dep_sets  " << uni_dep_set << '\n';
-  std::cout << "cs_var           " << cs_var << '\n';
-  std::cout << "bf_vars          " << bf_var << '\n';
-  std::cout << "pa_vars          " << pa_var << '\n';
-  std::cout << "vars_in_dimacs   " << vars_in_dimacs << '\n';
-  std::cout << "mtx_size_dimacs  " << matrix_size_dimacs << '\n';
-}
-
 // Basic util
+void at_most_one(cl_t &, cls_t &);
+void at_most_one_linear(cl_t &, cls_t &, coord_t &);
+                                                      
 inline cl_t extract_int(std::string line) {
   cl_t vec_int;
   std::stringstream ss;
@@ -198,19 +94,6 @@ inline cl_t extract_int(std::string line) {
   vec_int.pop_back();
 
   return vec_int;
-}
-
-/** Remove the dead/inactive clauses from the active variable list **/
-inline void propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
-                              std::vector<Variables> &dcnf_variables, lit_t i) {
-  for (lit_t l : dcnf_clauses[i].lits()) {
-    if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
-    if (l > 0) {
-      dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
-    } else {
-      dcnf_variables[std::abs(l) - 1].neg_cls.erase(i);
-    }
-  }
 }
 
 /** Create lbf formula **/
@@ -357,3 +240,6 @@ inline void print_2d_vector_pair(sel_bf &T) {
     std::cout << "\n";
   }
 }
+
+#endif
+

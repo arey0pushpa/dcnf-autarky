@@ -67,7 +67,8 @@
 #include <iterator>  // std::advance
 #include <string>
 
-#include "defs.h"
+#include "dcnf.h"
+#include "util.h"
 
 int main(int argc, char *argv[]) {
   std::string filename;
@@ -103,7 +104,7 @@ int main(int argc, char *argv[]) {
     exit(0);
   }
 
-  if (output_file) {
+	if (output_file) {
     output_file_name = output_file;
   }
 
@@ -263,6 +264,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       dcnf_clauses.push_back(*cls);
+			delete cls; // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -294,11 +296,11 @@ int main(int argc, char *argv[]) {
         // TODO: create a function for the below task
         for (lit_t i : dcnf_variables[e - 1].pos_pol()) {
           dcnf_clauses[i].update_presence(0);
-          propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
+          //propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
         }
         for (lit_t i : dcnf_variables[e - 1].neg_pol()) {
           dcnf_clauses[i].update_presence(0);
-          propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
+          //propagate_cls_removal(dcnf_clauses, dcnf_variables, i);
         }
       }
       // TODO: Check if this is required after each e_var e_autarky reduction

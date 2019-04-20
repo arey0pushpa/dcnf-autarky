@@ -2,8 +2,10 @@
 #include <iterator>
 
 #include "defs.h"
+#include "dcnf.h"
+#include "util.h"
 
-void set_all_solutions(std::vector<Clauses>& dcnf_clauses,
+void dcnf::set_all_solutions(std::vector<Clauses>& dcnf_clauses,
                     std::vector<Variables>& dcnf_variables, sel_bf& selected_bf,
                     minsat_ass& minsat_clause_assgmt,
                     const coord_t num_of_vars,
