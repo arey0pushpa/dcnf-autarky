@@ -5,14 +5,14 @@
 #include "defs.h"
 #include "util.h"
 
-void dcnf::set_all_solutions(cl_t e_vars, const coord_t level) {
+void dcnf::set_all_solutions(const coord_t level) {
   /** Selected Boolean Function **/
   for (coord_t i = 0; i < e_vars.size(); ++i) {
     pairs_t t_vec;
     // Todo: remove pair and only implement by second elem
     // Base Case [bf(0), bf(1)]; level == 0
-    t_vec.emplace_back(i + 1, num_of_vars + 1);  // false
-    t_vec.emplace_back(i + 1, num_of_vars + 2);  // true
+    t_vec.emplace_back(i + 1, no_of_vars + 1);  // false
+    t_vec.emplace_back(i + 1, no_of_vars + 2);  // true
     if (level > 0) {
       cl_t dvar = dcnf_variables[i].dependency();
       for (coord_t j = 0; j < dvar.size(); ++j) {
@@ -39,9 +39,9 @@ void dcnf::set_all_solutions(cl_t e_vars, const coord_t level) {
     cl_t evar_part = dcnf_clauses[i].evars();
     for (lit_t e : elit_part) {
       if (e > 0) {
-        m_ca.push_back(cl_t{e, num_of_vars + 2});
+        m_ca.push_back(cl_t{e, no_of_vars + 2});
       } else {
-        m_ca.push_back(cl_t{std::abs(e), num_of_vars + 1});
+        m_ca.push_back(cl_t{std::abs(e), no_of_vars + 1});
       }
     }
 

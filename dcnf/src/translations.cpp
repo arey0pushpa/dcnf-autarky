@@ -44,8 +44,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cl_t lbf_vars, s_bf;
   coord_t preindex = index;
   coord_t bf_var_count = 0;
-  for (const lit e : active_evars) {
-    // This looks correct !! TODO : Check with gdb
+  for (const lit_t e : active_evars) {
     for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].m_eindex].size();
          ++j) {
       s_bf.push_back(index);
@@ -60,6 +59,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   std::vector<bf_lbf_converter> bf2lbf_var_map(index -
                                                (dcnf_clauses.size() + 1));
 
+  // AVOID LOG ENCODING for first iteration@!
   if (encoding == 1) {  // LOG Encoding
     index = preindex;
     for (coord_t i = 0; i < selected_bf.size(); ++i) {
@@ -73,20 +73,36 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
   }
 
+  cl_t active_evar_index(e_vars.size());
+  coord_t eindx = 0;
+  for (const lit_t e : active_evars) {
+    active_evar_index[e] = eindx;
+    ++eindx;
+  }
+  assert(eindx == (active_evars.size() + 1));
+
+  cl_t present_cls_index(dcnf_clauses.size());
+  coord_t cindx = 0;
+  for (const lit_t c : present_clauses) {
+    present_cls_index[c] = cindx;
+    ++cindx;
+  }
+  assert(cindx == (present_clauses.size() + 1));
+
   // pa variable := Only consider unique mapping
   cls_t pa_var_set;
-  minsat_ass pa_var_msat_ass(e_vars.size());   // bigbag to push all assmts
-  cls_t msat_concrete_var_map(e_vars.size());  // dqbf Var to Cnf var Map
-  cls_t clausewise_pa_var_map(no_of_clauses);  // create clausewise cnf vars
+  minsat_ass pa_var_msat_ass(active_evars.size());  // bigbag to push all assmts
+  cls_t msat_concrete_var_map(active_evars.size());  // dqbf Var to Cnf var Map
+  cls_t clausewise_pa_var_map(
+      present_clauses.size());  // create clausewise cnf vars
   coord_t msat_cntr = 1;
-  for (coord_t i = 0; i < minsat_clause_assgmt.size(); ++i) {
-    if (dcnf_clauses[i].cls_present() == 0) continue;
+  for (const lit_t i : present_clauses) {
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[i][j];
+      // TODO: check dummy[0] is always will be absolute
       lit_t slit = std::abs(dummy[0]);
-      assert(slit > 0);
       // Extract the position of the existential var in evars
-      lit_t elit = dcnf_variables[slit - 1].eindex();
+      lit_t elit = active_evar_index[slit];
       lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
       if (pa_indx != -1) {
         clausewise_pa_var_map[i].push_back(
@@ -95,7 +111,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
         pa_var_msat_ass[elit].push_back(dummy);
         msat_concrete_var_map[elit].push_back(index);
         ++msat_cntr;
-        clausewise_pa_var_map[i].push_back(index);
+        clausewise_pa_var_map[present_cls_index[i]].push_back(index);
         pa_vars.push_back(index);
         ++index;
       }
@@ -107,14 +123,12 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
-  satisfied_clauses(encoding, cs_vars.size(), lbf_vars, dcnf_clauses,
-                    dcnf_variables, bf_vars, pa_var_msat_ass,
-                    msat_concrete_var_map, selected_bf, cnf_fml,
-                    bf2lbf_var_map);  // (4.2)
+  satisfied_clauses(encoding, cs_vars.size(), lbf_vars, bf_vars,
+                       pa_var_msat_ass, msat_concrete_var_map, cnf_fml,
+                       bf2lbf_var_map);  // (4.2)
 
-  untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars,
-                    cs_vars, no_of_clauses, cnf_fml,
-                    bf2lbf_var_map);  // (4.4)
+  untouched_clauses(encoding, lbf_vars, bf_vars, cs_vars, cnf_fml,
+                       bf2lbf_var_map);  // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (coord_t i = 0; i < no_of_var; ++i) {  // (4.1)

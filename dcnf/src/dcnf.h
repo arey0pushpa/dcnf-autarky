@@ -130,6 +130,7 @@ class dcnf {
   // variables
   coord_t no_of_clauses;  // Input clause set
   coord_t no_of_vars;     // No Of variables in the input
+  cl_t e_vars;            // No Of variables in the input
   std::vector<Variables>
       dcnf_variables;  // Data Struture for info about input variables
   std::vector<Clauses>
@@ -151,10 +152,8 @@ class dcnf {
 
   void propagate_cls_removal(lit_t i);
 
-  coord_t a_autarky(std::vector<Variables> &dcnf_variables, cl_t e_vars,
-                    boolv_t &present_clauses, std::string filename,
-                    std::string output_file_name, coord_t dependency_var,
-                    coord_t encoding);
+  coord_t a_autarky(std::string filename, std::string output_file_name,
+                    coord_t dependency_var, coord_t encoding);
 
   coord_t e_autarky(lit_t e);
 
@@ -168,20 +167,16 @@ class dcnf {
   void at_most_one_linear(cl_t &, cls_t &, coord_t &);
 
   void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
-                         std::vector<Clauses> dcnf_clauses,
-                         std::vector<Variables> dcnf_variables, cls_t &bf_vars,
-                         minsat_ass &pa_var_msat_ass,
-                         cls_t &msat_concrete_var_map, sel_bf &selected_bf,
-                         cls_t &cnf_fml, std::vector<bf_lbf_converter> &);
+                         cls_t &bf_vars, minsat_ass &pa_var_msat_ass,
+                         cls_t &msat_concrete_var_map, cls_t &cnf_fml,
+                         std::vector<bf_lbf_converter> &bf2lbf_var_map);
 
   void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
                        cls_t &cnf_fml);
 
-  void untouched_clauses(coord_t encoding, cl_t &lbf_vars,
-                         std::vector<Clauses> dcnf_clauses,
-                         std::vector<Variables> dcnf_variables, cls_t &bf_vars,
-                         cl_t &cs_vars, const coord_t &num_of_clause,
-                         cls_t &cnf_fmls, std::vector<bf_lbf_converter> &);
+  void untouched_clauses(coord_t encoding, cl_t &lbf_vars, cls_t &bf_vars,
+                         cl_t &cs_vars, cls_t &cnf_fmls,
+                         std::vector<bf_lbf_converter> &);
 };
 
 typedef std::shared_ptr<dcnf> dcnf_ptr;

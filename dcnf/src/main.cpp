@@ -282,6 +282,7 @@ int main(int argc, char *argv[]) {
   }
 
   d->no_of_clauses = d->dcnf_clauses.size();
+	d->e_vars = e_vars;
   for (coord_t i; i < d->dcnf_clauses.size(); ++i) {
     d->dcnf_fml.push_back(d->dcnf_clauses[i].m_lits);
     d->present_clauses.insert(i);
@@ -303,7 +304,7 @@ int main(int argc, char *argv[]) {
   }
    
 	// For evars and dcnf_clauses
-	d->set_all_solutions(e_vars, level);
+	d->set_all_solutions(level);
 
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
@@ -335,7 +336,7 @@ int main(int argc, char *argv[]) {
         std::cout << "The remaining clauses after e_autarky reductions are :"
                   << '\n';
         for (lit_t l : d->present_clauses) {
-          std::cout << d->dcnf_fml[l] << '\n';
+          //std::cout << d->dcnf_fml[l] << '\n';
           std::cout << "\n";
         }
       }
@@ -348,7 +349,7 @@ int main(int argc, char *argv[]) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
       for (lit_t l : d->present_clauses) {
-        std::cout << d->dcnf_fml[l] << '\n';
+        //std::cout << d->dcnf_fml[l] << '\n';
         std::cout << "\n";
       }
       exit(0);
