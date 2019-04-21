@@ -3,28 +3,21 @@
 #include "dcnf.h"
 #include "util.h"
 
-
 /** Remove the dead/inactive clauses from the active variable list **/
 void dcnf::propagate_cls_removal(lit_t i) {
-	for (lit_t l : dcnf_clauses[i].lits()) {
-		if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
-		if (l > 0) {
-			dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
-		} else {
-			dcnf_variables[std::abs(l) - 1].neg_cls.erase(i);
-		}
-	}
+  for (lit_t l : dcnf_clauses[i].lits()) {
+    if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
+    if (l > 0) {
+      dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
+    } else {
+      dcnf_variables[std::abs(l) - 1].neg_cls.erase(i);
+    }
+  }
 }
 
-
-coord_t dcnf::bfs_autarky(std::vector<Clauses> &dcnf_clauses,
-                    std::vector<Variables> &dcnf_variables, sel_bf &selected_bf,
-                    minsat_ass &minsat_clause_assgmt, cl_t e_vars,
-                    boolv_t &present_clauses, std::string filename,
-                    std::string output_file_name, coord_t dependency_var,
-                    const coord_t encoding) {
-  /** Traslation variables with ordering
-   * no_of_clauses will be the input matrix size modulo tauto */
+coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
+                        coord_t dependency_var, const coord_t encoding) {
+  // Traslation variables with ordering
   cl_t cs_vars;
   cls_t bf_vars;
   cl_t pa_vars;
@@ -33,33 +26,28 @@ coord_t dcnf::bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
 
   coord_t index = 1;
-  // Deleting the non-appearing will save some loop iteration
-  // Not on priority: TODO Implement using active_cls and active_vars
-  const coord_t no_of_var = dcnf_variables.size();
-  const coord_t no_of_clauses = dcnf_clauses.size();
+  const coord_t no_of_var = active_evars.size() + active_avars.size();
+  // const coord_t no_of_clauses = present_clauses.size();
 
-  // TODO: Change it to the present clauses
-  // cs variable := #no_of_clauses -----------------------------
-  for (coord_t i = 0; i < no_of_clauses; ++i) {
-    if (dcnf_clauses[i].cls_present() == 0) continue;
+  // cs variable := #no_of Active clauses
+  for (coord_t i = 0; i < present_clauses.size(); ++i) {
     cs_vars.push_back(index);
     index += 1;
   }
 
   if (index == 1) {
-    return 11;
+    return 11;  // empty cls list; return SAT
   }
 
-  // TODO: Add the code for: C removal -> e removal
-
-  // bf variable := two_dim [v] [f_v] -------------------------
+  // bf variable := two_dim [v] [f_v]
   coord_t lbf_var_size = 0;
   cl_t lbf_vars, s_bf;
   coord_t preindex = index;
   coord_t bf_var_count = 0;
-  for (coord_t i = 0; i < selected_bf.size(); ++i) {
-    if (dcnf_variables[e_vars[i] - 1].var_present() == 0) continue;
-    for (coord_t j = 0; j < selected_bf[i].size(); ++j) {
+  for (const lit e : active_evars) {
+    // This looks correct !! TODO : Check with gdb
+    for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].m_eindex].size();
+         ++j) {
       s_bf.push_back(index);
       index += 1;
     }
@@ -125,7 +113,8 @@ coord_t dcnf::bfs_autarky(std::vector<Clauses> &dcnf_clauses,
                     bf2lbf_var_map);  // (4.2)
 
   untouched_clauses(encoding, lbf_vars, dcnf_clauses, dcnf_variables, bf_vars,
-                    cs_vars, no_of_clauses, cnf_fml, bf2lbf_var_map);  // (4.4)
+                    cs_vars, no_of_clauses, cnf_fml,
+                    bf2lbf_var_map);  // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (coord_t i = 0; i < no_of_var; ++i) {  // (4.1)
@@ -194,7 +183,8 @@ coord_t dcnf::bfs_autarky(std::vector<Clauses> &dcnf_clauses,
 
   std::future<int> future = std::async(std::launch::async, []() {
     auto retVal = system(
-        "./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > /tmp/a.out");
+        "./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > "
+        "/tmp/a.out");
     return retVal;
   });
 
@@ -259,8 +249,9 @@ coord_t dcnf::bfs_autarky(std::vector<Clauses> &dcnf_clauses,
   }
 
   //  output(filename, output_file_name, level, s_level, encoding, no_of_var,
-  //         no_of_clauses, a_vars.size(), e_vars.size(), unique_dep_set.size(),
-  //         pa_vars.size(), total, cs_vars.size(), index - 1, cnf_fml.size());
+  //         no_of_clauses, a_vars.size(), e_vars.size(),
+  //         unique_dep_set.size(), pa_vars.size(), total, cs_vars.size(),
+  //         index - 1, cnf_fml.size());
 
   return 10;
 }

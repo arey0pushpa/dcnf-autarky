@@ -81,7 +81,7 @@ class Variables {
  public:
   char m_quantype;
   cl_t m_dependency;  // absolute var list
-  coord_t m_eindex;   // 0 based
+  coord_t m_eindex;   // 0 based USED!!!
 
   set_t active_cls;  // 0 based
   set_t pos_cls;
@@ -128,40 +128,37 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
 class dcnf {
  public:
   // variables
-  coord_t no_of_clauses; // Input clause set
-  coord_t no_of_vars;    // No Of variables in the input
-  std::vector<Variables> dcnf_variables; // Data Struture for info about input variables
-  std::vector<Clauses> dcnf_clauses; // Data structure for info about each input clause
+  coord_t no_of_clauses;  // Input clause set
+  coord_t no_of_vars;     // No Of variables in the input
+  std::vector<Variables>
+      dcnf_variables;  // Data Struture for info about input variables
+  std::vector<Clauses>
+      dcnf_clauses;  // Data structure for info about each input clause
 
-  cls_t dcnf_fml; // Input cnf fml 
-  boolv_t present_cls; // Present clauses at current iteration
-  boolv_t deleted_cls; // Set of deleted clause
+  cls_t dcnf_fml;         // Input cnf fml
+  set_t present_clauses;  // Present clauses at current iteration
+  set_t deleted_clauses;  // Set of deleted clause at current iteration
 
-  cl_t active_evars; // Current evar set of active variables
-  cl_t assigned_evars; // Evar variables that got assigned 
-  cl_t active_avars;  // Current avar set of active variables
-  cl_t assigned_avars; // Avar variables that got assigned 
+  cl_t active_evars;    // Current evar set of active variables
+  cl_t assigned_evars;  // Evar variables that got assigned
+  cl_t active_avars;    // Current avar set of active variables
+  cl_t assigned_avars;  // Avar variables that got assigned
+
+  sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
+  minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
 
   // helper functions
 
   void propagate_cls_removal(lit_t i);
 
-  coord_t bfs_autarky(std::vector<Clauses> &dcnf_clauses,
-                      std::vector<Variables> &dcnf_variables,
-                      sel_bf &selected_bf, minsat_ass &minsat_clause_assgmt,
-                      cl_t e_vars, boolv_t &present_clauses,
-
-                      std::string filename, std::string output_file_name,
-                      coord_t dependency_var, coord_t encoding);
+  coord_t a_autarky(std::vector<Variables> &dcnf_variables, cl_t e_vars,
+                    boolv_t &present_clauses, std::string filename,
+                    std::string output_file_name, coord_t dependency_var,
+                    coord_t encoding);
 
   coord_t e_autarky(lit_t e);
 
-  //coord_t e_autarky(std::vector<Clauses> &dcnf_clauses,
-  //                  std::vector<Variables> &dcnf_variables, lit_t e);
-  void set_all_solutions(std::vector<Clauses> &dcnf_clauses,
-                         std::vector<Variables> &dcnf_variables,
-                         sel_bf &selected_bf, minsat_ass &minsat_clause_assgmt,
-                         const coord_t num_of_vars, const coord_t level);
+  void set_all_solutions(const coord_t level);
 
   void quant_seperation(cl_t &, cl_t &, cl_t &);
 

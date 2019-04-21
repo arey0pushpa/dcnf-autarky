@@ -139,8 +139,8 @@ int main(int argc, char *argv[]) {
   cl_t a_vars;    // {forall-var}
   cls_t dep_set;  // {{dep-var}...}
 
-  sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
-  minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
+  // sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
+  // minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
 
   coord_t min_dep_size = 0;
   coord_t max_dep_size = 0;
@@ -284,13 +284,13 @@ int main(int argc, char *argv[]) {
   d->no_of_clauses = d->dcnf_clauses.size();
   for (coord_t i; i < d->dcnf_clauses.size(); ++i) {
     d->dcnf_fml.push_back(d->dcnf_clauses[i].m_lits);
-    //		d->present_cls.insert
+    d->present_clauses.insert(i);
   }
 
-  boolv_t present_clauses(d->dcnf_clauses.size(), 1);
-  boolv_t deleted_clauses(d->dcnf_clauses.size(), 0);
-  d->present_cls = present_clauses;
-  d->deleted_cls = deleted_clauses;
+  /* boolv_t present_clauses(d->dcnf_clauses.size(), 1);
+   * boolv_t deleted_clauses(d->dcnf_clauses.size(), 0);
+   * d->present_clauses = present_clauses;
+   * d->deleted_clauses = deleted_clauses; */
 
   for (lit_t e : e_vars) {
     if (!d->dcnf_variables[e - 1].var_present()) continue;
@@ -301,6 +301,9 @@ int main(int argc, char *argv[]) {
     if (!d->dcnf_variables[a - 1].var_present()) continue;
     d->active_avars.push_back(a);
   }
+   
+	// For evars and dcnf_clauses
+	d->set_all_solutions(e_vars, level);
 
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
@@ -310,27 +313,20 @@ int main(int argc, char *argv[]) {
       if (aut_present == 10) {
         for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
           d->dcnf_clauses[i].present = 0;
-          d->present_cls[i] = 0;
-          d->deleted_cls[i] = 1;
+          d->present_clauses.erase(i);
+          d->deleted_clauses.insert(i);
           d->propagate_cls_removal(i);
         }
         for (lit_t i : d->dcnf_variables[e - 1].neg_pol()) {
           d->dcnf_clauses[i].present = 0;
-          d->present_cls[i] = 0;
-          d->deleted_cls[i] = 1;
+          d->present_clauses.erase(i);
+          d->deleted_clauses.insert(i);
           d->propagate_cls_removal(i);
         }
       }
 
       // TODO: Check if this is required after each e_var e_autarky
-      // Replace it with direct Active_clauses vector
-      cls_t remain_cls;
-      for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
-        if (dcnf_clauses[i].cls_present() == 1) {
-          remain_cls.push_back(dcnf_clauses[i].lits());
-        }
-      }
-      if (remain_cls.size() == 0) {
+      if (d->present_clauses.size() == 0) {
         std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                      "reduction.\n";
         // TODO: Print the satisfying assignments!!!
@@ -338,33 +334,31 @@ int main(int argc, char *argv[]) {
       } else {
         std::cout << "The remaining clauses after e_autarky reductions are :"
                   << '\n';
-        for (cl_t &c : remain_cls) {
-          print_1d_vector(c);
+        for (lit_t l : d->present_clauses) {
+          std::cout << d->dcnf_fml[l] << '\n';
           std::cout << "\n";
         }
       }
     }
 
-    set_all_solutions(dcnf_clauses, dcnf_variables, selected_bf,
-                      minsat_clause_assgmt, no_of_var, level);
-    aut_present = bfs_autarky(
-        dcnf_clauses, dcnf_variables, selected_bf, minsat_clause_assgmt, vars,
-        present_clauses, filename, output_file_name, dependency_var, coding);
+    // TODO: check the code and make sure implemented correctly
+    aut_present =
+        d->a_autarky(filename, output_file_name, dependency_var, encoding);
     if (aut_present == 20) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
-      for (coord_t i = 0; i < no_of_clauses; ++i) {
-        if (dcnf_clauses[i].cls_present() == 0) continue;
-        print_1d_vector(dcnf_clauses[i].lits());
+      for (lit_t l : d->present_clauses) {
+        std::cout << d->dcnf_fml[l] << '\n';
         std::cout << "\n";
       }
       exit(0);
     } else if (aut_present == 11) {
-      std::cout << "The input QBF formula is Satisfiable by an
-                   a_autarky " " reduction.\n ";
-                   // TODO: Print the satisfying assignments!!!
-                   exit(0);
+      std::cout << "The input QBF formula is Satisfiable by an a_autarky "
+                   "reduction.\n ";
+      // TODO: Print the satisfying assignments!!!
+      exit(0);
     }
+    // TODO: Propagate and update the data structure
   }
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;

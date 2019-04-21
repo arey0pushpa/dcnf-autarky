@@ -1,32 +1,26 @@
 #include <algorithm>
 #include <iterator>
 
-#include "defs.h"
 #include "dcnf.h"
+#include "defs.h"
 #include "util.h"
 
-void dcnf::set_all_solutions(std::vector<Clauses>& dcnf_clauses,
-                    std::vector<Variables>& dcnf_variables, sel_bf& selected_bf,
-                    minsat_ass& minsat_clause_assgmt,
-                    const coord_t num_of_vars,
-                    const coord_t level) {
+void dcnf::set_all_solutions(cl_t e_vars, const coord_t level) {
   /** Selected Boolean Function **/
-  for (coord_t i = 0; i < num_of_vars; ++i) {
+  for (coord_t i = 0; i < e_vars.size(); ++i) {
     pairs_t t_vec;
-    if (dcnf_variables[i].qtype() == 'e') {
-      // Todo: remove pair and only implement by second elem
-      // Base Case [bf(0), bf(1)]; level == 0
-      t_vec.emplace_back(i + 1, num_of_vars + 1);  // false
-      t_vec.emplace_back(i + 1, num_of_vars + 2);  // true
-      if (level > 0) {
-        cl_t dvar = dcnf_variables[i].dependency();
-        for (coord_t j = 0; j < dvar.size(); ++j) {
-          t_vec.emplace_back(i + 1, dvar[j]);
-          t_vec.emplace_back(i + 1, -dvar[j]);
-        }
+    // Todo: remove pair and only implement by second elem
+    // Base Case [bf(0), bf(1)]; level == 0
+    t_vec.emplace_back(i + 1, num_of_vars + 1);  // false
+    t_vec.emplace_back(i + 1, num_of_vars + 2);  // true
+    if (level > 0) {
+      cl_t dvar = dcnf_variables[i].dependency();
+      for (coord_t j = 0; j < dvar.size(); ++j) {
+        t_vec.emplace_back(i + 1, dvar[j]);
+        t_vec.emplace_back(i + 1, -dvar[j]);
       }
-      selected_bf.push_back(t_vec);
     }
+    selected_bf.push_back(t_vec);
   }
 
   /** Minimal Satisfying Clauses
@@ -36,6 +30,7 @@ void dcnf::set_all_solutions(std::vector<Clauses>& dcnf_clauses,
    * 3. Handle e-var and a-var case
    */
 
+  // This is non-optimal; find a way to implement only for the present clauses
   for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
     cls_t m_ca;
     // 1. e-literals set to true
@@ -57,7 +52,8 @@ void dcnf::set_all_solutions(std::vector<Clauses>& dcnf_clauses,
       for (lit_t e : elit_part) {
         cl_t dep_e = dcnf_variables[std::abs(e) - 1].dependency();
         for (lit_t a : alit_part) {
-          if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) != dep_e.end()) {
+          if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) !=
+              dep_e.end()) {
             if (e * a >= 1) {
               m_ca.push_back(cl_t{std::abs(e), -std::abs(a)});
               V.emplace_back(std::abs(e), -std::abs(a));
@@ -82,20 +78,20 @@ void dcnf::set_all_solutions(std::vector<Clauses>& dcnf_clauses,
             pair_t p3 = std::make_pair(std::abs(e1_lit), -d);
             pair_t p4 = std::make_pair(std::abs(e2_lit), d);
             if (e1_lit * e2_lit >= 1) {
-              if (! (pair_present(V, p1) || pair_present(V, p2)) ) {
+              if (!(pair_present(V, p1) || pair_present(V, p2))) {
                 cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), -d};
                 m_ca.push_back(sat_ca1);
               }
-              if (! (pair_present(V, p3) ||  pair_present(V, p4) ) ) {
+              if (!(pair_present(V, p3) || pair_present(V, p4))) {
                 cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), d};
                 m_ca.push_back(sat_ca2);
               }
             } else {
-              if ( ! ( pair_present(V, p1) || pair_present(V, p4) ) ) {
+              if (!(pair_present(V, p1) || pair_present(V, p4))) {
                 cl_t sat_ca1 = {std::abs(e1_lit), d, std::abs(e2_lit), d};
                 m_ca.push_back(sat_ca1);
               }
-              if ( !( pair_present(V, p2) || pair_present(V, p3) ) ) {
+              if (!(pair_present(V, p2) || pair_present(V, p3))) {
                 cl_t sat_ca2 = {std::abs(e1_lit), -d, std::abs(e2_lit), -d};
                 m_ca.push_back(sat_ca2);
               }
