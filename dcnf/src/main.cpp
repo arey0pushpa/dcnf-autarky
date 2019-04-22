@@ -155,8 +155,6 @@ int main(int argc, char *argv[]) {
   // TEMP FIX. TODO:IMPLEMENT THE CASE OF VAR ABSENCE IN MATRIX CASE DIRECTLY
   no_of_var = e_vars.size() + a_vars.size();
   // Create Variable Objects.
-  // Label the qtype of the var and it's dependency
-  // std::vector<Variables> dcnf_variables;
   d->dcnf_variables.resize(no_of_var);
 
   // make dep set sorted linearly accdn to evar
@@ -228,7 +226,6 @@ int main(int argc, char *argv[]) {
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
         coord_t indx = std::abs(l) - 1;
-        // actv.insert(i); // Use combination of neg and pos
         if (l > 0) {
           posv.insert(indx);
           // If the clause is TAUTO ignore it
@@ -282,16 +279,11 @@ int main(int argc, char *argv[]) {
   }
 
   d->no_of_clauses = d->dcnf_clauses.size();
-	d->e_vars = e_vars;
+  d->e_vars = e_vars;
   for (coord_t i; i < d->dcnf_clauses.size(); ++i) {
     d->dcnf_fml.push_back(d->dcnf_clauses[i].m_lits);
     d->present_clauses.insert(i);
   }
-
-  /* boolv_t present_clauses(d->dcnf_clauses.size(), 1);
-   * boolv_t deleted_clauses(d->dcnf_clauses.size(), 0);
-   * d->present_clauses = present_clauses;
-   * d->deleted_clauses = deleted_clauses; */
 
   for (lit_t e : e_vars) {
     if (!d->dcnf_variables[e - 1].var_present()) continue;
@@ -302,9 +294,9 @@ int main(int argc, char *argv[]) {
     if (!d->dcnf_variables[a - 1].var_present()) continue;
     d->active_avars.push_back(a);
   }
-   
-	// For evars and dcnf_clauses
-	d->set_all_solutions(level);
+
+  // For evars and dcnf_clauses
+  d->set_all_solutions(level);
 
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
@@ -336,9 +328,10 @@ int main(int argc, char *argv[]) {
         std::cout << "The remaining clauses after e_autarky reductions are :"
                   << '\n';
         for (lit_t l : d->present_clauses) {
-          //std::cout << d->dcnf_fml[l] << '\n';
-          std::cout << "\n";
+          std::cout << l << '\t';
+          // std::cout << d.dcnf_fml[l] << '\n';
         }
+        std::cout << "\n";
       }
     }
 
@@ -349,8 +342,7 @@ int main(int argc, char *argv[]) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
       for (lit_t l : d->present_clauses) {
-        //std::cout << d->dcnf_fml[l] << '\n';
-        std::cout << "\n";
+        std::cout << l << '\t';
       }
       exit(0);
     } else if (aut_present == 11) {

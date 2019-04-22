@@ -177,8 +177,15 @@ class dcnf {
   void untouched_clauses(coord_t encoding, cl_t &lbf_vars, cls_t &bf_vars,
                          cl_t &cs_vars, cls_t &cnf_fmls,
                          std::vector<bf_lbf_converter> &);
+  
+	friend std::ostream& operator << (std::ostream& os, const dcnf& m);
 };
 
+/* std::ostream& operator<< (std::ostream &theStream, dcnf &d)
+ * {
+ *     theStream<<" fml: "<< d.dcnf_fml<<'\n';
+ *     return theStream;
+ * } */
 typedef std::shared_ptr<dcnf> dcnf_ptr;
 
 #endif
