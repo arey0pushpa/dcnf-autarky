@@ -301,11 +301,12 @@ int main(int argc, char *argv[]) {
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
     // reduction of e_autarky
+    // // TODO: BUG!! Not picking the next elemnt in the vector
     for (lit_t e : d->active_evars) {
       aut_present = d->e_autarky(e);
       if (aut_present == 10) {
-	d->active_evars.erase(d->active_evars.begin());
-	d->assigned_evars.push_back(e);
+        d->active_evars.erase(d->active_evars.begin());
+        d->assigned_evars.push_back(e);
         for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
           d->dcnf_clauses[i].present = 0;
           d->present_clauses.erase(i);
@@ -320,40 +321,35 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      // TODO: Check if this is required after each e_var e_autarky
       if (d->present_clauses.size() == 0) {
         std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                      "reduction.\n";
         // TODO: Print the satisfying assignments!!!
         exit(0);
-      } else {
-        std::cout << "The remaining clauses after e_autarky reductions are :"
-                  << '\n';
-        for (lit_t l : d->present_clauses) {
-          std::cout << l << '\t';
-          // std::cout << d.dcnf_fml[l] << '\n';
-        }
-        std::cout << "\n";
       }
+      // TODO: Add evar and avoid printing this everytime :)
+      std::cout << "Remaining clauses e_autarky reductions" << '\n';
+      d->print_remaining_cls();
     }
 
-    // TODO: check the code and make sure implemented correctly
+    // TODO: Check the code and make sure implemented correctly
     aut_present =
         d->a_autarky(filename, output_file_name, dependency_var, encoding);
     if (aut_present == 20) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
-      for (lit_t l : d->present_clauses) {
-        std::cout << l << '\t';
-      }
+      d->print_remaining_cls();
       exit(0);
     } else if (aut_present == 11) {
       std::cout << "The input QBF formula is Satisfiable by an a_autarky "
                    "reduction.\n ";
       // TODO: Print the satisfying assignments!!!
       exit(0);
+    } else {
+      // TODO: Propagate and update the data structure
+      std::cout << "The remaining clauses after a_autarky reductions" << '\n';
+      d->print_remaining_cls();
     }
-    // TODO: Propagate and update the data structure
   }
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;

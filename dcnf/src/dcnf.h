@@ -177,6 +177,7 @@ class dcnf {
   void untouched_clauses(coord_t encoding, cl_t &lbf_vars, cls_t &bf_vars,
                          cl_t &cs_vars, cls_t &cnf_fmls,
                          std::vector<bf_lbf_converter> &);
+  void print_remaining_cls ();
   
 	friend std::ostream& operator << (std::ostream& os, const dcnf& m);
 };

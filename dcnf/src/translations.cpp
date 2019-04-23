@@ -15,6 +15,14 @@ void dcnf::propagate_cls_removal(lit_t i) {
   }
 }
 
+// Print the remaining clauses in the system
+void dcnf::print_remaining_cls() {
+  for (lit_t l : present_clauses) {
+    std::cout << l << '\t';
+  }
+  std::cout << "\n";
+}
+
 coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
                         coord_t dependency_var, const coord_t encoding) {
   // Traslation variables with ordering
@@ -124,11 +132,11 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
   satisfied_clauses(encoding, cs_vars.size(), lbf_vars, bf_vars,
-                       pa_var_msat_ass, msat_concrete_var_map, cnf_fml,
-                       bf2lbf_var_map);  // (4.2)
+                    pa_var_msat_ass, msat_concrete_var_map, cnf_fml,
+                    bf2lbf_var_map);  // (4.2)
 
   untouched_clauses(encoding, lbf_vars, bf_vars, cs_vars, cnf_fml,
-                       bf2lbf_var_map);  // (4.4)
+                    bf2lbf_var_map);  // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (coord_t i = 0; i < no_of_var; ++i) {  // (4.1)
