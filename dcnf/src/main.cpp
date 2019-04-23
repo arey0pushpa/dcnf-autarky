@@ -304,8 +304,6 @@ int main(int argc, char *argv[]) {
     for (lit_t e : d->active_evars) {
       aut_present = d->e_autarky(e);
       if (aut_present == 10) {
-        // TODO: Remove the var from acive vars and ass it to the assigned
-        // e_vars
 	d->active_evars.erase(d->active_evars.begin());
 	d->assigned_evars.push_back(e);
         for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
