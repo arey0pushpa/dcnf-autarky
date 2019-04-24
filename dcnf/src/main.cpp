@@ -299,13 +299,12 @@ int main(int argc, char *argv[]) {
   d->set_all_solutions(level);
 
   // TODO: Implement all three possible combinations of e_ and a_autarky
-  while (1) {
+  while (1) { 
+		cl_t iter_active_evars;
     // reduction of e_autarky
-    // // TODO: BUG!! Not picking the next elemnt in the vector
     for (lit_t e : d->active_evars) {
       aut_present = d->e_autarky(e);
       if (aut_present == 10) {
-        d->active_evars.erase(d->active_evars.begin());
         d->assigned_evars.push_back(e);
         for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
           d->dcnf_clauses[i].present = 0;
@@ -319,7 +318,9 @@ int main(int argc, char *argv[]) {
           d->deleted_clauses.insert(i);
           d->propagate_cls_removal(i);
         }
-      }
+      } else {
+				iter_active_evars.push_back(e); 
+			}
 
       if (d->present_clauses.size() == 0) {
         std::cout << "The input QBF formula is Satisfiable by an e_autarky "
@@ -331,6 +332,9 @@ int main(int argc, char *argv[]) {
       std::cout << "Remaining clauses e_autarky reductions" << '\n';
       d->print_remaining_cls();
     }
+
+		d->active_evars = iter_active_evars;
+		iter_active_evars.clear();
 
     // TODO: Check the code and make sure implemented correctly
     aut_present =
