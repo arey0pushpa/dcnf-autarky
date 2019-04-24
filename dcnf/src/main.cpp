@@ -344,7 +344,7 @@ int main(int argc, char *argv[]) {
     iter_active_evars.clear();
 
 		if (d->active_evars.size() == 0) {
-			std::cout << "All univ variable case." << '\n';
+			std::cout << "All univ variable case. Fml SAT." << '\n';
 			// Send it to a SAT solver?
 			exit(0);
 		}
