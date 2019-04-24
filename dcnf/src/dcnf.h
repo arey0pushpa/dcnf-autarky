@@ -153,7 +153,7 @@ class dcnf {
   void propagate_cls_removal(lit_t i);
 
   coord_t a_autarky(std::string filename, std::string output_file_name,
-                    coord_t dependency_var, coord_t encoding);
+                    coord_t encoding);
 
   coord_t e_autarky(lit_t e);
 

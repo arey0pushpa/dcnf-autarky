@@ -24,7 +24,7 @@ void dcnf::print_remaining_cls() {
 }
 
 coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
-                        coord_t dependency_var, const coord_t encoding) {
+                        const coord_t encoding) {
   // Traslation variables with ordering
   cl_t cs_vars;
   cls_t bf_vars;
@@ -244,6 +244,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
           while (!ss.eof() && (csvar_index < cs_vars.size())) {
             ss >> temp;
             coord_t currt_var = std::stoi(temp);
+						// use of no_of_clause!! TODO: CHECK
             while (dcnf_clauses[cls_count].cls_present() == 0 &&
                    cls_count < no_of_clauses) {
               ++cls_count;
