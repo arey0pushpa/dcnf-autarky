@@ -139,8 +139,8 @@ class dcnf {
   cls_t dcnf_fml;         // Input cnf fml
   set_t present_clauses;  // Present clauses at current iteration
   set_t deleted_clauses;  // Set of deleted clause at current iteration
-  cl_t active_evar_index; //  Index Lookup for the evar
-  cl_t present_cls_index; // Lookup for the present clauses
+//  cl_t active_evar_index; //  Index Lookup for the evar
+//  cl_t present_cls_index; // Lookup for the present clauses
 
 
   cl_t active_evars;    // Current evar set of active variables
@@ -172,14 +172,14 @@ class dcnf {
   void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
                          cls_t &bf_vars, minsat_ass &pa_var_msat_ass,
                          cls_t &msat_concrete_var_map, cls_t &cnf_fml,
-                         std::vector<bf_lbf_converter> &bf2lbf_var_map);
+                         std::vector<bf_lbf_converter> &bf2lbf_var_map, cl_t& active_evar_index);
 
   void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
                        cls_t &cnf_fml);
 
   void untouched_clauses(coord_t encoding, cl_t &lbf_vars, cls_t &bf_vars,
                          cl_t &cs_vars, cls_t &cnf_fmls,
-                         std::vector<bf_lbf_converter> &);
+                         std::vector<bf_lbf_converter> &, cl_t& present_cls_index);
   void print_remaining_cls ();
   
 	friend std::ostream& operator << (std::ostream& os, const dcnf& m);

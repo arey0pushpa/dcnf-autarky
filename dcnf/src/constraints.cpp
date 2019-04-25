@@ -57,7 +57,8 @@ void dcnf::at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
 void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
                              cls_t &bf_vars, minsat_ass &pa_var_msat_ass,
                              cls_t &msat_concrete_var_map, cls_t &cnf_fml,
-                             std::vector<bf_lbf_converter> &bf2lbf_var_map) {
+                             std::vector<bf_lbf_converter> &bf2lbf_var_map,
+                             cl_t &active_evar_index) {
   for (unsigned i = 0; i < pa_var_msat_ass.size(); ++i) {
     for (unsigned j = 0; j < pa_var_msat_ass[i].size(); ++j) {
       cl_t v2;
@@ -70,7 +71,7 @@ void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
         coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex();
         // index
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
-        lit_t current_bf_var = bf_vars[v_indx][d_indx];
+        lit_t current_bf_var = bf_vars[active_evar_index[v_indx]][d_indx];
         if (encoding == 1) {
           // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
           coord_t bf_id =
@@ -112,7 +113,8 @@ void dcnf::touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 /** 4.4. /\_v,f t(C) || !t(v,f) **/
 void dcnf::untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                              cls_t &bf_vars, cl_t &cs_vars, cls_t &cnf_fml,
-                             std::vector<bf_lbf_converter> &bf2lbf_var_map) {
+                             std::vector<bf_lbf_converter> &bf2lbf_var_map,
+                             cl_t &present_cls_index) {
   for (const lit_t c : present_clauses) {
     cl_t clause = dcnf_clauses[c].evars();
     for (lit_t e : clause) {
