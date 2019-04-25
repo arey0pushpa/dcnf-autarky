@@ -297,6 +297,11 @@ int main(int argc, char *argv[]) {
     d->active_avars.push_back(a);
   }
 
+  // Index Lookup for the evar
+  d->active_evar_index.resize(d->e_vars.size());
+   // Lookup for the present clauses
+  d->present_cls_index.resize(d->dcnf_clauses.size());
+
   // For evars and dcnf_clauses
   d->set_all_solutions(level);
 

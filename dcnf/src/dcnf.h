@@ -139,6 +139,9 @@ class dcnf {
   cls_t dcnf_fml;         // Input cnf fml
   set_t present_clauses;  // Present clauses at current iteration
   set_t deleted_clauses;  // Set of deleted clause at current iteration
+  cl_t active_evar_index; //  Index Lookup for the evar
+  cl_t present_cls_index; // Lookup for the present clauses
+
 
   cl_t active_evars;    // Current evar set of active variables
   cl_t assigned_evars;  // Evar variables that got assigned

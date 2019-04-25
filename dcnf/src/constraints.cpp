@@ -65,7 +65,8 @@ void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
-        //TODO: Do you require it evars or present_evars?  dcnf exist var to evars
+        // TODO: Do you require it evars or present_evars?  dcnf exist var to
+        // evars
         coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex();
         // index
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
@@ -112,19 +113,18 @@ void dcnf::touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 void dcnf::untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                              cls_t &bf_vars, cl_t &cs_vars, cls_t &cnf_fml,
                              std::vector<bf_lbf_converter> &bf2lbf_var_map) {
-  for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
-    if (dcnf_clauses[i].cls_present() == 0) continue;
-    cl_t clause = dcnf_clauses[i].evars();
+  for (const lit_t c : present_clauses) {
+    cl_t clause = dcnf_clauses[c].evars();
     for (lit_t e : clause) {
       coord_t indx = dcnf_variables[e - 1].eindex();
       if (encoding == 1) {
-        // care has to taken to make sure overflowing bits too
-        // are the bottom : REVISIT!
+        // TODO: Make sure overflowing bits too are the bottom
         for (lit_t l : lbf_vars) {
-          cnf_fml.push_back(cl_t{cs_vars[i], -l});
+          cnf_fml.push_back(cl_t{cs_vars[present_cls_index[c]], -l});
         }
       } else {
-        for (lit_t l : bf_vars[indx]) cnf_fml.push_back(cl_t{cs_vars[i], -l});
+        for (lit_t l : bf_vars[indx])
+          cnf_fml.push_back(cl_t{cs_vars[present_cls_index[c]], -l});
       }
     }
   }
