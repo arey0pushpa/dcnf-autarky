@@ -81,7 +81,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
   }
 
-	// Index Lookup for the evar  
+  // Index Lookup for the evar
   cl_t active_evar_index(e_vars.size());
   coord_t eindx = 0;
   for (const lit_t e : active_evars) {
@@ -90,6 +90,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   assert(eindx == active_evars.size());
 
+  // Lookup for the present clauses
   cl_t present_cls_index(dcnf_clauses.size());
   coord_t cindx = 0;
   for (const lit_t c : present_clauses) {
@@ -245,7 +246,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
           while (!ss.eof() && (csvar_index < cs_vars.size())) {
             ss >> temp;
             coord_t currt_var = std::stoi(temp);
-						// use of no_of_clause!! TODO: CHECK
+            // use of no_of_clause!! TODO: CHECK
             while (dcnf_clauses[cls_count].cls_present() == 0 &&
                    cls_count < no_of_clauses) {
               ++cls_count;

@@ -65,7 +65,7 @@ void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
-        // dcnf exist var to evars
+        //TODO: Do you require it evars or present_evars?  dcnf exist var to evars
         coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex();
         // index
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
