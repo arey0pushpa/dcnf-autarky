@@ -71,7 +71,7 @@ void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
         coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex();
         // index
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
-        lit_t current_bf_var = bf_vars[active_evar_index[v_indx]][d_indx];
+        lit_t current_bf_var = bf_vars[active_evar_index[std::abs(var) - 1]][d_indx];
         if (encoding == 1) {
           // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
           coord_t bf_id =
@@ -114,11 +114,11 @@ void dcnf::touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 void dcnf::untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                              cls_t &bf_vars, cl_t &cs_vars, cls_t &cnf_fml,
                              std::vector<bf_lbf_converter> &bf2lbf_var_map,
-                             cl_t &present_cls_index) {
+                             cl_t &present_cls_index, cl_t &active_evar_index) {
   for (const lit_t c : present_clauses) {
     cl_t clause = dcnf_clauses[c].evars();
     for (lit_t e : clause) {
-      coord_t indx = dcnf_variables[e - 1].eindex();
+      coord_t indx = active_evar_index[e - 1];
       if (encoding == 1) {
         // TODO: Make sure overflowing bits too are the bottom
         for (lit_t l : lbf_vars) {

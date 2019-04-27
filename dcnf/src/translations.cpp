@@ -136,7 +136,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
                     bf2lbf_var_map, active_evar_index);  // (4.2)
 
   untouched_clauses(encoding, lbf_vars, bf_vars, cs_vars, cnf_fml,
-                    bf2lbf_var_map, present_cls_index);  // (4.4)
+                    bf2lbf_var_map, present_cls_index, active_evar_index);  // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (lit_t e : active_evars) {
