@@ -83,21 +83,19 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   // Index Lookup for the evar
-  cl_t active_evar_index(e_vars.size());
+  cl_t active_evar_index(no_of_vars);
   coord_t eindx = 0;
-  for (const lit_t e : active_evars) {
+  for (lit_t e : active_evars) {
     active_evar_index[e] = eindx;
     ++eindx;
   }
-  assert(eindx == active_evars.size());
 
   cl_t present_cls_index(dcnf_clauses.size());
   coord_t cindx = 0;
-  for (const lit_t c : present_clauses) {
+  for (lit_t c : present_clauses) {
     present_cls_index[c] = cindx;
     ++cindx;
   }
-  assert(cindx == present_clauses.size());
 
   // pa variable := Only consider unique mapping
   cls_t pa_var_set;
