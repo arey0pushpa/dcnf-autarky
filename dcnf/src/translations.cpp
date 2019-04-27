@@ -86,7 +86,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cl_t active_evar_index(no_of_vars);
   coord_t eindx = 0;
   for (lit_t e : active_evars) {
-    active_evar_index[e] = eindx;
+    active_evar_index[e-1] = eindx;
     ++eindx;
   }
 
@@ -201,7 +201,6 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
          << "\n";
   }
   fout.close();
-  //exit(0);
 
   std::future<int> future = std::async(std::launch::async, []() {
     auto retVal = system(
