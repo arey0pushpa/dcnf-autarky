@@ -202,7 +202,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
          << "\n";
   }
   fout.close();
-  exit(0);
+  //exit(0);
 
   std::future<int> future = std::async(std::launch::async, []() {
     auto retVal = system(
