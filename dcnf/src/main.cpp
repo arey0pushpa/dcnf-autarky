@@ -264,7 +264,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      delete cls;  // Avoid memory leak, My God!
+      //delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }

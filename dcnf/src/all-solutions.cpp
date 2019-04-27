@@ -8,7 +8,7 @@
 void dcnf::set_all_solutions(const coord_t level) {
   /** Selected Boolean Function **/
    //for (coord_t i = 0; i < e_vars.size(); ++i) {
-		for(lit_t e : active_evars) {
+		for(lit_t e : e_vars) {
     pairs_t t_vec;
     // Todo: remove pair and only implement by second elem
     // Base Case [bf(0), bf(1)]; level == 0

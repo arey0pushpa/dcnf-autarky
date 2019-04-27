@@ -53,6 +53,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   coord_t preindex = index;
   coord_t bf_var_count = 0;
   for (const lit_t e : active_evars) {
+		// TODO: Implement using the active_evar_index
     for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].m_eindex].size();
          ++j) {
       s_bf.push_back(index);
