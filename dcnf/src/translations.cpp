@@ -53,7 +53,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   coord_t preindex = index;
   coord_t bf_var_count = 0;
   for (const lit_t e : active_evars) {
-		// TODO: Implement using the active_evar_index
+    // TODO: Implement using the active_evar_index
     for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].m_eindex].size();
          ++j) {
       s_bf.push_back(index);
@@ -86,7 +86,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cl_t active_evar_index(no_of_vars);
   coord_t eindx = 0;
   for (lit_t e : active_evars) {
-    active_evar_index[e-1] = eindx;
+    active_evar_index[e - 1] = eindx;
     ++eindx;
   }
 
@@ -136,7 +136,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
                     bf2lbf_var_map, active_evar_index);  // (4.2)
 
   untouched_clauses(encoding, lbf_vars, bf_vars, cs_vars, cnf_fml,
-                    bf2lbf_var_map, present_cls_index, active_evar_index);  // (4.4)
+                    bf2lbf_var_map, present_cls_index,
+                    active_evar_index);  // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (lit_t e : active_evars) {
@@ -209,6 +210,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     return retVal;
   });
 
+  cl_t var_assgn;
   std::cout << "Running Lingeling ... "
             << "\n";
   std::future_status status;
@@ -225,38 +227,23 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     std::string filenm = "/tmp/a.out";
     std::string line;
     std::ifstream file(filenm);
-    coord_t csvar_index = 0;
-    coord_t cls_count = 0;
     if (!file.is_open()) {
       perror(("Error while opening file " + filenm).c_str());
       exit(file_reading_error);
     }
-    while (std::getline(file, line) && csvar_index < cs_vars.size()) {
+    while (std::getline(file, line)) {
       char s1 = line[0];
-      char s2 = line[2];
       switch (s1) {
         case 'v': {
           line = line.substr(line.find_first_of(" \t") + 1);
-          std::stringstream ss;
-          ss << line;
-          std::string temp;
-          while (!ss.eof() && (csvar_index < cs_vars.size())) {
-            ss >> temp;
-            coord_t currt_var = std::stoi(temp);
-            // use of no_of_clause!! TODO: CHECK
-            while (dcnf_clauses[cls_count].cls_present() == 0 &&
-                   cls_count < no_of_clauses) {
-              ++cls_count;
-            }
-            if (currt_var > 0) {
-              dcnf_clauses[cls_count].update_presence(0);
-            }
-            ++csvar_index;
-            ++cls_count;
+          std::stringstream ss(line);
+          for (lit_t i = 0; ss >> i;) {
+            var_assgn.push_back(i);
           }
-        } break;
+          break;
+        }
         case 's': {
-          if (s2 == 'U') {
+          if (line[2] == 'U') {
             return 20;
           }
           break;
@@ -268,6 +255,22 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       exit(file_reading_error);
     }
     file.close();
+  }
+  // remove last 0 from the assignment
+  var_assgn.pop_back();
+
+	std::cout << "The satisfying assignment is... \n";
+	print_1d_vector(var_assgn);
+	std::cout << '\n';
+
+  /*  Update the data structure   */
+  for (coord_t i = 0; i < cs_vars.size(); ++i) {
+    if (var_assgn[i] > 0) {
+      dcnf_clauses[i].present = 0;
+      present_clauses.erase(i);
+      deleted_clauses.insert(i);
+      propagate_cls_removal(i);
+    }
   }
 
   //  output(filename, output_file_name, level, s_level, encoding, no_of_var,
@@ -304,7 +307,6 @@ coord_t dcnf::e_autarky(lit_t e) {
         for (lit_t l2 : cls_s2) {
           set_D.insert(l2);
         }
-        // \bar{C} \cap D != \phi
         set_intersection(compl_C.begin(), compl_C.end(), set_D.begin(),
                          set_D.end(),
                          std::inserter(intersect_cls, intersect_cls.begin()));

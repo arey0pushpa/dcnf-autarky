@@ -372,6 +372,7 @@ int main(int argc, char *argv[]) {
       // TODO: Propagate and update the data structure
       std::cout << "The remaining clauses after a_autarky reductions" << '\n';
       d->print_remaining_cls();
+			//exit(0);
     }
   }
   auto finish = std::chrono::high_resolution_clock::now();
