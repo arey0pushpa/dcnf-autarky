@@ -279,10 +279,10 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   present_clauses = update_present_cls;
   updated_cls_size = cs_vars.size();
 
-  // We are relaying on SAt solver will give the ordered assignment
+  // Relaying on the SAT solver to provide ordered assignment
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
-      if (var_assgn[bf_vars[i][j]] > 0) {
+      if (var_assgn[bf_vars[i][j] - 1] > 0) {
         final_assgmt.emplace_back(selected_bf[i][j]);
       }
     }
