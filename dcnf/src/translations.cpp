@@ -259,29 +259,45 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   // remove last 0 from the assignment
   var_assgn.pop_back();
 
-	std::cout << "The satisfying assignment is... \n";
-	print_1d_vector(var_assgn);
-	std::cout << '\n';
+  std::cout << "The satisfying assignment is... \n";
+  print_1d_vector(var_assgn);
+  std::cout << '\n';
 
   /*  Update the data structure   */
-  for (coord_t i = 0; i < cs_vars.size(); ++i) {
-    if (var_assgn[i] > 0) {
-      dcnf_clauses[i].present = 0;
-      present_clauses.erase(i);
-      deleted_clauses.insert(i);
-      propagate_cls_removal(i);
+  coord_t vindx = 0;
+  set_t update_present_cls;
+  for (lit_t c : present_clauses) {
+    if (var_assgn[vindx] > 0) {
+      dcnf_clauses[c].present = 0;
+      deleted_clauses.insert(c);
+      propagate_cls_removal(c);
+    } else {
+      update_present_cls.insert(c);
+    }
+    ++vindx;
+  }
+  present_clauses = update_present_cls;
+  updated_cls_size = cs_vars.size();
+
+  // We are relaying on SAt solver will give the ordered assignment
+  for (coord_t i = 0; i < bf_vars.size(); ++i) {
+    for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
+      if (var_assgn[bf_vars[i][j]] > 0) {
+        final_assgmt.emplace_back(selected_bf[i][j]);
+      }
     }
   }
 
-	updated_cls_size = cs_vars.size();
-
-  //  output(filename, output_file_name, level, s_level, encoding, no_of_var,
-  //         no_of_clauses, a_vars.size(), e_vars.size(),
-  //         unique_dep_set.size(), pa_vars.size(), total, cs_vars.size(),
-  //         index - 1, cnf_fml.size());
-
-  return 10;
+  if (present_clauses.size() > 0) {
+    return 10;
+  } else {
+    return 11;
+  }
 }
+//  output(filename, output_file_name, level, s_level, encoding, no_of_var,
+//         no_of_clauses, a_vars.size(), e_vars.size(),
+//         unique_dep_set.size(), pa_vars.size(), total, cs_vars.size(),
+//         index - 1, cnf_fml.size());
 
 coord_t dcnf::e_autarky(lit_t e) {
   set_t intersect;

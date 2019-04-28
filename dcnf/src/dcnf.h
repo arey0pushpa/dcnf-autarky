@@ -151,6 +151,7 @@ class dcnf {
 
   sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
   minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
+  pairs_t final_assgmt;   // Assignmt for the autarky
 
   // helper functions
 
