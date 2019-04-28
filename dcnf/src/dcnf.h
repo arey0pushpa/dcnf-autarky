@@ -141,6 +141,8 @@ class dcnf {
   set_t deleted_clauses;  // Set of deleted clause at current iteration
   //  cl_t active_evar_index; //  Index Lookup for the evar
   //  cl_t present_cls_index; // Lookup for the present clauses
+	coord_t old_cls_size;
+	coord_t updated_cls_size;
 
   cl_t active_evars;    // Current evar set of active variables
   cl_t assigned_evars;  // Evar variables that got assigned

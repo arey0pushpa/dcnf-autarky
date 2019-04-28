@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
   // TEMP FIX. TODO:IMPLEMENT THE CASE OF VAR ABSENCE IN MATRIX CASE DIRECTLY
   no_of_var = e_vars.size() + a_vars.size();
 
-	d->no_of_vars = no_of_var;
+  d->no_of_vars = no_of_var;
   // Create Variable Objects.
   d->dcnf_variables.resize(no_of_var);
 
@@ -264,7 +264,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      //delete cls;  // Avoid memory leak, My God!
+      // delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -298,66 +298,67 @@ int main(int argc, char *argv[]) {
   }
 
   // Index Lookup for the evar
-  //d->active_evar_index.resize(e_size);
-   // Lookup for the present clauses
-  //d->present_cls_index.resize(cls_size);
+  // d->active_evar_index.resize(e_size);
+  // Lookup for the present clauses
+  // d->present_cls_index.resize(cls_size);
 
   // For evars and dcnf_clauses
   d->set_all_solutions(level);
+  d->old_cls_size = d->dcnf_clauses.size();
+  d->updated_cls_size = 0;
 
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
-/*     cl_t iter_active_evars;
- *     // reduction of e_autarky
- *     // TODO: Optimize the variables use
- *     for (lit_t e : d->active_evars) {
- *       if (d->dcnf_variables[e - 1].pos_cls.size() +
- *               d->dcnf_variables[e - 1].neg_cls.size() ==
- *           0) {
- *         aut_present = 10;
- *       } else {
- *         aut_present = d->e_autarky(e);
- *       }
- *       if (aut_present == 10) {
- *         d->assigned_evars.push_back(e);
- *         for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
- *           d->dcnf_clauses[i].present = 0;
- *           d->present_clauses.erase(i);
- *           d->deleted_clauses.insert(i);
- *           d->propagate_cls_removal(i);
- *         }
- *         for (lit_t i : d->dcnf_variables[e - 1].neg_pol()) {
- *           d->dcnf_clauses[i].present = 0;
- *           d->present_clauses.erase(i);
- *           d->deleted_clauses.insert(i);
- *           d->propagate_cls_removal(i);
- *         }
- *       } else {
- *         iter_active_evars.push_back(e);
- *       }
- *
- *       if (d->present_clauses.size() == 0) {
- *         std::cout << "The input QBF formula is Satisfiable by an e_autarky "
- *                      "reduction.\n";
- *         // TODO: Print the satisfying assignments!!!
- *         exit(0);
- *       }
- *       // TODO: Add evar and avoid printing this everytime :)
- *       std::cout << "Remaining clauses e_autarky reductions" << '\n';
- *       d->print_remaining_cls();
- *     }
- *
- *     d->active_evars = iter_active_evars;
- *     iter_active_evars.clear();
- *
- *     if (d->active_evars.size() == 0) {
- *       std::cout << "All univ variable case. Fml SAT." << '\n';
- *       // Send it to a SAT solver?
- *       exit(0);
- *     } */
+    /*     cl_t iter_active_evars;
+     *     // reduction of e_autarky
+     *     // TODO: Optimize the variables use
+     *     for (lit_t e : d->active_evars) {
+     *       if (d->dcnf_variables[e - 1].pos_cls.size() +
+     *               d->dcnf_variables[e - 1].neg_cls.size() ==
+     *           0) {
+     *         aut_present = 10;
+     *       } else {
+     *         aut_present = d->e_autarky(e);
+     *       }
+     *       if (aut_present == 10) {
+     *         d->assigned_evars.push_back(e);
+     *         for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
+     *           d->dcnf_clauses[i].present = 0;
+     *           d->present_clauses.erase(i);
+     *           d->deleted_clauses.insert(i);
+     *           d->propagate_cls_removal(i);
+     *         }
+     *         for (lit_t i : d->dcnf_variables[e - 1].neg_pol()) {
+     *           d->dcnf_clauses[i].present = 0;
+     *           d->present_clauses.erase(i);
+     *           d->deleted_clauses.insert(i);
+     *           d->propagate_cls_removal(i);
+     *         }
+     *       } else {
+     *         iter_active_evars.push_back(e);
+     *       }
+     *
+     *       if (d->present_clauses.size() == 0) {
+     *         std::cout << "The input QBF formula is Satisfiable by an
+     * e_autarky " "reduction.\n";
+     *         // TODO: Print the satisfying assignments!!!
+     *         exit(0);
+     *       }
+     *       // TODO: Add evar and avoid printing this everytime :)
+     *       std::cout << "Remaining clauses e_autarky reductions" << '\n';
+     *       d->print_remaining_cls();
+     *     }
+     *
+     *     d->active_evars = iter_active_evars;
+     *     iter_active_evars.clear();
+     *
+     *     if (d->active_evars.size() == 0) {
+     *       std::cout << "All univ variable case. Fml SAT." << '\n';
+     *       // Send it to a SAT solver?
+     *       exit(0);
+     *     } */
     // TODO: Check the code and make sure implemented correctly
-    aut_present =
-        d->a_autarky(filename, output_file_name, encoding);
+    aut_present = d->a_autarky(filename, output_file_name, encoding);
     if (aut_present == 20) {
       std::cout << "The input QBF formula is UNSAT. \n";
       std::cout << "The UNSAT/remaining clauses are. \n";
@@ -372,7 +373,12 @@ int main(int argc, char *argv[]) {
       // TODO: Propagate and update the data structure
       std::cout << "The remaining clauses after a_autarky reductions" << '\n';
       d->print_remaining_cls();
-			//exit(0);
+      if (d->updated_cls_size == d->old_cls_size) {
+        std::cout << "No further autarky is found.\n";
+        exit(0);
+      } else {
+        d->old_cls_size = d->updated_cls_size;
+      }
     }
   }
   auto finish = std::chrono::high_resolution_clock::now();

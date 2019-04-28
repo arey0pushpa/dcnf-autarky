@@ -273,6 +273,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
   }
 
+	updated_cls_size = cs_vars.size();
+
   //  output(filename, output_file_name, level, s_level, encoding, no_of_var,
   //         no_of_clauses, a_vars.size(), e_vars.size(),
   //         unique_dep_set.size(), pa_vars.size(), total, cs_vars.size(),
