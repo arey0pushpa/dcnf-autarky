@@ -276,7 +276,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     ++vindx;
   }
   present_clauses = update_present_cls;
-  updated_cls_size = cs_vars.size();
+  updated_cls_size = update_present_cls.size();
 
   // Relaying on the SAT solver to provide ordered assignment
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
