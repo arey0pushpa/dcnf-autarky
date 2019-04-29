@@ -105,21 +105,21 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cls_t clausewise_pa_var_map(
       present_clauses.size());  // create clausewise cnf vars
   coord_t msat_cntr = 1;
-  for (lit_t i : present_clauses) {
-    for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
-      cl_t dummy = minsat_clause_assgmt[i][j];
+  for (lit_t c : present_clauses) {
+    for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
+      cl_t dummy = minsat_clause_assgmt[c][j];
       lit_t slit = std::abs(dummy[0]);
       // Extract the position of the existential var in evars
       lit_t elit = active_evar_index[slit-1];
       lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
       if (pa_indx != -1) {
-        clausewise_pa_var_map[i].push_back(
+        clausewise_pa_var_map[present_cls_index[c]].push_back(
             msat_concrete_var_map[elit][pa_indx]);
       } else {
         pa_var_msat_ass[elit].push_back(dummy);
         msat_concrete_var_map[elit].push_back(index);
         ++msat_cntr;
-        clausewise_pa_var_map[present_cls_index[i]].push_back(index);
+        clausewise_pa_var_map[present_cls_index[c]].push_back(index);
         pa_vars.push_back(index);
         ++index;
       }
