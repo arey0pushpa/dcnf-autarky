@@ -98,18 +98,19 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   // pa variable := Only consider unique mapping
   cls_t pa_var_set;
-  minsat_ass pa_var_msat_ass(active_evars.size());  // bigbag to push all assmts
-  cls_t msat_concrete_var_map(active_evars.size());  // dqbf Var to Cnf var Map
+	// bigbag to push all concrete bf variable assmts 
+  minsat_ass pa_var_msat_ass(active_evars.size());  
+	// dqbf Var to Cnf var Map; pa_vars for each bigbag element
+  cls_t msat_concrete_var_map(active_evars.size());  
   cls_t clausewise_pa_var_map(
       present_clauses.size());  // create clausewise cnf vars
   coord_t msat_cntr = 1;
   for (lit_t i : present_clauses) {
     for (coord_t j = 0; j < minsat_clause_assgmt[i].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[i][j];
-      // TODO: check dummy[0] is always will be absolute
       lit_t slit = std::abs(dummy[0]);
       // Extract the position of the existential var in evars
-      lit_t elit = active_evar_index[slit];
+      lit_t elit = active_evar_index[slit-1];
       lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
       if (pa_indx != -1) {
         clausewise_pa_var_map[i].push_back(
