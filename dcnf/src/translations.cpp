@@ -53,7 +53,6 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   coord_t preindex = index;
   coord_t bf_var_count = 0;
   for (const lit_t e : active_evars) {
-    // TODO: Implement using the active_evar_index
     for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].m_eindex].size();
          ++j) {
       s_bf.push_back(index);
@@ -141,7 +140,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   if (encoding == 0 || encoding == 2) {
     for (lit_t e : active_evars) {
-      coord_t indx = dcnf_variables[e - 1].eindex();
+      coord_t indx = active_evar_index[e-1];
       if (encoding == 0) {
         at_most_one(bf_vars[indx], cnf_fml);
       } else {
