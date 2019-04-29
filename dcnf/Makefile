@@ -15,13 +15,14 @@ CXX = g++
 
 Standard_options = --std=c++11 -pedantic
 Warning_options = -Wall -Werror
+#-ggdb3
 Optimisation_options = -Ofast -DNDEBUG
 Debug_options = -g
 
 .PHONY: all dev
 
 all: dev dcnf_autarky dcnf_aut_debug 
-#dcnf_autarky_debug
+# dcnf_autarky_debug
 
 
 dcnf_aut_debug : 

@@ -139,9 +139,6 @@ int main(int argc, char *argv[]) {
   cl_t a_vars;    // {forall-var}
   cls_t dep_set;  // {{dep-var}...}
 
-  // sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
-  // minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
-
   coord_t min_dep_size = 0;
   coord_t max_dep_size = 0;
 
@@ -152,11 +149,9 @@ int main(int argc, char *argv[]) {
                      no_of_var, dependency_var, s_level, min_dep_size,
                      max_dep_size);
 
-  // TEMP FIX. TODO:IMPLEMENT THE CASE OF VAR ABSENCE IN MATRIX CASE DIRECTLY
   no_of_var = e_vars.size() + a_vars.size();
 
   d->no_of_vars = no_of_var;
-  // Create Variable Objects.
   d->dcnf_variables.resize(no_of_var);
 
   // make dep set sorted linearly accdn to evar
@@ -168,14 +163,6 @@ int main(int argc, char *argv[]) {
 
   auto avar_iterator = a_vars.begin();
   auto evar_iterator = e_vars.begin();
-
-  /*
-  std::cout << "Printing universal variables" << '\n';
-  print_1d_vector(a_vars);
-  std::cout << "\nPrinting existenial variables" << '\n';
-  print_1d_vector(e_vars);
-  std::cout << "\n";
-  */
 
   coord_t dep_index = 0;
   bool a_vars_end = false;
@@ -264,14 +251,12 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      // delete cls;  // Avoid memory leak, My God!
+      delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
 
-  // TODO: Check if not considering univ variable harm? NO, for now.
-  // Every existential variable that do not occur anywhere in the formula is
-  // not considered for the bf_vars
+  // Ignore non occuring evars for bf_vars
   for (const lit_t e : e_vars) {
     coord_t i = e - 1;
     if (d->dcnf_variables[i].pos_pol().empty() &&
@@ -280,9 +265,10 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  d->no_of_clauses = d->dcnf_clauses.size();
+	const coord_t cls_size = d->dcnf_clauses.size();
+  d->no_of_clauses = cls_size;
   d->e_vars = e_vars;
-  for (coord_t i; i < d->dcnf_clauses.size(); ++i) {
+  for (coord_t i; i < cls_size; ++i) {
     d->dcnf_fml.push_back(d->dcnf_clauses[i].m_lits);
     d->present_clauses.insert(i);
   }
@@ -297,14 +283,9 @@ int main(int argc, char *argv[]) {
     d->active_avars.push_back(a);
   }
 
-  // Index Lookup for the evar
-  // d->active_evar_index.resize(e_size);
-  // Lookup for the present clauses
-  // d->present_cls_index.resize(cls_size);
-
   // For evars and dcnf_clauses
   d->set_all_solutions(level);
-  d->old_cls_size = d->dcnf_clauses.size();
+  d->old_cls_size = cls_size;
   d->updated_cls_size = 0;
 
   // TODO: Implement all three possible combinations of e_ and a_autarky

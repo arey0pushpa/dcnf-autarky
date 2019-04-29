@@ -194,6 +194,7 @@ class dcnf {
  *     theStream<<" fml: "<< d.dcnf_fml<<'\n';
  *     return theStream;
  * } */
+//typedef std::unique_ptr<dcnf> dcnf_ptr;
 typedef std::shared_ptr<dcnf> dcnf_ptr;
 
 #endif
