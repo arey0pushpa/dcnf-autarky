@@ -63,7 +63,6 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   // Additional 1 due to index count is incremented after last use.
-  // TODO: Check the correct use of no_of_clauses, use the
   std::vector<bf_lbf_converter> bf2lbf_var_map(index -
                                                (dcnf_clauses.size() + 1));
 

@@ -7,15 +7,14 @@
 
 void dcnf::set_all_solutions(const coord_t level) {
   /** Selected Boolean Function **/
-   //for (coord_t i = 0; i < e_vars.size(); ++i) {
-		for(lit_t e : e_vars) {
+  for (lit_t e : e_vars) {
     pairs_t t_vec;
     // Todo: remove pair and only implement by second elem
     // Base Case [bf(0), bf(1)]; level == 0
     t_vec.emplace_back(e, no_of_vars + 1);  // false
     t_vec.emplace_back(e, no_of_vars + 2);  // true
     if (level > 0) {
-      cl_t dvar = dcnf_variables[e-1].dependency();
+      cl_t dvar = dcnf_variables[e - 1].dependency();
       for (coord_t j = 0; j < dvar.size(); ++j) {
         t_vec.emplace_back(e, dvar[j]);
         t_vec.emplace_back(e, -dvar[j]);
