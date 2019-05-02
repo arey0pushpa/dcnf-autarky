@@ -25,9 +25,11 @@
  *
  * 3. Check and update the implementation of Linear AMO and LOG encoding
  *
- * 4. Fix the MakeFile. Avoid heavy compiling everytime for debugging.
+ * 4. Handle unspecified-evar.dqdimacs example.
  *
- * 5. Manage Shared pointer correctly. Avoid memory leaks.
+ * 5. Fix the MakeFile. Avoid heavy compiling everytime for debugging.
+ *
+ * 6. Manage Shared pointer correctly. Avoid memory leaks.
  *
  */
 
