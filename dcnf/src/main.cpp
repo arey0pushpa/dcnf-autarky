@@ -17,47 +17,18 @@
  * */
 
 /* Todo list
+ * 1. Cleaning:
+ *    - Clean the class interface remove non-essential functions
  *
- * 1. Implement linear encoding.
- *   - Add the "Command-variable" Encoding for AMO constraint.
- *   - Make sure that uep is preserved.
+ * 2. Optimisize the use of selected_bf:
+ *    Update the selected_bf everytime the one reduction occurs.
  *
- *   Sequential Commander encoding:
- *   The encoding  uses 3n-6 binary clauses (without uep) and < n/2 variables.
- *   Given V = {v1,..,vn}
- *   seco(v1, ..., vn) is defined recursively
+ * 3. Check and update the implementation of Linear AMO and LOG encoding
  *
- *    i.  Base case n <= 4:
- *       seco(v1,v2,v3,v4) = the binomial(4,2)=6 prime-clauses for
- *                           amo(v1,v2,v3,v4)
- *    ii.  Recursion for n >= 5:
- *       seco(v1,...,vn) = Conjunction of
- *                       binomial(3,2)=3 prime-clauses for amo(v1,v2,v3)
- *                       and v1->w, v2->w, v3->w for the commander-variable w
- *                       and seco(w,v3,...,vn).
- *		Handle UEP:
- *      The problem is that v1=...=vn=0 admits many solutions.
+ * 4. Fix the MakeFile. Avoid heavy compiling everytime for debugging.
  *
- *	 	For each commander-variable w(x,y,z) add
- *       w -> x v y v z (i.e., the 4-clause {-w,x,y,z}).
+ * 5. Manage Shared pointer correctly. Avoid memory leaks.
  *
- * 2. Handle empty clause and tautology.
- *    - Add checks to avoid basic SAT and UNSAT cases.
- *    - Add code to remove non occuring variables in the matrix.
- *
- * 3. Cleaning:
- *    - The use of index is not clear or what is the use of cnf_vars.
- *       The purpose should be clear.
- *
- * 4. Namespace creation: do using the classes or namespace.
- *    - Passing the parameters all the time looks ugly.
- *
- * 5. Implement the one existential variable form.
- *
- * 6. Autarky reduction algorithm:
- * 		- Add code in MakeFile to download the SAT solver locally.
- * 		- Add code for using SAT solver and extracting the assignment.
- * 		- Create a Wrapper for doing Autarky reduction.
  */
 
 #include <bitset> // std::bitset
@@ -77,15 +48,16 @@ int main(int argc, char *argv[]) {
   coord_t level = 1;
   coord_t s_level = 0;
   coord_t encoding = 0;
-  coord_t reduction_type = 0; // Start with search for e_var autarkies
+  coord_t reduction_type = 2; // Start with search for e_var autarkies
   coord_t aut_present = 10;
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
-    std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
-                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
-                 "filename] [-l "
-                 "level] [-e encoding] [-s strictness; 0:general, 1:strict] "
-                 "[-r reduction; 0:e_autarky, 1:a_autarky]\n";
+    std::cout
+        << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
+           "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
+           "filename] [-l "
+           "level] [-e encoding] [-s strictness; 0:general, 1:strict] "
+           "[-r reduction; 1:e_autarky, 2:a_autarky 3: Both e+a_autarky]\n";
     exit(0);
   }
 
@@ -293,79 +265,85 @@ int main(int argc, char *argv[]) {
   d->set_all_solutions(level);
   d->old_cls_size = cls_size;
   d->updated_cls_size = 0;
-	
+
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
-    /*     cl_t iter_active_evars;
-     *     // reduction of e_autarky
-     *     // TODO: Optimize the variables use
-     *     for (lit_t e : d->active_evars) {
-     *       if (d->dcnf_variables[e - 1].pos_cls.size() +
-     *               d->dcnf_variables[e - 1].neg_cls.size() ==
-     *           0) {
-     *         aut_present = 10;
-     *       } else {
-     *         aut_present = d->e_autarky(e);
-     *       }
-     *       if (aut_present == 10) {
-     *         d->assigned_evars.push_back(e);
-     *         for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
-     *           d->dcnf_clauses[i].present = 0;
-     *           d->present_clauses.erase(i);
-     *           d->deleted_clauses.insert(i);
-     *           d->propagate_cls_removal(i);
-     *         }
-     *         for (lit_t i : d->dcnf_variables[e - 1].neg_pol()) {
-     *           d->dcnf_clauses[i].present = 0;
-     *           d->present_clauses.erase(i);
-     *           d->deleted_clauses.insert(i);
-     *           d->propagate_cls_removal(i);
-     *         }
-     *       } else {
-     *         iter_active_evars.push_back(e);
-     *       }
-     *
-     *       if (d->present_clauses.size() == 0) {
-     *         std::cout << "The input QBF formula is Satisfiable by an
-     * e_autarky " "reduction.\n";
-     *         // TODO: Print the satisfying assignments!!!
-     *         exit(0);
-     *       }
-     *       // TODO: Add evar and avoid printing this everytime :)
-     *       std::cout << "Remaining clauses e_autarky reductions" << '\n';
-     *       d->print_remaining_cls();
-     *     }
-     *
-     *     d->active_evars = iter_active_evars;
-     *     iter_active_evars.clear();
-     *
-     *     if (d->active_evars.size() == 0) {
-     *       std::cout << "All univ variable case. Fml SAT." << '\n';
-     *       // Send it to a SAT solver?
-     *       exit(0);
-     *     } */
-    aut_present = d->a_autarky(filename, output_file_name, encoding);
-    if (aut_present == 20) {
-      std::cout << "The input QBF formula is UNSAT. \n";
-      std::cout << "The UNSAT/remaining clauses are. \n";
-      d->print_remaining_cls();
-      exit(0);
-    } else if (aut_present == 11) {
-      std::cout << "The input QBF formula is Satisfiable by an a_autarky "
-                   "reduction.\n ";
-      std::cout << "The satisfying assignment is...\n";
-      print_1d_vector_int_pair(d->final_assgmt);
-      exit(0);
-    } else {
-      std::cout << "The remaining clauses after a_autarky reductions" << '\n';
-      d->print_remaining_cls();
-      if (d->updated_cls_size == d->old_cls_size) {
-        std::cout << "No further autarky is found.\n";
-        std::cout << "The final assignment is...\n";
+    cl_t iter_active_evars;
+
+    if (reduction_type == 1 || reduction_type == 3) {
+      // reduction of e_autarky
+      // TODO: Optimize the variables use
+      for (lit_t e : d->active_evars) {
+        if (d->dcnf_variables[e - 1].pos_cls.size() +
+                d->dcnf_variables[e - 1].neg_cls.size() ==
+            0) {
+          aut_present = 10;
+        } else {
+          aut_present = d->e_autarky(e);
+        }
+        if (aut_present == 10) {
+          d->assigned_evars.push_back(e);
+          for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
+            d->dcnf_clauses[i].present = 0;
+            d->present_clauses.erase(i);
+            d->deleted_clauses.insert(i);
+            d->propagate_cls_removal(i);
+          }
+          for (lit_t i : d->dcnf_variables[e - 1].neg_pol()) {
+            d->dcnf_clauses[i].present = 0;
+            d->present_clauses.erase(i);
+            d->deleted_clauses.insert(i);
+            d->propagate_cls_removal(i);
+          }
+        } else {
+          iter_active_evars.push_back(e);
+        }
+
+        if (d->present_clauses.size() == 0) {
+          std::cout << "The input QBF formula is Satisfiable by an e_autarky "
+                       "reduction.\n ";
+          // TODO: Print the satisfying assignments!!!
+          exit(0);
+        }
+        // TODO: Add evar and avoid printing this everytime :)
+        std::cout << "Remaining clauses e_autarky reductions" << '\n';
+        d->print_remaining_cls();
+      }
+
+      d->active_evars = iter_active_evars;
+      iter_active_evars.clear();
+
+      if (d->active_evars.size() == 0) {
+        std::cout << "All univ variable case. Fml SAT." << '\n';
+        // Send it to a SAT solver?
+        exit(0);
+      }
+    }
+
+    if (reduction_type == 2 || reduction_type == 3) {
+      aut_present = d->a_autarky(filename, output_file_name, encoding);
+      if (aut_present == 20) {
+        std::cout << "The input QBF formula is UNSAT. \n";
+        std::cout << "The UNSAT/remaining clauses are. \n";
+        d->print_remaining_cls();
+        exit(0);
+      } else if (aut_present == 11) {
+        std::cout << "The input QBF formula is Satisfiable by an a_autarky "
+                     "reduction.\n ";
+        std::cout << "The satisfying assignment is...\n";
         print_1d_vector_int_pair(d->final_assgmt);
         exit(0);
       } else {
-        d->old_cls_size = d->updated_cls_size;
+        std::cout << "The remaining clauses after a_autarky reductions" << '\n';
+        d->print_remaining_cls();
+        if (d->updated_cls_size == d->old_cls_size) {
+          std::cout << "No further autarky is found.\n";
+          std::cout << "The final assignment is...\n";
+          print_1d_vector_int_pair(d->final_assgmt);
+          exit(0);
+        } else {
+          d->old_cls_size = d->updated_cls_size;
+        }
       }
     }
   }
