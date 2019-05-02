@@ -293,7 +293,7 @@ int main(int argc, char *argv[]) {
   d->set_all_solutions(level);
   d->old_cls_size = cls_size;
   d->updated_cls_size = 0;
-
+	
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
     /*     cl_t iter_active_evars;

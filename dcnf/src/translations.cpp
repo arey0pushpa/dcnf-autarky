@@ -35,7 +35,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
 
   coord_t index = 1;
-  const coord_t no_of_var = active_evars.size() + active_avars.size();
+  // const coord_t no_of_var = active_evars.size() + active_avars.size();
   // const coord_t no_of_clauses = present_clauses.size();
 
   // cs variable := #no_of Active clauses
@@ -65,7 +65,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   // Additional 1 due to index count is incremented after last use.
   std::vector<bf_lbf_converter> bf2lbf_var_map(index -
-                                               (dcnf_clauses.size() + 1));
+                                               (present_clauses.size() + 1));
 
   // AVOID LOG ENCODING for first iteration@!
   if (encoding == 1) { // LOG Encoding
@@ -281,21 +281,32 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   updated_cls_size = update_present_cls.size();
 
   // Relaying on the SAT solver to provide ordered assignment
-  cl_t temp_active_evar;
+  cl_t tmp_active_evar;
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
+    coord_t cntr = 0;
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       if (var_assgn[bf_vars[i][j] - 1] > 0) {
         pair_t sbf = selected_bf[i][j];
-        temp_active_evar.push_back(sbf.first - 1);
         assigned_evars.push_back(sbf.first);
         final_assgmt.emplace_back(sbf);
+        ++cntr;
       }
     }
+    if (cntr == 0) {
+      tmp_active_evar.push_back(active_evars[i]);
+    }
   }
-  for (coord_t i = temp_active_evar.size(); i > 0; --i) {
-    active_evars.erase(active_evars.begin() +
-                       active_evar_index[temp_active_evar[i]]);
-  }
+  active_evars = tmp_active_evar;
+
+  /*
+cl_t tmp_active_avars;
+for (lit_t a : active_avars) {
+if (dcnf_variables[a - 1].pos_cls + dcnf_variables[a - 1].neg_cls > 0) {
+tmp_active_avars.push_back(a);
+}
+}
+active_avars = tmp_active_avars;
+  */
 
   if (present_clauses.size() > 0) {
     return 10;
