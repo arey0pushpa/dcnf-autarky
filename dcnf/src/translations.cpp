@@ -53,10 +53,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cl_t lbf_vars, s_bf;
   coord_t preindex = index;
   coord_t bf_var_count = 0;
-  for (const lit_t e : active_evars) {
-   // for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].eindex].size();
-   //      ++j) {
-    for (coord_t j = 0; j < selected_bf[i].size(); ++j ) {
+  for (coord_t i = 0; i < active_evars.size(); ++i) {
+    for (coord_t j = 0; j < selected_bf[i].size(); ++j) {
       s_bf.push_back(index);
       index += 1;
     }
@@ -282,25 +280,18 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   updated_cls_size = update_present_cls.size();
 
   // Relying on the SAT solver to provide ordered assignment
-  // cl_t tmp_active_evar;
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
-    //  coord_t cntr = 0;
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       if (var_assgn[bf_vars[i][j] - 1] > 0) {
         pair_t sbf = selected_bf[i][j];
         assigned_evars.push_back(sbf.first);
         final_assgmt.emplace_back(sbf);
-        //      ++cntr;
       }
     }
-    //  if (cntr == 0) {
-    //    tmp_active_evar.push_back(active_evars[i]);
-    //  }
   }
-  // active_avars = tmp_active_evars;
 
-  // tmp_active_evars.clear();
-  cl_t tmp_active_evars for (lit_t e : active_evars) {
+  cl_t tmp_active_evars;
+  for (lit_t e : active_evars) {
     if ((dcnf_variables[e - 1].pos_cls.size() > 0) ||
         (dcnf_variables[e - 1].neg_cls.size() > 0)) {
       tmp_active_evars.push_back(e);

@@ -66,10 +66,11 @@ void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
-        coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex;
+        //coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex;
+        coord_t v_indx = active_evar_index[std::abs(var)-1];
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
         lit_t current_bf_var =
-            bf_vars[active_evar_index[std::abs(var) - 1]][d_indx];
+            bf_vars[v_indx][d_indx];
         if (encoding == 1) {
           // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
           coord_t bf_id =
