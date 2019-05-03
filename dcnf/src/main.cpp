@@ -23,6 +23,7 @@
  *    - Clean the class interface remove non-essential functions
  *    - Move Input pre command line parsing to new function call
  *    - Make the Clause and variable initialization as a seperate function call
+ *    - Multiple libarary uploads removal
  *
  * 2. Optimisize the use of selected_bf:
  *    Update the selected_bf everytime the one reduction occurs.
