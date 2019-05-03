@@ -273,8 +273,8 @@ int main(int argc, char *argv[]) {
   while (1) {
   	d->selected_boolfunc(level);
     cl_t iter_active_evars;
+    // e_autarky reduction
     if (reduction_type == 1 || reduction_type == 3) {
-      // reduction of e_autarky
       // TODO: Optimize the variables use
       for (lit_t e : d->active_evars) {
         if (d->dcnf_variables[e - 1].pos_cls.size() +
