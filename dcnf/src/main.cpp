@@ -265,14 +265,14 @@ int main(int argc, char *argv[]) {
   }
 
   // For evars and dcnf_clauses
-  d->set_all_solutions(level);
+  d->min_satisfying_assgn(level);
   d->old_cls_size = cls_size;
   d->updated_cls_size = 0;
 
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
+  	d->selected_boolfunc(level);
     cl_t iter_active_evars;
-
     if (reduction_type == 1 || reduction_type == 3) {
       // reduction of e_autarky
       // TODO: Optimize the variables use

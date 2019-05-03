@@ -145,7 +145,9 @@ public:
 
   coord_t e_autarky(lit_t e);
 
-  void set_all_solutions(const coord_t level);
+  // void set_all_solutions(const coord_t level);
+  void selected_boolfunc(const coord_t level);
+  void min_satisfying_assgn(const coord_t level);
 
   void quant_seperation(cl_t &, cl_t &, cl_t &);
 

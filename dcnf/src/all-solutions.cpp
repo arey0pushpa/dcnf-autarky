@@ -5,31 +5,31 @@
 #include "defs.h"
 #include "util.h"
 
-void dcnf::set_all_solutions(const coord_t level) {
-  /** Selected Boolean Function **/
-  for (lit_t e : e_vars) {
+/** Selected Boolean Function **/
+void dcnf::selected_boolfunc(const coord_t level) {
+	selected_bf.clear();
+  for (lit_t e : active_evars) {
     pairs_t t_vec;
-    // Todo: remove pair and only implement by second elem
-    // Base Case [bf(0), bf(1)]; level == 0
-    t_vec.emplace_back(e, no_of_vars + 1);  // false
-    t_vec.emplace_back(e, no_of_vars + 2);  // true
+    t_vec.emplace_back(e, no_of_vars + 1); // false
+    t_vec.emplace_back(e, no_of_vars + 2); // true
     if (level > 0) {
       cl_t dvar = dcnf_variables[e - 1].dependency;
       for (coord_t j = 0; j < dvar.size(); ++j) {
+				if(!dcnf_variables[dvar[j] - 1].present) continue;
         t_vec.emplace_back(e, dvar[j]);
         t_vec.emplace_back(e, -dvar[j]);
       }
     }
     selected_bf.push_back(t_vec);
   }
+}
 
-  /** Minimal Satisfying Clauses
-   * Three cases to consider
-   * 1. Basic case: handle all are e_variables
-   * 2. Handle dependency case for all e_variable
-   * 3. Handle e-var and a-var case
-   */
-
+/** Minimal Satisfying Clauses
+ * Three cases to consider
+ * 1. Basic case: handle all are e_variables
+ * 2. Handle dependency case for all e_variable
+ * 3. Handle e-var and a-var case */
+void dcnf::min_satisfying_assgn(const coord_t level) {
   // This is non-optimal; find a way to implement only for the present clauses
   for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
     cls_t m_ca;
@@ -70,7 +70,7 @@ void dcnf::set_all_solutions(const coord_t level) {
           cl_t dep_e1 = dcnf_variables[evar_part[e1] - 1].dependency;
           cl_t dep_e2 = dcnf_variables[evar_part[e2] - 1].dependency;
           cl_t common_dependency = vector_intersection(dep_e1, dep_e2);
-          for (const lit_t& d : common_dependency) {
+          for (const lit_t &d : common_dependency) {
             const lit_t e1_lit = elit_part[e1];
             const lit_t e2_lit = elit_part[e2];
             pair_t p1 = std::make_pair(std::abs(e1_lit), d);
@@ -100,7 +100,7 @@ void dcnf::set_all_solutions(const coord_t level) {
         }
       }
 
-    }  // level > 0 close
+    } // level > 0 close
     minsat_clause_assgmt.push_back(m_ca);
   }
 }

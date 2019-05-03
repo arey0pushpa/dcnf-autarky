@@ -54,6 +54,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   coord_t preindex = index;
   coord_t bf_var_count = 0;
   for (const lit_t e : active_evars) {
+		// This will be now selected_bf[i] :)
     for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].eindex].size();
          ++j) {
       s_bf.push_back(index);
@@ -298,15 +299,16 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   active_evars = tmp_active_evar;
 
-  /*
-cl_t tmp_active_avars;
-for (lit_t a : active_avars) {
-if (dcnf_variables[a - 1].pos_cls + dcnf_variables[a - 1].neg_cls > 0) {
-tmp_active_avars.push_back(a);
-}
-}
-active_avars = tmp_active_avars;
-  */
+  cl_t tmp_active_avars;
+  for (lit_t a : active_avars) {
+    if ((dcnf_variables[a - 1].pos_cls.size() > 0) ||
+        (dcnf_variables[a - 1].neg_cls.size() > 0)) {
+      tmp_active_avars.push_back(a);
+    } else {
+      dcnf_variables[a - 1].present = 0;
+    }
+  }
+  active_avars = tmp_active_avars;
 
   if (present_clauses.size() > 0) {
     return 10;
