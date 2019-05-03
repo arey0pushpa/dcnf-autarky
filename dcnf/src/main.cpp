@@ -19,6 +19,7 @@
 /* Todo list
  *
  * 1. Cleaning:
+ *    - Add File name etc, global variables as a part of class dcnf
  *    - Clean the class interface remove non-essential functions
  *    - Move Input pre command line parsing to new function call
  *    - Make the Clause and variable initialization as a seperate function call
@@ -30,17 +31,20 @@
  *
  * 4. Handle unspecified-evar.dqdimacs example.
  *
+ * 5. Input format should be described in details and explain the strict vs
+ * loose.
+ *
  * 5. Fix the MakeFile. Avoid heavy compiling everytime for debugging.
  *
  * 6. Manage Shared pointer correctly. Avoid memory leaks.
  *
  */
 
-#include <bitset> // std::bitset
+#include <bitset>  // std::bitset
 #include <chrono>
 #include <cmath>
 #include <fstream>
-#include <iterator> // std::advance
+#include <iterator>  // std::advance
 #include <string>
 
 #include "dcnf.h"
@@ -53,7 +57,7 @@ int main(int argc, char *argv[]) {
   coord_t level = 1;
   coord_t s_level = 0;
   coord_t encoding = 0;
-  coord_t reduction_type = 2; // Start with search for e_var autarkies
+  coord_t reduction_type = 2;  // Start with search for e_var autarkies
   coord_t aut_present = 10;
 
   if (cmd_option_exists(argv, argv + argc, "-h")) {
@@ -110,11 +114,11 @@ int main(int argc, char *argv[]) {
   coord_t no_of_var = 0;
 
   /** Global Variables ***/
-  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
+  cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
 
-  cl_t e_vars;   // {exists-var}
-  cl_t a_vars;   // {forall-var}
-  cls_t dep_set; // {{dep-var}...}
+  cl_t e_vars;    // {exists-var}
+  cl_t a_vars;    // {forall-var}
+  cls_t dep_set;  // {{dep-var}...}
 
   coord_t min_dep_size = 0;
   coord_t max_dep_size = 0;
@@ -144,10 +148,8 @@ int main(int argc, char *argv[]) {
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
+  if (avar_iterator == a_vars.end()) a_vars_end = true;
+  if (evar_iterator == e_vars.end()) e_vars_end = true;
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
@@ -189,7 +191,7 @@ int main(int argc, char *argv[]) {
   // std::vector<Clauses> dcnf_clauses;
   coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] { // Use of Lambda :) Yeahhh...
+    [&] {  // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
@@ -197,12 +199,10 @@ int main(int argc, char *argv[]) {
         if (l > 0) {
           posv.insert(indx);
           // If the clause is TAUTO ignore it
-          if (negv.count(indx))
-            return;
+          if (negv.count(indx)) return;
         } else {
           negv.insert(indx);
-          if (posv.count(indx))
-            return;
+          if (posv.count(indx)) return;
         }
         if (d->dcnf_variables[indx].qtype() == 'e') {
           c_evars.push_back(std::abs(l));
@@ -232,7 +232,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      delete cls; // Avoid memory leak, My God!
+      delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -255,14 +255,12 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].var_present())
-      continue;
+    if (!d->dcnf_variables[e - 1].var_present()) continue;
     d->active_evars.push_back(e);
   }
 
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].var_present())
-      continue;
+    if (!d->dcnf_variables[a - 1].var_present()) continue;
     d->active_avars.push_back(a);
   }
 
