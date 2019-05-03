@@ -66,7 +66,7 @@ void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
-        coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex();
+        coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex;
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
         lit_t current_bf_var =
             bf_vars[active_evar_index[std::abs(var) - 1]][d_indx];
@@ -114,7 +114,7 @@ void dcnf::untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
                              std::vector<bf_lbf_converter> &bf2lbf_var_map,
                              cl_t &present_cls_index, cl_t &active_evar_index) {
   for (const lit_t c : present_clauses) {
-    cl_t clause = dcnf_clauses[c].evars();
+    cl_t clause = dcnf_clauses[c].evars;
     for (lit_t e : clause) {
       coord_t indx = active_evar_index[e - 1];
       if (encoding == 1) {

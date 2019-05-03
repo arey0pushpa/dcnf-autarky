@@ -204,7 +204,7 @@ int main(int argc, char *argv[]) {
           negv.insert(indx);
           if (posv.count(indx)) return;
         }
-        if (d->dcnf_variables[indx].qtype() == 'e') {
+        if (d->dcnf_variables[indx].quantype == 'e') {
           c_evars.push_back(std::abs(l));
           c_elits.push_back(l);
         } else {
@@ -240,8 +240,8 @@ int main(int argc, char *argv[]) {
   // Ignore non occuring evars for bf_vars
   for (const lit_t e : e_vars) {
     coord_t i = e - 1;
-    if (d->dcnf_variables[i].pos_pol().empty() &&
-        d->dcnf_variables[i].neg_pol().empty()) {
+    if (d->dcnf_variables[i].pos_cls.empty() &&
+        d->dcnf_variables[i].neg_cls.empty()) {
       d->dcnf_variables[i].update_presence(0);
     }
   }
@@ -250,17 +250,17 @@ int main(int argc, char *argv[]) {
   d->no_of_clauses = cls_size;
   d->e_vars = e_vars;
   for (coord_t i; i < cls_size; ++i) {
-    d->dcnf_fml.push_back(d->dcnf_clauses[i].m_lits);
+    d->dcnf_fml.push_back(d->dcnf_clauses[i].lits);
     d->present_clauses.insert(i);
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].var_present()) continue;
+    if (!d->dcnf_variables[e - 1].present) continue;
     d->active_evars.push_back(e);
   }
 
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].var_present()) continue;
+    if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
 
@@ -286,13 +286,13 @@ int main(int argc, char *argv[]) {
         }
         if (aut_present == 10) {
           d->assigned_evars.push_back(e);
-          for (lit_t i : d->dcnf_variables[e - 1].pos_pol()) {
+          for (lit_t i : d->dcnf_variables[e - 1].pos_cls) {
             d->dcnf_clauses[i].present = 0;
             d->present_clauses.erase(i);
             d->deleted_clauses.insert(i);
             d->propagate_cls_removal(i);
           }
-          for (lit_t i : d->dcnf_variables[e - 1].neg_pol()) {
+          for (lit_t i : d->dcnf_variables[e - 1].neg_cls) {
             d->dcnf_clauses[i].present = 0;
             d->present_clauses.erase(i);
             d->deleted_clauses.insert(i);

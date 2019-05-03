@@ -5,8 +5,8 @@
 
 /** Remove the dead/inactive clauses from the active variable list **/
 void dcnf::propagate_cls_removal(lit_t i) {
-  for (lit_t l : dcnf_clauses[i].lits()) {
-    if (!dcnf_variables[std::abs(l) - 1].var_present())
+  for (lit_t l : dcnf_clauses[i].lits) {
+    if (!dcnf_variables[std::abs(l) - 1].present)
       continue;
     if (l > 0) {
       dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
@@ -54,7 +54,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   coord_t preindex = index;
   coord_t bf_var_count = 0;
   for (const lit_t e : active_evars) {
-    for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].m_eindex].size();
+    for (coord_t j = 0; j < selected_bf[dcnf_variables[e - 1].eindex].size();
          ++j) {
       s_bf.push_back(index);
       index += 1;
@@ -321,15 +321,15 @@ active_avars = tmp_active_avars;
 
 coord_t dcnf::e_autarky(lit_t e) {
   set_t intersect;
-  set_t s1 = dcnf_variables[e - 1].pos_pol();
-  set_t s2 = dcnf_variables[e - 1].neg_pol();
+  set_t s1 = dcnf_variables[e - 1].pos_cls;
+  set_t s2 = dcnf_variables[e - 1].neg_cls;
   set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
                    std::inserter(intersect, intersect.begin()));
   if (!intersect.empty()) {
     for (lit_t j : s1) {
-      if (!dcnf_clauses[j].cls_present())
+      if (!dcnf_clauses[j].present)
         continue;
-      cl_t cls_s1 = dcnf_clauses[j].lits();
+      cl_t cls_s1 = dcnf_clauses[j].lits;
       set_t compl_C;
       set_t set_D;
       // Implement a func or change vector to a set
@@ -342,7 +342,7 @@ coord_t dcnf::e_autarky(lit_t e) {
       }
       for (coord_t k : s2) {
         set_t intersect_cls;
-        cl_t cls_s2 = dcnf_clauses[k].lits();
+        cl_t cls_s2 = dcnf_clauses[k].lits;
         for (lit_t l2 : cls_s2) {
           set_D.insert(l2);
         }

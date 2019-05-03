@@ -14,7 +14,7 @@ void dcnf::set_all_solutions(const coord_t level) {
     t_vec.emplace_back(e, no_of_vars + 1);  // false
     t_vec.emplace_back(e, no_of_vars + 2);  // true
     if (level > 0) {
-      cl_t dvar = dcnf_variables[e - 1].dependency();
+      cl_t dvar = dcnf_variables[e - 1].dependency;
       for (coord_t j = 0; j < dvar.size(); ++j) {
         t_vec.emplace_back(e, dvar[j]);
         t_vec.emplace_back(e, -dvar[j]);
@@ -34,9 +34,9 @@ void dcnf::set_all_solutions(const coord_t level) {
   for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
     cls_t m_ca;
     // 1. e-literals set to true
-    cl_t elit_part = dcnf_clauses[i].elits();
-    cl_t alit_part = dcnf_clauses[i].alits();
-    cl_t evar_part = dcnf_clauses[i].evars();
+    cl_t elit_part = dcnf_clauses[i].elits;
+    cl_t alit_part = dcnf_clauses[i].alits;
+    cl_t evar_part = dcnf_clauses[i].evars;
     for (lit_t e : elit_part) {
       if (e > 0) {
         m_ca.push_back(cl_t{e, no_of_vars + 2});
@@ -50,7 +50,7 @@ void dcnf::set_all_solutions(const coord_t level) {
       pairs_t V;
       // 2. e-literal as neg of a-literal case **
       for (lit_t e : elit_part) {
-        cl_t dep_e = dcnf_variables[std::abs(e) - 1].dependency();
+        cl_t dep_e = dcnf_variables[std::abs(e) - 1].dependency;
         for (lit_t a : alit_part) {
           if (std::find(dep_e.begin(), dep_e.end(), std::abs(a)) !=
               dep_e.end()) {
@@ -67,8 +67,8 @@ void dcnf::set_all_solutions(const coord_t level) {
       /* 3. e-literal negation of another e-literal case */
       for (coord_t e1 = 0; e1 + 1 < esize; ++e1) {
         for (coord_t e2 = e1 + 1; e2 < esize; ++e2) {
-          cl_t dep_e1 = dcnf_variables[evar_part[e1] - 1].dependency();
-          cl_t dep_e2 = dcnf_variables[evar_part[e2] - 1].dependency();
+          cl_t dep_e1 = dcnf_variables[evar_part[e1] - 1].dependency;
+          cl_t dep_e2 = dcnf_variables[evar_part[e2] - 1].dependency;
           cl_t common_dependency = vector_intersection(dep_e1, dep_e2);
           for (const lit_t& d : common_dependency) {
             const lit_t e1_lit = elit_part[e1];
