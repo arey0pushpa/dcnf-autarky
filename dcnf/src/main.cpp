@@ -18,23 +18,15 @@
 
 /* Todo list
  *
- * 0. Handle case of free variable in the input file.
- *
  * 1. Cleaning:
- *    - Add File name etc, global variables as a part of class dcnf
  *    - Clean the class interface remove non-essential functions
- *    - Move Input pre command line parsing to new function call
  *    - Make the Clause and variable initialization as a seperate function call
  *    - Multiple library uploads removal
  *    - Improve parsing code and flow
  *
- * 2. Optimisize the use of selected_bf:
- *    Update the selected_bf everytime the one reduction occurs.
+ * 2. Check and update the implementation of Linear AMO and LOG encoding
  *
- * 3. Check and update the implementation of Linear AMO and LOG encoding
- *
- * 4. Handle examples
- *    - unspecified-evar.dqdimacs example.
+ * 3. Handle examples
  *    - Unsat examples.
  *
  * 5. Input format should be described in details and explain the strict vs
