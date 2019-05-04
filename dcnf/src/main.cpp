@@ -39,18 +39,18 @@
  */
 
 #include <chrono>
-#include <iterator> // std::advance
+#include <iterator>  // std::advance
 
 #include "dcnf.h"
 #include "util.h"
 
 int main(int argc, char *argv[]) {
-  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
-  cl_t e_vars;   // {exists-var}
-  cl_t a_vars;   // {forall-var}
-  cls_t dep_set; // {{dep-var}...}
-  coord_t aut_present = 10; // autarky present
-  coord_t min_dep_size = 0; // Used in statistics collection
+  cls_t dcnf_fml;            // Input Cnf formula {Clauses} := {{lit,...}...}
+  cl_t e_vars;               // {exists-var}
+  cl_t a_vars;               // {forall-var}
+  cls_t dep_set;             // {{dep-var}...}
+  coord_t aut_present = 10;  // autarky present
+  coord_t min_dep_size = 0;  // Used in statistics collection
   coord_t max_dep_size = 0;  // Used in stat collection
   coord_t dependency_var = 0;
   coord_t no_of_clauses = 0;
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 
   d->cmdline_parsing(argc, argv);
 
-	// TODO: Implement as part of dcnf
+  // TODO: Implement as part of dcnf
   parse_qdimacs_file(d->filename, dcnf_fml, dep_set, a_vars, e_vars,
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
@@ -82,10 +82,8 @@ int main(int argc, char *argv[]) {
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
+  if (avar_iterator == a_vars.end()) a_vars_end = true;
+  if (evar_iterator == e_vars.end()) e_vars_end = true;
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
@@ -127,20 +125,18 @@ int main(int argc, char *argv[]) {
   // std::vector<Clauses> dcnf_clauses;
   coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] { // Use of Lambda :) Yeahhh...
+    [&] {  // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
         coord_t indx = std::abs(l) - 1;
         if (l > 0) {
           posv.insert(indx);
-          // If the clause is TAUTO ignore it
-          if (negv.count(indx))
+          if (negv.count(indx))  // tauto case
             return;
         } else {
           negv.insert(indx);
-          if (posv.count(indx))
-            return;
+          if (posv.count(indx)) return;
         }
         if (d->dcnf_variables[indx].quantype == 'e') {
           c_evars.push_back(std::abs(l));
@@ -158,7 +154,6 @@ int main(int argc, char *argv[]) {
       for (coord_t v : negv) {
         d->dcnf_variables[v].neg_polarity(cls_indx);
       }
-
       // Push the clause in the dcnf_clauses
       Clauses *cls = new Clauses;
       cls->initialise_lits(dcnf_fml[i]);
@@ -170,7 +165,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      delete cls; // Avoid memory leak, My God!
+      delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -193,27 +188,23 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].present)
-      continue;
+    if (!d->dcnf_variables[e - 1].present) continue;
     d->active_evars.push_back(e);
   }
 
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].present)
-      continue;
+    if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
 
-  // For evars and dcnf_clauses
   d->min_satisfying_assgn(d->aut_level);
   d->old_cls_size = cls_size;
   d->updated_cls_size = 0;
 
-  // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
     d->selected_boolfunc(d->aut_level);
     cl_t iter_active_evars;
-    // e_autarky reduction
+    // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
       // TODO: Optimize the variables use
       for (lit_t e : d->active_evars) {
@@ -262,7 +253,7 @@ int main(int argc, char *argv[]) {
         exit(0);
       }
     }
-
+    // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
       if (aut_present == 20) {
