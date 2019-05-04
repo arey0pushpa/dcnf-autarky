@@ -10,7 +10,7 @@ void dcnf::cmdline_parsing(int argc, char* argv[]) {
         << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
            "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
            "filename] [-l "
-           "aut_level] [-e encoding 0:Linear, 1:Log] [-s strictness; "
+           "aut_level] [-e encoding 0:Binomial, 1:Log, 2:Linear] [-s strictness; "
            "0:general, "
            "1:strict] "
            "[-r reduction; 1:e_autarky, 2:a_autarky 3: Both e+a_autarky]\n";

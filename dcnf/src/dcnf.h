@@ -111,7 +111,7 @@ public:
     output_file_name = "/tmp/dcnfAutarky.dimacs";
     aut_level = 1;            // 1-level Autarky
     s_level = 0;              // relaxed, mom-strict
-    encoding = 0;             // Linear
+    encoding = 2;             // Linear
     reduction_type = 2;       // a-autarky
     coord_t aut_present = 10; // autarky present
   }
@@ -165,7 +165,7 @@ public:
   void non_trivial_autarky(cl_t &, cls_t &);
 
   void at_most_one(cl_t &, cls_t &);
-  void at_most_one_linear(cl_t &, cls_t &, coord_t &);
+  void at_most_one_linear(cl_t &, cls_t &, lit_t &);
 
   void satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
                          cls_t &bf_vars, minsat_ass &pa_var_msat_ass,

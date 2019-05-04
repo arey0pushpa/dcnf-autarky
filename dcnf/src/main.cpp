@@ -150,9 +150,8 @@ int main(int argc, char *argv[]) {
       for (coord_t v : posv) {
         d->dcnf_variables[v].pos_polarity(cls_indx);
       }
-      // TODO: misuse of coord_t conversion
-      for (coord_t v : negv) {
-        d->dcnf_variables[v].neg_polarity(cls_indx);
+      for (lit_t v : negv) {
+        d->dcnf_variables[std::abs(v)].neg_polarity(cls_indx);
       }
       // Push the clause in the dcnf_clauses
       Clauses *cls = new Clauses;

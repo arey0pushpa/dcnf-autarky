@@ -4,34 +4,35 @@
 
 /** 4.1. /\_f,f' !t(v,f) || !t(v,f')
  * At Most One Constraint **/
-void dcnf::at_most_one(cl_t &bf_vars, cls_t &cnf_fml) {
-  const unsigned N = bf_vars.size();
+void dcnf::at_most_one(cl_t &tbf_vars, cls_t &cnf_fml) {
+  const unsigned N = tbf_vars.size();
   if (N <= 1) return;
   for (unsigned i = 0; i < N - 1; i++) {
     for (unsigned j = i + 1; j < N; j++) {
-      cnf_fml.push_back(cl_t{-bf_vars[i], -bf_vars[j]});
+      cnf_fml.push_back(cl_t{-tbf_vars[i], -tbf_vars[j]});
     }
   }
 }
 
 /** 4.1. Linear encoding: AMO constraint, **/
-void dcnf::at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
-  const unsigned N = bf_vars.size();
+void dcnf::at_most_one_linear(cl_t &tbf_vars, cls_t &cnf_fml, lit_t &index) {
+	cl_t dummy_tbf_vars = tbf_vars;
+  const unsigned N = tbf_vars.size();
   if (N <= 1) return;
   // Base case: seco(v1,v2,v3,v4)
   if (N <= 4) {
-    at_most_one(bf_vars, cnf_fml);
+    at_most_one(tbf_vars, cnf_fml);
     return;
   }
   // TODO: Avoid reverse and dropping the element
-  std::reverse(bf_vars.begin(), bf_vars.end());
+  std::reverse(dummy_tbf_vars.begin(), dummy_tbf_vars.end());
   // AMO for first 3 vars: amo(v1,v2,v3)
-  coord_t v1 = bf_vars[N - 1];
-  bf_vars.pop_back();
-  coord_t v2 = bf_vars[N - 2];
-  bf_vars.pop_back();
-  coord_t v3 = bf_vars[N - 3];
-  bf_vars.pop_back();
+  lit_t v1 = dummy_tbf_vars[N - 1];
+  dummy_tbf_vars.pop_back();
+  lit_t v2 = dummy_tbf_vars[N - 2];
+  dummy_tbf_vars.pop_back();
+  lit_t v3 = dummy_tbf_vars[N - 3];
+  dummy_tbf_vars.pop_back();
   cl_t binomial_vars = {v1, v2, v3};
   at_most_one(binomial_vars, cnf_fml);
 
@@ -44,12 +45,12 @@ void dcnf::at_most_one_linear(cl_t &bf_vars, cls_t &cnf_fml, coord_t &index) {
   cnf_fml.push_back(cl_t{-index, v1, v2, v3});
 
   // Add w to the front
-  bf_vars.push_back(index);
+  dummy_tbf_vars.push_back(index);
 
   ++index;
 
   // recursive call: seco(w,v3,...,vn)
-  at_most_one_linear(bf_vars, cnf_fml, index);
+  at_most_one_linear(dummy_tbf_vars, cnf_fml, index);
 }
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/

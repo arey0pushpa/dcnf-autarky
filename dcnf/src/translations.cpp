@@ -34,9 +34,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
   cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
 
-  coord_t index = 1;
-  // const coord_t no_of_var = active_evars.size() + active_avars.size();
-  // const coord_t no_of_clauses = present_clauses.size();
+  lit_t index = 1;
 
   // cs variable := #no_of Active clauses
   for (coord_t i = 0; i < present_clauses.size(); ++i) {
