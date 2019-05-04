@@ -23,14 +23,17 @@
  *    - Clean the class interface remove non-essential functions
  *    - Move Input pre command line parsing to new function call
  *    - Make the Clause and variable initialization as a seperate function call
- *    - Multiple libarary uploads removal
+ *    - Multiple library uploads removal
+ *    - Improve parsing code and flow
  *
  * 2. Optimisize the use of selected_bf:
  *    Update the selected_bf everytime the one reduction occurs.
  *
  * 3. Check and update the implementation of Linear AMO and LOG encoding
  *
- * 4. Handle unspecified-evar.dqdimacs example.
+ * 4. Handle examples
+ *    - unspecified-evar.dqdimacs example.
+ *    - Unsat examples.
  *
  * 5. Input format should be described in details and explain the strict vs
  * loose.
@@ -41,102 +44,47 @@
  *
  */
 
-#include <bitset>  // std::bitset
+#include <bitset> // std::bitset
 #include <chrono>
 #include <cmath>
 #include <fstream>
-#include <iterator>  // std::advance
+#include <iterator> // std::advance
 #include <string>
 
 #include "dcnf.h"
 #include "util.h"
 
 int main(int argc, char *argv[]) {
-  std::string filename;
-  std::string output_file_name = "/tmp/dcnfAutarky.dimacs";
+
+  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
+
+  cl_t e_vars;   // {exists-var}
+  cl_t a_vars;   // {forall-var}
+  cls_t dep_set; // {{dep-var}...}
+
+  coord_t aut_present = 10; // autarky present
+  coord_t min_dep_size = 0; // Used in statistics collection
+  coord_t max_dep_size = 0;  // Used in stat collection
   coord_t dependency_var = 0;
-  coord_t level = 1;
-  coord_t s_level = 0;
-  coord_t encoding = 0;
-  coord_t reduction_type = 2;  // Start with search for e_var autarkies
-  coord_t aut_present = 10;
-
-  if (cmd_option_exists(argv, argv + argc, "-h")) {
-    std::cout
-        << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
-           "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
-           "filename] [-l "
-           "level] [-e encoding] [-s strictness; 0:general, 1:strict] "
-           "[-r reduction; 1:e_autarky, 2:a_autarky 3: Both e+a_autarky]\n";
-    exit(0);
-  }
-
-  char *file_name = get_cmd_option(argv, argv + argc, "-i");
-  char *output_file = get_cmd_option(argv, argv + argc, "-o");
-  char *level_set = get_cmd_option(argv, argv + argc, "-l");
-  char *encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
-  char *strict_level = get_cmd_option(argv, argv + argc, "-s");
-  char *red_type = get_cmd_option(argv, argv + argc, "-r");
-
-  if (file_name) {
-    filename = file_name;
-  } else {
-    std::cout << "Please provide an input file. Use [-i filename] or see help "
-                 "[-h] for more options\n";
-    exit(0);
-  }
-
-  if (output_file) {
-    output_file_name = output_file;
-  }
-
-  if (filename == output_file_name) {
-    std::cout << "Please provide differnt filenames for input and output file.";
-    exit(0);
-  }
-
-  if (level_set) {
-    level = std::stoi(level_set);
-  }
-
-  if (strict_level) {
-    s_level = std::stoi(strict_level);
-  }
-
-  if (encoding_chosen) {
-    encoding = std::stoi(encoding_chosen);
-  }
-
-  if (red_type) {
-    reduction_type = std::stoi(red_type);
-  }
-
   coord_t no_of_clauses = 0;
   coord_t no_of_var = 0;
-
-  /** Global Variables ***/
-  cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
-
-  cl_t e_vars;    // {exists-var}
-  cl_t a_vars;    // {forall-var}
-  cls_t dep_set;  // {{dep-var}...}
-
-  coord_t min_dep_size = 0;
-  coord_t max_dep_size = 0;
 
   auto start = std::chrono::high_resolution_clock::now();
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
 
-  parse_qdimacs_file(filename, dcnf_fml, dep_set, a_vars, e_vars, no_of_clauses,
-                     no_of_var, dependency_var, s_level, min_dep_size,
-                     max_dep_size);
+  d->cmdline_parsing(argc, argv);
+
+	// TODO: Implement as part of dcnf
+  parse_qdimacs_file(d->filename, dcnf_fml, dep_set, a_vars, e_vars,
+                     no_of_clauses, no_of_var, dependency_var, d->s_level,
+                     min_dep_size, max_dep_size);
 
   no_of_var = e_vars.size() + a_vars.size();
 
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
 
-  // make dep set sorted linearly accdn to evar
+  // Dependent set sorted linearly accdn to evar
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t &a, const cl_t &b) { return a[0] < b[0]; });
 
@@ -149,8 +97,10 @@ int main(int argc, char *argv[]) {
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
-  if (avar_iterator == a_vars.end()) a_vars_end = true;
-  if (evar_iterator == e_vars.end()) e_vars_end = true;
+  if (avar_iterator == a_vars.end())
+    a_vars_end = true;
+  if (evar_iterator == e_vars.end())
+    e_vars_end = true;
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
@@ -192,7 +142,7 @@ int main(int argc, char *argv[]) {
   // std::vector<Clauses> dcnf_clauses;
   coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] {  // Use of Lambda :) Yeahhh...
+    [&] { // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
@@ -200,10 +150,12 @@ int main(int argc, char *argv[]) {
         if (l > 0) {
           posv.insert(indx);
           // If the clause is TAUTO ignore it
-          if (negv.count(indx)) return;
+          if (negv.count(indx))
+            return;
         } else {
           negv.insert(indx);
-          if (posv.count(indx)) return;
+          if (posv.count(indx))
+            return;
         }
         if (d->dcnf_variables[indx].quantype == 'e') {
           c_evars.push_back(std::abs(l));
@@ -233,7 +185,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      delete cls;  // Avoid memory leak, My God!
+      delete cls; // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -256,26 +208,28 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].present) continue;
+    if (!d->dcnf_variables[e - 1].present)
+      continue;
     d->active_evars.push_back(e);
   }
 
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].present) continue;
+    if (!d->dcnf_variables[a - 1].present)
+      continue;
     d->active_avars.push_back(a);
   }
 
   // For evars and dcnf_clauses
-  d->min_satisfying_assgn(level);
+  d->min_satisfying_assgn(d->aut_level);
   d->old_cls_size = cls_size;
   d->updated_cls_size = 0;
 
   // TODO: Implement all three possible combinations of e_ and a_autarky
   while (1) {
-  	d->selected_boolfunc(level);
+    d->selected_boolfunc(d->aut_level);
     cl_t iter_active_evars;
     // e_autarky reduction
-    if (reduction_type == 1 || reduction_type == 3) {
+    if (d->reduction_type == 1 || d->reduction_type == 3) {
       // TODO: Optimize the variables use
       for (lit_t e : d->active_evars) {
         if (d->dcnf_variables[e - 1].pos_cls.size() +
@@ -324,8 +278,8 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    if (reduction_type == 2 || reduction_type == 3) {
-      aut_present = d->a_autarky(filename, output_file_name, encoding);
+    if (d->reduction_type == 2 || d->reduction_type == 3) {
+      aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
       if (aut_present == 20) {
         std::cout << "The input QBF formula is UNSAT. \n";
         std::cout << "The UNSAT/remaining clauses are. \n";

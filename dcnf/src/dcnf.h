@@ -110,7 +110,23 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
  */
 class dcnf {
 public:
-  // variables
+  dcnf() {
+    output_file_name = "/tmp/dcnfAutarky.dimacs";
+    aut_level = 1;            // 1-level Autarky
+    s_level = 0;              // relaxed, mom-strict
+    encoding = 0;             // Linear
+    reduction_type = 2;       // a-autarky
+    coord_t aut_present = 10; // autarky present
+  }
+
+  // Variables
+  std::string filename;         // Input filename
+  std::string output_file_name; // output file
+  coord_t aut_level;            // Autarky level
+  coord_t s_level;              // Input DQDIMACS file strictness
+  coord_t encoding;             // Chosen encoding
+  coord_t reduction_type;       // Autarky reduction type
+
   coord_t no_of_clauses; // Input clause set
   coord_t no_of_vars;    // No Of variables in the input
   cl_t e_vars;           // No Of e variables in the input
@@ -137,13 +153,11 @@ public:
   pairs_t final_assgmt;            // Assignmt for the autarky
 
   // helper functions
-
   void propagate_cls_removal(lit_t i);
-
   coord_t a_autarky(std::string filename, std::string output_file_name,
                     coord_t encoding);
-
   coord_t e_autarky(lit_t e);
+	void cmdline_parsing(int argc, char *argv[]);
 
   // void set_all_solutions(const coord_t level);
   void selected_boolfunc(const coord_t level);
@@ -171,14 +185,9 @@ public:
                          cl_t &present_cls_index, cl_t &active_evar_index);
   void print_remaining_cls();
 
-  friend std::ostream &operator<<(std::ostream &os, const dcnf &m);
+  //  friend std::ostream &operator<<(std::ostream &os, const dcnf &m);
 };
 
-/* std::ostream& operator<< (std::ostream &theStream, dcnf &d)
- * {
- *     theStream<<" fml: "<< d.dcnf_fml<<'\n';
- *     return theStream;
- * } */
 // typedef std::unique_ptr<dcnf> dcnf_ptr;
 typedef std::shared_ptr<dcnf> dcnf_ptr;
 

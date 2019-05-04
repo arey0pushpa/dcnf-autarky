@@ -4,6 +4,59 @@
 #include "dcnf.h"
 #include "util.h"
 
+void dcnf::cmdline_parsing(int argc, char *argv[]) {
+	if (cmd_option_exists(argv, argv + argc, "-h")) {
+    std::cout
+        << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
+           "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
+           "filename] [-l "
+           "aut_level] [-e encoding 0:Linear, 1:Log] [-s strictness; 0:general, "
+           "1:strict] "
+           "[-r reduction; 1:e_autarky, 2:a_autarky 3: Both e+a_autarky]\n";
+    exit(0);
+  }
+
+  char *file_name = get_cmd_option(argv, argv + argc, "-i");
+  char *output_file = get_cmd_option(argv, argv + argc, "-o");
+  char *level_set = get_cmd_option(argv, argv + argc, "-l");
+  char *encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
+  char *strict_level = get_cmd_option(argv, argv + argc, "-s");
+  char *red_type = get_cmd_option(argv, argv + argc, "-r");
+
+  if (file_name) {
+    filename = file_name;
+  } else {
+    std::cout << "Please provide an input file. Use [-i filename] or see help "
+                 "[-h] for more options\n";
+    exit(0);
+  }
+
+  if (output_file) {
+    output_file_name = output_file;
+  }
+
+  if (filename == output_file_name) {
+    std::cout << "Please provide differnt filenames for input and output file.";
+    exit(0);
+  }
+
+  if (level_set) {
+    aut_level = std::stoi(level_set);
+  }
+
+  if (strict_level) {
+    s_level = std::stoi(strict_level);
+  }
+
+  if (encoding_chosen) {
+    encoding = std::stoi(encoding_chosen);
+  }
+
+  if (red_type) {
+    reduction_type = std::stoi(red_type);
+  }
+
+}
 
 void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
                         cl_t& a_vars, cl_t& e_vars, coord_t& no_of_clauses,

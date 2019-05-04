@@ -15,7 +15,6 @@
 #include <vector>
 #include <set>
 
-
 #define LOG(x) std::cout << x << std::endl
 typedef std::vector<bool> boolv_t;
 

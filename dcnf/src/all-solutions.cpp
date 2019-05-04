@@ -6,13 +6,13 @@
 #include "util.h"
 
 /** Selected Boolean Function **/
-void dcnf::selected_boolfunc(const coord_t level) {
+void dcnf::selected_boolfunc(const coord_t aut_level) {
 	selected_bf.clear();
   for (lit_t e : active_evars) {
     pairs_t t_vec;
     t_vec.emplace_back(e, no_of_vars + 1); // false
     t_vec.emplace_back(e, no_of_vars + 2); // true
-    if (level > 0) {
+    if (aut_level > 0) {
       cl_t dvar = dcnf_variables[e - 1].dependency;
       for (coord_t j = 0; j < dvar.size(); ++j) {
 				if(!dcnf_variables[dvar[j] - 1].present) continue;
@@ -29,7 +29,7 @@ void dcnf::selected_boolfunc(const coord_t level) {
  * 1. Basic case: handle all are e_variables
  * 2. Handle dependency case for all e_variable
  * 3. Handle e-var and a-var case */
-void dcnf::min_satisfying_assgn(const coord_t level) {
+void dcnf::min_satisfying_assgn(const coord_t aut_level) {
   // This is non-optimal; find a way to implement only for the present clauses
   for (coord_t i = 0; i < dcnf_clauses.size(); ++i) {
     cls_t m_ca;
@@ -45,7 +45,7 @@ void dcnf::min_satisfying_assgn(const coord_t level) {
       }
     }
 
-    if (level > 0) {
+    if (aut_level > 0) {
       coord_t esize = evar_part.size();
       pairs_t V;
       // 2. e-literal as neg of a-literal case **
@@ -100,7 +100,7 @@ void dcnf::min_satisfying_assgn(const coord_t level) {
         }
       }
 
-    } // level > 0 close
+    } // aut_level > 0 close
     minsat_clause_assgmt.push_back(m_ca);
   }
 }

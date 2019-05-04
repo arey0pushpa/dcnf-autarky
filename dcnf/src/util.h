@@ -22,29 +22,6 @@
 #include "defs.h"
 #include "dcnf.h"
 
-/* class bf_lbf_converter {
- *  public:
- *   bool is_present;
- *   cl_t lbf_fml;
- *   bf_lbf_converter() : is_present(false) {}
- * }; */
-
-/* [>* Remove the dead/inactive clauses from the active variable list *<]
- * inline void propagate_cls_removal(std::vector<Clauses> &dcnf_clauses,
- *                               std::vector<Variables> &dcnf_variables, lit_t i) {
- *   for (lit_t l : dcnf_clauses[i].lits()) {
- *     if (!dcnf_variables[std::abs(l) - 1].var_present()) continue;
- *     if (l > 0) {
- *       dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
- *     } else {
- *       dcnf_variables[std::abs(l) - 1].neg_cls.erase(i);
- *     }
- *   }
- * } */
-
-//void command_line_parsing(int, char *av[], std::string &, unsigned &,
-//                          unsigned &, bool &, bool &);
-
 // command line
 inline char *get_cmd_option(char **begin, char **end,
                             const std::string &option) {
