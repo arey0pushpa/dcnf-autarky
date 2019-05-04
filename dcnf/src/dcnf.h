@@ -34,7 +34,6 @@
  * 5. set of uni literals: alits
  * 6. activity of the clause: present
  * */
-
 class Clauses {
 public:
   cl_t lits;

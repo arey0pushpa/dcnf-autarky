@@ -18,6 +18,8 @@
 
 /* Todo list
  *
+ * 0. Handle case of free variable in the input file.
+ *
  * 1. Cleaning:
  *    - Add File name etc, global variables as a part of class dcnf
  *    - Clean the class interface remove non-essential functions
@@ -51,13 +53,10 @@
 #include "util.h"
 
 int main(int argc, char *argv[]) {
-
   cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
-
   cl_t e_vars;   // {exists-var}
   cl_t a_vars;   // {forall-var}
   cls_t dep_set; // {{dep-var}...}
-
   coord_t aut_present = 10; // autarky present
   coord_t min_dep_size = 0; // Used in statistics collection
   coord_t max_dep_size = 0;  // Used in stat collection
@@ -76,7 +75,6 @@ int main(int argc, char *argv[]) {
                      min_dep_size, max_dep_size);
 
   no_of_var = e_vars.size() + a_vars.size();
-
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
 
@@ -89,7 +87,6 @@ int main(int argc, char *argv[]) {
 
   auto avar_iterator = a_vars.begin();
   auto evar_iterator = e_vars.begin();
-
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
