@@ -44,12 +44,8 @@
  *
  */
 
-#include <bitset> // std::bitset
 #include <chrono>
-#include <cmath>
-#include <fstream>
 #include <iterator> // std::advance
-#include <string>
 
 #include "dcnf.h"
 #include "util.h"
