@@ -1,27 +1,28 @@
 #include <fstream>
 
-#include "defs.h"
 #include "dcnf.h"
+#include "defs.h"
 #include "util.h"
 
-void dcnf::cmdline_parsing(int argc, char *argv[]) {
-	if (cmd_option_exists(argv, argv + argc, "-h")) {
+void dcnf::cmdline_parsing(int argc, char* argv[]) {
+  if (cmd_option_exists(argv, argv + argc, "-h")) {
     std::cout
         << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
            "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
            "filename] [-l "
-           "aut_level] [-e encoding 0:Linear, 1:Log] [-s strictness; 0:general, "
+           "aut_level] [-e encoding 0:Linear, 1:Log] [-s strictness; "
+           "0:general, "
            "1:strict] "
            "[-r reduction; 1:e_autarky, 2:a_autarky 3: Both e+a_autarky]\n";
     exit(0);
   }
 
-  char *file_name = get_cmd_option(argv, argv + argc, "-i");
-  char *output_file = get_cmd_option(argv, argv + argc, "-o");
-  char *level_set = get_cmd_option(argv, argv + argc, "-l");
-  char *encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
-  char *strict_level = get_cmd_option(argv, argv + argc, "-s");
-  char *red_type = get_cmd_option(argv, argv + argc, "-r");
+  char* file_name = get_cmd_option(argv, argv + argc, "-i");
+  char* output_file = get_cmd_option(argv, argv + argc, "-o");
+  char* level_set = get_cmd_option(argv, argv + argc, "-l");
+  char* encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
+  char* strict_level = get_cmd_option(argv, argv + argc, "-s");
+  char* red_type = get_cmd_option(argv, argv + argc, "-r");
 
   if (file_name) {
     filename = file_name;
@@ -55,7 +56,6 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
   if (red_type) {
     reduction_type = std::stoi(red_type);
   }
-
 }
 
 void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
@@ -63,11 +63,12 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
                         coord_t& no_of_var, coord_t& dependency_var,
                         coord_t s_level, coord_t& min_dep_size,
                         coord_t& max_dep_size) {
+  set_t prefix_vars;
+  set_t cls_vars;
   std::string line;
   unsigned matrix_cnt = 0;
   bool p_line = false;
   char q_line = 'q';
-  cl_t prefix_var;
   std::ifstream file(filename);
   if (!file.is_open()) {
     perror(("Error while opening file " + filename).c_str());
@@ -121,17 +122,17 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
             std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
-          if (find_int_element(prefix_var, i)) {
+          if (prefix_vars.find(i) != prefix_vars.end()) {
             std::cerr << "Input format violation. Multiple var entry in prefix."
                       << '\n';
             exit(input_format_violation);
           }
-          prefix_var.push_back(i);
           cl_t dummy_dep = a_vars;
           dummy_dep.insert(dummy_dep.begin(), i);
 
           e_vars.push_back(i);
           dep_set.push_back(dummy_dep);
+          prefix_vars.insert(i);
         }
         break;
       }
@@ -156,13 +157,13 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
             std::cerr << "Input format violation. atom > no_of_var." << '\n';
             exit(input_format_violation);
           }
-          if (find_int_element(prefix_var, i)) {
+          if (prefix_vars.find(i) != prefix_vars.end()) {
             std::cerr << "Input format violation. Multiple var entry in prefix."
                       << '\n';
             exit(input_format_violation);
           }
-          prefix_var.push_back(i);
           a_vars.push_back(i);
+          prefix_vars.insert(i);
         }
         break;
       }
@@ -179,14 +180,13 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         ++dependency_var;
         cl_t clause = extract_int(line);
         lit_t elem = clause.front();
-        if (find_int_element(prefix_var, elem)) {
+        if (prefix_vars.find(elem) != prefix_vars.end()) {
           std::cerr << "Input format violation. Multiple var entry in prefix."
                     << '\n';
           exit(input_format_violation);
         }
-        prefix_var.push_back(elem);
+        prefix_vars.insert(elem);
         e_vars.push_back(elem);
-        // clause.erase(clause.begin());
         assert(clause.size() >= 1);
         for (lit_t i : clause) {
           inner_vec.push_back(i);
@@ -205,6 +205,9 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         ++matrix_cnt;
         cl_t clause = extract_int(line);
         dcnf_fml.push_back(clause);
+        for (lit_t clsvar : clause) {
+          cls_vars.insert(clsvar);
+        }
         break;
       }
     }
@@ -223,5 +226,11 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
   } else if (!p_line) {
     std::cerr << "Input format violation. No p-line found!" << '\n';
     exit(input_format_violation);
+  }
+  for (lit_t c : cls_vars) {
+    if (prefix_vars.find(std::abs(c)) == prefix_vars.end()) {
+      std::cerr << "Free variable occurence. Due to literal " << c << '\n';
+      exit(free_var_occurrence);
+    }
   }
 }
