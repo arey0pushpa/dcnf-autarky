@@ -18,6 +18,8 @@
 
 /* Todo list
  *
+ * 0. Improve defense with const and ASSERTS and STATIC ASSERTS.
+ *
  * 1. Cleaning:
  *    - Clean the class interface remove non-essential functions
  *    - Make the Clause and variable initialization as a seperate function call

@@ -11,14 +11,6 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-/* #include <algorithm>
- * #include <bitset>
- * #include <cassert>
- * #include <iostream>
- * #include <limits>
- * #include <set>
- * #include <sstream> */
-
 #include "defs.h"
 #include "dcnf.h"
 
@@ -47,9 +39,6 @@ std::vector<std::vector<t>> unique_vectors(std::vector<std::vector<t>> input) {
 }
 
 // Basic util
-//void at_most_one(cl_t &, cls_t &);
-//void at_most_one_linear(cl_t &, cls_t &, coord_t &);
-                                                      
 inline cl_t extract_int(std::string line) {
   cl_t vec_int;
   std::stringstream ss;
@@ -71,29 +60,6 @@ inline cl_t extract_int(std::string line) {
   vec_int.pop_back();
 
   return vec_int;
-}
-
-/** Create lbf formula **/
-inline cl_t lbf_fml(cl_t lbf_vars, lit_t bf_var) {
-  coord_t blen = 0;
-  boolv_t binary_repr;
-  cl_t fml_repr;
-
-  while (bf_var > 0) {
-    binary_repr.push_back(bf_var % 2);
-    bf_var = bf_var / 2;
-    ++blen;
-  }
-  assert(blen <= lbf_vars.size());
-  // Enforce the resultant vector is of size of lbf_vars
-  for (coord_t i = blen; i < lbf_vars.size(); ++i) {
-    binary_repr.push_back(0);
-  }
-  for (coord_t i = 0; i < lbf_vars.size(); ++i) {
-    (binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i])
-                         : fml_repr.push_back(lbf_vars[i]));
-  }
-  return fml_repr;
 }
 
 /** Vector intersection */

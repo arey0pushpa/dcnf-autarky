@@ -2,6 +2,30 @@
 #include "defs.h"
 #include "util.h"
 
+/** Create lbf formula **/
+ cl_t lbf_formula(cl_t lbf_vars, lit_t bf_var) {
+   coord_t blen = 0;
+   boolv_t binary_repr;
+   cl_t fml_repr;
+
+   while (bf_var > 0) {
+     binary_repr.push_back(bf_var % 2);
+     bf_var = bf_var / 2;
+     ++blen;
+   }
+   assert(blen <= lbf_vars.size());
+   // Enforce the resultant vector is of size of lbf_vars
+   for (coord_t i = blen; i < lbf_vars.size(); ++i) {
+     binary_repr.push_back(0);
+   }
+   for (coord_t i = 0; i < lbf_vars.size(); ++i) {
+     (binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i])
+                          : fml_repr.push_back(lbf_vars[i]));
+   }
+   return fml_repr;
+ }
+
+
 /** 4.1. /\_f,f' !t(v,f) || !t(v,f')
  * At Most One Constraint **/
 void dcnf::at_most_one(cl_t &tbf_vars, cls_t &cnf_fml) {
@@ -16,7 +40,7 @@ void dcnf::at_most_one(cl_t &tbf_vars, cls_t &cnf_fml) {
 
 /** 4.1. Linear encoding: AMO constraint, **/
 void dcnf::at_most_one_linear(cl_t &tbf_vars, cls_t &cnf_fml, lit_t &index) {
-	cl_t dummy_tbf_vars = tbf_vars;
+  cl_t dummy_tbf_vars = tbf_vars;
   const unsigned N = tbf_vars.size();
   if (N <= 1) return;
   // Base case: seco(v1,v2,v3,v4)
@@ -55,8 +79,8 @@ void dcnf::at_most_one_linear(cl_t &tbf_vars, cls_t &cnf_fml, lit_t &index) {
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
 // TODO: Check the code for Varibles mis-match and wrong var use
-void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
-                             cls_t &bf_vars, minsat_ass &pa_var_msat_ass,
+void dcnf::satisfied_clauses(cl_t &lbf_vars, cls_t &bf_vars,
+                             minsat_ass &pa_var_msat_ass,
                              cls_t &msat_concrete_var_map, cls_t &cnf_fml,
                              std::vector<bf_lbf_converter> &bf2lbf_var_map,
                              cl_t &active_evar_index) {
@@ -67,19 +91,17 @@ void dcnf::satisfied_clauses(coord_t encoding, coord_t cls_cnt, cl_t &lbf_vars,
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
-        //coord_t v_indx = dcnf_variables[std::abs(var) - 1].eindex;
-        coord_t v_indx = active_evar_index[std::abs(var)-1];
+        coord_t v_indx = active_evar_index[std::abs(var) - 1];
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
-        lit_t current_bf_var =
-            bf_vars[v_indx][d_indx];
+        lit_t current_bf_var = bf_vars[v_indx][d_indx];
         if (encoding == 1) {
           // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
+					// TODO: check off by one error in the logic
           coord_t bf_id =
-              current_bf_var - cls_cnt;  // TODO: Change it to cs_vars.size()
-          bf_id = bf_id - 1;
+              current_bf_var - present_clauses.size(); 
           if (bf2lbf_var_map[bf_id].is_present == 0) {
             bf2lbf_var_map[bf_id].is_present = 1;
-            bf2lbf_var_map[bf_id].lbf_fml = lbf_fml(lbf_vars, bf_id);
+            bf2lbf_var_map[bf_id].lbf_fml = lbf_formula(lbf_vars, bf_id);
           }
           cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
           for (lit_t li : cls_lbf) {
@@ -111,8 +133,8 @@ void dcnf::touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 }
 
 /** 4.4. /\_v,f t(C) || !t(v,f) **/
-void dcnf::untouched_clauses(const coord_t encoding, cl_t &lbf_vars,
-                             cls_t &bf_vars, cl_t &cs_vars, cls_t &cnf_fml,
+void dcnf::untouched_clauses(cl_t &lbf_vars, cls_t &bf_vars, cl_t &cs_vars,
+                             cls_t &cnf_fml,
                              std::vector<bf_lbf_converter> &bf2lbf_var_map,
                              cl_t &present_cls_index, cl_t &active_evar_index) {
   for (const lit_t c : present_clauses) {
