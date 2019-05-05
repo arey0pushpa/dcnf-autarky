@@ -3,34 +3,34 @@
 #include "util.h"
 
 /** Create lbf formula **/
- cl_t lbf_formula(cl_t lbf_vars, lit_t bf_var) {
-   coord_t blen = 0;
-   boolv_t binary_repr;
-   cl_t fml_repr;
+cl_t lbf_formula(cl_t lbf_vars, lit_t bf_var) {
+  coord_t blen = 0;
+  boolv_t binary_repr;
+  cl_t fml_repr;
 
-   while (bf_var > 0) {
-     binary_repr.push_back(bf_var % 2);
-     bf_var = bf_var / 2;
-     ++blen;
-   }
-   assert(blen <= lbf_vars.size());
-   // Enforce the resultant vector is of size of lbf_vars
-   for (coord_t i = blen; i < lbf_vars.size(); ++i) {
-     binary_repr.push_back(0);
-   }
-   for (coord_t i = 0; i < lbf_vars.size(); ++i) {
-     (binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i])
-                          : fml_repr.push_back(lbf_vars[i]));
-   }
-   return fml_repr;
- }
-
+  while (bf_var > 0) {
+    binary_repr.push_back(bf_var % 2);
+    bf_var = bf_var / 2;
+    ++blen;
+  }
+  assert(blen <= lbf_vars.size());
+  // Enforce the resultant vector is of size of lbf_vars
+  for (coord_t i = blen; i < lbf_vars.size(); ++i) {
+    binary_repr.push_back(0);
+  }
+  for (coord_t i = 0; i < lbf_vars.size(); ++i) {
+    (binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i])
+                         : fml_repr.push_back(lbf_vars[i]));
+  }
+  return fml_repr;
+}
 
 /** 4.1. /\_f,f' !t(v,f) || !t(v,f')
  * At Most One Constraint **/
 void dcnf::at_most_one(cl_t &tbf_vars, cls_t &cnf_fml) {
   const unsigned N = tbf_vars.size();
-  if (N <= 1) return;
+  if (N <= 1)
+    return;
   for (unsigned i = 0; i < N - 1; i++) {
     for (unsigned j = i + 1; j < N; j++) {
       cnf_fml.push_back(cl_t{-tbf_vars[i], -tbf_vars[j]});
@@ -42,7 +42,8 @@ void dcnf::at_most_one(cl_t &tbf_vars, cls_t &cnf_fml) {
 void dcnf::at_most_one_linear(cl_t &tbf_vars, cls_t &cnf_fml, lit_t &index) {
   cl_t dummy_tbf_vars = tbf_vars;
   const unsigned N = tbf_vars.size();
-  if (N <= 1) return;
+  if (N <= 1)
+    return;
   // Base case: seco(v1,v2,v3,v4)
   if (N <= 4) {
     at_most_one(tbf_vars, cnf_fml);
@@ -96,13 +97,6 @@ void dcnf::satisfied_clauses(cl_t &lbf_vars, cls_t &bf_vars,
         lit_t current_bf_var = bf_vars[v_indx][d_indx];
         if (encoding == 1) {
           // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
-					// TODO: check off by one error in the logic
-          coord_t bf_id =
-              current_bf_var - (present_clauses.size() + 1); 
-          if (bf2lbf_var_map[bf_id].is_present == 0) {
-            bf2lbf_var_map[bf_id].is_present = 1;
-            bf2lbf_var_map[bf_id].lbf_fml = lbf_formula(lbf_vars, bf_id+1);
-          }
           cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
           for (lit_t li : cls_lbf) {
             v2.push_back(-li);
@@ -157,6 +151,7 @@ void dcnf::untouched_clauses(cl_t &lbf_vars, cls_t &bf_vars, cl_t &cs_vars,
 /** 4.5. t(C) **/
 void dcnf::non_trivial_autarky(cl_t &cs_vars, cls_t &cnf_fml) {
   cl_t dummy_vec;
-  for (lit_t i : cs_vars) dummy_vec.push_back(i);
+  for (lit_t i : cs_vars)
+    dummy_vec.push_back(i);
   cnf_fml.push_back(dummy_vec);
 }

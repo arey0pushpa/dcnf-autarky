@@ -35,7 +35,7 @@
  * 6. activity of the clause: present
  * */
 class Clauses {
- public:
+public:
   cl_t lits;
 
   cl_t evars;
@@ -67,10 +67,10 @@ class Clauses {
  *   6. The variable is present in the formula after autarky reduction?: present
  */
 class Variables {
- public:
+public:
   char quantype;
-  cl_t dependency;  // absolute var list
-  coord_t eindex;   // 0 based USED!!!
+  cl_t dependency; // absolute var list
+  coord_t eindex;  // 0 based USED!!!
 
   set_t pos_cls;
   set_t neg_cls;
@@ -88,7 +88,7 @@ class Variables {
 };
 
 class bf_lbf_converter {
- public:
+public:
   bool is_present;
   cl_t lbf_fml;
   bf_lbf_converter() : is_present(false) {}
@@ -103,51 +103,56 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
                         coord_t s_level, coord_t &min_dep_size,
                         coord_t &max_dep_size);
 
+// void display_running_time(
+//    std::chrono::time_point<std::chrono::high_resolution_clock> start);
+
 /* A class used for namescpace for the code.
  */
 class dcnf {
- public:
+public:
   dcnf() {
     output_file_name = "/tmp/dcnfAutarky.dimacs";
-    aut_level = 1;             // 1-level Autarky
-    s_level = 0;               // relaxed, mom-strict
-    encoding = 2;              // Linear
-    reduction_type = 2;        // a-autarky
-    coord_t aut_present = 10;  // autarky present
+    aut_level = 1;            // 1-level Autarky
+    s_level = 0;              // relaxed, mom-strict
+    encoding = 2;             // Linear
+    reduction_type = 2;       // a-autarky
+    coord_t aut_present = 10; // autarky present
   }
 
   // Variables
-  std::string filename;          // Input filename
-  std::string output_file_name;  // output file
-  coord_t aut_level;             // Autarky level
-  coord_t s_level;               // Input DQDIMACS file strictness
-  coord_t encoding;              // Chosen encoding
-  coord_t reduction_type;        // Autarky reduction type
+  std::string filename;         // Input filename
+  std::string output_file_name; // output file
+  coord_t aut_level;            // Autarky level
+  coord_t s_level;              // Input DQDIMACS file strictness
+  coord_t encoding;             // Chosen encoding
+  coord_t reduction_type;       // Autarky reduction type
 
-  coord_t no_of_clauses;  // Input clause set
-  coord_t no_of_vars;     // No Of variables in the input
-  cl_t e_vars;            // No Of e variables in the input
+  coord_t no_of_clauses; // Input clause set
+  coord_t no_of_vars;    // No Of variables in the input
+  cl_t e_vars;           // No Of e variables in the input
   std::vector<Variables>
-      dcnf_variables;  // Data Struture for info about input variables
+      dcnf_variables; // Data Struture for info about input variables
   std::vector<Clauses>
-      dcnf_clauses;  // Data structure for info about each input clause
+      dcnf_clauses; // Data structure for info about each input clause
 
-  cls_t dcnf_fml;         // Input cnf fml
-  set_t present_clauses;  // Present clauses at current iteration
-  set_t deleted_clauses;  // Set of deleted clause at current iteration
+  cls_t dcnf_fml;        // Input cnf fml
+  set_t present_clauses; // Present clauses at current iteration
+  set_t deleted_clauses; // Set of deleted clause at current iteration
   //  cl_t active_evar_index; //  Index Lookup for the evar
   //  cl_t present_cls_index; // Lookup for the present clauses
   coord_t old_cls_size;
   coord_t updated_cls_size;
 
-  cl_t active_evars;    // Current evar set of active variables
-  cl_t assigned_evars;  // Evar variables that got assigned
-  cl_t active_avars;    // Current avar set of active variables
-  cl_t assigned_avars;  // Avar variables that got assigned
+  cl_t active_evars;   // Current evar set of active variables
+  cl_t assigned_evars; // Evar variables that got assigned
+  cl_t active_avars;   // Current avar set of active variables
+  cl_t assigned_avars; // Avar variables that got assigned
 
-  sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
-  minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
-  pairs_t final_assgmt;             // Assignmt for the autarky
+  sel_bf selected_bf;              // All bf (v,f) pairs {(e-var, )...}
+  minsat_ass minsat_clause_assgmt; // All S(C)'s: {<e-var,bf(k)>...}
+  pairs_t final_assgmt;            // Assignmt for the autarky
+
+  // std::vector<bf_lbf_converter> bf2lbf_var_map; // bf to lbf var map
 
   // helper functions
   void propagate_cls_removal(lit_t i);
