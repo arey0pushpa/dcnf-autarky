@@ -98,10 +98,10 @@ void dcnf::satisfied_clauses(cl_t &lbf_vars, cls_t &bf_vars,
           // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
 					// TODO: check off by one error in the logic
           coord_t bf_id =
-              current_bf_var - present_clauses.size(); 
+              current_bf_var - (present_clauses.size() + 1); 
           if (bf2lbf_var_map[bf_id].is_present == 0) {
             bf2lbf_var_map[bf_id].is_present = 1;
-            bf2lbf_var_map[bf_id].lbf_fml = lbf_formula(lbf_vars, bf_id);
+            bf2lbf_var_map[bf_id].lbf_fml = lbf_formula(lbf_vars, bf_id+1);
           }
           cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
           for (lit_t li : cls_lbf) {

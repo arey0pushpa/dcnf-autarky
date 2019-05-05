@@ -47,15 +47,15 @@
 #include "util.h"
 
 int main(int argc, char *argv[]) {
-  cls_t dcnf_fml;            // Input Cnf formula {Clauses} := {{lit,...}...}
   cl_t e_vars;               // {exists-var}
   cl_t a_vars;               // {forall-var}
   cls_t dep_set;             // {{dep-var}...}
+  cls_t dcnf_fml;            // Input Cnf formula {Clauses} := {{lit,...}...}
   coord_t aut_present = 10;  // autarky present
   coord_t min_dep_size = 0;  // Used in statistics collection
   coord_t max_dep_size = 0;  // Used in stat collection
   coord_t dependency_var = 0;
-  coord_t no_of_clauses = 0;
+  coord_t no_of_clauses = 0; // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
   auto start = std::chrono::high_resolution_clock::now();
