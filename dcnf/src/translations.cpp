@@ -94,7 +94,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   if (encoding == 1) { // LOG Encoding
     cl_t s_lbf;
     coord_t lbf_var_size = 0;
-    coord_t id = 0;
+		coord_t lbf_enc = 0;
     index = preindex;
     for (coord_t i = 0; i < bf_vars.size(); ++i) {
       lbf_var_size = ceil(log(bf_vars[i].size() + 1) / log(2));
@@ -103,11 +103,12 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
         index += 1;
       }
       lbf_vars.push_back(s_lbf);
+			lbf_enc = 1;
       for (lit_t bv : bf_vars[i]) {
-        bf2lbf_var_map[id].push_back(
-            std::make_pair(bv, lbf_formula(s_lbf, bv)));
+        bf2lbf_var_map[i].push_back(
+            std::make_pair(bv, lbf_formula(s_lbf, lbf_enc)));
+				++lbf_enc;
       }
-      ++id;
       s_lbf.clear();
     }
   }
