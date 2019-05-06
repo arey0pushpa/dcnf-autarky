@@ -172,18 +172,17 @@ public:
   void at_most_one(cl_t &, cls_t &);
   void at_most_one_linear(cl_t &, cls_t &, lit_t &);
 
-  void satisfied_clauses(cl_t &lbf_vars, cls_t &bf_vars,
+  void satisfied_clauses(cls_t &lbf_vars, cls_t &bf_vars,
                          minsat_ass &pa_var_msat_ass,
                          cls_t &msat_concrete_var_map, cls_t &cnf_fml,
-                         std::vector<bf_lbf_converter> &bf2lbf_var_map,
-                         cl_t &active_evar_index);
+                         bflbf_t &bf2lbf_var_map, cl_t &active_evar_index);
 
   void touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
                        cls_t &cnf_fml);
 
-  void untouched_clauses(cl_t &lbf_vars, cls_t &bf_vars, cl_t &cs_vars,
-                         cls_t &cnf_fmls, std::vector<bf_lbf_converter> &,
-                         cl_t &present_cls_index, cl_t &active_evar_index);
+  void untouched_clauses(cls_t &lbf_vars, cls_t &bf_vars, cl_t &cs_vars,
+                         cls_t &cnf_fmls, bflbf_t &, cl_t &present_cls_index,
+                         cl_t &active_evar_index);
   void print_remaining_cls();
 
   //  friend std::ostream &operator<<(std::ostream &os, const dcnf &m);

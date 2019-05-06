@@ -2,29 +2,6 @@
 #include "defs.h"
 #include "util.h"
 
-/** Create lbf formula **/
-cl_t lbf_formula(cl_t lbf_vars, lit_t bf_var) {
-  coord_t blen = 0;
-  boolv_t binary_repr;
-  cl_t fml_repr;
-
-  while (bf_var > 0) {
-    binary_repr.push_back(bf_var % 2);
-    bf_var = bf_var / 2;
-    ++blen;
-  }
-  assert(blen <= lbf_vars.size());
-  // Enforce the resultant vector is of size of lbf_vars
-  for (coord_t i = blen; i < lbf_vars.size(); ++i) {
-    binary_repr.push_back(0);
-  }
-  for (coord_t i = 0; i < lbf_vars.size(); ++i) {
-    (binary_repr[i] == 0 ? fml_repr.push_back(-lbf_vars[i])
-                         : fml_repr.push_back(lbf_vars[i]));
-  }
-  return fml_repr;
-}
-
 /** 4.1. /\_f,f' !t(v,f) || !t(v,f')
  * At Most One Constraint **/
 void dcnf::at_most_one(cl_t &tbf_vars, cls_t &cnf_fml) {
@@ -80,11 +57,10 @@ void dcnf::at_most_one_linear(cl_t &tbf_vars, cls_t &cnf_fml, lit_t &index) {
 
 /** 4.2: t(phi) -> /\_v t(v,phi(v)) **/
 // TODO: Check the code for Varibles mis-match and wrong var use
-void dcnf::satisfied_clauses(cl_t &lbf_vars, cls_t &bf_vars,
+void dcnf::satisfied_clauses(cls_t &lbf_vars, cls_t &bf_vars,
                              minsat_ass &pa_var_msat_ass,
                              cls_t &msat_concrete_var_map, cls_t &cnf_fml,
-                             std::vector<bf_lbf_converter> &bf2lbf_var_map,
-                             cl_t &active_evar_index) {
+                             bflbf_t &bf2lbf_var_map, cl_t &active_evar_index) {
   for (unsigned i = 0; i < pa_var_msat_ass.size(); ++i) {
     for (unsigned j = 0; j < pa_var_msat_ass[i].size(); ++j) {
       cl_t v2;
@@ -95,9 +71,9 @@ void dcnf::satisfied_clauses(cl_t &lbf_vars, cls_t &bf_vars,
         coord_t v_indx = active_evar_index[std::abs(var) - 1];
         coord_t d_indx = find_scd_index(selected_bf[v_indx], depdt);
         lit_t current_bf_var = bf_vars[v_indx][d_indx];
+        // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
         if (encoding == 1) {
-          // In case of LOG encoding bf_var = lbf_var1 && ... && lbf_varm
-          cl_t cls_lbf = bf2lbf_var_map[bf_id].lbf_fml;
+          cl_t cls_lbf = bf2lbf_var_map[v_indx][d_indx].second;
           for (lit_t li : cls_lbf) {
             v2.push_back(-li);
             cnf_fml.push_back(cl_t{-msat_concrete_var_map[i][j], li});
@@ -127,9 +103,8 @@ void dcnf::touched_clauses(cl_t &cs_vars, cls_t &clausewise_pa_var_map,
 }
 
 /** 4.4. /\_v,f t(C) || !t(v,f) **/
-void dcnf::untouched_clauses(cl_t &lbf_vars, cls_t &bf_vars, cl_t &cs_vars,
-                             cls_t &cnf_fml,
-                             std::vector<bf_lbf_converter> &bf2lbf_var_map,
+void dcnf::untouched_clauses(cls_t &lbf_vars, cls_t &bf_vars, cl_t &cs_vars,
+                             cls_t &cnf_fml, bflbf_t &bf2lbf_var_map,
                              cl_t &present_cls_index, cl_t &active_evar_index) {
   for (const lit_t c : present_clauses) {
     cl_t clause = dcnf_clauses[c].evars;
@@ -137,7 +112,7 @@ void dcnf::untouched_clauses(cl_t &lbf_vars, cls_t &bf_vars, cl_t &cs_vars,
       coord_t indx = active_evar_index[e - 1];
       if (encoding == 1) {
         // TODO: Make sure overflowing bits too are the bottom
-        for (lit_t l : lbf_vars) {
+        for (lit_t l : lbf_vars[indx]) {
           cnf_fml.push_back(cl_t{cs_vars[present_cls_index[c]], -l});
         }
       } else {
