@@ -26,7 +26,7 @@
  *    - Multiple library uploads removal
  *    - Improve parsing code and flow
  *
- * 2. Check and update the implementation of Linear AMO and LOG encoding
+ * 2. Check and update the implementation of LOG encoding
  *
  * 3. Handle examples
  *    - Unsat examples.
@@ -41,21 +41,21 @@
  */
 
 #include <chrono>
-#include <iterator> // std::advance
+#include <iterator>  // std::advance
 
 #include "dcnf.h"
 #include "util.h"
 
 int main(int argc, char *argv[]) {
-  cl_t e_vars;              // {exists-var}
-  cl_t a_vars;              // {forall-var}
-  cls_t dep_set;            // {{dep-var}...}
-  cls_t dcnf_fml;           // Input Cnf formula {Clauses} := {{lit,...}...}
-  coord_t aut_present = 10; // autarky present
-  coord_t min_dep_size = 0; // Used in statistics collection
-  coord_t max_dep_size = 0; // Used in stat collection
+  cl_t e_vars;               // {exists-var}
+  cl_t a_vars;               // {forall-var}
+  cls_t dep_set;             // {{dep-var}...}
+  cls_t dcnf_fml;            // Input Cnf formula {Clauses} := {{lit,...}...}
+  coord_t aut_present = 10;  // autarky present
+  coord_t min_dep_size = 0;  // Used in statistics collection
+  coord_t max_dep_size = 0;  // Used in stat collection
   coord_t dependency_var = 0;
-  coord_t no_of_clauses = 0; // Cleaning: Remove it!!
+  coord_t no_of_clauses = 0;  // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -84,10 +84,8 @@ int main(int argc, char *argv[]) {
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
+  if (avar_iterator == a_vars.end()) a_vars_end = true;
+  if (evar_iterator == e_vars.end()) e_vars_end = true;
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
@@ -129,19 +127,18 @@ int main(int argc, char *argv[]) {
   // std::vector<Clauses> dcnf_clauses;
   coord_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] { // Use of Lambda :) Yeahhh...
+    [&] {  // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
         coord_t indx = std::abs(l) - 1;
         if (l > 0) {
           posv.insert(indx);
-          if (negv.count(indx)) // tauto case
+          if (negv.count(indx))  // tauto case
             return;
         } else {
           negv.insert(indx);
-          if (posv.count(indx))
-            return;
+          if (posv.count(indx)) return;
         }
         if (d->dcnf_variables[indx].quantype == 'e') {
           c_evars.push_back(std::abs(l));
@@ -169,7 +166,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      delete cls; // Avoid memory leak, My God!
+      delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -192,14 +189,12 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].present)
-      continue;
+    if (!d->dcnf_variables[e - 1].present) continue;
     d->active_evars.push_back(e);
   }
 
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].present)
-      continue;
+    if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
 
@@ -221,73 +216,21 @@ int main(int argc, char *argv[]) {
         } else {
           aut_present = d->e_autarky(e);
         }
-        if (aut_present == 10) {
-          d->assigned_evars.push_back(e);
-          for (lit_t i : d->dcnf_variables[e - 1].pos_cls) {
-            d->dcnf_clauses[i].present = 0;
-            d->present_clauses.erase(i);
-            d->deleted_clauses.insert(i);
-            d->propagate_cls_removal(i);
-          }
-          for (lit_t i : d->dcnf_variables[e - 1].neg_cls) {
-            d->dcnf_clauses[i].present = 0;
-            d->present_clauses.erase(i);
-            d->deleted_clauses.insert(i);
-            d->propagate_cls_removal(i);
-          }
-        } else {
-          iter_active_evars.push_back(e);
-        }
-
-        if (d->present_clauses.size() == 0) {
-          std::cout << "The input QBF formula is Satisfiable by an e_autarky "
-                       "reduction.\n ";
-          // TODO: Print the satisfying assignments!!!
-          exit(0);
-        }
-        // TODO: Add evar and avoid printing this everytime :)
-        std::cout << "Remaining clauses e_autarky reductions" << '\n';
-        d->print_remaining_cls();
+        d->display_eresult(iter_active_evars, e, aut_present);
       }
-
       d->active_evars = iter_active_evars;
       iter_active_evars.clear();
-
       if (d->active_evars.size() == 0) {
-        std::cout << "All univ variable case. Fml SAT." << '\n';
-        // Send it to a SAT solver?
+        // TODO: Check what needs to happen here!
+        // Send it to a SAT solver? Don't know, stop?
+        std::cout << "All univ variable case." << '\n';
         exit(0);
       }
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
-      if (aut_present == 20) {
-        std::cout << "The input QBF formula is UNSAT. \n";
-        std::cout << "The UNSAT/remaining clauses are. \n";
-        d->print_remaining_cls();
-        // display_running_time(start);
-        exit(0);
-      } else if (aut_present == 11) {
-        std::cout << "The input QBF formula is Satisfiable by an a_autarky "
-                     "reduction.\n ";
-        std::cout << "The satisfying assignment is...\n";
-        print_1d_vector_int_pair(d->final_assgmt);
-        // display_running_time(start);
-        exit(0);
-      } else {
-        std::cout << "The remaining clauses after a_autarky reductions" << '\n';
-        d->print_remaining_cls();
-        if (d->updated_cls_size == d->old_cls_size) {
-          std::cout << "No further autarky is found.\n";
-          std::cout << "The satisfying assignment is...\n";
-          print_1d_vector_int_pair(d->final_assgmt);
-        	// display_running_time(start);
-          exit(0);
-        } else {
-          d->old_cls_size = d->updated_cls_size;
-        }
-      }
+      d->display_aresult(aut_present);
     }
   }
 
