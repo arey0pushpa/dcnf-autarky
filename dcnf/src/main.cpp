@@ -207,7 +207,6 @@ int main(int argc, char *argv[]) {
     cl_t iter_active_evars;
     // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
-      // TODO: Optimize the variables use
       for (lit_t e : d->active_evars) {
         if (d->dcnf_variables[e - 1].pos_cls.size() +
                 d->dcnf_variables[e - 1].neg_cls.size() ==
@@ -221,9 +220,7 @@ int main(int argc, char *argv[]) {
       d->active_evars = iter_active_evars;
       iter_active_evars.clear();
       if (d->active_evars.size() == 0) {
-        // TODO: Check what needs to happen here!
-        // Send it to a SAT solver? Don't know, stop?
-        std::cout << "All univ variable case." << '\n';
+        std::cout << "All univ variable case. The input formula is UNSAT." << '\n';
         exit(0);
       }
     }
