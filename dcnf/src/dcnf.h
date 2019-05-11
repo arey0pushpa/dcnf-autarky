@@ -151,7 +151,7 @@ class dcnf {
 
   sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
   minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
-  pairs_t final_assgmt;             // Assignmt for the autarky
+  cls_t final_assgmt;             // Assignmt for the autarky
 
   // std::vector<bf_lbf_converter> bf2lbf_var_map; // bf to lbf var map
 

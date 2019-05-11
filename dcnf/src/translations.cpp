@@ -66,7 +66,8 @@ void dcnf::display_aresult(coord_t aut_present) {
     std::cout << "The input QBF formula is Satisfiable by an a_autarky "
                  "reduction.\n ";
     std::cout << "The satisfying assignment is...\n";
-    print_1d_vector_int_pair(final_assgmt);
+    // print_1d_vector_int_pair(final_assgmt);
+    print_2d_vector(final_assgmt);
     // display_running_time(start);
     exit(0);
   } else {
@@ -75,7 +76,8 @@ void dcnf::display_aresult(coord_t aut_present) {
     if (updated_cls_size == old_cls_size) {
       std::cout << "No further autarky is found.\n";
       std::cout << "The satisfying assignment is...\n";
-      print_1d_vector_int_pair(final_assgmt);
+      // print_1d_vector_int_pair(final_assgmt);
+      print_2d_vector(final_assgmt);
       // display_running_time(start);
       exit(0);
     } else {
@@ -364,7 +366,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       if (var_assgn[bf_vars[i][j] - 1] > 0) {
         pair_t sbf = selected_bf[i][j];
         assigned_evars.push_back(sbf.first);
-        final_assgmt.emplace_back(sbf);
+        final_assgmt.push_back({sbf.first, sbf.second});
       }
     }
   }
@@ -441,6 +443,7 @@ coord_t dcnf::e_autarky() {
         update_data_structure(e);
         return;
       }
+      cl_t vec = dcnf_variables[e - 1].dependency;
       for (lit_t j : s1) {
         // TODO: This check is redundant
         if (!dcnf_clauses[j].present) continue;
@@ -459,6 +462,10 @@ coord_t dcnf::e_autarky() {
           set_t intersect_cls;
           cl_t cls_s2 = dcnf_clauses[k].lits;
           for (lit_t l2 : cls_s2) {
+            // TODO: Check the below code for any BUG
+            // Allow only the dependency variable
+            if (!(std::find(vec.begin(), vec.end(), l2) != vec.end()))
+              continue;
             set_D.insert(l2);
           }
           set_intersection(compl_C.begin(), compl_C.end(), set_D.begin(),
@@ -473,6 +480,14 @@ coord_t dcnf::e_autarky() {
       }
       ++var_autarky_count;
       update_data_structure(e);
+      cl_t vassgnmt;
+      vassgnmt.push_back(e);
+      for (lit_t l : dcnf_clauses[*s1.begin()].lits) {
+        if (l == e) continue;
+        if (!(std::find(vec.begin(), vec.end(), e) != vec.end())) continue;
+        vassgnmt.push_back(l);
+      }
+      final_assgmt.push_back(vassgnmt);
     }();
   }
   active_evars = iter_active_evars;

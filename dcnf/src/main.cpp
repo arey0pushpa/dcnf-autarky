@@ -209,14 +209,17 @@ int main(int argc, char *argv[]) {
   d->updated_cls_size = 0;
 
   while (1) {
-    d->selected_boolfunc(d->aut_level);
+    // Update the selected Boolean function with each iteration to make it
+    // one to one correspondance with e_activevar updates
     // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
-			aut_present = d->e_autarky();
-      d->display_eresult(aut_present);	
+      d->selected_boolfunc(d->aut_level);
+      aut_present = d->e_autarky();
+      d->display_eresult(aut_present);
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
+      d->selected_boolfunc(d->aut_level);
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
       d->display_aresult(aut_present);
     }
