@@ -157,11 +157,12 @@ class dcnf {
 
   // helper functions
   void propagate_cls_removal(lit_t i);
+	void update_data_structure(lit_t e);
   coord_t a_autarky(std::string filename, std::string output_file_name,
                     coord_t encoding);
-  coord_t e_autarky(lit_t e);
+  coord_t e_autarky();
   void cmdline_parsing(int argc, char *argv[]);
-  void display_eresult(cl_t &iter_active_evars, lit_t e, coord_t aut_present);
+  void display_eresult(coord_t aut_present);
   void display_aresult(coord_t aut_present);
 
   // void set_all_solutions(const coord_t level);

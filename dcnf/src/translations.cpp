@@ -16,7 +16,7 @@ void dcnf::propagate_cls_removal(lit_t i) {
 }
 
 /** Create lbf formula **/
-cl_t lbf_formula(cl_t &lbf_vars, lit_t bf_var) {
+cl_t lbf_formula(cl_t& lbf_vars, lit_t bf_var) {
   coord_t blen = 0;
   boolv_t binary_repr;
   cl_t fml_repr;
@@ -85,30 +85,15 @@ void dcnf::display_aresult(coord_t aut_present) {
 }
 
 /** Handle e_aut reduction based on aur_present**/
-void dcnf::display_eresult(cl_t& iter_active_evars, lit_t e,
-                           coord_t aut_present) {
-  if (aut_present == 10) {
-    assigned_evars.push_back(e);
-    for (lit_t i : dcnf_variables[e - 1].pos_cls) {
-      dcnf_clauses[i].present = 0;
-      present_clauses.erase(i);
-      deleted_clauses.insert(i);
-      propagate_cls_removal(i);
-    }
-    for (lit_t i : dcnf_variables[e - 1].neg_cls) {
-      dcnf_clauses[i].present = 0;
-      present_clauses.erase(i);
-      deleted_clauses.insert(i);
-      propagate_cls_removal(i);
-    }
-  } else {
-    iter_active_evars.push_back(e);
-  }
-
+void dcnf::display_eresult(coord_t aut_present) {
   if (present_clauses.size() == 0) {
     std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                  "reduction.\n ";
     // TODO: Print the satisfying assignments!!!
+    exit(0);
+  }
+  if (active_evars.size() == 0) {
+    std::cout << "All univ variable case. The input formula is UNSAT." << '\n';
     exit(0);
   }
   // TODO: Add evar and avoid printing this everytime :)
@@ -417,41 +402,82 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 //         unique_dep_set.size(), pa_vars.size(), total, cs_vars.size(),
 //         index - 1, cnf_fml.size());
 
-coord_t dcnf::e_autarky(lit_t e) {
-  set_t intersect;
-  set_t s1 = dcnf_variables[e - 1].pos_cls;
-  set_t s2 = dcnf_variables[e - 1].neg_cls;
-  set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
-                   std::inserter(intersect, intersect.begin()));
-  if (!intersect.empty()) {
-    for (lit_t j : s1) {
-      if (!dcnf_clauses[j].present) continue;
-      cl_t cls_s1 = dcnf_clauses[j].lits;
-      set_t compl_C;
-      set_t set_D;
-      // Implement a func or change vector to a set
-      for (lit_t l1 : cls_s1) {
-        if (l1 > 0) {
-          compl_C.insert(-l1);
-        } else {
-          compl_C.insert(l1);
-        }
-      }
-      for (coord_t k : s2) {
-        set_t intersect_cls;
-        cl_t cls_s2 = dcnf_clauses[k].lits;
-        for (lit_t l2 : cls_s2) {
-          set_D.insert(l2);
-        }
-        set_intersection(compl_C.begin(), compl_C.end(), set_D.begin(),
-                         set_D.end(),
-                         std::inserter(intersect_cls, intersect_cls.begin()));
-        assert(intersect_cls.size() >= 1);
-        if (intersect_cls.size() < 2) {
-          return 1;
-        }
-      }
-    }
+void dcnf::update_data_structure(lit_t e) {
+  assigned_evars.push_back(e);
+  for (lit_t i : dcnf_variables[e - 1].pos_cls) {
+    dcnf_clauses[i].present = 0;
+    present_clauses.erase(i);
+    deleted_clauses.insert(i);
+    propagate_cls_removal(i);
   }
-  return 10;
+  for (lit_t i : dcnf_variables[e - 1].neg_cls) {
+    dcnf_clauses[i].present = 0;
+    present_clauses.erase(i);
+    deleted_clauses.insert(i);
+    propagate_cls_removal(i);
+  }
+}
+
+coord_t dcnf::e_autarky() {
+  coord_t var_autarky_count = 0;
+  cl_t iter_active_evars;
+  for (lit_t e : active_evars) {
+    [&] {
+      // TODO: This check is redundant
+      if (dcnf_variables[e - 1].pos_cls.size() +
+              dcnf_variables[e - 1].neg_cls.size() ==
+          0) {
+        ++var_autarky_count;
+        update_data_structure(e);
+        return;
+      }
+      set_t intersect;
+      set_t s1 = dcnf_variables[e - 1].pos_cls;
+      set_t s2 = dcnf_variables[e - 1].neg_cls;
+      set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(),
+                       std::inserter(intersect, intersect.begin()));
+      if (intersect.empty()) {  // Pure Lit case
+        ++var_autarky_count;
+        update_data_structure(e);
+        return;
+      }
+      for (lit_t j : s1) {
+        // TODO: This check is redundant
+        if (!dcnf_clauses[j].present) continue;
+        cl_t cls_s1 = dcnf_clauses[j].lits;
+        set_t compl_C;
+        set_t set_D;
+        // Implement a func or change vector to a set
+        for (lit_t l1 : cls_s1) {
+          if (l1 > 0) {
+            compl_C.insert(-l1);
+          } else {
+            compl_C.insert(l1);
+          }
+        }
+        for (coord_t k : s2) {
+          set_t intersect_cls;
+          cl_t cls_s2 = dcnf_clauses[k].lits;
+          for (lit_t l2 : cls_s2) {
+            set_D.insert(l2);
+          }
+          set_intersection(compl_C.begin(), compl_C.end(), set_D.begin(),
+                           set_D.end(),
+                           std::inserter(intersect_cls, intersect_cls.begin()));
+          assert(intersect_cls.size() >= 1);
+          if (intersect_cls.size() < 2) {
+            iter_active_evars.push_back(e);
+            return;
+          }
+        }
+      }
+      ++var_autarky_count;
+      update_data_structure(e);
+    }();
+  }
+  active_evars = iter_active_evars;
+  if (var_autarky_count > 0)
+    return 10;
+  else
+    return 11;
 }

@@ -38,6 +38,12 @@
  *
  * 6. Manage Shared pointer correctly. Avoid memory leaks.
  *
+ * 7. Output the statistics.
+ *
+ * 8. printing results:
+ *    - print the model in case of the e_autarky.
+ *    -  Homemade printing instead of the current default printing*
+ *
  */
 
 #include <chrono>
@@ -204,25 +210,10 @@ int main(int argc, char *argv[]) {
 
   while (1) {
     d->selected_boolfunc(d->aut_level);
-    cl_t iter_active_evars;
     // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
-      for (lit_t e : d->active_evars) {
-        if (d->dcnf_variables[e - 1].pos_cls.size() +
-                d->dcnf_variables[e - 1].neg_cls.size() ==
-            0) {
-          aut_present = 10;
-        } else {
-          aut_present = d->e_autarky(e);
-        }
-        d->display_eresult(iter_active_evars, e, aut_present);
-      }
-      d->active_evars = iter_active_evars;
-      iter_active_evars.clear();
-      if (d->active_evars.size() == 0) {
-        std::cout << "All univ variable case. The input formula is UNSAT." << '\n';
-        exit(0);
-      }
+			aut_present = d->e_autarky();
+      d->display_eresult(aut_present);	
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
