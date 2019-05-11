@@ -66,7 +66,6 @@ void dcnf::display_aresult(coord_t aut_present) {
     std::cout << "The input QBF formula is Satisfiable by an a_autarky "
                  "reduction.\n ";
     std::cout << "The satisfying assignment is...\n";
-    // print_1d_vector_int_pair(final_assgmt);
     print_2d_vector(final_assgmt);
     // display_running_time(start);
     exit(0);
@@ -76,7 +75,6 @@ void dcnf::display_aresult(coord_t aut_present) {
     if (updated_cls_size == old_cls_size) {
       std::cout << "No further autarky is found.\n";
       std::cout << "The satisfying assignment is...\n";
-      // print_1d_vector_int_pair(final_assgmt);
       print_2d_vector(final_assgmt);
       // display_running_time(start);
       exit(0);
@@ -91,7 +89,8 @@ void dcnf::display_eresult(coord_t aut_present) {
   if (present_clauses.size() == 0) {
     std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                  "reduction.\n ";
-    // TODO: Print the satisfying assignments!!!
+    std::cout << "The satisfying assignment is...\n";
+    print_2d_vector(final_assgmt);
     exit(0);
   }
   if (active_evars.size() == 0) {
@@ -464,8 +463,7 @@ coord_t dcnf::e_autarky() {
           for (lit_t l2 : cls_s2) {
             // TODO: Check the below code for any BUG
             // Allow only the dependency variable
-            if (!(std::find(vec.begin(), vec.end(), l2) != vec.end()))
-              continue;
+            if (!(std::find(vec.begin(), vec.end(), l2) != vec.end())) continue;
             set_D.insert(l2);
           }
           set_intersection(compl_C.begin(), compl_C.end(), set_D.begin(),
