@@ -91,14 +91,14 @@ void dcnf::display_eresult(coord_t aut_present) {
     exit(0);
   }
   if (aut_present == 10) {
-    std::cout << "The input QBF formula is Satisfiable by an a_autarky "
-                 "reduction.\n ";
+    std::cout << "The input QBF formula is Satisfiable by an e_autarky "
+                 "reduction.\n";
     std::cout << "The satisfying assignment is...\n";
     print_2d_vector(final_assgmt);
     exit(0);
   }
-  std::cout << "Remaining clauses e_autarky reductions" << '\n';
-  print_remaining_cls();
+  // std::cout << "Remaining clauses e_autarky reductions" << '\n';
+  // print_remaining_cls();
 }
 
 /**** A_Autarky ********/
