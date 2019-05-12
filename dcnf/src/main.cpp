@@ -29,7 +29,6 @@
  * 2. Check and update the implementation of LOG encoding
  *
  * 3. Handle examples
- *    - Unsat examples.
  *    - All univ var in the clause -> UNSAT directly
  *
  * 5. Input format should be described in details and explain the strict vs
@@ -154,6 +153,11 @@ int main(int argc, char *argv[]) {
           c_avars.push_back(std::abs(l));
           c_alits.push_back(l);
         }
+      }
+      if (c_evars.size() == 0) {
+        std::cout << "All univ variable case. The input formula is UNSAT."
+                  << '\n';
+        exit(0);
       }
       // Variable presence info update
       for (coord_t v : posv) {
