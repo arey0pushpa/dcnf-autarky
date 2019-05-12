@@ -220,13 +220,13 @@ int main(int argc, char *argv[]) {
         d->display_eresult(aut_present);
       }
       d->updated_cls_size = d->present_clauses.size();
-      if (d->updated_cls_size == d->old_cls_size) {
+      if (d->reduction_type == 1 && d->updated_cls_size == d->old_cls_size) {
         std::cout << "No further autarky is found.\n";
         exit(0);
       }
       d->old_cls_size = d->updated_cls_size;
       d->active_evars = iter_active_evars;
-			// TODO: Implement the Update of the data-struture
+      // TODO: Implement the Update of the data-struture
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
