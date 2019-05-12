@@ -30,6 +30,7 @@
  *
  * 3. Handle examples
  *    - Unsat examples.
+ *    - All univ var in the clause -> UNSAT directly
  *
  * 5. Input format should be described in details and explain the strict vs
  * loose.
