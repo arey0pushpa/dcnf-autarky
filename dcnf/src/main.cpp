@@ -28,19 +28,16 @@
  *
  * 2. Check and update the implementation of LOG encoding
  *
- * 3. Handle examples
- *    - All univ var in the clause -> UNSAT directly
- *
- * 5. Input format should be described in details and explain the strict vs
+ * 3. Input format should be described in details and explain the strict vs
  * loose.
  *
- * 5. Fix the MakeFile. Avoid heavy compiling everytime for debugging.
+ * 4. Fix the MakeFile. Avoid heavy compiling everytime for debugging.
  *
- * 6. Manage Shared pointer correctly. Avoid memory leaks.
+ * 5. Manage Shared pointer correctly. Avoid memory leaks.
  *
- * 7. Output the statistics.
+ * 6. Output the statistics.
  *
- * 8. printing results:
+ * 7. printing results:
  *    - print the model in case of the e_autarky.
  *    -  Homemade printing instead of the current default printing*
  *
