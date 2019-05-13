@@ -433,8 +433,6 @@ coord_t dcnf::e_autarky(lit_t e) {
   set_t s1 = dcnf_variables[e - 1].pos_cls;
   set_t s2 = dcnf_variables[e - 1].neg_cls;
   if (s1.size() == 0 || s2.size() == 0) {  // Pure Lit case
-    // std::cout << "Pure Literal case!"
-    //          << "Variable " << e << "\n";
     update_data_structure(e);
     final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars + 1});
     if (present_clauses.size() > 0)
@@ -451,6 +449,7 @@ coord_t dcnf::e_autarky(lit_t e) {
     set_t set_D;
     // Implement a func or change vector to a set
     for (lit_t l1 : cls_s1) {
+      if (std::abs(l1) == e) continue;
       if (l1 > 0) {
         compl_C.insert(-l1);
       } else {
@@ -458,6 +457,7 @@ coord_t dcnf::e_autarky(lit_t e) {
       }
     }
     for (coord_t k : s2) {
+      set_D.clear();
       set_t intersect_cls;
       cl_t cls_s2 = dcnf_clauses[k].lits;
       for (lit_t l2 : cls_s2) {
