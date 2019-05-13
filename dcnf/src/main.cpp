@@ -39,7 +39,6 @@
  *
  * 7. printing results:
  *    -  Homemade printing instead of the current default printing*
- *
  */
 
 #include <chrono>
@@ -229,7 +228,6 @@ int main(int argc, char *argv[]) {
       }
       d->old_cls_size = d->updated_cls_size;
       d->active_evars = iter_active_evars;
-      // TODO: Implement the Update of the data-struture
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {

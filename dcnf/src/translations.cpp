@@ -6,7 +6,8 @@
 /** Remove the dead/inactive clauses from the active variable list **/
 void dcnf::propagate_cls_removal(lit_t i) {
   for (lit_t l : dcnf_clauses[i].lits) {
-    if (!dcnf_variables[std::abs(l) - 1].present) continue;
+    if (!dcnf_variables[std::abs(l) - 1].present)
+      continue;
     if (l > 0) {
       dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
     } else {
@@ -16,7 +17,7 @@ void dcnf::propagate_cls_removal(lit_t i) {
 }
 
 /** Create lbf formula **/
-cl_t lbf_formula(cl_t& lbf_vars, lit_t bf_var) {
+cl_t lbf_formula(cl_t &lbf_vars, lit_t bf_var) {
   coord_t blen = 0;
   boolv_t binary_repr;
   cl_t fml_repr;
@@ -46,6 +47,24 @@ void dcnf::print_remaining_cls() {
   std::cout << "\n";
 }
 
+/** Home made printing final assignment **/
+void print_final_assignment(cls_t &final_assgmt, coord_t no_of_vars) {
+  for (cl_t c : final_assgmt) {
+    std::cout << "< " << c[0] << "->";
+    for (coord_t i = 1; i < c.size(); ++i) {
+      if (i == c.size() ){
+        c[i] > no_of_vars ? (c[i] == no_of_vars + 1 ? std::cout << "False >"
+                                                    : std::cout << "True >")
+                          : std::cout << c[i] << " >\n";
+      } else {
+        c[i] > no_of_vars ? (c[i] == no_of_vars + 1 ? std::cout << "False v"
+                                                    : std::cout << "True v ")
+                          : std::cout << c[i] << " v ";
+      }
+    }
+  }
+}
+
 // Print the total time taken
 void display_running_time(
     std::chrono::time_point<std::chrono::high_resolution_clock> start) {
@@ -66,6 +85,7 @@ void dcnf::display_result(coord_t aut_present) {
     std::cout << "The input QBF formula is Satisfiable by an a_autarky "
                  "reduction.\n";
     std::cout << "The satisfying assignment is...\n";
+    //print_final_assignment(final_assgmt, no_of_vars);
     print_2d_vector(final_assgmt);
     // display_running_time(start);
     exit(0);
@@ -75,6 +95,7 @@ void dcnf::display_result(coord_t aut_present) {
     if (updated_cls_size == old_cls_size) {
       std::cout << "No further autarky is found.\n";
       std::cout << "The satisfying assignment is...\n";
+      // print_final_assignment(final_assgmt, no_of_vars);
       print_2d_vector(final_assgmt);
       // display_running_time(start);
       exit(0);
@@ -94,6 +115,7 @@ void dcnf::display_eresult(coord_t aut_present) {
     std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                  "reduction.\n";
     std::cout << "The satisfying assignment is...\n";
+    // print_final_assignment(final_assgmt, no_of_vars);
     print_2d_vector(final_assgmt);
     exit(0);
   }
@@ -109,8 +131,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cls_t bf_vars;
   cl_t pa_vars;
 
-  cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
-  cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
+  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
+  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
 
   lit_t index = 1;
 
@@ -121,7 +143,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   if (index == 1) {
-    return 10;  // empty cls list; return SAT
+    return 10; // empty cls list; return SAT
   }
 
   // bf variable := two_dim [v] [f_v]
@@ -138,7 +160,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     s_bf.clear();
   }
 
-  if (encoding == 1) {  // LOG Encoding
+  if (encoding == 1) { // LOG Encoding
     cl_t s_lbf;
     coord_t lbf_var_size = 0;
     coord_t lbf_enc = 0;
@@ -182,7 +204,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   // dqbf Var to Cnf var Map; pa_vars for each bigbag element
   cls_t msat_concrete_var_map(active_evars.size());
   cls_t clausewise_pa_var_map(
-      present_clauses.size());  // create clausewise cnf vars
+      present_clauses.size()); // create clausewise cnf vars
   coord_t msat_cntr = 1;
   for (lit_t c : present_clauses) {
     for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
@@ -206,17 +228,17 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   // --- Build Constraints
-  non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
+  non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
 
-  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
+  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
 
   satisfied_clauses(lbf_vars, bf_vars, pa_var_msat_ass, msat_concrete_var_map,
                     cnf_fml, bf2lbf_var_map,
-                    active_evar_index);  // (4.2)
+                    active_evar_index); // (4.2)
 
   untouched_clauses(lbf_vars, bf_vars, cs_vars, cnf_fml, bf2lbf_var_map,
                     present_cls_index,
-                    active_evar_index);  // (4.4)
+                    active_evar_index); // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (lit_t e : active_evars) {
@@ -253,7 +275,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_size = bf_var_size + std::to_string(bf_vars[i][j]) + " ";
     }
-    if (i < bf_vars.size() - 1) bf_var_size = bf_var_size + " +  ";
+    if (i < bf_vars.size() - 1)
+      bf_var_size = bf_var_size + " +  ";
   }
 
   if (encoding == 1) {
@@ -283,9 +306,9 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   fout.close();
 
   std::future<int> future = std::async(std::launch::async, []() {
-    auto retVal = system(
-        "./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > "
-        "/tmp/a.out");
+    auto retVal =
+        system("./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > "
+               "/tmp/a.out");
     return retVal;
   });
 
@@ -313,20 +336,20 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     while (std::getline(file, line)) {
       char s1 = line[0];
       switch (s1) {
-        case 'v': {
-          line = line.substr(line.find_first_of(" \t") + 1);
-          std::stringstream ss(line);
-          for (lit_t i = 0; ss >> i;) {
-            var_assgn.push_back(i);
-          }
-          break;
+      case 'v': {
+        line = line.substr(line.find_first_of(" \t") + 1);
+        std::stringstream ss(line);
+        for (lit_t i = 0; ss >> i;) {
+          var_assgn.push_back(i);
         }
-        case 's': {
-          if (line[2] == 'U') {
-            return 20;
-          }
-          break;
+        break;
+      }
+      case 's': {
+        if (line[2] == 'U') {
+          return 20;
         }
+        break;
+      }
       }
     }
     if (file.bad()) {
@@ -419,10 +442,6 @@ void dcnf::update_data_structure(lit_t e) {
 }
 
 coord_t dcnf::e_autarky(lit_t e) {
-  // cl_t iter_active_evars;
-  // for (lit_t e : active_evars) {
-  //  [&] {
-  // TODO: This check is redundant
   if (dcnf_variables[e - 1].pos_cls.size() +
           dcnf_variables[e - 1].neg_cls.size() ==
       0) {
@@ -432,7 +451,7 @@ coord_t dcnf::e_autarky(lit_t e) {
   set_t intersect;
   set_t s1 = dcnf_variables[e - 1].pos_cls;
   set_t s2 = dcnf_variables[e - 1].neg_cls;
-  if (s1.size() == 0 || s2.size() == 0) {  // Pure Lit case
+  if (s1.size() == 0 || s2.size() == 0) { // Pure Lit case
     update_data_structure(e);
     final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars + 1});
     if (present_clauses.size() > 0)
@@ -442,14 +461,14 @@ coord_t dcnf::e_autarky(lit_t e) {
   }
   cl_t vec = dcnf_variables[e - 1].dependency;
   for (lit_t j : s1) {
-    // TODO: This check is redundant
-    if (!dcnf_clauses[j].present) continue;
+    // if (!dcnf_clauses[j].present) continue;
     cl_t cls_s1 = dcnf_clauses[j].lits;
     set_t compl_C;
     set_t set_D;
     // Implement a func or change vector to a set
     for (lit_t l1 : cls_s1) {
-      if (std::abs(l1) == e) continue;
+      if (std::abs(l1) == e)
+        continue;
       if (l1 > 0) {
         compl_C.insert(-l1);
       } else {
@@ -478,15 +497,13 @@ coord_t dcnf::e_autarky(lit_t e) {
   cl_t vassgnmt;
   vassgnmt.push_back(e);
   for (lit_t l : dcnf_clauses[*s1.begin()].lits) {
-    if (std::abs(l) == e) continue;
-    if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end()) continue;
+    if (std::abs(l) == e)
+      continue;
+    if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end())
+      continue;
     vassgnmt.push_back(l ? -l : std::abs(l));
   }
   final_assgmt.push_back(vassgnmt);
-  //  }();
-  //}
-  // active_evars = iter_active_evars;
-  // updated_cls_size = present_clauses.size();
   if (present_clauses.size() > 0)
     return 11;
   else
