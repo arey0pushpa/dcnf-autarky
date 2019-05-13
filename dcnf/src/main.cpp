@@ -38,7 +38,6 @@
  * 6. Output the statistics.
  *
  * 7. printing results:
- *    - print the model in case of the e_autarky.
  *    -  Homemade printing instead of the current default printing*
  *
  */
