@@ -220,8 +220,8 @@ int main(int argc, char *argv[]) {
       }
       d->display_eresult(aut_present);
       d->updated_cls_size = d->present_clauses.size();
-      std::cout << "Remaining clauses after e_autarky reductions" << '\n';
-      d->print_remaining_cls();
+      //std::cout << "Remaining clauses after e_autarky reductions" << '\n';
+      //d->print_remaining_cls();
       if (d->reduction_type == 1 && d->updated_cls_size == d->old_cls_size) {
         std::cout << "No further autarky is found.\n";
         exit(0);
@@ -237,6 +237,5 @@ int main(int argc, char *argv[]) {
       d->display_result(aut_present);
     }
   }
-
   return 0;
 }

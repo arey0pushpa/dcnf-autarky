@@ -151,7 +151,7 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
         }
         q_line = 'a';
         cl_t clause = extract_int(line);
-        assert(clause.size() >= 1);
+        // assert(clause.size() >= 1);
         for (lit_t i : clause) {
           if (unsigned(abs(i)) > no_of_var) {
             std::cerr << "Input format violation. atom > no_of_var." << '\n';

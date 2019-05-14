@@ -77,8 +77,8 @@ void display_running_time(
 void dcnf::display_result(coord_t aut_present) {
   if (aut_present == 20) {
     std::cout << "The input QBF formula is UNSAT.\n";
-    std::cout << "The UNSAT/remaining clauses are.\n";
-    print_remaining_cls();
+    //std::cout << "The UNSAT/remaining clauses are.\n";
+    //print_remaining_cls();
     // display_running_time(start);
     exit(0);
   } else if (aut_present == 10) {
@@ -90,13 +90,13 @@ void dcnf::display_result(coord_t aut_present) {
     // display_running_time(start);
     exit(0);
   } else {
-    std::cout << "The remaining clauses after a_autarky reductions" << '\n';
-    print_remaining_cls();
+    //std::cout << "The remaining clauses after a_autarky reductions" << '\n';
+    //print_remaining_cls();
     if (updated_cls_size == old_cls_size) {
       std::cout << "No further autarky is found.\n";
-      std::cout << "The satisfying assignment is...\n";
+      //std::cout << "The satisfying assignment is...\n";
       // print_final_assignment(final_assgmt, no_of_vars);
-      print_2d_vector(final_assgmt);
+      //print_2d_vector(final_assgmt);
       // display_running_time(start);
       exit(0);
     } else {
