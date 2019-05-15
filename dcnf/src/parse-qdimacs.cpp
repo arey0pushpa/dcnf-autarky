@@ -6,14 +6,15 @@
 
 void dcnf::cmdline_parsing(int argc, char* argv[]) {
   if (cmd_option_exists(argv, argv + argc, "-h")) {
-    std::cout
-        << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
-           "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
-           "filename] [-l "
-           "aut_level] [-e encoding 0:Binomial, 1:Log, 2:Linear] [-s strictness; "
-           "0:general, "
-           "1:strict] "
-           "[-r reduction; 1:e_autarky, 2:a_autarky 3: Both e+a_autarky]\n";
+    std::cout << "DCNF-Autarky [version 0.0.1]. (C) Copyright 2018-2019 "
+                 "Swansea UNiversity. \nUsage: ./dcnf [-i filename] [-o "
+                 "filename] [-l "
+                 "aut_level] [-e encoding 0:Binomial, 1:Log, 2:Linear] [-s "
+                 "strictness; "
+                 "0:general, "
+                 "1:strict] "
+                 "[-r reduction; 1:e_autarky, 2:a_autarky 3: Both e+a_autarky]"
+                 "[-t output_type 0: commandline based, 1: R based file]\n";
     exit(0);
   }
 
@@ -23,6 +24,7 @@ void dcnf::cmdline_parsing(int argc, char* argv[]) {
   char* encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
   char* strict_level = get_cmd_option(argv, argv + argc, "-s");
   char* red_type = get_cmd_option(argv, argv + argc, "-r");
+  char* op_type = get_cmd_option(argv, argv + argc, "-t");
 
   if (file_name) {
     filename = file_name;
@@ -55,6 +57,9 @@ void dcnf::cmdline_parsing(int argc, char* argv[]) {
 
   if (red_type) {
     reduction_type = std::stoi(red_type);
+  }
+  if (op_type) {
+    output_type = std::stoi(red_type);
   }
 }
 

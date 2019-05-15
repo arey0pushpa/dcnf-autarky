@@ -118,6 +118,7 @@ class dcnf {
     encoding = 2;              // Linear
     reduction_type = 2;        // a-autarky
     coord_t aut_present = 10;  // autarky present
+		coord_t output_type = 0;   // commandline o/p
   }
 
   // Variables
@@ -127,7 +128,10 @@ class dcnf {
   coord_t s_level;               // Input DQDIMACS file strictness
   coord_t encoding;              // Chosen encoding
   coord_t reduction_type;        // Autarky reduction type
+  coord_t output_type;   // commandline o/p
 
+  coord_t ntaut;          // No of tautological clauses
+	std::string result;     // SAT, UNSAT, RED, NONE
   coord_t no_of_clauses;  // Input clause set
   coord_t no_of_vars;     // No Of variables in the input
   cl_t e_vars;            // No Of e variables in the input
@@ -151,19 +155,20 @@ class dcnf {
 
   sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
   minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
-  cls_t final_assgmt;             // Assignmt for the autarky
+  cls_t final_assgmt;               // Assignmt for the autarky
 
   // std::vector<bf_lbf_converter> bf2lbf_var_map; // bf to lbf var map
 
   // helper functions
   void propagate_cls_removal(lit_t i);
-	void update_data_structure(lit_t e);
+  void update_data_structure(lit_t e);
   coord_t a_autarky(std::string filename, std::string output_file_name,
                     coord_t encoding);
   coord_t e_autarky(lit_t e);
   void cmdline_parsing(int argc, char *argv[]);
   void display_eresult(coord_t aut_present);
-  void display_result(coord_t aut_present);
+  void display_result(coord_t aut_present, coord_t output_result);
+	void display_rresult();
 
   // void set_all_solutions(const coord_t level);
   void selected_boolfunc(const coord_t level);

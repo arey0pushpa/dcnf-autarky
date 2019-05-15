@@ -126,20 +126,25 @@ int main(int argc, char *argv[]) {
 
   // Create vector of Clause Class to initialize E, A Qvar
   // std::vector<Clauses> dcnf_clauses;
-  coord_t cls_indx = 0;
+  lit_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
     [&] {  // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
-        coord_t indx = std::abs(l) - 1;
+        lit_t indx = std::abs(l) - 1;
         if (l > 0) {
           posv.insert(indx);
-          if (negv.count(indx))  // tauto case
+          if (negv.count(indx)) {  // tauto case
+            d->ntaut = d->ntaut + 1;
             return;
+          }
         } else {
           negv.insert(indx);
-          if (posv.count(indx)) return;
+          if (posv.count(indx)) {
+            d->ntaut = d->ntaut + 1;
+            return;
+          }
         }
         if (d->dcnf_variables[indx].quantype == 'e') {
           c_evars.push_back(std::abs(l));
@@ -150,16 +155,20 @@ int main(int argc, char *argv[]) {
         }
       }
       if (c_evars.size() == 0) {
-        std::cout << "All univ variable case. The input formula is UNSAT."
-                  << '\n';
+        if (d->output_type == 0) {
+          std::cout << "All univ variable case. The input formula is UNSAT."
+                    << '\n';
+        } else {
+          d->display_rresult();
+        }
         exit(0);
       }
       // Variable presence info update
-      for (coord_t v : posv) {
-        d->dcnf_variables[v].pos_polarity(cls_indx);
+      for (lit_t v : posv) {
+        d->dcnf_variables[v].pos_cls.insert(cls_indx);
       }
       for (lit_t v : negv) {
-        d->dcnf_variables[std::abs(v)].neg_polarity(cls_indx);
+        d->dcnf_variables[std::abs(v)].neg_cls.insert(cls_indx);
       }
       // Push the clause in the dcnf_clauses
       Clauses *cls = new Clauses;
@@ -211,19 +220,21 @@ int main(int argc, char *argv[]) {
   while (1) {
     // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
-      std::cout << "Performing E1 Autarky iteration...\n";
       d->selected_boolfunc(d->aut_level);
       cl_t iter_active_evars;
       for (lit_t e : d->active_evars) {
         aut_present = d->e_autarky(e);
         if (aut_present == 1) iter_active_evars.push_back(e);
       }
-      d->display_eresult(aut_present);
+      if (d->output_type == 0) {
+        std::cout << "Performing E1 Autarky iteration...\n";
+        d->display_eresult(aut_present);
+      }
       d->updated_cls_size = d->present_clauses.size();
-      //std::cout << "Remaining clauses after e_autarky reductions" << '\n';
-      //d->print_remaining_cls();
+      // std::cout << "Remaining clauses after e_autarky reductions" << '\n';
+      // d->print_remaining_cls();
       if (d->reduction_type == 1 && d->updated_cls_size == d->old_cls_size) {
-        std::cout << "No further autarky is found.\n";
+        if (d->output_type == 1) d->display_rresult();
         exit(0);
       }
       d->old_cls_size = d->updated_cls_size;
@@ -231,10 +242,11 @@ int main(int argc, char *argv[]) {
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
-      std::cout << "Performing A1 Autarky iteration...\n";
+      if (d->output_type == 0)
+        std::cout << "Performing A1 Autarky iteration...\n";
       d->selected_boolfunc(d->aut_level);
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
-      d->display_result(aut_present);
+      d->display_result(aut_present, d->output_type);
     }
   }
   return 0;
