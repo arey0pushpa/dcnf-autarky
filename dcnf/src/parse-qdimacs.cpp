@@ -59,7 +59,7 @@ void dcnf::cmdline_parsing(int argc, char* argv[]) {
     reduction_type = std::stoi(red_type);
   }
   if (op_type) {
-    output_type = std::stoi(red_type);
+    output_type = std::stoi(op_type);
   }
 }
 

@@ -76,6 +76,7 @@ void display_running_time(
 /** handle output of an Aut_reduction based on aut_present */
 void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   if (aut_present == 20) {
+    result = "UNSAT";
     if (output_type == 0) {
       std::cout << "The input QBF formula is UNSAT.\n";
       std::cout << "The UNSAT/remaining clauses are.\n";
@@ -85,6 +86,7 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
     }
     exit(0);
   } else if (aut_present == 10) {
+    result = "SAT";
     if (output_type == 0) {
       std::cout << "The input QBF formula is Satisfiable by an a_autarky "
                    "reduction.\n";
@@ -100,15 +102,17 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
       print_remaining_cls();
     }
     if (updated_cls_size == old_cls_size) {
-      if (output_type == 0)
+      if (output_type == 0) {
         std::cout << "No further autarky is found.\n";
-      else
+        std::cout << "The satisfying assignment is...\n";
+        print_2d_vector(final_assgmt);
+      } else {
         display_rresult();
-      std::cout << "The satisfying assignment is...\n";
-      print_2d_vector(final_assgmt);
+      }
       exit(0);
     } else {
       old_cls_size = updated_cls_size;
+      result = "RED";
     }
   }
 }
@@ -116,10 +120,12 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
 /** Handle e_aut reduction based on aur_present**/
 void dcnf::display_eresult(coord_t aut_present) {
   if (active_evars.size() == 0) {
+    result = "UNSAT";
     std::cout << "All univ variable case. The input formula is UNSAT." << '\n';
     exit(0);
   }
   if (aut_present == 10) {
+    result = "SAT";
     std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                  "reduction.\n";
     std::cout << "The satisfying assignment is...\n";
@@ -131,8 +137,39 @@ void dcnf::display_eresult(coord_t aut_present) {
   // print_remaining_cls();
 }
 
+std::string display_string(cl_t &container) {
+  std::string str;
+  for (auto const &c : container) {
+    str += std::to_string(c) + " ";
+  }
+  return str;
+}
+
 /** display R result */
-void dcnf::display_rresult() {}
+void dcnf::display_rresult() {
+  // std::string str = "sha1sum ";
+  // str = str + filename;
+  // const char *command = str.c_str();
+  // system(command);
+	std::string aut_type;
+  if (reduction_type == 1) {
+    aut_type = "E1";
+  } else if (reduction_type == 2) {
+    aut_type = "A1";
+  } else {
+    aut_type = "E1+A1";
+  }
+  std::string r_out = "";
+  r_out += filename + " ";
+  r_out += std::to_string(no_of_vars) + " ";
+  r_out += std::to_string(no_of_clauses) + " ";
+  r_out += aut_type + " ";
+  r_out += "[ " + display_string(assigned_evars) + "] ";
+  r_out += "[ " + display_string(active_avars) + "] ";
+  r_out += "[ " + display_string(active_evars) + "] ";
+  r_out += result + " ";
+  std::cout << r_out << "\n";
+}
 
 /**** A_Autarky ********/
 coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,

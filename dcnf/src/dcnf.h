@@ -119,6 +119,7 @@ class dcnf {
     reduction_type = 2;        // a-autarky
     coord_t aut_present = 10;  // autarky present
 		coord_t output_type = 0;   // commandline o/p
+		result = "NONE";
   }
 
   // Variables

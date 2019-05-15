@@ -245,6 +245,7 @@ int main(int argc, char *argv[]) {
         }
         exit(0);
       }
+			d->result = "RED";
       d->old_cls_size = d->updated_cls_size;
       d->active_evars = iter_active_evars;
     }
