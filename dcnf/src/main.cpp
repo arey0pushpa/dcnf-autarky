@@ -228,8 +228,9 @@ int main(int argc, char *argv[]) {
       cl_t iter_active_evars;
       for (lit_t e : d->active_evars) {
         aut_present = d->e_autarky(e);
-        if (aut_present == 1)
+        if (aut_present == 1) {
           iter_active_evars.push_back(e);
+        }
       }
       if (d->output_type == 0) {
         std::cout << "Performing E1 Autarky iteration...\n";
@@ -239,8 +240,9 @@ int main(int argc, char *argv[]) {
       }
       d->updated_cls_size = d->present_clauses.size();
       if (d->reduction_type == 1 && d->updated_cls_size == d->old_cls_size) {
-        if (d->output_type == 1)
+        if (d->output_type == 1) {
           d->display_rresult();
+        }
         exit(0);
       }
       d->old_cls_size = d->updated_cls_size;
@@ -248,8 +250,9 @@ int main(int argc, char *argv[]) {
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
-      if (d->output_type == 0)
+      if (d->output_type == 0) {
         std::cout << "Performing A1 Autarky iteration...\n";
+      }
       d->selected_boolfunc(d->aut_level);
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
       d->display_result(aut_present, d->output_type);
