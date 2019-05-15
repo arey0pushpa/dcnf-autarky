@@ -22,6 +22,7 @@
 #include <set>
 #include <sstream>
 #include <string>
+#include <chrono>
 
 #include "defs.h"
 
@@ -130,6 +131,7 @@ class dcnf {
   coord_t encoding;              // Chosen encoding
   coord_t reduction_type;        // Autarky reduction type
   coord_t output_type;   // commandline o/p
+	std::chrono::time_point<std::chrono::high_resolution_clock> start;
 
   coord_t ntaut;          // No of tautological clauses
 	std::string result;     // SAT, UNSAT, RED, NONE

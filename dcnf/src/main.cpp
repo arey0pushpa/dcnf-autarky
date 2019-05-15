@@ -59,9 +59,10 @@ int main(int argc, char *argv[]) {
   coord_t no_of_clauses = 0; // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
-  auto start = std::chrono::high_resolution_clock::now();
+  auto strt = std::chrono::high_resolution_clock::now();
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
 
+	d->start = strt;
   d->cmdline_parsing(argc, argv);
 
   // TODO: Implement as part of dcnf

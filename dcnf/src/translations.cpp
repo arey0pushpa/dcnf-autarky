@@ -66,11 +66,11 @@ void print_final_assignment(cls_t &final_assgmt, coord_t no_of_vars) {
 }
 
 // Print the total time taken
-void display_running_time(
+lit_t running_time(
     std::chrono::time_point<std::chrono::high_resolution_clock> start) {
   auto finish = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = finish - start;
-  std::cout << "entire run took " << elapsed.count() << " secs\n";
+	return elapsed.count();
 }
 
 /** handle output of an Aut_reduction based on aut_present */
@@ -129,7 +129,6 @@ void dcnf::display_eresult(coord_t aut_present) {
     std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                  "reduction.\n";
     std::cout << "The satisfying assignment is...\n";
-    // print_final_assignment(final_assgmt, no_of_vars);
     print_2d_vector(final_assgmt);
     exit(0);
   }
@@ -168,6 +167,7 @@ void dcnf::display_rresult() {
   r_out += "[ " + display_string(active_avars) + "] ";
   r_out += "[ " + display_string(active_evars) + "] ";
   r_out += result + " ";
+	r_out += std::to_string(running_time(start)) + " ";
   std::cout << r_out << "\n";
 }
 
