@@ -38,7 +38,8 @@
  * 6. Output the statistics.
  *
  * 7. printing results:
- *    -  Homemade printing instead of the current default printing*
+ *    - Homemade printing instead of the current default printing*
+ *    - Handle input file structure errors in the case of the R file output 
  */
 
 #include <chrono>
