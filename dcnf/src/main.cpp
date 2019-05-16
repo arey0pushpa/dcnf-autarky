@@ -25,6 +25,7 @@
  *    - Make the Clause and variable initialization as a seperate function call
  *    - Multiple library uploads removal
  *    - Improve parsing code and flow
+ *    - Check the update_avars case for e_autarky
  *
  * 2. Check and update the implementation of LOG encoding
  *
@@ -245,6 +246,7 @@ int main(int argc, char *argv[]) {
           iter_active_evars.push_back(e);
         } else if (aut_present == 10) {
           d->result = "SAT";
+			    //d->update_avars();
           if (d->output_type == 0)
             d->display_eresult(aut_present);
           else
@@ -266,6 +268,7 @@ int main(int argc, char *argv[]) {
       d->result = "RED";
       d->old_cls_size = d->updated_cls_size;
       d->active_evars = iter_active_evars;
+			d->update_avars();
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {

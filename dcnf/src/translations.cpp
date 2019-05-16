@@ -15,6 +15,19 @@ void dcnf::propagate_cls_removal(lit_t i) {
   }
 }
 
+void dcnf::update_avars() {
+  cl_t tmp_active_avars;
+  for (lit_t a : active_avars) {
+    if ((dcnf_variables[a - 1].pos_cls.size() > 0) ||
+        (dcnf_variables[a - 1].neg_cls.size() > 0)) {
+      tmp_active_avars.push_back(a);
+    } else {
+      dcnf_variables[a - 1].present = 0;
+    }
+  }
+  active_avars = tmp_active_avars;
+}
+
 /** Create lbf formula **/
 cl_t lbf_formula(cl_t &lbf_vars, lit_t bf_var) {
   coord_t blen = 0;
@@ -467,16 +480,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   active_evars = tmp_active_evars;
 
-  cl_t tmp_active_avars;
-  for (lit_t a : active_avars) {
-    if ((dcnf_variables[a - 1].pos_cls.size() > 0) ||
-        (dcnf_variables[a - 1].neg_cls.size() > 0)) {
-      tmp_active_avars.push_back(a);
-    } else {
-      dcnf_variables[a - 1].present = 0;
-    }
-  }
-  active_avars = tmp_active_avars;
+  update_avars();
 
   if (present_clauses.size() > 0) {
     return 11;
