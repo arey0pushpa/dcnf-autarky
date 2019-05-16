@@ -158,6 +158,7 @@ int main(int argc, char *argv[]) {
         }
       }
       if (c_evars.size() == 0) {
+				d->result = "UNSAT";
         if (d->output_type == 0) {
           std::cout << "All univ variable case. The input formula is UNSAT."
                     << '\n';
