@@ -232,7 +232,11 @@ int main(int argc, char *argv[]) {
           iter_active_evars.push_back(e);
         } else if (aut_present == 10) {
           d->result = "SAT";
-          d->display_eresult(aut_present);
+          if (d->output_type == 0)
+            d->display_eresult(aut_present);
+          else
+            d->display_rresult();
+          exit(0);
         }
       }
       if (d->output_type == 0) {
