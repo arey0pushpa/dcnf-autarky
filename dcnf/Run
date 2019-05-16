@@ -1,8 +1,6 @@
 #!/bin/bash
-echo "filename pn pc autarky assmt ntaut pa pe result time" > "file.out" 
+echo "filename pn pc autarky assmt ntaut pa pe result time" > "./data/Run.R" 
 for file in ./examples/dqbf18/*
 do
-	echo "$file" >> "file.out"
-  ./dcnf_autarky -i "$file" -r 3 >> "file.out"
-	echo "" >> "file.out"
+	./dcnf_autarky -i "$file" -r 3 -t 1 >> "./data/Run.R" 
 done
