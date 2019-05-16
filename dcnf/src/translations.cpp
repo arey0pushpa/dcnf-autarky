@@ -75,7 +75,7 @@ lit_t running_time(
 /** handle output of an Aut_reduction based on aut_present */
 void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   if (aut_present == 20) {
-    result = "UNSAT";
+    if (result != "RED") result = "UNSAT";
     if (output_type == 0) {
       std::cout << "The input QBF formula is UNSAT.\n";
       std::cout << "The UNSAT/remaining clauses are.\n";
@@ -118,13 +118,8 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
 
 /** Handle e_aut reduction based on aur_present**/
 void dcnf::display_eresult(coord_t aut_present) {
-  if (active_evars.size() == 0) {
-    result = "UNSAT";
-    std::cout << "All univ variable case. The input formula is UNSAT." << '\n';
-    exit(0);
-  }
   if (aut_present == 10) {
-    result = "SAT";
+    // result = "SAT";
     std::cout << "The input QBF formula is Satisfiable by an e_autarky "
                  "reduction.\n";
     std::cout << "The satisfying assignment is...\n";
@@ -304,8 +299,14 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   std::ofstream fout(output_file_name);
 
   if (!fout) {
-    std::cerr << "Error opening file..." << output_file_name << "\n";
-    return 1;
+    result = "ERR";
+    if (output_type == 0) {
+      std::cerr << "Error opening file..." << output_file_name << "\n";
+    } else {
+      display_rresult();
+    }
+    exit(0);
+    // return 1;
   }
 
   // Writing the dcnf output in dimacs format
@@ -371,7 +372,12 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   status = future.wait_for(std::chrono::seconds(600));
 
   if (status == std::future_status::timeout) {
-    std::cout << "TimeOut! \n";
+    result = "T/O";
+    if (output_type == 0) {
+      std::cout << "TimeOut! \n";
+    } else {
+      display_rresult();
+    }
     exit(0);
     std::terminate();
   }
@@ -404,7 +410,12 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       }
     }
     if (file.bad()) {
-      perror(("Error while reading file " + filenm).c_str());
+      result = "ERR";
+      if (output_type == 0) {
+        perror(("Error while reading file " + filenm).c_str());
+      } else {
+        display_rresult();
+      }
       exit(file_reading_error);
     }
     file.close();

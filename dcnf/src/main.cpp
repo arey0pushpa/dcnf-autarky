@@ -42,27 +42,27 @@
  */
 
 #include <chrono>
-#include <iterator> // std::advance
+#include <iterator>  // std::advance
 
 #include "dcnf.h"
 #include "util.h"
 
 int main(int argc, char *argv[]) {
-  cl_t e_vars;              // {exists-var}
-  cl_t a_vars;              // {forall-var}
-  cls_t dep_set;            // {{dep-var}...}
-  cls_t dcnf_fml;           // Input Cnf formula {Clauses} := {{lit,...}...}
-  coord_t aut_present = 10; // autarky present
-  coord_t min_dep_size = 0; // Used in statistics collection
-  coord_t max_dep_size = 0; // Used in stat collection
+  cl_t e_vars;               // {exists-var}
+  cl_t a_vars;               // {forall-var}
+  cls_t dep_set;             // {{dep-var}...}
+  cls_t dcnf_fml;            // Input Cnf formula {Clauses} := {{lit,...}...}
+  coord_t aut_present = 10;  // autarky present
+  coord_t min_dep_size = 0;  // Used in statistics collection
+  coord_t max_dep_size = 0;  // Used in stat collection
   coord_t dependency_var = 0;
-  coord_t no_of_clauses = 0; // Cleaning: Remove it!!
+  coord_t no_of_clauses = 0;  // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
   auto strt = std::chrono::high_resolution_clock::now();
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
 
-	d->start = strt;
+  d->start = strt;
   d->cmdline_parsing(argc, argv);
 
   // TODO: Implement as part of dcnf
@@ -86,10 +86,8 @@ int main(int argc, char *argv[]) {
   coord_t dep_index = 0;
   bool a_vars_end = false;
   bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
+  if (avar_iterator == a_vars.end()) a_vars_end = true;
+  if (evar_iterator == e_vars.end()) e_vars_end = true;
 
   // Create a vector of Class Variables
   // attach add info and access based on their index
@@ -131,14 +129,14 @@ int main(int argc, char *argv[]) {
   // std::vector<Clauses> dcnf_clauses;
   lit_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] { // Use of Lambda :) Yeahhh...
+    [&] {  // Use of Lambda :) Yeahhh...
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (const lit_t l : dcnf_fml[i]) {
         lit_t indx = std::abs(l) - 1;
         if (l > 0) {
           posv.insert(indx);
-          if (negv.count(indx)) { // tauto case
+          if (negv.count(indx)) {  // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
@@ -158,7 +156,7 @@ int main(int argc, char *argv[]) {
         }
       }
       if (c_evars.size() == 0) {
-				d->result = "UNSAT";
+        d->result = "UNSAT";
         if (d->output_type == 0) {
           std::cout << "All univ variable case. The input formula is UNSAT."
                     << '\n';
@@ -185,7 +183,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_alits(c_alits);
 
       d->dcnf_clauses.push_back(*cls);
-      delete cls; // Avoid memory leak, My God!
+      delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
   }
@@ -208,14 +206,12 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].present)
-      continue;
+    if (!d->dcnf_variables[e - 1].present) continue;
     d->active_evars.push_back(e);
   }
 
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].present)
-      continue;
+    if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
 
@@ -228,16 +224,19 @@ int main(int argc, char *argv[]) {
     if (d->reduction_type == 1 || d->reduction_type == 3) {
       d->selected_boolfunc(d->aut_level);
       cl_t iter_active_evars;
+      if (d->output_type == 0)
+        std::cout << "Performing E1 Autarky iteration...\n";
       for (lit_t e : d->active_evars) {
         aut_present = d->e_autarky(e);
         if (aut_present == 1) {
           iter_active_evars.push_back(e);
+        } else if (aut_present == 10) {
+          d->result = "SAT";
+          d->display_eresult(aut_present);
         }
       }
       if (d->output_type == 0) {
-        std::cout << "Performing E1 Autarky iteration...\n";
-        d->display_eresult(aut_present);
-        std::cout << "Remaining clauses after e_autarky reductions" << '\n';
+        std::cout << "Remaining clauses e_autarky reductions" << '\n';
         d->print_remaining_cls();
       }
       d->updated_cls_size = d->present_clauses.size();
@@ -247,7 +246,7 @@ int main(int argc, char *argv[]) {
         }
         exit(0);
       }
-			d->result = "RED";
+      d->result = "RED";
       d->old_cls_size = d->updated_cls_size;
       d->active_evars = iter_active_evars;
     }

@@ -81,7 +81,7 @@ void parse_qdimacs_file(std::string filename, cls_t& dcnf_fml, cls_t& dep_set,
   }
   while (std::getline(file, line)) {
     if (line == "") {
-      std::cout << "Ignoring empty lines.\n";
+      // std::cout << "Ignoring empty lines.\n";
       continue;
     }
     trim(line);
