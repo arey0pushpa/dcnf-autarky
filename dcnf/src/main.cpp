@@ -142,7 +142,7 @@ int main(int argc, char *argv[]) {
           }
         } else {
           negv.insert(indx);
-          if (posv.count(indx)) {
+          if (posv.count(indx)) {  // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
@@ -186,6 +186,17 @@ int main(int argc, char *argv[]) {
       delete cls;  // Avoid memory leak, My God!
       ++cls_indx;
     }();
+  }
+
+  // handle empty clause (modulo tauto) case
+  if (d->dcnf_clauses.size() == 0) {
+    d->result = "SAT";
+    if (d->output_type == 0) {
+      std::cout << "Input formula is SAT\n";
+    } else {
+      d->display_rresult();
+    }
+    exit(0);
   }
 
   // Ignore non occuring evars for bf_vars
