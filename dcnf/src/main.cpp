@@ -192,7 +192,8 @@ int main(int argc, char *argv[]) {
   if (d->dcnf_clauses.size() == 0) {
     d->result = "SAT";
     if (d->output_type == 0) {
-      std::cout << "Input formula is SAT\n";
+      std::cout
+          << "Empty input clause (modulo tautology). Input formula is SAT\n";
     } else {
       d->display_rresult();
     }
