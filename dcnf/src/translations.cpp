@@ -412,9 +412,11 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   // remove last 0 from the assignment
   var_assgn.pop_back();
 
-  std::cout << "The SAT solver's assignment is... \n";
-  print_1d_vector(var_assgn);
-  std::cout << '\n';
+  if (output_type == 0) {
+    std::cout << "The SAT solver's assignment is... \n";
+    print_1d_vector(var_assgn);
+    std::cout << '\n';
+  }
 
   /*  Update the data structure   */
   coord_t vindx = 0;

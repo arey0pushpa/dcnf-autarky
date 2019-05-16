@@ -2,5 +2,6 @@
 echo "filename pn pc autarky assmt ntaut pa pe result time" > "./data/Run.R" 
 for file in ./examples/dqbf18/*
 do
+	sha1sum "$file" >> "./data/Run.R"
 	./dcnf_autarky -i "$file" -r 3 -t 1 >> "./data/Run.R" 
 done
