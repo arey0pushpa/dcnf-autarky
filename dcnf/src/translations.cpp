@@ -28,6 +28,19 @@ void dcnf::update_avars() {
   active_avars = tmp_active_avars;
 }
 
+void dcnf::update_avars() {
+  cl_t tmp_active_evars;
+  for (lit_t e : active_evars) {
+    if ((dcnf_variables[e - 1].pos_cls.size() > 0) ||
+        (dcnf_variables[e - 1].neg_cls.size() > 0)) {
+      tmp_active_evars.push_back(e);
+    } else {
+      dcnf_variables[e - 1].present = 0;
+    }
+  }
+  active_evars = tmp_active_evars;
+}
+
 /** Create lbf formula **/
 cl_t lbf_formula(cl_t &lbf_vars, lit_t bf_var) {
   coord_t blen = 0;
@@ -469,18 +482,9 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
   }
 
-  cl_t tmp_active_evars;
-  for (lit_t e : active_evars) {
-    if ((dcnf_variables[e - 1].pos_cls.size() > 0) ||
-        (dcnf_variables[e - 1].neg_cls.size() > 0)) {
-      tmp_active_evars.push_back(e);
-    } else {
-      dcnf_variables[e - 1].present = 0;
-    }
-  }
-  active_evars = tmp_active_evars;
-
+	// Update the A and E active vars 
   update_avars();
+  update_evars();
 
   if (present_clauses.size() > 0) {
     return 11;

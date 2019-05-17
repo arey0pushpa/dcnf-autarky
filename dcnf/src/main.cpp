@@ -246,7 +246,8 @@ int main(int argc, char *argv[]) {
           iter_active_evars.push_back(e);
         } else if (aut_present == 10) {
           d->result = "SAT";
-			    //d->update_avars();
+			    d->update_avars();
+			    d->update_evars();
           if (d->output_type == 0)
             d->display_eresult(aut_present);
           else

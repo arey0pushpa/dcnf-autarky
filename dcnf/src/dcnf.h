@@ -164,6 +164,7 @@ class dcnf {
 
   // helper functions
 	void update_avars();
+	void update_evars();
   void propagate_cls_removal(lit_t i);
   void update_data_structure(lit_t e);
   coord_t a_autarky(std::string filename, std::string output_file_name,
