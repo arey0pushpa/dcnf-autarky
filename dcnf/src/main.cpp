@@ -264,16 +264,17 @@ int main(int argc, char *argv[]) {
         d->print_remaining_cls();
       }
       d->updated_cls_size = d->present_clauses.size();
-      if (d->reduction_type == 1 && d->updated_cls_size == d->old_cls_size) {
-        if (d->output_type == 1) {
+      if (d->updated_cls_size == d->old_cls_size && d->reduction_type == 1) {
+        if (d->output_type == 1)
           d->display_rresult();
-        }
         exit(0);
+      } else if (d->updated_cls_size != d->old_cls_size) {
+        d->result = "RED";
+        d->old_cls_size = d->updated_cls_size;
       }
-      d->result = "RED";
-      d->old_cls_size = d->updated_cls_size;
       d->active_evars = iter_active_evars;
       d->update_avars();
+      d->update_evars();
     }
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
