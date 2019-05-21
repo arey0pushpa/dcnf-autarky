@@ -50,7 +50,7 @@ The presented algorithm solve DQBF based on variable elimination (\cite{biere200
 The technique presented in~\cite{finkbeiner2014fast} is similar to BMC encoding of QBF and can only solve UNSAT problems.  
 
 \section{Complete solver: iDQ}
-The iDQ solver adapts and extends the Inst-Gen approach (solving approach for EPR logic, fragment of first order logic) to DQBF and was presented in~\cite{frohlich2014idq}.
+The iDQ solver presented in~\cite{frohlich2014idq} adapts and extends the Inst-Gen approach (solving approach for EPR logic, fragment of first order logic) to DQBF.
 
 \section{A new solver: HQS}
 The work of~\cite{gitina2015solving} present an improved expansion-based solver, HQS.
@@ -63,14 +63,24 @@ The work of~\cite{wimmer2015preprocessing} generalize preprocessing techniques f
 %
 The technique includes, blocked clause elimination, equivalence reasoning, structure extraction, and variable elimination by resolution.
 
-The work by~\cite{wimmer2017hqspre} presents a preprocessor HQSpre for both QBF's and DQBF's.
-\begin{enumerate}
- \item Variable Elimination Routines
- \item Clause Elimination Routines.
- \item Clause Strengthening Routines. 
- \item Dependency schemes
- \item Gate rewriting
-\end{enumerate}
+In further work~\cite{wimmer2017hqspre} presents a preprocessor HQSpre for both QBF's and DQBF's.
+%
+The techniques, variable elimination routines, clause elimination routines, clause strengthening routines, dependency schemes and gate rewriting.
+
+\section{Dependency}
+
+\section{Proof systems}
+
+\section{Certification perspective and Skolem functions}
+
+Henkin Quantifiers and Boolean Formulae~\cite{balabanov2012henkin}:
+
+A certification perspective of DQBF~\cite{balabanov2014henkin}:
+
+The work by~\cite{wimmer2016skolem} obtains Skolem functions from an elimination-based DQBF solver HQS, while taking preprocessing steps into account.
+%
+The size of the Skolem functions is optimized by don’t-care minimization using Craig interpolants and rewriting techniques.
+
 %\bibliographystyle{spbasic}      % basic style, author-year citations
 %\bibliographystyle{spmpsci}      % mathematics and physical sciences
 %\bibliographystyle{spphys}       % APS-like style for physics
