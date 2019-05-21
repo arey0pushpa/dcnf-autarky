@@ -28,7 +28,7 @@ void dcnf::update_avars() {
   active_avars = tmp_active_avars;
 }
 
-void dcnf::update_avars() {
+void dcnf::update_evars() {
   cl_t tmp_active_evars;
   for (lit_t e : active_evars) {
     if ((dcnf_variables[e - 1].pos_cls.size() > 0) ||
