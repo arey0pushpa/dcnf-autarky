@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+ 
+\usepackage{natbib}
+\usepackage{lmodern}
+
+%\input{macro}
+
+\begin{document}
+
+\title{DQBF Survey}
+
+\author{
+    Ankit Shukla
+}
+
+%\institute{JKU}
+
+% \author{to be announced}
+
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\begin{enumerate}
+  \item Henkin's quantifier
+  \item Hentikka's quantifier
+\end{enumerate}
+
+\section{First solving approach: DQDPLL}
+The first solving approach was presented in~\cite{frohlich2012dpll}.
+%
+This was adaptation of QDPLL from QBF to DQBF, e.g., unit propagation, clause
+learning, universal reduction, watched literals, etc.
+%
+
+The motivation was to solve the quantifier-free bit-vector formulas (QF\_BV) by translating it to DQBF (both belongs to same complexity class).
+
+\section{First Application: PEC Problems}
+The application of partial equivalence checking (PEC) of circuits transformed as a DQBF satisfiability was presented in~\cite{gitina2013equivalence}.
+%
+The presented algorithm solve DQBF based on variable elimination (\cite{biere2004resolve}).
+
+\section{First publicly available solver}
+The technique presented in~\cite{finkbeiner2014fast} is similar to BMC encoding of QBF and can only solve UNSAT problems.  
+
+\section{Complete solver: iDQ}
+The iDQ solver adapts and extends the Inst-Gen approach (solving approach for EPR logic, fragment of first order logic) to DQBF and was presented in~\cite{frohlich2014idq}.
+
+\section{A new solver: HQS}
+The work of~\cite{gitina2015solving} present an improved expansion-based solver, HQS.
+%
+The solver expands DQBF to QBF, eliminates the minimum set of variables that cause non-linear
+dependencies and uses AIGs to detect units and pure literals.
+
+\section{Preprocessing and inprocessing}
+The work of~\cite{wimmer2015preprocessing} generalize preprocessing techniques for QBF to DQBF. 
+%
+The technique includes, blocked clause elimination, equivalence reasoning, structure extraction, and variable elimination by resolution.
+
+The work by~\cite{wimmer2017hqspre} presents a preprocessor HQSpre for both QBF's and DQBF's.
+\begin{enumerate}
+ \item Variable Elimination Routines
+ \item Clause Elimination Routines.
+ \item Clause Strengthening Routines. 
+ \item Dependency schemes
+ \item Gate rewriting
+\end{enumerate}
+%\bibliographystyle{spbasic}      % basic style, author-year citations
+%\bibliographystyle{spmpsci}      % mathematics and physical sciences
+%\bibliographystyle{spphys}       % APS-like style for physics
+\bibliographystyle{unsrtnat}
+\bibliography{biblio}
+
+\end{document}
+
+%--------------------- DO NOT ERASE BELOW THIS LINE --------------------------
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:
