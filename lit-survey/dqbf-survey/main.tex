@@ -5,7 +5,10 @@
 %\usepackage{natbib}
 \usepackage[driverfallback=hypertex]{hyperref}
 \usepackage{lmodern}
-\usepackage{amsmath}
+%\usepackage{amsmath}
+\usepackage{amsmath, amsthm, amssymb}
+
+\newtheorem{prop}{Proposition}
 
 %\input{macro}
 
@@ -92,14 +95,49 @@ The techniques, variable elimination routines, clause elimination routines, clau
 
 \section{Certification perspective and Skolem functions}
 
-\begin{enumerate}
-	\item Henkin Quantifiers and Boolean Formulae~\cite{balabanov2012henkin}
+%\begin{enumerate}
+The work of Henkin Quantifiers and Boolean Formulae~\cite{balabanov2012henkin} investigates DQBF's properties like negation, complement, formula expansion, and prenex, non-prenex form conversion. 
+%
+The paper used two forms to describe prenex DQBF, Skolem (S-Form) and Herbrand (H-Form) form:
+
+\begin{align}
+	\Phi_{S} \,\, = \,\, \forall x_{1}... \forall x_{n} \exists y_{1_{(S_{1})}}...\exists y_{m_{(S_{m})}} . \phi \label{eq1}\\
+	\Phi_{H}  \,\, = \,\, \forall x_{1_{(H_{1})}}... \forall x_{n_{(H_{n})}} \exists y_{1}...\exists y_{m} . \phi \label{eq2}
+\end{align}
+
+Additional subscripts on the quantified variables is just another way to express dependencies, $S_{i} \subseteq A$ and $H_{i} \subseteq E$.
+
+In the case of S-Form, $\exists y_{1_{(S_{1})}}$ means  existential variable $y_{1}$ depend on the universal variables set $S_{1}$. 
+%
+Similarly, for the H-form, universal quantifiers in the prefix are annotated with the existential variables they depend on. 
+     
+%Semantically, the truth and falsity of a DQBF is interpreted as existence of Skolem (in the case of \ref{eq1}) and Herbrand fucntion (in the case of \ref{eq2}). 
+Skolem functions serve as the model to a true S-form DQBF whereas Herbrand functions serve as the countermodel to a false H-form DQBF.
+
+Most important property discussed is the notion of \textbf{negation} and \textbf{complement}.
+%
+In the case of negation ($\neg$) the quantifiers are flipped and propositional formula is negated but no change in the dependency set and it's position.
+ 
+\begin{align}
+\neg \Phi_{S} \,\, =   \,\, \exists x_{1}... \exists x_{n} \forall y_{1_{(S_{1})}}...\forall y_{m_{(S_{m})}} . \neg \phi \label{eq3}
+\end{align}
+ 
+In the case of complement ($\sim$) the position is shifted from one quantifier type to another in the prefix. Here, $H^{\prime}_{i} = \{ y_{i} \in E \, | \, x_{i} \notin S_{j} \}$
+ 
+\begin{align}
+ \sim \Phi_{S} \,\, =   \,\, \exists x_{1_{(H^{\prime}_1)}}... \exists x_{1_{(H^{\prime}_n)}} \forall y_{1}...\forall y_{m} . \neg \phi \label{eq4}
+\end{align}
+ 
+Interestingly the following proposition holds, 
+\begin{prop}
+	DQBF under the negation operation obeys the law of excluded middle but under the complement operation it does not.
+\end{prop} 
+
+In the journal paper ``A certification perspective of DQBF"~\cite{balabanov2014henkin} additionally a generalized resolution rule for DQBF evaluation is presented. Although,  it is shown to be sound, but incomplete.
 	
-	\item A certification perspective of DQBF~\cite{balabanov2014henkin}:
+Two central references in both are~\cite{bubeck2006dependency} and ~\cite{bubeck2010model} in introduction section referring that S-form DQBF can be converted to an equivalent QBF by formula expansion on the universal variables.
 	
-	Two central references in both are~\cite{bubeck2006dependency} and ~\cite{bubeck2010model} in introduction section stating that S-form DQBF can be converted to an equivalent QBF by formula expansion on the universal variables.
-	
-\end{enumerate}
+%\end{enumerate}
 
 The work by~\cite{wimmer2016skolem} obtains Skolem functions from an elimination-based DQBF solver HQS, while taking preprocessing steps into account.
 %
