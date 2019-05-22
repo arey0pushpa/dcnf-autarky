@@ -4,6 +4,7 @@
  
 \usepackage{natbib}
 \usepackage{lmodern}
+\usepackage{amsmath}
 
 %\input{macro}
 
@@ -28,8 +29,25 @@
 \section{Introduction}
 \label{sec:intro}
 \begin{enumerate}
-  \item Henkin's quantifier
-  \item Hentikka's quantifier
+  \item Hentikka's quantifier: Although very important. Not relevant for our discussion.
+  \item Henkin's quantifier:
+  According to the wikipedia, ``In logic a branching quantifier, also called a Henkin quantifier, finite partially ordered quantifier $\langle Qx_{1}\dots Qx_{n}\rangle$ 
+  of quantifiers for $Q  \in \{\forall,\exists\}$", so we should also points the name ``Henkin's" or ``Branching".
+   
+  The simplest Henkin quantifier, $Q_{H}$ is :
+  \begin{displaymath}
+  \binom{\forall x_{1} \exists y_{1}}{\forall x_{2} \exists y_{2}} \, \phi(x_{1},x_{2},y_{1},y_{2})
+  \end{displaymath}
+  
+  Branching quantification first appeared in a 1959 conference paper of Leon Henkin~\cite{henkin1961some}.
+  Systems of partially ordered quantification are intermediate in strength between first-order logic and second-order logic.
+  
+  In computer science literature first used in~\cite{peterson1979multiple} to model multiple
+  person (team) games of incomplete information.
+  The generalization of the alternation machines (nondeterministic
+  Turing Machines with existential and universal quantifiers alternation, conceptually similar to QBF) to classes of machines namely ``\textit{multiple person
+  alternation machines}" (conceptually DQBF).
+  
 \end{enumerate}
 
 \section{First solving approach: DQDPLL}
