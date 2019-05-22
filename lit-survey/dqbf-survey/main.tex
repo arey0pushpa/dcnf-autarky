@@ -7,6 +7,7 @@
 \usepackage{lmodern}
 %\usepackage{amsmath}
 \usepackage{amsmath, amsthm, amssymb}
+\usepackage[normalem]{ulem}
 
 \newtheorem{prop}{Proposition}
 
@@ -90,8 +91,30 @@ In further work~\cite{wimmer2017hqspre} presents a preprocessor HQSpre for both 
 The techniques, variable elimination routines, clause elimination routines, clause strengthening routines, dependency schemes and gate rewriting.
 
 \section{Dependency}
+The work by~\cite{wimmer2016dependency} analyse the dependency
+schemes proposed for QBF to apply on DQBF. 
+%
+The paper gives correctness proof of the few that are sound for DQBF. 
+%
 
 \section{Proof systems}
+The work~\cite{beyersdorff2016lifting} examines the lifting existing resolution systems of QBF to DQBF.
+%
+QBF have a strict chain of proof systems, where Q-Res $<$ IR-calc $<$ IRM-calc.
+%
+
+In the case of DQBF the obvious adaptations of Q-Res and universal resolution turns out to be too weak: they are not complete. 
+%
+The obvious adaptation of IR-calc has
+the right strength: it is sound and complete. 
+%
+The IRM-calc and long-distance resolution is too strong: it is not sound any more.
+
+The work of~\cite{rabe2017resolution} presents a sound and complete proof system for DQBF.
+%
+The system has three rules, resolution, universal reduction, and a new proof rule called \textit{fork extensions}.
+
+The definition of resolution admits universal variables as pivots...
 
 \section{Certification perspective and Skolem functions}
 
