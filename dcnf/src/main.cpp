@@ -19,6 +19,7 @@
 /* Todo list
  *
  * 0. Improve defense with const and ASSERTS and STATIC ASSERTS.
+ *   - handle Segfault cases.
  *
  * 1. Cleaning:
  *    - Clean the class interface remove non-essential functions
