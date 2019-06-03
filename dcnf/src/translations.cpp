@@ -276,7 +276,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cls_t msat_concrete_var_map(active_evars.size());
   cls_t clausewise_pa_var_map(
       present_clauses.size());  // create clausewise cnf vars
-  coord_t msat_cntr = 1;
+  //coord_t msat_cntr = 1;
   for (lit_t c : present_clauses) {
     for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[c][j];
@@ -290,7 +290,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       } else {
         pa_var_msat_ass[elit].push_back(dummy);
         msat_concrete_var_map[elit].push_back(index);
-        ++msat_cntr;
+      //  ++msat_cntr;
         clausewise_pa_var_map[present_cls_index[c]].push_back(index);
         pa_vars.push_back(index);
         ++index;
