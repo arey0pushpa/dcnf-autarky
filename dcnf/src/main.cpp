@@ -44,110 +44,70 @@
  *    - Handle input file structure errors in the case of the R file output
  */
 
-#include <chrono>
-#include <iterator> // std::advance
+#include <iterator>  // std::advance
 
 #include "dcnf.h"
 #include "util.h"
 
 int main(int argc, char *argv[]) {
-  cl_t e_vars;              // {exists-var}
-  cl_t a_vars;              // {forall-var}
-  cls_t dep_set;            // {{dep-var}...}
-  cls_t dcnf_fml;           // Input Cnf formula {Clauses} := {{lit,...}...}
-  coord_t aut_present = 10; // autarky present
-  coord_t min_dep_size = 0; // Used in statistics collection
-  coord_t max_dep_size = 0; // Used in stat collection
+  cl_t e_vars;               // {exists-var}
+  cl_t a_vars;               // {forall-var}
+  cls_t dep_set;             // {{dep-var}...}
+  cls_t dcnf_fml;            // Input Cnf formula {Clauses} := {{lit,...}...}
+  coord_t aut_present = 10;  // autarky present
+  coord_t min_dep_size = 0;  // Used in statistics collection
+  coord_t max_dep_size = 0;  // Used in stat collection
   coord_t dependency_var = 0;
-  coord_t no_of_clauses = 0; // Cleaning: Remove it!!
+  coord_t no_of_clauses = 0;  // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
-  auto strt = std::chrono::high_resolution_clock::now();
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
-
-  d->start = strt;
   d->cmdline_parsing(argc, argv);
-
-  // TODO: Implement as part of dcnf
   parse_qdimacs_file(d->filename, dcnf_fml, dep_set, a_vars, e_vars,
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
 
-  // no_of_var = e_vars.size() + a_vars.size();
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
-
-  // Dependent set sorted linearly accdn to evar
+  // Dependent_set and e-a-var sorted
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t &a, const cl_t &b) { return a[0] < b[0]; });
-
   std::sort(e_vars.begin(), e_vars.end());
   std::sort(a_vars.begin(), a_vars.end());
-
-  auto avar_iterator = a_vars.begin();
-  auto evar_iterator = e_vars.begin();
-  coord_t dep_index = 0;
-  bool a_vars_end = false;
-  bool e_vars_end = false;
-  if (avar_iterator == a_vars.end())
-    a_vars_end = true;
-  if (evar_iterator == e_vars.end())
-    e_vars_end = true;
-
-  // Create a vector of Class Variables
-  // attach add info and access based on their index
-  // Structure is defined by the input dqdimacs file v_0,...,v_noofvars-1
-  coord_t e_var_cntr = 0;
-  for (coord_t i = 0; i < no_of_var; ++i) {
-    if (!a_vars_end && i == *avar_iterator - 1) {
-      if (std::next(avar_iterator) == a_vars.end()) {
-        a_vars_end = true;
-      } else {
-        avar_iterator = std::next(avar_iterator);
-      }
-    } else if (!e_vars_end && i == *evar_iterator - 1) {
-      d->dcnf_variables[i].initialise_qtype('e');
-      cl_t d_s = dep_set[dep_index];
-      // erase evar frm dep set: d_s shld be just dependent vars
-      d_s.erase(d_s.begin());
-      cl_t dep_vars = d_s;
-      d->dcnf_variables[i].initialise_dependency(dep_vars);
-      ++dep_index;
-      d->dcnf_variables[i].initialise_eindex(e_var_cntr);
-      ++e_var_cntr;
-      if (std::next(evar_iterator) == e_vars.end()) {
-        e_vars_end = true;
-      } else {
-        evar_iterator = std::next(evar_iterator);
-      }
-    } else {
-      d->dcnf_variables[i].initialise_qtype('e');
-      d->dcnf_variables[i].initialise_eindex(e_var_cntr);
-      ++e_var_cntr;
-    }
-  }
-
+  assert(e_vars.size() == dep_set.size());
   cls_t unique_dep_set = unique_vectors(dep_set);
   lit_t dsize = dcnf_fml.size();
 
-  // Create vector of Clause Class to initialize E, A Qvar
-  // std::vector<Clauses> dcnf_clauses;
+  // Attach info to Class Variables (0 based: use e-1 to refer to var e)
+  coord_t e_var_cntr = 0;
+  for (lit_t e : e_vars) {
+    d->dcnf_variables[e - 1].initialise_qtype('e');
+    cl_t d_s = dep_set[e_var_cntr];
+    assert(e == *d_s.begin());
+    d_s.erase(d_s.begin());
+    cl_t dep_vars = d_s;
+    d->dcnf_variables[e - 1].initialise_dependency(dep_vars);
+    d->dcnf_variables[e - 1].initialise_eindex(e_var_cntr);
+    ++e_var_cntr;
+  }
+
+  // Initialize Clause Class with E, A Qvar
   lit_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] { // Use of Lambda :) Yeahhh...
+    [&] {  // Use of Lambda :)
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
-      for (const lit_t l : dcnf_fml[i]) {
+      for (lit_t l : dcnf_fml[i]) {
         lit_t indx = std::abs(l) - 1;
         if (l > 0) {
           posv.insert(indx);
-          if (negv.count(indx)) { // tauto case
+          if (negv.count(indx)) {  // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
         } else {
           negv.insert(indx);
-          if (posv.count(indx)) { // tauto case
+          if (posv.count(indx)) {  // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
@@ -160,7 +120,7 @@ int main(int argc, char *argv[]) {
           c_alits.push_back(l);
         }
       }
-      if (c_evars.size() == 0) {
+      if (c_evars.size() == 0) { // All univ variable case
         d->result = "UNSAT";
         if (d->output_type == 0) {
           std::cout << "All univ variable case. The input formula is UNSAT."
@@ -183,12 +143,10 @@ int main(int argc, char *argv[]) {
 
       cls->initialise_evars(c_evars);
       cls->initialise_elits(c_elits);
-
       cls->initialise_avars(c_avars);
       cls->initialise_alits(c_alits);
-
       d->dcnf_clauses.push_back(*cls);
-      delete cls; // Avoid memory leak, My God!
+      delete cls; 
       ++cls_indx;
     }();
   }
@@ -204,7 +162,6 @@ int main(int argc, char *argv[]) {
     }
     exit(0);
   }
-
   // Ignore non occuring evars for bf_vars
   for (const lit_t e : e_vars) {
     coord_t i = e - 1;
@@ -213,7 +170,6 @@ int main(int argc, char *argv[]) {
       d->dcnf_variables[i].update_presence(0);
     }
   }
-
   const coord_t cls_size = d->dcnf_clauses.size();
   d->no_of_clauses = cls_size;
   d->e_vars = e_vars;
@@ -223,14 +179,11 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].present)
-      continue;
+    if (!d->dcnf_variables[e - 1].present) continue;
     d->active_evars.push_back(e);
   }
-
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].present)
-      continue;
+    if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
 
@@ -266,8 +219,7 @@ int main(int argc, char *argv[]) {
       }
       d->updated_cls_size = d->present_clauses.size();
       if (d->updated_cls_size == d->old_cls_size && d->reduction_type == 1) {
-        if (d->output_type == 1)
-          d->display_rresult();
+        if (d->output_type == 1) d->display_rresult();
         exit(0);
       } else if (d->updated_cls_size != d->old_cls_size) {
         d->result = "RED";

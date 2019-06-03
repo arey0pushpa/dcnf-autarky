@@ -190,8 +190,8 @@ void dcnf::display_rresult() {
   // r_out += "[ " + display_string(active_evars) + "] ";
   r_out += std::to_string(active_evars.size()) + " ";
   r_out += result + " ";
-  r_out += std::to_string(running_time(start)) + " ";
-  std::cout << r_out << "\n";
+  //r_out += std::to_string(running_time(start)) + " ";
+  //std::cout << r_out << "\n";
 }
 
 /**** A_Autarky ********/
