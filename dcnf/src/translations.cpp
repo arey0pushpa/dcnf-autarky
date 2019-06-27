@@ -105,6 +105,11 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
     if (output_type == 0) {
       std::cout << "The input QBF formula is UNSAT.\n";
       std::cout << "The UNSAT/remaining clauses are.\n";
+			std::cout << "Total remaining e variables are: " << active_evars.size() << "\n";  
+			std::cout << "Printing remaining evars: \n";
+			print_1d_vector(active_evars);
+			std::cout << "\n";
+			std::cout << "Total remaining clauses are: " << present_clauses.size() << "\n";  
       print_remaining_cls();
     } else {
       display_rresult();
