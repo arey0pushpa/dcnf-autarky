@@ -1,4 +1,7 @@
-# Satisfiable instances
+## Autarky assignment for some of the cases is not added here 
+##  due to their big size.
+
+# Satisfiable instances **************8
 
 1. bloem_eq1.dqdimacs 
   Input formula: 
@@ -88,7 +91,3 @@ run time data is not relevant.
   	Our Runtime: 0.201s 
   	HQS took [SAT]: 1.13s
    
-
-
-
-
