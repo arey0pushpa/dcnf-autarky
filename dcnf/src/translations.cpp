@@ -111,6 +111,7 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
 			std::cout << "\n";
 			std::cout << "Total remaining clauses are: " << present_clauses.size() << "\n";  
       print_remaining_cls();
+      print_2d_vector(final_assgmt);
     } else {
       display_rresult();
     }
