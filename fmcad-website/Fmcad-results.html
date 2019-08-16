@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Results | </title>
+  <meta name="description" content="Find Autarkies in the (D)QBF">
+  <meta name="author" content="">
+  <meta property="og:title" content="Results | " />
+  <meta property="og:description" content="Find Autarkies in the (D)QBF" />
+  <meta property="og:locale" content="en_US" />
+</head>
+
+
+  <body>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="results">Autarky search results</h1>
+<p><code>DQBF Track QBFEVAL'18</code>
+   With improved SAT-encodings and running standard SAT-solvers, 
+   we where able to compute the normalforms for all 334 instances 
+   in the DQBF track of <a href="http://www.qbflib.org/qbfeval18.php">QBFEVAL’18</a>.
+   All normalforms have been computed within a total time of 9000s. 
+   (We remark that finding an autarky is quick, and most of the 
+   time is spent on proving unsatisfiability.)</p>
+
+<p><strong>330</strong> instances are E1+A1-lean (have no non-trivial E1- or A1-autarky). 
+   From the remaining 4 instances, all are E1-lean, one is A1-satisfiable,
+   one is E1+A1-satisfiable, and the remaining two instances are not E1+A1-satisfiable, 
+   but allow A1-autarkies eliminating in both cases around 80% of variables 
+   and clauses (while adding E1 does not change this). 
+</p>
+
+<p>We use n(F) for total number of variables, c(F) for number of clauses, a(F) for 
+   total number of universal variables and e(F) for total number of existential variables in the formula F.</p>
+
+<p>Instance 1. <a href="./files/bloem_eq1.dqdimacs"  target="_blank">bloem_eq1.dqdimacs</a> <code>A1_Autarky Satisfiable</code></p>
+<pre><code class="language-js"> - Input formula:   
+   n(F) = 9    
+   c(F) = 16     
+   a(F) = 1        
+   e(F) = 8         
+ - E1_Autarky (F): Lean (No reduction)  
+ - A1_Autarky (F): Satisfiable   
+     Autarky: (2 -&gt; -1, 3 -&gt; true, 4 -&gt; true, 5 -&gt; false,   
+                6 -&gt; false, 7 -&gt; true, 8 -&gt; true, 9 -&gt; true)
+ - E1 + A1_Autarky (F): Satisfiable  
+     Autarky: Same as above   
+</code></pre>
+<p>Instance 2. <a href="./files/tentrup17_ltl2dba_theta_environment_1.dqdimacs"	 target="_blank">tentrup17_ltl2dba_theta_environment_1.dqdimacs</a>  <code>E1 + A1_Autarky Satisfiable</code></p>
+<pre><code class="language-ruby">  - Input formula:  
+    n(F) = 249  
+    c(F) = 732  
+    a(F) = 3     
+    e(F) = 246     
+  - E1_Autarky (F): Lean (No reduction)  
+  - A1_Autarky (F): Non Trivial Autarky (Reduction but not SAT)  
+      Remaining evars count: 17  
+      Remaining clause count: 67  
+  - E1 + A1_Autarky (F): Satisfiable   
+      Autarky: Link   
+</code></pre>
+
+<p>Instance 3. <a href="./files/bloem_ex1.dqdimacs"  target="_blank">bloem_ex1.dqdimacs</a> <code>Non-Trivial A1_Autarky</code></p>
+<pre><code>  - Input formula:  
+    n(F) = 23  
+    c(F) = 52  
+    a(F) = 3          
+    e(F) = 20         
+  - E1_Autarky (F): Lean (No reduction)  
+  - A1_Autarky (F): Non Trivial Autarky (Reduction but not SAT)  
+      Remaining evars count: 6  
+      Remaining clause count: 18  
+  - E1 + A1_Autarky (F): Non trivial Autarky   
+      Autarky: Same as above  
+</code></pre>
+
+<p>Instance 4. <a href="./files/bloem_ex2.dqdimacs"  target="_blank">bloem_ex2.dqdimacs</a> <code>Non-Trivial A1_Autarky</code></p>
+<pre><code> - Input formula:  
+   n(F) = 60  
+   c(F) = 139   
+   a(F) = 10         
+   e(F) = 50          
+ - E1_Autarky (F): Lean (No reduction)  
+ - A1_Autarky (F): Non Trivial Autarky (Reduction but not SAT)  
+   Remaining evars count: 33  
+   Remaining clause count: 99   
+ - E1 + A1_Autarky (F): Non trivial Autarky   
+   Autarky: Same as above  
+</code></pre>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+      <h2 class="footer-heading">
+ </div>
+</footer>
+
+
+  </body>
+
+</html>
