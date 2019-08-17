@@ -20,7 +20,12 @@
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
         <h1 id="results">Autarky search results</h1>
-<p><code>DQBF Track QBFEVAL'18</code>
+<p><code>Selected benchmark for the evaluation: DQBF Track QBFEVAL'18</code>. <br/>
+ 
+   <code>Total number of instances: 334</code>. <br/>
+ 
+   <code>Instances with non-trivial autarkies: 4</code>. <br/><br/>
+
    With improved SAT-encodings and running standard SAT-solvers, 
    we where able to compute the normalforms for all 334 instances 
    in the DQBF track of <a href="http://www.qbflib.org/qbfeval18.php">QBFEVAL’18</a>.
@@ -28,12 +33,23 @@
    (We remark that finding an autarky is quick, and most of the 
    time is spent on proving unsatisfiability.)</p>
 
-<p><strong>330</strong> instances are E1+A1-lean (have no non-trivial E1- or A1-autarky). 
+ <p>The evaluation contained 334 instances, where 330 do not
+ contain any non-trivial E1-autarky. The four remaining
+ instances with non-trivial autarkies are
+<code> <ol> 
+   <li> bloem_eq1.dqdimacs
+   <li> tentrup17_ltl2dba_theta_environment_1.dqdimacs
+   <li> bloem_ex1.dqdimacs
+   <li> bloem_ex2.dqdimacs 
+ </ol> </code>
+ </p>
+
+<!-- <p><strong>330</strong> instances are E1+A1-lean (have no non-trivial E1- or A1-autarky). 
    From the remaining 4 instances, all are E1-lean, one is A1-satisfiable,
    one is E1+A1-satisfiable, and the remaining two instances are not E1+A1-satisfiable, 
    but allow A1-autarkies eliminating in both cases around 80% of variables 
    and clauses (while adding E1 does not change this). 
-</p>
+</p> -->
 
 <p>We use n(F) for total number of variables, c(F) for number of clauses, a(F) for 
    total number of universal variables and e(F) for total number of existential variables in the formula F.</p>
