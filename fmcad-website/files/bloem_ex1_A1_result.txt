@@ -1,14 +1,20 @@
 # Autarky result for the bloem_ex1.dqdimacs
 # existential variables are mapped to univ Variable and True/False
 
-Total remaining e variables are: 6
-Remaining evars: 
+## A1-Autarky reduction
+
+# Total remaining e variables are: 
+6
+# Remaining evars: 
 7 8 9 14 15 16 
 
-Total remaining clauses are: 18
+# Total remaining clauses are: 
+18
+
+# Remaining clauses
 0	1	2	3	4	5	6	7	8	21	22	23	24	25	26	27	28	29
 
-Autarky:
+# A1-Autarky:
 	
 2 25 
 5 25 
