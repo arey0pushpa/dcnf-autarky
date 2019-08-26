@@ -170,6 +170,7 @@ int main(int argc, char *argv[]) {
       d->dcnf_variables[i].update_presence(0);
     }
   }
+
   const coord_t cls_size = d->dcnf_clauses.size();
   d->no_of_clauses = cls_size;
   d->e_vars = e_vars;
