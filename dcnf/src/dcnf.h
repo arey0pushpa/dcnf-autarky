@@ -136,7 +136,7 @@ class dcnf {
 	std::string result;     // SAT, UNSAT, RED, NONE, T/O, ERR
   coord_t no_of_clauses;  // Input clause set
   coord_t no_of_vars;     // No Of variables in the input
-  cl_t e_vars;            // No Of e variables in the input
+  cl_t e_vars;            // e variables in the input
   std::vector<Variables>
       dcnf_variables;  // Data Struture for info about input variables
   std::vector<Clauses>
