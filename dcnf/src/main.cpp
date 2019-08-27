@@ -31,7 +31,7 @@
  * 2. Check and update the implementation of LOG encoding
  *
  * 3. Input format should be described in details and explain the strict vs
- * loose.
+ *    loose.
  *
  * 4. Fix the MakeFile. Avoid heavy compiling everytime for debugging.
  *
@@ -63,6 +63,7 @@ int main(int argc, char *argv[]) {
 
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
   d->cmdline_parsing(argc, argv);
+	// TODO: Remove these number of parameters
   parse_qdimacs_file(d->filename, dcnf_fml, dep_set, a_vars, e_vars,
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
@@ -78,7 +79,7 @@ int main(int argc, char *argv[]) {
   cls_t unique_dep_set = unique_vectors(dep_set);
   lit_t dsize = dcnf_fml.size();
 
-  // Attach info to Class Variables (0 based: use e-1 to refer to var e)
+  // Attach info to Variables Class (0 based: use e-1 to refer to var e)
   coord_t e_var_cntr = 0;
   for (lit_t e : e_vars) {
     d->dcnf_variables[e - 1].initialise_qtype('e');
