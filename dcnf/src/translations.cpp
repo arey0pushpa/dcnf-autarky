@@ -4,13 +4,15 @@
 #include "util.h"
 
 /** Remove the dead/inactive clauses from the active variable list **/
-void dcnf::propagate_cls_removal(lit_t i) {
-  for (lit_t l : dcnf_clauses[i].lits) {
+void dcnf::propagate_cls_removal(lit_t cls_indx) {
+	// TODO: Check for the use of cls_indx
+  for (lit_t l : dcnf_clauses[cls_indx].lits) {
+		// Not sure if this check is required
     if (!dcnf_variables[std::abs(l) - 1].present) continue;
     if (l > 0) {
-      dcnf_variables[std::abs(l) - 1].pos_cls.erase(i);
+      dcnf_variables[std::abs(l) - 1].pos_cls.erase(cls_indx);
     } else {
-      dcnf_variables[std::abs(l) - 1].neg_cls.erase(i);
+      dcnf_variables[std::abs(l) - 1].neg_cls.erase(cls_indx);
     }
   }
 }
