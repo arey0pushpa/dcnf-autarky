@@ -307,11 +307,11 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
-  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
-
   satisfied_clauses(lbf_vars, bf_vars, pa_var_msat_ass, msat_concrete_var_map,
                     cnf_fml, bf2lbf_var_map,
                     active_evar_index);  // (4.2)
+  
+	touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
   untouched_clauses(lbf_vars, bf_vars, cs_vars, cnf_fml, bf2lbf_var_map,
                     present_cls_index,

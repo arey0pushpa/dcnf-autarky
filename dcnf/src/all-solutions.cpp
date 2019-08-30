@@ -16,8 +16,8 @@ void dcnf::selected_boolfunc(const coord_t aut_level) {
       cl_t dvar = dcnf_variables[e - 1].dependency;
       for (coord_t j = 0; j < dvar.size(); ++j) {
 				//if(!dcnf_variables[dvar[j] - 1].present) continue;
-        t_vec.emplace_back(e, dvar[j]);
         t_vec.emplace_back(e, -dvar[j]);
+        t_vec.emplace_back(e, dvar[j]);
       }
     }
     selected_bf.push_back(t_vec);

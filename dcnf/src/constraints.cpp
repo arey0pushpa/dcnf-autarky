@@ -64,7 +64,6 @@ void dcnf::satisfied_clauses(cls_t &lbf_vars, cls_t &bf_vars,
   for (unsigned i = 0; i < pa_var_msat_ass.size(); ++i) {
     for (unsigned j = 0; j < pa_var_msat_ass[i].size(); ++j) {
       cl_t v2;
-      v2.push_back(msat_concrete_var_map[i][j]);
       for (unsigned k = 0; k < pa_var_msat_ass[i][j].size(); k = k + 2) {
         lit_t var = pa_var_msat_ass[i][j][k];
         lit_t depdt = pa_var_msat_ass[i][j][k + 1];
@@ -76,13 +75,14 @@ void dcnf::satisfied_clauses(cls_t &lbf_vars, cls_t &bf_vars,
           cl_t cls_lbf = bf2lbf_var_map[v_indx][d_indx].second;
           for (lit_t li : cls_lbf) {
             v2.push_back(-li);
-            cnf_fml.push_back(cl_t{-msat_concrete_var_map[i][j], li});
+            cnf_fml.push_back(cl_t{ li, -msat_concrete_var_map[i][j] });
           }
         } else {
           v2.push_back(-current_bf_var);
-          cnf_fml.push_back(cl_t{-msat_concrete_var_map[i][j], current_bf_var});
+          cnf_fml.push_back(cl_t{ current_bf_var, -msat_concrete_var_map[i][j] });
         }
       }
+      v2.push_back(msat_concrete_var_map[i][j]);
       cnf_fml.push_back(v2);
     }
   }
