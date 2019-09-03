@@ -134,7 +134,6 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
       result = "UNSAT";
     }
     if (output_type == 0) {
-      // TODO: Implement the output
       output();
     } else {
       display_rresult();
@@ -143,7 +142,6 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   } else {
     if (updated_cls_size == old_cls_size) {
       if (output_type == 0) {
-        // TODO: Implement the output
         output();
       } else {
         display_rresult();
