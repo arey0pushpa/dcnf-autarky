@@ -2,6 +2,7 @@
 
 # Download the files instances locally
 #git clone https://qbflib.sagelab.it/qbflib/qdimacs
+git clone https://qbflib.sagelab.it/qbflib/dqbf
 
 mkdir -p Autarkies Database Experiments
 
@@ -11,11 +12,24 @@ find . -type d -o -type f -exec bash -c '
   for path; do mkdir -p "../Database/${path/file/folder}"; done
 ' bash {} +
 
-# Iterate over each file and create a directory  
-for filename in qdimacs/*.dqdimacs; do
-  while IFS= read -r line;do
-    if [[ $line =~ ^[[:space:]]*p.* ]]; then
-      echo "$line"
+# Instantiate a file with instance file name and add basic info
+shopt -s globstar
+
+for i in ./**/*
+do
+  if [ -f "$i" ];
+  then
+    if [[ ${i##*/} == *.dqdimacs ]];
+    then
+      touch "../Database${i#.}/${i##*/}" 
+      while IFS= read -r line;do
+        if [[ $line =~ ^[[:space:]]*p.* ]]; then
+          arr=($line)
+          echo -n "${arr[2]} " > ../Database${i#.}/${i##*/} 
+          echo -n ${arr[3]} >> ../Database${i#.}/${i##*/}
+          break
+        fi
+      done < "$i"
     fi
-  done < "$filename"
+  fi
 done
