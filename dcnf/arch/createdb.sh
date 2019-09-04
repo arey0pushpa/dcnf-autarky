@@ -3,13 +3,21 @@
 # Download the files instances locally
 # settings / change this to your config
 #git clone https://qbflib.sagelab.it/qbflib/qdimacs
-#git clone https://qbflib.sagelab.it/qbflib/dqbf
+
+URL="https://qbflib.sagelab.it/qbflib/dqbf"
+FOLDER="dqbf"
+
+if [ ! -d "$FOLDER" ] ; then
+    git clone $URL $FOLDER
+else
+    cd "$FOLDER"
+    git pull $URL
+fi
 
 mkdir -p Autarkies Database Experiments
 
 # Create a database: direcetory structure similar to tht of the instances
 # TODO: Handle Path stuff and make each of them variable
-cd qdimacs
 find . -type d -o -type f -exec bash -c '
   for path; do mkdir -p "../Database/${path/file/folder}"; done
 ' bash {} +
