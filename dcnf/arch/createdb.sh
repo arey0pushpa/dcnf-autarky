@@ -1,12 +1,15 @@
 #!/bin/bash
 
+# USE -> GNU Parallel
 # Download the files instances locally
-# settings / change this to your config
-#git clone https://qbflib.sagelab.it/qbflib/qdimacs
+# settings/change this to your config
+#git clone https://qbflib.sagelab.it/qbflib/qdimacs && \
+#git https://qbflib.sagelab.it/qbflib/dqbf
 
 URL="https://qbflib.sagelab.it/qbflib/dqbf"
 FOLDER="dqbf"
 
+# Can have race condition so implement a thread safe code
 if [ ! -d "$FOLDER" ] ; then
     git clone $URL $FOLDER
 else
@@ -16,8 +19,8 @@ fi
 
 mkdir -p Autarkies Database Experiments
 
-# Create a database: direcetory structure similar to tht of the instances
-# TODO: Handle Path stuff and make each of them variable
+# Create a database: directory structure similar to tht of the instances
+# TODO: Handle Path and make each of them variable
 find . -type d -o -type f -exec bash -c '
   for path; do mkdir -p "../Database/${path/file/folder}"; done
 ' bash {} +
