@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# HARDEST Instance (PCNF track): C6_BMC_p1_k2048.qdimacs
+
 # USE -> GNU Parallel
 # Download the files instances locally
 # settings/change this to your config

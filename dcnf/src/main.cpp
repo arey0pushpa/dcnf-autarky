@@ -57,10 +57,12 @@ void header() {
 }
 
 int main(int argc, char *argv[]) {
-  cl_t e_vars;              // {exists-var}
-  cl_t a_vars;              // {forall-var}
-  cls_t dep_set;            // {{dep-var}...}
-  cls_t dcnf_fml;           // Input Cnf formula {Clauses} := {{lit,...}...}
+  // ** Avoid Global Variables; use of CONST, MOVE, Value orientataion
+  cl_t e_vars;    // {exists-var}
+  cl_t a_vars;    // {forall-var}
+  cls_t dep_set;  // {{dep-var}...}
+  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
+  // ** Add scope enum
   coord_t aut_present = 10; // autarky present
   coord_t min_dep_size = 0; // Used in statistics collection
   coord_t max_dep_size = 0; // Used in stat collection
@@ -68,6 +70,7 @@ int main(int argc, char *argv[]) {
   coord_t no_of_clauses = 0; // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
+  // ** Check this new!!
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
   d->cmdline_parsing(argc, argv);
   // TODO: Remove these number of parameters
@@ -79,6 +82,7 @@ int main(int argc, char *argv[]) {
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
   // Dependent_set and e-a-var sorted
+  // ** Encapsulate this operation!
   std::sort(dep_set.begin(), dep_set.end(),
             [](const cl_t &a, const cl_t &b) { return a[0] < b[0]; });
   std::sort(e_vars.begin(), e_vars.end());
@@ -87,6 +91,10 @@ int main(int argc, char *argv[]) {
   cls_t unique_dep_set = unique_vectors(dep_set);
   lit_t dsize = dcnf_fml.size();
 
+  // ** Add computation to do these!!! No computation in the main!!
+  // ** Try to make it 1 based!
+  // ** Try to implement using Pointers: share value: cashing!!
+  // Dependency set should be a SET shared across the variables
   // Attach info to Variables Class (0 based: use e-1 to refer to var e)
   coord_t e_var_cntr = 0;
   for (lit_t e : e_vars) {
@@ -100,6 +108,7 @@ int main(int argc, char *argv[]) {
     ++e_var_cntr;
   }
 
+  // ** Thsi should not be here!!! Astract
   // Initialize Clause Class with E, A Qvar
   lit_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
@@ -129,6 +138,7 @@ int main(int argc, char *argv[]) {
           c_alits.push_back(l);
         }
       }
+      // ** Not good practice!! cerr !! exit not with 0
       if (c_evars.size() == 0) { // All univ variable case
         d->result = "UNSAT";
         if (d->output_type == 0) {
@@ -137,9 +147,12 @@ int main(int argc, char *argv[]) {
         } else {
           d->display_rresult();
         }
+        // ** Return with int; check the problem!!
+        // ** Include! std::exit
         exit(0);
       }
       // Variable presence info update
+      // ** Expensive process check if usefullness; Remove!!
       for (lit_t v : posv) {
         d->dcnf_variables[v].pos_cls.insert(cls_indx);
       }
