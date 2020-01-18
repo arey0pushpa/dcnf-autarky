@@ -95,15 +95,15 @@ void print_final_assignment(cls_t &final_assgmt, coord_t no_of_vars) {
 
 // Final Output prinitng
 void dcnf::output() {
-  std::cout << "Input Parameter (command line, file): \n";
-  std::cout << "input filename   " << filename << '\n';
-  std::cout << "output filename  " << output_file_name << '\n';
-  std::cout << "autarky level    " << aut_level << '\n';
-  std::cout << "conformity level " << s_level << '\n';
-  std::cout << "encoding type    " << encoding << '\n';
-  std::cout << "no.of var        " << no_of_vars << '\n';
-  std::cout << "no.of clauses    " << no_of_clauses << '\n';
-  std::cout << "no.of tauto clauses " << ntaut << '\n';
+  std::cout << "c Input Parameter (command line, file): \n";
+  std::cout << "c input filename   " << filename << '\n';
+  std::cout << "c output filename  " << output_file_name << '\n';
+  std::cout << "c autarky level    " << aut_level << '\n';
+  std::cout << "c conformity level " << s_level << '\n';
+  std::cout << "c encoding type    " << encoding << '\n';
+  std::cout << "c no.of var        " << no_of_vars << '\n';
+  std::cout << "c no.of clauses    " << no_of_clauses << '\n';
+  std::cout << "c no.of taut cls   " << ntaut << '\n';
   // std::cout << "no_of_avars      " << no_of_avars << '\n';
   /// std::cout << "no_of_evars      " << e_vars << '\n';
   // std::cout << "unique_dep_sets  " << uni_dep_set << '\n';
@@ -113,10 +113,11 @@ void dcnf::output() {
   // std::cout << "vars_in_dimacs   " << vars_in_dimacs << '\n';
   // std::cout << "mtx_size_dimacs  " << matrix_size_dimacs << '\n';
 
-  std::cout << "Output Parameters: \n";
+  std::cout << "c \n";
+  std::cout << "c Output Parameters: \n";
   // std::cout << "remaining no.of avars " << active_avars << '\n';
   // std::cout << "remaining no.of evars " << active_evars << '\n';
-  std::cout << "remaining no.of clauses" << updated_cls_size << '\n';
+  std::cout << "c remaining no.of clauses  " << updated_cls_size << '\n';
 }
 
 // Print the total time taken

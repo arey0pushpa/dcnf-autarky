@@ -44,30 +44,38 @@
  *    - Handle input file structure errors in the case of the R file output
  */
 
-#include <iterator>  // std::advance
+#include <iterator> // std::advance
 
 #include "dcnf.h"
 #include "util.h"
 
+void header() {
+  std::cout << "c DCNF-Autarky [version 0.0.1]. \n"
+               "c Copyright (c) 2018-2019 Swansea "
+               "University. \n";
+  std::cout << "c \n";
+}
+
 int main(int argc, char *argv[]) {
-  cl_t e_vars;               // {exists-var}
-  cl_t a_vars;               // {forall-var}
-  cls_t dep_set;             // {{dep-var}...}
-  cls_t dcnf_fml;            // Input Cnf formula {Clauses} := {{lit,...}...}
-  coord_t aut_present = 10;  // autarky present
-  coord_t min_dep_size = 0;  // Used in statistics collection
-  coord_t max_dep_size = 0;  // Used in stat collection
+  cl_t e_vars;              // {exists-var}
+  cl_t a_vars;              // {forall-var}
+  cls_t dep_set;            // {{dep-var}...}
+  cls_t dcnf_fml;           // Input Cnf formula {Clauses} := {{lit,...}...}
+  coord_t aut_present = 10; // autarky present
+  coord_t min_dep_size = 0; // Used in statistics collection
+  coord_t max_dep_size = 0; // Used in stat collection
   coord_t dependency_var = 0;
-  coord_t no_of_clauses = 0;  // Cleaning: Remove it!!
+  coord_t no_of_clauses = 0; // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
   d->cmdline_parsing(argc, argv);
-	// TODO: Remove these number of parameters
+  // TODO: Remove these number of parameters
   parse_qdimacs_file(d->filename, dcnf_fml, dep_set, a_vars, e_vars,
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
 
+  header();
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
   // Dependent_set and e-a-var sorted
@@ -95,20 +103,20 @@ int main(int argc, char *argv[]) {
   // Initialize Clause Class with E, A Qvar
   lit_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] {  // Use of Lambda :)
+    [&] { // Use of Lambda :)
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (lit_t l : dcnf_fml[i]) {
         lit_t indx = std::abs(l) - 1;
         if (l > 0) {
           posv.insert(indx);
-          if (negv.count(indx)) {  // tauto case
+          if (negv.count(indx)) { // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
         } else {
           negv.insert(indx);
-          if (posv.count(indx)) {  // tauto case
+          if (posv.count(indx)) { // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
@@ -147,7 +155,7 @@ int main(int argc, char *argv[]) {
       cls->initialise_avars(c_avars);
       cls->initialise_alits(c_alits);
       d->dcnf_clauses.push_back(*cls);
-      delete cls; 
+      delete cls;
       ++cls_indx;
     }();
   }
@@ -181,11 +189,13 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].present) continue;
+    if (!d->dcnf_variables[e - 1].present)
+      continue;
     d->active_evars.push_back(e);
   }
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].present) continue;
+    if (!d->dcnf_variables[a - 1].present)
+      continue;
     d->active_avars.push_back(a);
   }
 
@@ -221,7 +231,8 @@ int main(int argc, char *argv[]) {
       }
       d->updated_cls_size = d->present_clauses.size();
       if (d->updated_cls_size == d->old_cls_size && d->reduction_type == 1) {
-        if (d->output_type == 1) d->display_rresult();
+        if (d->output_type == 1)
+          d->display_rresult();
         exit(0);
       } else if (d->updated_cls_size != d->old_cls_size) {
         d->result = "RED";
