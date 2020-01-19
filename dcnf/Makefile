@@ -6,8 +6,7 @@ git = git -c user.name="Auto" -c user.email="auto@auto.com"
 BUILDDIR = $(PWD)/build
 SRCDIR = $(PWD)/src
 
-PROGRAM = dcnf_autarky 
-#dcnf_autarky_debug
+PROGRAM = dcnf_autarky dcnf_autarky_debug
 
 CXXSOURCES = $(SRCDIR)/main.cpp $(SRCDIR)/constraints.cpp $(SRCDIR)/all-solutions.cpp $(SRCDIR)/parse-qdimacs.cpp $(SRCDIR)/translations.cpp
 CXXOBJECTS = $(CXXSOURCES:.cpp=.o)
@@ -22,10 +21,8 @@ Debug_options = -g
 
 .PHONY: all dev
 
-all: dev dcnf_autarky 
-#dcnf_aut_debug 
-# dcnf_autarky_debug
-
+all: dev dcnf_autarky dcnf_aut_debug 
+#dcnf_autarky_debug
 
 dcnf_aut_debug : 
 	$(CXX) -g -pthread $(CXXSOURCES)

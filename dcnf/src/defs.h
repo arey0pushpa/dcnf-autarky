@@ -41,7 +41,8 @@ enum Error_codes {
   empty_clause_error = 9,
   unit_clause_error = 11,
   input_format_violation = 12,
-  free_var_occurrence = 13
+  free_var_occurrence = 13,
+  normal_exit = 100
 };
 
 #endif

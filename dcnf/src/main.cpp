@@ -44,7 +44,7 @@
  *    - Handle input file structure errors in the case of the R file output
  */
 
-#include <iterator> // std::advance
+#include <iterator>  // std::advance
 
 #include "dcnf.h"
 #include "util.h"
@@ -58,16 +58,16 @@ void header() {
 
 int main(int argc, char *argv[]) {
   // ** Avoid Global Variables; use of CONST, MOVE, Value orientataion
-  cl_t e_vars;    // {exists-var}
-  cl_t a_vars;    // {forall-var}
-  cls_t dep_set;  // {{dep-var}...}
-  cls_t dcnf_fml; // Input Cnf formula {Clauses} := {{lit,...}...}
+  cl_t e_vars;     // {exists-var}
+  cl_t a_vars;     // {forall-var}
+  cls_t dep_set;   // {{dep-var}...}
+  cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
   // ** Add scope enum
-  coord_t aut_present = 10; // autarky present
-  coord_t min_dep_size = 0; // Used in statistics collection
-  coord_t max_dep_size = 0; // Used in stat collection
+  coord_t aut_present = 10;  // autarky present
+  coord_t min_dep_size = 0;  // Used in statistics collection
+  coord_t max_dep_size = 0;  // Used in stat collection
   coord_t dependency_var = 0;
-  coord_t no_of_clauses = 0; // Cleaning: Remove it!!
+  coord_t no_of_clauses = 0;  // Cleaning: Remove it!!
   coord_t no_of_var = 0;
 
   // ** Check this new!!
@@ -112,20 +112,20 @@ int main(int argc, char *argv[]) {
   // Initialize Clause Class with E, A Qvar
   lit_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
-    [&] { // Use of Lambda :)
+    [&] {  // Use of Lambda :)
       cl_t c_evars, c_elits, c_avars, c_alits;
       set_t posv, negv;
       for (lit_t l : dcnf_fml[i]) {
         lit_t indx = std::abs(l) - 1;
         if (l > 0) {
           posv.insert(indx);
-          if (negv.count(indx)) { // tauto case
+          if (negv.count(indx)) {  // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
         } else {
           negv.insert(indx);
-          if (posv.count(indx)) { // tauto case
+          if (posv.count(indx)) {  // tauto case
             d->ntaut = d->ntaut + 1;
             return;
           }
@@ -139,14 +139,15 @@ int main(int argc, char *argv[]) {
         }
       }
 
-      if (c_evars.size() == 0) { // All univ variable case
+      if (c_evars.size() == 0) {  // All univ variable case
         d->result = "UNSAT";
         if (d->output_type == 0) {
           std::cout << "c All univ variable case. \n"
                     << "c The input formula is UNSAT."
                     << "\nc\n";
           d->output();
-        } else if (d->output_type == 0 || d->output_type == 1) {
+        }
+        if (d->output_type == 0 || d->output_type == 1) {
           d->display_rresult();
         }
       }
@@ -179,7 +180,8 @@ int main(int argc, char *argv[]) {
       std::cout << "c Empty input clause (modulo tautology).\n"
                 << "c Input formula is SAT.\nc\n";
       d->output();
-    } else if (d->output_type == 0 || d->output_type == 1) {
+    }
+    if (d->output_type == 0 || d->output_type == 1) {
       d->display_rresult();
     }
   }
@@ -201,13 +203,11 @@ int main(int argc, char *argv[]) {
   }
 
   for (lit_t e : e_vars) {
-    if (!d->dcnf_variables[e - 1].present)
-      continue;
+    if (!d->dcnf_variables[e - 1].present) continue;
     d->active_evars.push_back(e);
   }
   for (lit_t a : a_vars) {
-    if (!d->dcnf_variables[a - 1].present)
-      continue;
+    if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
 
@@ -221,7 +221,7 @@ int main(int argc, char *argv[]) {
       d->selected_boolfunc(d->aut_level);
       cl_t iter_active_evars;
       if (d->output_type == 0)
-        std::cout << "Performing E1 Autarky iteration...\n";
+        std::cout << "c Performing E1-Autarky iteration.\nc\n";
       for (lit_t e : d->active_evars) {
         aut_present = d->e_autarky(e);
         if (aut_present == 1) {
@@ -230,22 +230,17 @@ int main(int argc, char *argv[]) {
           d->result = "SAT";
           d->update_avars();
           d->update_evars();
-          if (d->output_type == 0)
-            d->display_eresult(aut_present);
-          else
-            d->display_rresult();
-          exit(0);
+          if (d->output_type == 0) d->display_eresult(aut_present);
+          if (d->output_type == 0 || d->output_type == 1) d->display_rresult();
         }
       }
       if (d->output_type == 0) {
-        std::cout << "Remaining clauses e_autarky reductions" << '\n';
+        std::cout << "c Remaining clauses e_autarky reductions" << '\n';
         d->print_remaining_cls();
       }
       d->updated_cls_size = d->present_clauses.size();
       if (d->updated_cls_size == d->old_cls_size && d->reduction_type == 1) {
-        if (d->output_type == 1)
-          d->display_rresult();
-        exit(0);
+        if (d->output_type == 0 || d->output_type == 1) d->display_rresult();
       } else if (d->updated_cls_size != d->old_cls_size) {
         d->result = "RED";
         d->old_cls_size = d->updated_cls_size;
@@ -257,7 +252,7 @@ int main(int argc, char *argv[]) {
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
       if (d->output_type == 0) {
-        std::cout << "Performing A1 Autarky iteration...\n";
+        std::cout << "c Performing A1-Autarky iteration.\nc\n";
       }
       d->selected_boolfunc(d->aut_level);
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);

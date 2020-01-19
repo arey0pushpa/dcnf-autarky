@@ -26,14 +26,14 @@ void print_cmd_options() {
 void dcnf::cmdline_parsing(int argc, char *argv[]) {
   if (cmd_option_exists(argv, argv + argc, "-h")) {
     print_usage();
-    exit(0);
+    std::exit(0);
   }
   if (cmd_option_exists(argv, argv + argc, "--help")) {
     print_usage();
     std::cout << "\n";
     print_cmd_options();
     std::cout << "\n";
-    exit(0);
+    std::exit(0);
   }
 
   char *file_name = get_cmd_option(argv, argv + argc, "-i");
@@ -49,7 +49,7 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
   } else {
     std::cout << "Please provide an input file. Use [-i filename] or see help "
                  "[-h] for more options\n";
-    exit(0);
+    std::exit(0);
   }
 
   if (output_file) {
@@ -59,7 +59,7 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
 
   if (filename == output_file_name) {
     std::cout << "Please provide differnt filenames for input and output file.";
-    exit(0);
+    std::exit(0);
   }
 
   if (level_set) {
@@ -122,7 +122,7 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
         std::cerr
             << "Input format violation [p-line]. Accepted format: p cnf n1 n2"
             << '\n';
-        exit(input_format_violation);
+        std::exit(input_format_violation);
       }
       break;
     }
