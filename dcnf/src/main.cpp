@@ -49,7 +49,7 @@
 #include "dcnf.h"
 #include "util.h"
 
-void header() {
+void banner() {
   std::cout << "c DCNF-Autarky [version 0.0.1]. \n"
                "c Copyright (c) 2018-2019 Swansea "
                "University. \n";
@@ -78,7 +78,8 @@ int main(int argc, char *argv[]) {
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
 
-  header();
+  banner();
+
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
   // Dependent_set and e-a-var sorted
@@ -197,7 +198,7 @@ int main(int argc, char *argv[]) {
   const coord_t cls_size = d->dcnf_clauses.size();
   d->no_of_clauses = cls_size;
   d->e_vars = e_vars;
-  for (coord_t i; i < cls_size; ++i) {
+  for (coord_t i = 0; i < cls_size; ++i) {
     d->dcnf_fml.push_back(d->dcnf_clauses[i].lits);
     d->present_clauses.insert(i);
   }

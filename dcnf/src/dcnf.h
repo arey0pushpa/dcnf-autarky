@@ -115,7 +115,7 @@ public:
     output_file_name = "/tmp/dcnfAutarky.dimacs";
     aut_level = 1;            // 1-level Autarky
     s_level = 0;              // relaxed, non-strict
-    encoding = 0;             // Binomial
+    encoding = 2;             // Linear encoding 
     reduction_type = 2;       // a-autarky
     coord_t aut_present = 10; // autarky present
     coord_t output_type = 0;  // commandline o/p
