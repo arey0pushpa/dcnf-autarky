@@ -118,6 +118,7 @@ void dcnf::output() {
   // std::cout << "remaining no.of avars " << active_avars << '\n';
   // std::cout << "remaining no.of evars " << active_evars << '\n';
   std::cout << "c remaining no.of clauses  " << updated_cls_size << '\n';
+  std::exit(0);
 }
 
 // Print the total time taken
@@ -203,6 +204,7 @@ void dcnf::display_rresult() {
   r_out += result + " ";
   // r_out += std::to_string(running_time(start)) + " ";
   // std::cout << r_out << "\n";
+  std::exit(0);
 }
 
 /**** A_Autarky ********/

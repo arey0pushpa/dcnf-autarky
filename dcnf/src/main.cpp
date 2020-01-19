@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
     ++e_var_cntr;
   }
 
-  // ** Thsi should not be here!!! Astract
+  // ** This should not be here!!! Abstract
   // Initialize Clause Class with E, A Qvar
   lit_t cls_indx = 0;
   for (coord_t i = 0; i < dsize; ++i) {
@@ -138,18 +138,17 @@ int main(int argc, char *argv[]) {
           c_alits.push_back(l);
         }
       }
-      // ** Not good practice!! cerr !! exit not with 0
+
       if (c_evars.size() == 0) { // All univ variable case
         d->result = "UNSAT";
         if (d->output_type == 0) {
-          std::cout << "All univ variable case. The input formula is UNSAT."
-                    << '\n';
-        } else {
+          std::cout << "c All univ variable case. \n"
+                    << "c The input formula is UNSAT."
+                    << "\nc\n";
+          d->output();
+        } else if (d->output_type == 0 || d->output_type == 1) {
           d->display_rresult();
         }
-        // ** Return with int; check the problem!!
-        // ** Include! std::exit
-        exit(0);
       }
       // Variable presence info update
       // ** Expensive process check if usefullness; Remove!!
@@ -173,16 +172,16 @@ int main(int argc, char *argv[]) {
     }();
   }
 
-  // handle empty clause (modulo tauto) case
+  // Empty clause (modulo tauto) case
   if (d->dcnf_clauses.size() == 0) {
     d->result = "SAT";
     if (d->output_type == 0) {
-      std::cout
-          << "Empty input clause (modulo tautology). Input formula is SAT\n";
-    } else {
+      std::cout << "c Empty input clause (modulo tautology).\n"
+                << "c Input formula is SAT.\nc\n";
+      d->output();
+    } else if (d->output_type == 0 || d->output_type == 1) {
       d->display_rresult();
     }
-    exit(0);
   }
   // Ignore non occuring evars for bf_vars
   for (const lit_t e : e_vars) {
