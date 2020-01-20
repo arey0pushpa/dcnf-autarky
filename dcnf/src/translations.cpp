@@ -132,7 +132,7 @@ lit_t running_time(
 void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   if (aut_present == 20 || aut_present == 10) {
     if (result != "RED") {
-      result = "UNSAT";
+      result = "SAT";
     }
     if (output_type == 0) {
       output();
@@ -169,8 +169,13 @@ void dcnf::display_eresult(coord_t aut_present) {
 
 std::string display_string(cl_t &container) {
   std::string str;
-  for (auto const &c : container) {
-    str += std::to_string(c) + " ";
+  // for (auto const &c : container) {
+  for (coord_t i = 0; i < container.size(); ++i) {
+    if (i == container.size() - 1) {
+      str += std::to_string(container[i]);
+    } else {
+      str += std::to_string(container[i]) + " ";
+    }
   }
   return str;
 }
@@ -194,7 +199,7 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_vars) + " ";
   r_out += std::to_string(no_of_clauses) + " ";
   r_out += aut_type + " ";
-  r_out += "[ " + display_string(assigned_evars) + "] ";
+  r_out += "[" + display_string(assigned_evars) + "] ";
   r_out += std::to_string(ntaut) + " ";
   // r_out += "[ " + display_string(active_avars) + "] ";
   r_out += std::to_string(active_avars.size()) + " ";
@@ -202,7 +207,7 @@ void dcnf::display_rresult() {
   r_out += std::to_string(active_evars.size()) + " ";
   r_out += result + " ";
   // r_out += std::to_string(running_time(start)) + " ";
-  // std::cout << r_out << "\n";
+  std::cout << "c\nc " << r_out << "\n";
   std::exit(0);
 }
 
@@ -356,10 +361,12 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   fout << "\n";
 
   std::string bf_var_size;
-  coord_t total = 0;
+  coord_t total_bfvars = 0;
+  coord_t total_pavars = 0;
 
+  // Create a String (bf_var_size) representing the list of bf_vars
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
-    total += bf_vars[i].size();
+    total_bfvars += bf_vars[i].size();
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_size = bf_var_size + std::to_string(bf_vars[i][j]) + " ";
     }
@@ -370,18 +377,20 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     // fout << "c There are total " << total << " distinct lbf-variables. "
     //     << lbf_var_size;
   } else {
-    fout << "c There are total " << total << " distinct bf-variables. "
+    fout << "c There are total " << total_bfvars << " distinct bf-variables. "
          << bf_var_size;
   }
   fout << "\n";
   fout << "c There are total " << pa_vars.size() << " distinct pa-variables. ";
   for (coord_t i = 0; i < pa_vars.size(); ++i) {
+    ++total_pavars;
     fout << pa_vars[i] << " ";
   }
   fout << '\n';
   fout << "p cnf " << index - 1 << " " << cnf_fml.size() << "\n";
 
-  // TODO: ASSERT! index - 1 = cs_var + pa_var + bf_vars _.size()
+  // Add support for the new auxilary variables by AMO encoding
+  assert(index >= cs_vars.size() + total_pavars + total_bfvars + 1);
 
   for (const cl_t C : cnf_fml) {
     for (const lit_t l : C) {
@@ -402,11 +411,11 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cl_t var_assgn;
   if (output_type == 0) {
     std::cout << "c Running Lingeling ... "
-              << "\n";
+              << "\nc\n";
   }
   std::future_status status;
 
-  status = future.wait_for(std::chrono::seconds(80000));
+  status = future.wait_for(std::chrono::seconds(8000));
 
   // Handle timout and chek for the MemoryOut
   if (status == std::future_status::timeout) {
@@ -441,6 +450,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
         }
         case 's': {
           if (line[2] == 'U') {
+            result = "UNSAT";
             return 20;
           }
           break;
@@ -463,6 +473,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   var_assgn.pop_back();
 
   /*  Update the data structure   */
+  // For each satisfied clause, remove them from cls list and add them to
+  // deleted list Update the variable occurance list
   coord_t vindx = 0;
   set_t update_present_cls;
   for (lit_t c : present_clauses) {
@@ -479,6 +491,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   updated_cls_size = update_present_cls.size();
 
   // Relying on the SAT solver to provide ordered assignment
+  // Register Assignments of the variables
   for (coord_t i = 0; i < bf_vars.size(); ++i) {
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       if (var_assgn[bf_vars[i][j] - 1] > 0) {
