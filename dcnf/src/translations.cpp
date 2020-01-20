@@ -339,7 +339,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   if (!fout) {
     result = "ERR";
     if (output_type == 0) {
-      std::cerr << "Error opening file..." << output_file_name << "\n";
+      std::cerr << "c Error opening file..." << output_file_name << "\n";
     }
     if (output_type == 0 || output_type == 1) {
       display_rresult();
@@ -406,7 +406,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   std::future_status status;
 
-  status = future.wait_for(std::chrono::seconds(8000));
+  status = future.wait_for(std::chrono::seconds(80000));
 
   // Handle timout and chek for the MemoryOut
   if (status == std::future_status::timeout) {
