@@ -200,6 +200,7 @@ public:
                          cl_t &active_evar_index);
   void print_remaining_cls();
   void output();
+  void print_results();
 
   //  friend std::ostream &operator<<(std::ostream &os, const dcnf &m);
 };

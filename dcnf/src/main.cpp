@@ -222,26 +222,26 @@ int main(int argc, char *argv[]) {
       d->selected_boolfunc(d->aut_level);
       cl_t iter_active_evars;
       if (d->output_type == 0)
-        std::cout << "c Performing E1-Autarky iteration.\nc\n";
+        std::cout << "c Performing E1-Autarky iteration.\n";
       for (lit_t e : d->active_evars) {
         aut_present = d->e_autarky(e);
-        if (aut_present == 1) {
+        if (aut_present == 0) {
           iter_active_evars.push_back(e);
         } else if (aut_present == 10) {
           d->result = "SAT";
+          // Use of next two lines?
           d->update_avars();
           d->update_evars();
-          if (d->output_type == 0) d->display_eresult(aut_present);
-          if (d->output_type == 0 || d->output_type == 1) d->display_rresult();
+          d->print_results();
         }
       }
       if (d->output_type == 0) {
-        std::cout << "c Remaining clauses e_autarky reductions" << '\n';
-        d->print_remaining_cls();
+        std::cout << "c Remaining clauses count after E-Reduction: "
+                  << d->present_clauses.size() << "\nc\n";
       }
       d->updated_cls_size = d->present_clauses.size();
       if (d->updated_cls_size == d->old_cls_size && d->reduction_type == 1) {
-        if (d->output_type == 0 || d->output_type == 1) d->display_rresult();
+        d->print_results();
       } else if (d->updated_cls_size != d->old_cls_size) {
         d->result = "RED";
         d->old_cls_size = d->updated_cls_size;
@@ -253,7 +253,7 @@ int main(int argc, char *argv[]) {
     // A_Autraky reduction
     if (d->reduction_type == 2 || d->reduction_type == 3) {
       if (d->output_type == 0) {
-        std::cout << "c Performing A1-Autarky iteration.\nc\n";
+        std::cout << "c Performing A1-Autarky iteration.\n";
       }
       d->selected_boolfunc(d->aut_level);
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);

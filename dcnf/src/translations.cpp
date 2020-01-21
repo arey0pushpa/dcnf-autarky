@@ -155,6 +155,11 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   }
 }
 
+void dcnf::print_results() {
+  if (output_type == 0) output();
+  if (output_type == 0 || output_type == 1) display_rresult();
+}
+
 /** Handle e_aut reduction based on aur_present**/
 void dcnf::display_eresult(coord_t aut_present) {
   if (aut_present == 10) {
@@ -533,6 +538,7 @@ coord_t dcnf::e_autarky(lit_t e) {
   if (dcnf_variables[e - 1].pos_cls.size() +
           dcnf_variables[e - 1].neg_cls.size() ==
       0) {
+    // remove. No use!
     update_data_structure(e);
     return 11;
   }
@@ -548,6 +554,8 @@ coord_t dcnf::e_autarky(lit_t e) {
       return 10;
   }
   cl_t vec = dcnf_variables[e - 1].dependency;
+  // OPTIMISATION: If a clause in s1 do not have any dep variable of e just
+  // QUIT!!
   for (lit_t j : s1) {
     // if (!dcnf_clauses[j].present) continue;
     cl_t cls_s1 = dcnf_clauses[j].lits;
@@ -575,7 +583,7 @@ coord_t dcnf::e_autarky(lit_t e) {
                        set_D.end(),
                        std::inserter(intersect_cls, intersect_cls.begin()));
       if (intersect_cls.size() < 1) {
-        return 1;
+        return 0;
       }
     }
   }
