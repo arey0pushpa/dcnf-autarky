@@ -214,7 +214,7 @@ int main(int argc, char *argv[]) {
 
   d->min_satisfying_assgn(d->aut_level);
   d->old_cls_size = cls_size;
-  d->updated_cls_size = 0;
+  coord_t updated_cls_size = 0;
 
   while (1) {
     // E_Autarky reduction
@@ -239,12 +239,13 @@ int main(int argc, char *argv[]) {
         std::cout << "c Remaining clauses count after E-Reduction: "
                   << d->present_clauses.size() << "\nc\n";
       }
-      d->updated_cls_size = d->present_clauses.size();
-      if (d->updated_cls_size == d->old_cls_size && d->reduction_type == 1) {
+      updated_cls_size = d->present_clauses.size();
+      if (updated_cls_size == d->old_cls_size &&
+          (d->reduction_type == 1 || d->result == "UNSAT")) {
         d->print_results();
-      } else if (d->updated_cls_size != d->old_cls_size) {
+      } else if (updated_cls_size != d->old_cls_size) {
         d->result = "RED";
-        d->old_cls_size = d->updated_cls_size;
+        d->old_cls_size = updated_cls_size;
       }
       d->active_evars = iter_active_evars;
       d->update_avars();
@@ -255,8 +256,18 @@ int main(int argc, char *argv[]) {
       if (d->output_type == 0) {
         std::cout << "c Performing A1-Autarky iteration.\n";
       }
-      d->selected_boolfunc(d->aut_level);
+      // Only recalculate in case not already calculated. TEST!!
+      assert(d->present_clauses.size() <= d->old_cls_size);
+      if ((d->present_clauses.size() != d->old_cls_size) ||
+          d->reduction_type == 2) {
+        d->selected_boolfunc(d->aut_level);
+      }
+
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
+      if (d->output_type == 0) {
+        std::cout << "c Remaining clauses count after A-Reduction: "
+                  << d->present_clauses.size() << "\nc\n";
+      }
       d->display_result(aut_present, d->output_type);
     }
   }

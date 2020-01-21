@@ -150,7 +150,7 @@ public:
   //  cl_t active_evar_index; //  Index Lookup for the evar
   //  cl_t present_cls_index; // Lookup for the present clauses
   coord_t old_cls_size;
-  coord_t updated_cls_size;
+  //coord_t updated_cls_size;
 
   cl_t active_evars;   // Current evar set of active variables
   cl_t assigned_evars; // Evar variables that got assigned
@@ -172,7 +172,6 @@ public:
                     coord_t encoding);
   coord_t e_autarky(lit_t e);
   void cmdline_parsing(int argc, char *argv[]);
-  void display_eresult(coord_t aut_present);
   void display_result(coord_t aut_present, coord_t output_result);
   void display_rresult();
 

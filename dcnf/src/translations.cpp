@@ -116,7 +116,7 @@ void dcnf::output() {
   std::cout << "c Output Parameters: \n";
   // std::cout << "remaining no.of avars " << active_avars << '\n';
   // std::cout << "remaining no.of evars " << active_evars << '\n';
-  std::cout << "c remaining no.of clauses  " << updated_cls_size << '\n';
+  std::cout << "c remaining no.of clauses  " << present_clauses.size() << '\n';
   // std::exit(0);
 }
 
@@ -128,48 +128,24 @@ lit_t running_time(
   return elapsed.count();
 }
 
-/** handle output of an Aut_reduction based on aut_present */
-void dcnf::display_result(coord_t aut_present, coord_t output_type) {
-  if (aut_present == 20 || aut_present == 10) {
-    if (result != "RED") {
-      result = "SAT";
-    }
-    if (output_type == 0) {
-      output();
-    }
-    if (output_type == 0 || output_type == 1) {
-      display_rresult();
-    }
-  } else {
-    if (updated_cls_size == old_cls_size) {
-      if (output_type == 0) {
-        output();
-      }
-      if (output_type == 0 || output_type == 1) {
-        display_rresult();
-      }
-    } else {
-      old_cls_size = updated_cls_size;
-      result = "RED";
-    }
-  }
-}
-
 void dcnf::print_results() {
   if (output_type == 0) output();
   if (output_type == 0 || output_type == 1) display_rresult();
 }
 
-/** Handle e_aut reduction based on aur_present**/
-void dcnf::display_eresult(coord_t aut_present) {
-  if (aut_present == 10) {
-    // result = "SAT";
-    std::cout << "c The input QBF formula is Satisfiable by an e_autarky "
-                 "reduction.\n";
-    std::cout << "c The satisfying assignment is.\n";
-    print_2d_vector(final_assgmt);
+/** handle output of an Aut_reduction based on aut_present */
+void dcnf::display_result(coord_t aut_present, coord_t output_type) {
+  if ((aut_present == 10 && result != "RED") || result == "SAT") {
+    result = "SAT";
+    print_results();
   }
-  std::exit(0);
+  if ((aut_present == 20 && result != "RED") ||
+      (aut_present == 20 && reduction_type == 2)) {
+    // updated_cls_size = present_clauses.size();
+    print_results();
+  }
+  old_cls_size = present_clauses.size();
+  result = "RED";
 }
 
 std::string display_string(cl_t &container) {
@@ -236,6 +212,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   if (index == 1) {
+    result = "SAT";
     return 10;  // empty cls list; return SAT
   }
 
@@ -493,7 +470,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     ++vindx;
   }
   present_clauses = update_present_cls;
-  updated_cls_size = update_present_cls.size();
+  // updated_cls_size = update_present_cls.size();
 
   // Relying on the SAT solver to provide ordered assignment
   // Register Assignments of the variables
@@ -514,6 +491,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   if (present_clauses.size() > 0) {
     return 11;
   } else {
+    result = "SAT";
     return 10;
   }
 }
