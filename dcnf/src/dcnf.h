@@ -120,6 +120,7 @@ public:
     coord_t aut_present = 10; // autarky present
     coord_t output_type = 0;  // commandline o/p
     result = "NONE";
+    ever_reduced = 0;
   }
 
   // Variables
@@ -151,6 +152,7 @@ public:
   //  cl_t present_cls_index; // Lookup for the present clauses
   coord_t old_cls_size;
   //coord_t updated_cls_size;
+  coord_t ever_reduced;
 
   cl_t active_evars;   // Current evar set of active variables
   cl_t assigned_evars; // Evar variables that got assigned

@@ -244,6 +244,7 @@ int main(int argc, char *argv[]) {
           (d->reduction_type == 1 || d->result == "UNSAT")) {
         d->print_results();
       } else if (updated_cls_size != d->old_cls_size) {
+        d->ever_reduced = 1;
         d->result = "RED";
         d->old_cls_size = updated_cls_size;
       }

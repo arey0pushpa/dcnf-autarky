@@ -141,7 +141,11 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   }
   if ((aut_present == 20 && result != "RED") ||
       (aut_present == 20 && reduction_type == 2)) {
-    // updated_cls_size = present_clauses.size();
+    if (ever_reduced) {
+      result = "RED"; 
+    } else {
+      result = "NONE";
+   } 
     print_results();
   }
   old_cls_size = present_clauses.size();
@@ -470,7 +474,6 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     ++vindx;
   }
   present_clauses = update_present_cls;
-  // updated_cls_size = update_present_cls.size();
 
   // Relying on the SAT solver to provide ordered assignment
   // Register Assignments of the variables
@@ -489,6 +492,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   update_evars();
 
   if (present_clauses.size() > 0) {
+    ever_reduced = 1;
     return 11;
   } else {
     result = "SAT";
