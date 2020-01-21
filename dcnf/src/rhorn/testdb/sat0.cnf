@@ -1,0 +1,7 @@
+c This is a 4 clause classic example
+c where no new Rhorn is possible
+p cnf 2 4
+-1 -2 0
+-1 2 0
+1 -2 0
+1 2 0
