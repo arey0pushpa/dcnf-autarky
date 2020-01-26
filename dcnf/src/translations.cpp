@@ -142,10 +142,10 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   if ((aut_present == 20 && result != "RED") ||
       (aut_present == 20 && reduction_type == 2)) {
     if (ever_reduced) {
-      result = "RED"; 
+      result = "RED";
     } else {
       result = "NONE";
-   } 
+    }
     print_results();
   }
   old_cls_size = present_clauses.size();
@@ -284,6 +284,12 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[c][j];
       lit_t slit = std::abs(dummy[0]);
+      coord_t univar = std::abs(dummy[1]);
+      if ((std::find(active_avars.begin(), active_avars.end(), univar) ==
+           active_avars.end()) &&
+          univar != no_of_vars + 1 && univar != no_of_vars + 2) {
+        continue;
+      }
       // Extract the position of the existential var in evars
       lit_t elit = active_evar_index[slit - 1];
       lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
