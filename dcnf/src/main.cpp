@@ -246,7 +246,9 @@ int main(int argc, char *argv[]) {
       } else if (updated_cls_size != d->old_cls_size) {
         d->ever_reduced = 1;
         d->result = "RED";
-        d->old_cls_size = updated_cls_size;
+        if (d->reduction_type == 1) {
+          d->old_cls_size = updated_cls_size;
+        }
       }
       d->active_evars = iter_active_evars;
       d->update_avars();
