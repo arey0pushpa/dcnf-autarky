@@ -285,6 +285,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       cl_t dummy = minsat_clause_assgmt[c][j];
       lit_t slit = std::abs(dummy[0]);
       coord_t univar = std::abs(dummy[1]);
+      // Avoid the case: the uni variable do not occur anymore
       if ((std::find(active_avars.begin(), active_avars.end(), univar) ==
            active_avars.end()) &&
           univar != no_of_vars + 1 && univar != no_of_vars + 2) {
