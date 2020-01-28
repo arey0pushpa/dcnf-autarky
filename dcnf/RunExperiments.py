@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import subprocess
+import hashlib
 from pathlib import Path
 
 if len(sys.argv) != 2:
@@ -40,8 +41,26 @@ for dirpath, dirnames, filenames in os.walk(inputpath):
         Path(path).mkdir(parents=True, exist_ok=True) 
         fff = path + '/' + f + suffix
         Path(fff).touch()
-        #with open(f1, "w") as out:
-
+        file_dir = dirpath + '/' + f1; 
+        hash_object = hashlib.md5(f1.encode()) 
+        with open(fff, "w") as out1:
+            out1.write (hash_object.hexdigest())
+            out1.write (' ')
+            out1.write (f1)
+            out1.write (' ')
+            with open(file_dir, "r") as out2:
+                for line in out2:
+                    if not line or line[0] == 'c':
+                        continue
+                    elif line[0] == 'p':
+                        word_list = line.split()
+                        out1.write (word_list[2])
+                        out1.write (' ')
+                        out1.write (word_list[3])
+                        break
+                    else:
+                        out1.write ('ERR.')
+                       
 print ("c Completed creating the Directory structure setup.\nc")
 
 print ("c Starting Experiments...")
@@ -59,7 +78,7 @@ for dirpath, dirnames, filenames in os.walk(inputpath):
         Path(fff).touch()
         file_dir = dirpath + '/' + files; 
         cmd = ["./dcnf_autarky", "-i", file_dir, "-e", "2", "-r", "3"] 
-        with open(fff, "w+") as out:
+        with open(fff, "w") as out:
             subprocess.call(cmd, stdout=out, stderr=subprocess.PIPE)
 
 print ("c Experiments completed.")
