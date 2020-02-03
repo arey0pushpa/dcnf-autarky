@@ -1,0 +1,1 @@
+8007fdbad39cdc1b11698bf1dff48342 hid_firefly_app_firefly.cpp.qdimacs 64316 217632

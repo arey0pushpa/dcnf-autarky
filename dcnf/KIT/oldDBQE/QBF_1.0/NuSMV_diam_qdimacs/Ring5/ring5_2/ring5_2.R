@@ -1,0 +1,1 @@
+2315dd1bcab505b9103f8a55616f73cb ring5_2.qdimacs 49 152

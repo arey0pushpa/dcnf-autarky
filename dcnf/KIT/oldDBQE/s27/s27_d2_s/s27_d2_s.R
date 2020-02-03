@@ -1,0 +1,1 @@
+67ad18768cd4713072c1de858370bcdb s27_d2_s.qdimacs 85 142

@@ -1,0 +1,1 @@
+bbd83961eac52d14b40daecf493bd1ca 5qbf-5cnf-160var-320cl.0.qdimacs 800 320

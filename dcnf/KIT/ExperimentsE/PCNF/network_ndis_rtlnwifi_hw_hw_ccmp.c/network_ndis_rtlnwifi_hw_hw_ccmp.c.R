@@ -1,0 +1,24 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 22794
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 22786
+c
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 22786
+c
+c Input Parameter (command line, file): 
+c input filename   pcnf/PCNF/network_ndis_rtlnwifi_hw_hw_ccmp.c.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        6847
+c no.of clauses    22794
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  22786
+c
+c pcnf/PCNF/network_ndis_rtlnwifi_hw_hw_ccmp.c.qdimacs 6847 22794 E1 [430 3648] 0 60 6780 22786 RED

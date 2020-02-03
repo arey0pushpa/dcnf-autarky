@@ -1,0 +1,1 @@
+8d7e97c504f336e6a9727f0a5589a7c2 ring6_4.qbf ERR.
