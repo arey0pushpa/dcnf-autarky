@@ -1,1 +1,0 @@
-3d6dae86695cb5435dc05512d8faa355 ring4_2.qdimacs 43 116

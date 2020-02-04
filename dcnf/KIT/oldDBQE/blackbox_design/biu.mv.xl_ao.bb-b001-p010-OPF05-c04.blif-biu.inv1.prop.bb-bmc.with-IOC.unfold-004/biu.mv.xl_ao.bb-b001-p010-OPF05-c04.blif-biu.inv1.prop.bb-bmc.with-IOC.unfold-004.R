@@ -1,1 +1,0 @@
-c68a747706edef050a67d823c7d364da biu.mv.xl_ao.bb-b001-p010-OPF05-c04.blif-biu.inv1.prop.bb-bmc.with-IOC.unfold-004.qdimacs 4537 10654

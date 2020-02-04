@@ -1,1 +1,0 @@
-10d59493009bca8d0080a2e185aaae5f ring_r3_ser--opt-8_.qdimacs 216 1532

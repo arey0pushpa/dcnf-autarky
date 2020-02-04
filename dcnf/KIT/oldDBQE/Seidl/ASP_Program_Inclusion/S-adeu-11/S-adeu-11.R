@@ -1,1 +1,0 @@
-66946bfb6af391176c4e660d5671acb5 S-adeu-11.qdimacs 5382 12554

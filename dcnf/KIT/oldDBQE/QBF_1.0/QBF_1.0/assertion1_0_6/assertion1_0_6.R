@@ -1,1 +1,0 @@
-cd9b1e2544378fea9f299a5eabb8e2e0 assertion1_0_6.qbf ERR.

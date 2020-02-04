@@ -1,1 +1,0 @@
-c1ac7a533ca461cfaf8bbfcd50c0f054 ring5_8.qdimacs 157 800

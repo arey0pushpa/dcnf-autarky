@@ -20,12 +20,12 @@ if sys.argv[1] == "-h" or sys.argv[1] == "--help":
 inputpath = sys.argv[1]
 
 # Create three directories 
-Path("./Autarkies").mkdir(parents=True, exist_ok=True)
-Path("./Database").mkdir(parents=True, exist_ok=True)
-Path("./Experiments").mkdir(parents=True, exist_ok=True)
+Path("./AutarkiesQE").mkdir(parents=True, exist_ok=True)
+Path("./DatabaseQE").mkdir(parents=True, exist_ok=True)
+Path("./ExperimentsQE").mkdir(parents=True, exist_ok=True)
 
-outputpath1 = './Database/'
-outputpath2 = './Experiments/'
+outputpath1 = './DatabaseQE/'
+outputpath2 = './ExperimentsQE/'
 suffix = '.R'
 
 print ("c Starting the directory structure setup.")
@@ -77,7 +77,7 @@ for dirpath, dirnames, filenames in os.walk(inputpath):
         fff = path + '/' + f + suffix
         Path(fff).touch()
         file_dir = dirpath + '/' + files; 
-        cmd = ["./dcnf_autarky", "-i", file_dir, "-e", "2", "-r", "3"] 
+        cmd = ["timeout", "4000", "./dcnf_autarky", "-i", file_dir, "-e", "2", "-r", "1"] 
         with open(fff, "w") as out:
             subprocess.call(cmd, stdout=out, stderr=subprocess.PIPE)
 

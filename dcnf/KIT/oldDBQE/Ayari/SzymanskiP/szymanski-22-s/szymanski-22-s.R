@@ -1,1 +1,0 @@
-f1893bff96941c47a95f16ed66b5264f szymanski-22-s.qdimacs 212561 242839

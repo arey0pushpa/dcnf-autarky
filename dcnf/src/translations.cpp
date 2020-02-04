@@ -190,7 +190,9 @@ void dcnf::display_rresult() {
   r_out += std::to_string(active_avars.size()) + " ";
   // r_out += "[ " + display_string(active_evars) + "] ";
   r_out += std::to_string(active_evars.size()) + " ";
-  r_out += result + " ";
+  r_out += std::to_string(present_clauses.size()) + " ";
+  r_out += result;
+  
   // r_out += std::to_string(running_time(start)) + " ";
   std::cout << "c\nc " << r_out << "\n";
   std::exit(0);

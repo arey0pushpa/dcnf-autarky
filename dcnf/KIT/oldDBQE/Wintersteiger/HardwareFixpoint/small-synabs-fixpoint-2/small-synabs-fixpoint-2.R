@@ -1,1 +1,0 @@
-717b8e7937d649129f3d7d5eb0f25bf8 small-synabs-fixpoint-2.qdimacs 403 1127

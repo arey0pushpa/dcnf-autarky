@@ -1,1 +1,0 @@
-ca45462bc47096a9259385a9e74a1e63 ring6_32.qbf ERR.
