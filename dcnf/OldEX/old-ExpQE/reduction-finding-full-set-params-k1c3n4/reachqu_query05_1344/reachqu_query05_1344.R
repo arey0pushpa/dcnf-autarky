@@ -1,0 +1,24 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 13589
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 13493
+c
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 13493
+c
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/Jordan-Kaiser/reduction-finding-full-set-params-k1c3n4/reachqu_query05_1344.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        3673
+c no.of clauses    13589
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  13493
+c
+c QBFLIB/Jordan-Kaiser/reduction-finding-full-set-params-k1c3n4/reachqu_query05_1344.qdimacs 3673 13589 E1 [1 25 48 92 115 138] 0 16 3651 13493 RED

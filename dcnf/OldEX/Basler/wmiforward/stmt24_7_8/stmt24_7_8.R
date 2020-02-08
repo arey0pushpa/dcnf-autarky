@@ -1,0 +1,21 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 37
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 37
+c
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/Basler/wmiforward/stmt24_7_8.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        17
+c no.of clauses    37
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  37
+c
+c QBFLIB/Basler/wmiforward/stmt24_7_8.qdimacs 17 37 E1 [] 0 5 12 37 NONE
