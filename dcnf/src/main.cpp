@@ -216,7 +216,7 @@ int main(int argc, char *argv[]) {
      std::cout << "c Input Clause Count: " << cls_size << "\n";
   }
 
-  //d->min_satisfying_assgn(d->aut_level);
+  d->min_satisfying_assgn(d->aut_level);
   d->old_cls_size = cls_size;
   coord_t updated_cls_size = 0;
 
