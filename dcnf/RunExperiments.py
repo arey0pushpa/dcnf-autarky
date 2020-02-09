@@ -20,12 +20,12 @@ if sys.argv[1] == "-h" or sys.argv[1] == "--help":
 inputpath = sys.argv[1]
 
 # Create three directories 
-Path("./AutarkiesQE").mkdir(parents=True, exist_ok=True)
-Path("./DatabaseQE").mkdir(parents=True, exist_ok=True)
-Path("./ExperimentsQE").mkdir(parents=True, exist_ok=True)
+Path("./AutarkiesQEF").mkdir(parents=True, exist_ok=True)
+Path("./DatabaseQEF").mkdir(parents=True, exist_ok=True)
+Path("./ExperimentsQEF").mkdir(parents=True, exist_ok=True)
 
-outputpath1 = './DatabaseQE/'
-outputpath2 = './ExperimentsQE/'
+outputpath1 = './DatabaseQEF/'
+outputpath2 = './ExperimentsQEF/'
 suffix = '.R'
 
 print ("c Starting the directory structure setup.")
@@ -36,6 +36,8 @@ for dirpath, dirnames, filenames in os.walk(inputpath):
     if not filenames:
         continue
     for f1 in filenames:
+        if not f1.endswith('.qdimacs'):
+            continue
         f = os.path.splitext(f1)[0]
         path = structure + '/' + f
         Path(path).mkdir(parents=True, exist_ok=True) 
@@ -71,6 +73,8 @@ for dirpath, dirnames, filenames in os.walk(inputpath):
     if not filenames:
         continue
     for files in filenames:
+        if not files.endswith('.qdimacs'):
+            continue
         f = os.path.splitext(files)[0]
         path = structure2 + '/' + f
         Path(path).mkdir(parents=True, exist_ok=True) 
