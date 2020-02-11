@@ -1,0 +1,1 @@
+4086ac4b7b583ffdb3b7f48437fcd7b0 connect_8x7_4_D.qdimacs 756107 134961

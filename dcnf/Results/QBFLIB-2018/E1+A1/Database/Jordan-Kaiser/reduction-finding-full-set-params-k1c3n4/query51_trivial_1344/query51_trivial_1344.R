@@ -1,0 +1,1 @@
+6d68c6cd0efde25616f374bba5aceec7 query51_trivial_1344.qdimacs 141 220

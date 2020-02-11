@@ -1,0 +1,1 @@
+63198a8b0073f9ef93e0b6d60ab9532c exquery_query64_1344.qdimacs 675 1698

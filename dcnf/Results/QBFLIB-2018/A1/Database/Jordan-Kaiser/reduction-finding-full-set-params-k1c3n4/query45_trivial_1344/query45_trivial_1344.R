@@ -1,0 +1,1 @@
+3f0b66c48131b3fbf0ab6bfd56e1fefc query45_trivial_1344.qdimacs 133 248

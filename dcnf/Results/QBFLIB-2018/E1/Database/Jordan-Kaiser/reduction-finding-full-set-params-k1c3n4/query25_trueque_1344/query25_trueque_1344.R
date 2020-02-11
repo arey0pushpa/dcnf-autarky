@@ -1,0 +1,1 @@
+1d7e93f311fc4e4d7ae02ca958889a3b query25_trueque_1344.qdimacs 17 17

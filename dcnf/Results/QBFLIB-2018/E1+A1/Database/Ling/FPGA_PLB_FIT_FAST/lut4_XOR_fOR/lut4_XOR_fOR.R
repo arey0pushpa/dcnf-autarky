@@ -1,0 +1,1 @@
+a74423c1673781fff1744b481c7f8703 lut4_XOR_fOR.qdimacs 43 168

@@ -1,0 +1,1 @@
+6786bc98798ece9d03d8c109c8ea6226 p10-10.pddl_planlen=0.qdimacs 80 80

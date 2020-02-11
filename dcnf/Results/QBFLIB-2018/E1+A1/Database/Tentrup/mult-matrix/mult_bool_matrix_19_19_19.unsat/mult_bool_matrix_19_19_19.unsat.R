@@ -1,0 +1,1 @@
+70c00ea0f6bbb59f20eb7c6eb15c79ab mult_bool_matrix_19_19_19.unsat.qdimacs 101447 301080

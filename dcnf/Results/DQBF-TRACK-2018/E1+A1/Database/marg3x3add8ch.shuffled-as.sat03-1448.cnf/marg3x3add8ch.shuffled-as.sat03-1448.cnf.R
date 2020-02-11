@@ -1,0 +1,1 @@
+43e22d43b8205fee307dca276c56e2dc marg3x3add8ch.shuffled-as.sat03-1448.cnf.dqdimacs 23 2640

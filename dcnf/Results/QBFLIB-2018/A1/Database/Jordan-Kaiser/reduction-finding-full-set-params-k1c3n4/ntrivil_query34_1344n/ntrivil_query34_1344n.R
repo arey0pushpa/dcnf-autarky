@@ -1,0 +1,1 @@
+59fbc255a6786a3f31a153c93cb693f1 ntrivil_query34_1344n.qdimacs 1541 5950

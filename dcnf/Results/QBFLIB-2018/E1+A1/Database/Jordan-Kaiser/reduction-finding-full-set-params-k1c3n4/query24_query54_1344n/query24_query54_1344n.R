@@ -1,0 +1,1 @@
+c6bd49fafd6b338beeedf62b8459a42a query24_query54_1344n.qdimacs 945 1698

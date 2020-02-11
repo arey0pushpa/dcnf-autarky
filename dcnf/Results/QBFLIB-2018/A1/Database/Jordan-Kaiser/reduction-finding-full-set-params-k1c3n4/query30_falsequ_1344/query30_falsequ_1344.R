@@ -1,0 +1,1 @@
+82d6f0f4a728e93ba082d10a104766ae query30_falsequ_1344.qdimacs 1 2

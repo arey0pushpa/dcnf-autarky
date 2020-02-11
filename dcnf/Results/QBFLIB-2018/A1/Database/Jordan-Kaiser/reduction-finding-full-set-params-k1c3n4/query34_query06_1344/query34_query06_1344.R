@@ -1,0 +1,1 @@
+499e9fe9752ff6a53e249d34baf4b9af query34_query06_1344.qdimacs 1077 2508

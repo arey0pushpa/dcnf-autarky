@@ -1,0 +1,1 @@
+74daef2243b6ba6eac37c66b04b56267 query50_query07_1344n.qdimacs 332 573

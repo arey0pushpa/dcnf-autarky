@@ -1,0 +1,1 @@
+0c59690123b1fabc0f39de0f487329b6 query33_exquery_1344.qdimacs 275 456

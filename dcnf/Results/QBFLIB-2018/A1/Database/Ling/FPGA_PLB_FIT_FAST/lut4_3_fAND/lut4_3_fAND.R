@@ -1,0 +1,1 @@
+2f6f671e578189fc1c55d26dd6ed60c6 lut4_3_fAND.qdimacs 112 1832

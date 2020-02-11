@@ -1,0 +1,1 @@
+e6602affdff1577301afdc21917496b0 sgen3-n200-s39840374-sat.cnf.dqdimacs 22 1520

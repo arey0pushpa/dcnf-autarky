@@ -1,0 +1,1 @@
+66a385323e3088dc5ea2fc7820d2fcb0 query34_query64_1344.qdimacs 1135 2424

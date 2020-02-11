@@ -1,0 +1,1 @@
+4179b67c704d2abdfbd1f30b7ff4ff58 query07_query10_1344.qdimacs 2469 8159

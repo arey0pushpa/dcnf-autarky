@@ -1,0 +1,1 @@
+c10adebcaf6084a88956df065808bacf p10-1.pddl_planlen=26.qdimacs 1474 4266

@@ -1,0 +1,1 @@
+50e12b1eb99bcf4ebb63dbcac82bb985 query49_query71_1344.qdimacs 8200 49946

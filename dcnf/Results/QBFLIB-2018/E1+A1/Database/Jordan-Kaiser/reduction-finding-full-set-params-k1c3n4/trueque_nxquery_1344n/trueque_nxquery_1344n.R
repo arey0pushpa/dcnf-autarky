@@ -1,0 +1,1 @@
+d74348a86b7a9ba9fbf9d3f1e515bbe7 trueque_nxquery_1344n.qdimacs 71 102

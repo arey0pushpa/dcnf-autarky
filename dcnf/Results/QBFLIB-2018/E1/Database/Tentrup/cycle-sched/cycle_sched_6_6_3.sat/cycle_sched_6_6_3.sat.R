@@ -1,0 +1,1 @@
+b6780a1cd04190ce0e18aeabee5f248c cycle_sched_6_6_3.sat.qdimacs 5502 20703

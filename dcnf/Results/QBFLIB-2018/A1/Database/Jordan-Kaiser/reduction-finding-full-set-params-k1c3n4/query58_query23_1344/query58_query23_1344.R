@@ -1,0 +1,1 @@
+52300f475cfea1c5ec50b06ae783e2ad query58_query23_1344.qdimacs 127 306

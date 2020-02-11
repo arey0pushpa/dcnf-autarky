@@ -1,0 +1,1 @@
+32cbabe5054bf6a61a48269f52b0e555 query54_query09_1344.qdimacs 1026 2487

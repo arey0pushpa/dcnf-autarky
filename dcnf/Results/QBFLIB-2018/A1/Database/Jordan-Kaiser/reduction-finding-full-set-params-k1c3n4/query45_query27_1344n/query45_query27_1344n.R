@@ -1,0 +1,1 @@
+adf29980c705dc35ec439e860b257c92 query45_query27_1344n.qdimacs 201 309

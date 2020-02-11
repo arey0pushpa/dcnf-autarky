@@ -1,0 +1,1 @@
+816f5a1e968341aa8b82e05cdf58bd13 query57_query45_1344n.qdimacs 2197 8172

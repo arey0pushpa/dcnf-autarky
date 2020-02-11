@@ -1,0 +1,1 @@
+39b6e13c294c7f5327842b25315debac dungeon_i25-m12-u3-v0.pddl_planlen=1.qdimacs 1299 6881

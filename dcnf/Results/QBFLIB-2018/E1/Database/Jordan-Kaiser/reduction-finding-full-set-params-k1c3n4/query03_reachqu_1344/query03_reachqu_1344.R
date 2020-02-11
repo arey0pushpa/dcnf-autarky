@@ -1,0 +1,1 @@
+fc075a7d7437c7c451e4e2775a9bdb82 query03_reachqu_1344.qdimacs 2569 9171

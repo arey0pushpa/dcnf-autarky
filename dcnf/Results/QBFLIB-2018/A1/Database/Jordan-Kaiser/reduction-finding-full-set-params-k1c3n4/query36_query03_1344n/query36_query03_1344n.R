@@ -1,0 +1,1 @@
+e68fbea34557fa2cfa5bd1770ca096b6 query36_query03_1344n.qdimacs 913 1997

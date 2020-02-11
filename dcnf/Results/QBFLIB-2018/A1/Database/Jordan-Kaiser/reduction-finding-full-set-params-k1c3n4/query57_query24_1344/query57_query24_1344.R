@@ -1,0 +1,1 @@
+52545e9666524bc70aed3be6d75a9b2b query57_query24_1344.qdimacs 161 346

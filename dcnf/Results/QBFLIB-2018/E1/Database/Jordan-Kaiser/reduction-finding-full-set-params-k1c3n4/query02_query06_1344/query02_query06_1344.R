@@ -1,0 +1,1 @@
+36e4edbd0fc5ef78d5446218d7d3c0be query02_query06_1344.qdimacs 617 1790

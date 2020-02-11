@@ -1,0 +1,1 @@
+c15fef420d9846de0c830503a0eb4432 query54_falsequ_1344.qdimacs 135 276

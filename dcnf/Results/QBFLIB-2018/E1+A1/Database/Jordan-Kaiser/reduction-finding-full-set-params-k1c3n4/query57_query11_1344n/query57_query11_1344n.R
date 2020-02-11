@@ -1,0 +1,1 @@
+c226b5f845a6c589fb7da77bc32ea3b8 query57_query11_1344n.qdimacs 2229 8252

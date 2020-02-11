@@ -1,0 +1,1 @@
+7393722e5acd9bcda501667bb5faf6b5 query45_query71_1344.qdimacs 913 2254

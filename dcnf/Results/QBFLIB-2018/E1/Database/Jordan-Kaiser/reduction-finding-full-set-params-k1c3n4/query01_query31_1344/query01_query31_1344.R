@@ -1,0 +1,1 @@
+866bd27576414bdaaf1f1e4c2be97626 query01_query31_1344.qdimacs 603 1734

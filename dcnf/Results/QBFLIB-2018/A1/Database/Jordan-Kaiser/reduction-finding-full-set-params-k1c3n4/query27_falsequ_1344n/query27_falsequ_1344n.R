@@ -1,0 +1,1 @@
+e3574f38d10acc94c0f073fb689130c4 query27_falsequ_1344n.qdimacs 9 2

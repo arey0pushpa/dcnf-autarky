@@ -1,0 +1,1 @@
+101cd56c751d2febbd9dcfa1dcb6a938 query02_query60_1344.qdimacs 733 1828

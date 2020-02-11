@@ -1,0 +1,1 @@
+3d3229962de1539d498d7fedbc46cd1b eequery_nxquery_1344.qdimacs 111 166

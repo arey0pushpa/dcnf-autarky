@@ -1,0 +1,1 @@
+0c6317c88afea40ed2a594cc726625bc query36_query02_1344.qdimacs 373 602

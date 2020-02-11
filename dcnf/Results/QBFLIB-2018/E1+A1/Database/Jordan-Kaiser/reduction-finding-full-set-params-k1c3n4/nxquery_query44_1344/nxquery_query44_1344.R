@@ -1,0 +1,1 @@
+2507dfa1021c583ff0ad0a38f4e3544c nxquery_query44_1344.qdimacs 618 1815

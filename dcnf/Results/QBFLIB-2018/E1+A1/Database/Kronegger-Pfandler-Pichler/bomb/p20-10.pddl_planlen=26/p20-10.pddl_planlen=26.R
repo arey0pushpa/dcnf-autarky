@@ -1,0 +1,1 @@
+ea81ed4a70579a2dc2ae334cad6121fb p20-10.pddl_planlen=26.qdimacs 8700 600756

@@ -1,0 +1,1 @@
+67a434e16554ade25c37cca4f45640d9 query58_query30_1344.qdimacs 269 1035

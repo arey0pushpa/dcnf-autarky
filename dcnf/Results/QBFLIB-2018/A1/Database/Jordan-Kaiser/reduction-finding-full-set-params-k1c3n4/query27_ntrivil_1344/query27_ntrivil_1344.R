@@ -1,0 +1,1 @@
+57de0a8c7747bc44baf3e788d6e8f838 query27_ntrivil_1344.qdimacs 195 348

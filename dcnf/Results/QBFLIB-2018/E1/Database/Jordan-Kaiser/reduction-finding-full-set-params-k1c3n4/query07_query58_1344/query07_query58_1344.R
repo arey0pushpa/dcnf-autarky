@@ -1,0 +1,1 @@
+3acd9e1b86fbb03746c568af38ecc3ad query07_query58_1344.qdimacs 3225 9930

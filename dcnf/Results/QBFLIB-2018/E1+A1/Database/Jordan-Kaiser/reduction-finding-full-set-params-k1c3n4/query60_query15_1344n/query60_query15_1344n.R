@@ -1,0 +1,1 @@
+b7f1a42fe6b74139a9eac94da7a74212 query60_query15_1344n.qdimacs 245 428

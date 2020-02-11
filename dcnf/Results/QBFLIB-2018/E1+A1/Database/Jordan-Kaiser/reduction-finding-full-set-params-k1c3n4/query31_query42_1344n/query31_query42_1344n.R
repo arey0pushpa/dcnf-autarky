@@ -1,0 +1,1 @@
+68da4c62b212eaf12f9bdc63545e28c8 query31_query42_1344n.qdimacs 1182 2703

@@ -1,0 +1,1 @@
+211405c4252f98539cfb0f919dd8a774 query26_eequery_1344.qdimacs 447 1266

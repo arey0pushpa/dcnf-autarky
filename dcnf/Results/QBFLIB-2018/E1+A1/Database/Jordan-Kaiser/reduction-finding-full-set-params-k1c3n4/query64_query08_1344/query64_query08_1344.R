@@ -1,0 +1,1 @@
+3f975a49edb59358bd38e2b08f2f02ef query64_query08_1344.qdimacs 1190 3109

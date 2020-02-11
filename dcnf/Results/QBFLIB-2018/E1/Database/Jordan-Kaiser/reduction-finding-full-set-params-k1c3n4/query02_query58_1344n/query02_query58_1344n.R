@@ -1,0 +1,1 @@
+78e7ec4773c8c6e8fcc49cee7a4fa708 query02_query58_1344n.qdimacs 757 1869

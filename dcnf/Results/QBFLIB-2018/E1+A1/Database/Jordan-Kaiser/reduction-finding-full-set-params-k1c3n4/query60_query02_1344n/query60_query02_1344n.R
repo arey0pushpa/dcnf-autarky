@@ -1,0 +1,1 @@
+425455c533d688fcad7aa7ddefb1a6e2 query60_query02_1344n.qdimacs 1717 3786

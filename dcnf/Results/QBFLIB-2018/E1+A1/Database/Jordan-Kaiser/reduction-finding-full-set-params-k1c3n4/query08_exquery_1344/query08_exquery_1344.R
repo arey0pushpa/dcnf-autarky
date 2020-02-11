@@ -1,0 +1,1 @@
+4d0cd1d4004afed9849d08d7449aa169 query08_exquery_1344.qdimacs 1845 6841

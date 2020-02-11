@@ -1,0 +1,1 @@
+036ce02f849ce49ab78feffcb2952832 query51_query24_1344.qdimacs 30 39

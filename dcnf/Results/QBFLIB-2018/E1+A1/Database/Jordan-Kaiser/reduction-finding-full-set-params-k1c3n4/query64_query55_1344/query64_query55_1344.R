@@ -1,0 +1,1 @@
+27bdbefd5d10219dd7df1a566e43edb0 query64_query55_1344.qdimacs 1119 2458

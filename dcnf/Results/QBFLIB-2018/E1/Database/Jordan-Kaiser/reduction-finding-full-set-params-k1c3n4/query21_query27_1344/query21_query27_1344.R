@@ -1,0 +1,1 @@
+0b3f34c651abf1dd5adb115485386abe query21_query27_1344.qdimacs 1273 2729

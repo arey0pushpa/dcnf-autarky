@@ -1,0 +1,1 @@
+6608daf4eff5bc2bdf4fb625aca30ce1 query58_query33_1344.qdimacs 3079 11673

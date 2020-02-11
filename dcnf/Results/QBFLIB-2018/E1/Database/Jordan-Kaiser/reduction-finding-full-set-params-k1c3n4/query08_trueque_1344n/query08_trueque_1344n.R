@@ -1,0 +1,1 @@
+4933c556c715ea9f268fdba9db749009 query08_trueque_1344n.qdimacs 17 2

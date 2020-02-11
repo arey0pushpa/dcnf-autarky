@@ -1,0 +1,1 @@
+b31f6bb63ea0065ea44c12314a1ac243 query71_query15_1344n.qdimacs 257 438

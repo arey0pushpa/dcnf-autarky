@@ -1,0 +1,1 @@
+bfa9825c0f7e26de242b21381458f6b8 query23_query24_1344n.qdimacs 1 1

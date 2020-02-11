@@ -1,0 +1,1 @@
+fb9a3d82993b7aa411b90aa16c60bc1c falsequ_nxquery_1344.qdimacs 71 102

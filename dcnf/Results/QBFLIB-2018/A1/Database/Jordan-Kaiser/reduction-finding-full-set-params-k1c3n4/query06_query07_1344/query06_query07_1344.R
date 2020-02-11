@@ -1,0 +1,1 @@
+eb50fcf3791ec6f33bc206a6c64cec98 query06_query07_1344.qdimacs 1510 3528

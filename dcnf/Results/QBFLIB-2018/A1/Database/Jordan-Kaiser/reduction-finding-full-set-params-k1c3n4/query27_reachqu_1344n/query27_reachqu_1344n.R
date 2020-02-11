@@ -1,0 +1,1 @@
+88d2d1c7eea99183710e34a1a416d34a query27_reachqu_1344n.qdimacs 590 1537

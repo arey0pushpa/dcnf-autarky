@@ -1,0 +1,1 @@
+0c5f6bd666b42c7a756a22ac0bc66e9f query50_query07_1344.qdimacs 332 632

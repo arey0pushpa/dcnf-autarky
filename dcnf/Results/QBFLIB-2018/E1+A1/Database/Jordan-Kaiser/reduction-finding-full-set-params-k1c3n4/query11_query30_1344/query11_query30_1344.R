@@ -1,0 +1,1 @@
+42c32fffbf1d43a137e849ec894c8918 query11_query30_1344.qdimacs 52 181

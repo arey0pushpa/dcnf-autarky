@@ -1,0 +1,1 @@
+7498af799edce39ab31727a56db49bef query60_query25_1344.qdimacs 2399 9717

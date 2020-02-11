@@ -1,0 +1,1 @@
+6e415f6c69195ab7caf28aaca4a67ece sgen3-n120-s12930489-sat.cnf.dqdimacs 20 912

@@ -1,0 +1,1 @@
+17fb1237bf207cccd3abc351ee70c4e1 query03_query31_1344n.qdimacs 2713 9942

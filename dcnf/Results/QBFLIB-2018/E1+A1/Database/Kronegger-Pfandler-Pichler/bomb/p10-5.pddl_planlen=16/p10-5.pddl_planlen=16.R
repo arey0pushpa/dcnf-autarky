@@ -1,0 +1,1 @@
+ec91cc19ccc1408ea3dc09391d011890 p10-5.pddl_planlen=16.qdimacs 1900 29106

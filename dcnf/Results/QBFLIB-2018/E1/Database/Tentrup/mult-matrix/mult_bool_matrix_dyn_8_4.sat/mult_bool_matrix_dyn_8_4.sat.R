@@ -1,0 +1,1 @@
+8f202e4d12c52217f37779b98d93c797 mult_bool_matrix_dyn_8_4.sat.qdimacs 2400 7142

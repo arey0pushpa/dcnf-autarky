@@ -1,0 +1,1 @@
+dd81d1d07811acc21f4d99caf89cc2eb gttt_2_2_00102030_4x4_b.qdimacs 10316 27131

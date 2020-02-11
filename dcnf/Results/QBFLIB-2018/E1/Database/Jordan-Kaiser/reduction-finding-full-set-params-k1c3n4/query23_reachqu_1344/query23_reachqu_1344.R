@@ -1,0 +1,1 @@
+641f217afab99fed9885c67d1dafcf51 query23_reachqu_1344.qdimacs 697 1531

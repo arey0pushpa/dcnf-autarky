@@ -1,0 +1,1 @@
+b13e00a34a94abdacc66f150658da1da query60_query44_1344.qdimacs 3535 13335

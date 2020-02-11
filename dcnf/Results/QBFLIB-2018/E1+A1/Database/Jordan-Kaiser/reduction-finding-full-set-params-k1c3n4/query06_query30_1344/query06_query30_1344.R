@@ -1,0 +1,1 @@
+bbc27d20dccd3fa9b28384d0cbee19fd query06_query30_1344.qdimacs 257 1017

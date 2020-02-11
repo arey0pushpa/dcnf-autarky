@@ -1,0 +1,1 @@
+141debbcffa74acb63477d9cff93245c query23_query50_1344n.qdimacs 409 538

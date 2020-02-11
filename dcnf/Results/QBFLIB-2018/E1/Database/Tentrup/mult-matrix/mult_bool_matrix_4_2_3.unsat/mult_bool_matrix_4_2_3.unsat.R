@@ -1,0 +1,1 @@
+e71044ac4aa32e72dd3daa23993ec90d mult_bool_matrix_4_2_3.unsat.qdimacs 550 1560

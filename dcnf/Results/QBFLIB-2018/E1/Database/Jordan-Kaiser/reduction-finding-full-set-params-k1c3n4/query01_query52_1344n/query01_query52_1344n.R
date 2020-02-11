@@ -1,0 +1,1 @@
+2b89d419ed9f0e7e78a7a47e5d96a745 query01_query52_1344n.qdimacs 435 1229

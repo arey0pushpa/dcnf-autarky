@@ -1,0 +1,1 @@
+b33d66aac179611d467f327a12f10ecc query45_query06_1344.qdimacs 913 2254

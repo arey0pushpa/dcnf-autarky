@@ -1,0 +1,1 @@
+bd18f42bf3203d0d8dbb2ed17e5add01 query04_trivial_1344.qdimacs 197 341

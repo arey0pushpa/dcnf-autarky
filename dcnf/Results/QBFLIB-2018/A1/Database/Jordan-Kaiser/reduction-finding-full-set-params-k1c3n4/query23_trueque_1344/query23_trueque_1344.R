@@ -1,0 +1,1 @@
+03cbbae3810523ff91be696db58e91e6 query23_trueque_1344.qdimacs 1 2

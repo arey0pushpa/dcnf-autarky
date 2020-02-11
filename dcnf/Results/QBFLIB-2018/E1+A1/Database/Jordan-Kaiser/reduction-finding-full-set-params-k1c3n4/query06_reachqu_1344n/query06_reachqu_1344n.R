@@ -1,0 +1,1 @@
+0ec4b277d3411fcec4d22b0136377bde query06_reachqu_1344n.qdimacs 2725 8730

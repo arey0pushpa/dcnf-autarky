@@ -1,0 +1,1 @@
+44e47963add600342dcb10c999fd79d9 query55_query02_1344.qdimacs 337 562

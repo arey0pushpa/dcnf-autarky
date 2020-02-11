@@ -1,0 +1,1 @@
+d82b04d5191ee65bbc5386a5cf934586 query04_query57_1344.qdimacs 699 1971

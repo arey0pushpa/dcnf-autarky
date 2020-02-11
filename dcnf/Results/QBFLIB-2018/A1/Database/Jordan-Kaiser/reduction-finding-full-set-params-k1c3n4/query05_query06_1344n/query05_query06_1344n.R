@@ -1,0 +1,1 @@
+12fe1defc9342af337c10478a974d9fc query05_query06_1344n.qdimacs 619 1757

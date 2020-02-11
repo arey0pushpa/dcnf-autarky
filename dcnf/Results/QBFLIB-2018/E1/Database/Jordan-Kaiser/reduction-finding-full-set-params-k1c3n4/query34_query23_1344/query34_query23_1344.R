@@ -1,0 +1,1 @@
+8248c7fdc770b228625df8928c0e98ed query34_query23_1344.qdimacs 109 190

@@ -1,0 +1,1 @@
+80dff9df957f791eb1288eba2bdbee92 query03_eequery_1344n.qdimacs 2089 8070

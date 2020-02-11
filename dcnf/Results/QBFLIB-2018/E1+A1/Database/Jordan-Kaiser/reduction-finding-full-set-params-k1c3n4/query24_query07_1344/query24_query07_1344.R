@@ -1,0 +1,1 @@
+d3a347dbe03b0303fba56c65c8f22898 query24_query07_1344.qdimacs 234 978

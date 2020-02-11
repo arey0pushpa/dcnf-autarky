@@ -1,0 +1,1 @@
+6debb8e81ce15d3c4424bec23416f41e query55_query05_1344.qdimacs 331 556

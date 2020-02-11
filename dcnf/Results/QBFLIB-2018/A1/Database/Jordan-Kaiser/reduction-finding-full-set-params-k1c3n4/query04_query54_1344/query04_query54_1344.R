@@ -1,0 +1,1 @@
+d424f3b950a784bfac7e9657da21fa6b query04_query54_1344.qdimacs 677 1922

@@ -1,0 +1,1 @@
+e602abfdf2bc8e376995ee289ba7f3af cube_c3_ser--opt-6_.qdimacs 176 1026

@@ -1,0 +1,1 @@
+ecc6659f2812c606ab679abfd1755bba gttt_2_2_0010_4x4_w.qdimacs 10572 27899

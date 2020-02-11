@@ -1,0 +1,1 @@
+92dd0e8515157da27c135c8afdaa8671 query51_reachqu_1344.qdimacs 798 2005

@@ -1,0 +1,1 @@
+d3fc458162314fa9d7a99caf1141051b 2qbf-5cnf-40var-80cl.0.qdimacs 80 80

@@ -1,0 +1,1 @@
+b82dc4ecbe6fd0735aa9eec9d9b2df63 rewriting_k_10.qdimacs 24 66

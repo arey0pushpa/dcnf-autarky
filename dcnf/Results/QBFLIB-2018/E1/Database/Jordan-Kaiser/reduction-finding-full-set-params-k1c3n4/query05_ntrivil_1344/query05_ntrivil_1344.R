@@ -1,0 +1,1 @@
+7a62062d85d65794295acdff64187bf3 query05_ntrivil_1344.qdimacs 197 341

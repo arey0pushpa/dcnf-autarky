@@ -1,0 +1,1 @@
+bf950842658617d34f20ce76eed86de1 p5-5.pddl_planlen=11.qdimacs 810 6836

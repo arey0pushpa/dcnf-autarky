@@ -1,0 +1,1 @@
+26e1bb70d3eceb6b5f84095d0bf6d614 query02_query60_1344n.qdimacs 733 1793

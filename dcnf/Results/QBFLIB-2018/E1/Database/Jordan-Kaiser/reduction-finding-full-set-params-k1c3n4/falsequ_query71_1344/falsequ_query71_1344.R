@@ -1,0 +1,1 @@
+1df13b299495ea0620fba2733d251e2a falsequ_query71_1344.qdimacs 282 1027

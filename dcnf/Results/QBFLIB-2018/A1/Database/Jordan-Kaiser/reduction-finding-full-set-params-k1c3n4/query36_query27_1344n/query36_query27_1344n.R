@@ -1,0 +1,1 @@
+cc8566bc2c415a3031b94fff313ce694 query36_query27_1344n.qdimacs 357 585

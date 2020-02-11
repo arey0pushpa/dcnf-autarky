@@ -1,0 +1,1 @@
+505fb2fbdb05c055facf09fb564c32b7 query09_query01_1344n.qdimacs 3743 13694

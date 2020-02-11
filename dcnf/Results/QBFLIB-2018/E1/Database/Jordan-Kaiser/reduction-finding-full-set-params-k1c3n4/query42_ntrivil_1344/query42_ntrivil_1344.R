@@ -1,0 +1,1 @@
+f17f713ef4c21ea3d7e04150f86a747f query42_ntrivil_1344.qdimacs 2344 8220

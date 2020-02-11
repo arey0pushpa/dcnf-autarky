@@ -1,0 +1,1 @@
+09c3d0bac85446ca3808e51611cbf446 query25_query23_1344.qdimacs 27 24

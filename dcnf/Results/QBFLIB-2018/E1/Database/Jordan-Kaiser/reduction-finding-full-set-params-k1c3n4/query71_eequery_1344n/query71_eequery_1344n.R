@@ -1,0 +1,1 @@
+c8886362dd8979c4137c1c21085e2feb query71_eequery_1344n.qdimacs 2245 8352

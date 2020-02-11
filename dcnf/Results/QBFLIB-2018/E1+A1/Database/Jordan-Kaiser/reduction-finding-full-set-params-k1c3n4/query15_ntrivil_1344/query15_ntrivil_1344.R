@@ -1,0 +1,1 @@
+d67be1dd702903d88299059aff3f3fba query15_ntrivil_1344.qdimacs 128 336

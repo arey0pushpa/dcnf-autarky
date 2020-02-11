@@ -1,0 +1,1 @@
+e9d9026cd942face7da4195dd41f2a48 query52_query07_1344.qdimacs 344 626

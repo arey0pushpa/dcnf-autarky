@@ -1,0 +1,1 @@
+a889c555aced925c314c8940b8e70c8b query05_query36_1344n.qdimacs 597 1727

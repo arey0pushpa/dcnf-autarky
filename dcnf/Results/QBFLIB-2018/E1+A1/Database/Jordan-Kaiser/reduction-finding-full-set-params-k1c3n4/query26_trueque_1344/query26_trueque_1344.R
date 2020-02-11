@@ -1,0 +1,1 @@
+5d7f97da2ac4b9707a70e8cae7dd162b query26_trueque_1344.qdimacs 13 10

@@ -1,0 +1,1 @@
+73c66b51cfc451aa226a4d82d2e9585e query33_query57_1344.qdimacs 1157 2696

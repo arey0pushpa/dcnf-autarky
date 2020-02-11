@@ -1,0 +1,1 @@
+25017519a8ed9f00c3134f6a85694436 query30_trueque_1344.qdimacs 1 2

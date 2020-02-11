@@ -1,0 +1,1 @@
+bc36674ca00f2d61b7dcaa85da6356e9 scholl_comp.blif_0.60_1.00_9_2_henkin.dqdimacs 318 784

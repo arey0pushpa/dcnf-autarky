@@ -1,0 +1,1 @@
+ac86bbd59222d737f77a477aebab3e24 k5_2_3.qdimacs 2434 3382

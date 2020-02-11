@@ -1,0 +1,1 @@
+8e98201519d96ed4b2db43eb4b9d064f query27_query44_1344n.qdimacs 730 1987

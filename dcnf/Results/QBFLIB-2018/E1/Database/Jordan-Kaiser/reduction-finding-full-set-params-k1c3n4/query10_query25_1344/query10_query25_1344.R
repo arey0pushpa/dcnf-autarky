@@ -1,0 +1,1 @@
+44ec39c18a6ce9de8ba83d91a1f98a0c query10_query25_1344.qdimacs 5037 32553

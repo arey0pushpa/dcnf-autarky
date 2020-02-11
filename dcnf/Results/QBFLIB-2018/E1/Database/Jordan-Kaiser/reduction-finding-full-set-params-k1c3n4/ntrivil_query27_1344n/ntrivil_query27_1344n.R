@@ -1,0 +1,1 @@
+28d4ef7f9958c9022e799d00ef7f199e ntrivil_query27_1344n.qdimacs 609 1450

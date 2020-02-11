@@ -1,0 +1,1 @@
+4462dfb719904ae669e8c6af2c80999d query27_query55_1344.qdimacs 519 1262

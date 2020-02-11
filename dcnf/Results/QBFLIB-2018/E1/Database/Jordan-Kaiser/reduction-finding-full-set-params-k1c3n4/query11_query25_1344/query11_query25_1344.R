@@ -1,0 +1,1 @@
+8aedb2c79cfcb1f6da99144635de982b query11_query25_1344.qdimacs 743 1706

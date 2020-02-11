@@ -1,0 +1,1 @@
+144db19ddabf02fc7ec62e9066dd0c92 query04_query21_1344n.qdimacs 431 1203

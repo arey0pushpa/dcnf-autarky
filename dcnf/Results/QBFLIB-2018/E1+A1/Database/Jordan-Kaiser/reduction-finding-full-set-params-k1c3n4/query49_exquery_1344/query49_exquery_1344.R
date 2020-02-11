@@ -1,0 +1,1 @@
+6acdd82bfe84b13cc69921bca7f39f15 query49_exquery_1344.qdimacs 1957 7085

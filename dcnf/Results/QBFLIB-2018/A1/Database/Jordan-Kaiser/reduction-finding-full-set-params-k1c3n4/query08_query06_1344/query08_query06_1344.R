@@ -1,0 +1,1 @@
+03ec1bacef2d6fe5e57807bc4b34ac97 query08_query06_1344.qdimacs 8088 49486

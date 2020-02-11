@@ -1,0 +1,1 @@
+1c82d329f137db896b2bf406b55baffa ntrivil_query09_1344n.qdimacs 1077 4272

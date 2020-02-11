@@ -1,0 +1,1 @@
+ebbdf80c8d2b00a087526dee6facbf1d query08_trivial_1344.qdimacs 2124 7514

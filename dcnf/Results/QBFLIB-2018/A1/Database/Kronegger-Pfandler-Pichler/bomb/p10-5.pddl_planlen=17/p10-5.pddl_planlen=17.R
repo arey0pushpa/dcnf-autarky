@@ -1,0 +1,1 @@
+cafd32470c4c83c3e5faa5d0408ceb3c p10-5.pddl_planlen=17.qdimacs 2015 30932

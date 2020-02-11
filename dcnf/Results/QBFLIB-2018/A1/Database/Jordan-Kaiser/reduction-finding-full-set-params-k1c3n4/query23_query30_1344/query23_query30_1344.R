@@ -1,0 +1,1 @@
+2930066e8dcd8852ef0c59ab86f96345 query23_query30_1344.qdimacs 25 83

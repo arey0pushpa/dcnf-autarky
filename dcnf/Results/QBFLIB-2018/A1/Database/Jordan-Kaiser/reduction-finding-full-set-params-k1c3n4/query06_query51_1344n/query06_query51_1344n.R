@@ -1,0 +1,1 @@
+3acd165d2cbba0d5d11fdad141da384d query06_query51_1344n.qdimacs 2277 8384

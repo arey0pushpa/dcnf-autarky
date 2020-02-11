@@ -1,0 +1,1 @@
+44da6adcc54ebb756e591142937d3acb query50_query06_1344.qdimacs 913 2254

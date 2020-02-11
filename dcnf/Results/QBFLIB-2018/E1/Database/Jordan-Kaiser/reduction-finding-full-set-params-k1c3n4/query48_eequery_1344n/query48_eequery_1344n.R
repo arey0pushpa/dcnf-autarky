@@ -1,0 +1,1 @@
+71c064b19378794bb2b8c3c65e1d80ad query48_eequery_1344n.qdimacs 5425 41442

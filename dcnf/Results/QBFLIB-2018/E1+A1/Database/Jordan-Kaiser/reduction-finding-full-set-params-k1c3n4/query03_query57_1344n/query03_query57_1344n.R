@@ -1,0 +1,1 @@
+385869da103e740d641e1fcff17effe3 query03_query57_1344n.qdimacs 3107 10803

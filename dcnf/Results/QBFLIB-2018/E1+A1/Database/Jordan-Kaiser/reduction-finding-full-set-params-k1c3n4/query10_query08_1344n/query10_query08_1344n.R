@@ -1,0 +1,1 @@
+ea39bb38c6248dce939aa809fa103355 query10_query08_1344n.qdimacs 5595 33262

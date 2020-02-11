@@ -1,0 +1,1 @@
+89b66a263adac030b9657a3649206ccb query48_query23_1344n.qdimacs 152 220

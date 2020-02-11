@@ -1,0 +1,1 @@
+fda392acb164eb8edec3115c3cc1de14 query52_query05_1344n.qdimacs 223 331

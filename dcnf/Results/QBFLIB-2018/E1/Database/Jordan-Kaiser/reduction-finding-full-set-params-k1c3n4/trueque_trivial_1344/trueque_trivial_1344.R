@@ -1,0 +1,1 @@
+622b940731d29513ddf604efa8540f2f trueque_trivial_1344.qdimacs 76 119

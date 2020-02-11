@@ -1,0 +1,1 @@
+420afad9b4c7c99f3df031894f866c4b query06_query15_1344.qdimacs 257 1113

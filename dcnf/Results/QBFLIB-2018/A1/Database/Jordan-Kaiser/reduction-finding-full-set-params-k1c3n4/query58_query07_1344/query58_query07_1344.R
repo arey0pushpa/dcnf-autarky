@@ -1,0 +1,1 @@
+871fb3dc5ce579af72bac804392378c2 query58_query07_1344.qdimacs 1688 4050

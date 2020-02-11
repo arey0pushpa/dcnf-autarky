@@ -1,0 +1,1 @@
+72f2e0b4db4ccb17c4636f720056e8e0 query07_query26_1344n.qdimacs 1365 2802

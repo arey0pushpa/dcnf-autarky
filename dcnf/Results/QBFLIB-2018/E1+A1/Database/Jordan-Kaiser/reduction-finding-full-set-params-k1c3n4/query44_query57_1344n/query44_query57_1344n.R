@@ -1,0 +1,1 @@
+85fd99d185cd1698ff317b7ffa4205c9 query44_query57_1344n.qdimacs 9588 52570

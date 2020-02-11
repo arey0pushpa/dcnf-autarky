@@ -1,0 +1,1 @@
+9437a5aec3aa0b1604ff320f60b622bf query71_query02_1344n.qdimacs 1493 3068

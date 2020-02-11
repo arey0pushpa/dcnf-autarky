@@ -1,0 +1,1 @@
+460fec0b05f72e061cc774f3b1438a76 query25_query05_1344.qdimacs 211 320

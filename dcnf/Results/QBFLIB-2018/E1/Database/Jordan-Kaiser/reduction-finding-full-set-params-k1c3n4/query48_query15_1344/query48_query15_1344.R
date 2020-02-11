@@ -1,0 +1,1 @@
+31ca58a4526e96cd5b6f7feaec27cd43 query48_query15_1344.qdimacs 415 4143

@@ -1,0 +1,1 @@
+4635197a5cb82d95e8977fa7caa5d19f query02_query48_1344.qdimacs 622 1813

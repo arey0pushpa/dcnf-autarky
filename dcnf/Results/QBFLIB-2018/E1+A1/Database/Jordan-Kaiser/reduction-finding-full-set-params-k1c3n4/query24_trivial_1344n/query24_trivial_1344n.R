@@ -1,0 +1,1 @@
+c6eae42f2c66d4e7cc3be0116dcaeb47 query24_trivial_1344n.qdimacs 177 239

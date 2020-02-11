@@ -1,0 +1,1 @@
+679867471c103215f9fd38d81af8b8f4 lut4_2_fXOR.qdimacs 70 446

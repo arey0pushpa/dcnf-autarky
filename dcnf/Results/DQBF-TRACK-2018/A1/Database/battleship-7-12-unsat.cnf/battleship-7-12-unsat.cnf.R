@@ -1,0 +1,1 @@
+076180335c8c519dc78e0fe1f896fb02 battleship-7-12-unsat.cnf.dqdimacs 23 1974

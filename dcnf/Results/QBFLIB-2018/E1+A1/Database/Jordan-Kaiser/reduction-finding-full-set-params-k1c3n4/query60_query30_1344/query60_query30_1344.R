@@ -1,0 +1,1 @@
+150ee16e6f0c4f98c60891c9fd1e7775 query60_query30_1344.qdimacs 245 1059

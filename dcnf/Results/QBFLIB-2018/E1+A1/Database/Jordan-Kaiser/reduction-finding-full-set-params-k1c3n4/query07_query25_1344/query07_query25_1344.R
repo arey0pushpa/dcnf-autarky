@@ -1,0 +1,1 @@
+ffdb2fdb20a6bce134198582f948f5d6 query07_query25_1344.qdimacs 2085 8061

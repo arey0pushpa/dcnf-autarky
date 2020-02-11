@@ -1,0 +1,1 @@
+e364a269426a37a84f370cf35637668b ntrivil_query30_1344n.qdimacs 85 140

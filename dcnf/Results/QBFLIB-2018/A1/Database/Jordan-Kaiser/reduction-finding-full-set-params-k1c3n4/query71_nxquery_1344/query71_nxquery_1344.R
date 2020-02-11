@@ -1,0 +1,1 @@
+b677ec48e5d5ffe9c3fe51e99cf27a29 query71_nxquery_1344.qdimacs 811 1667

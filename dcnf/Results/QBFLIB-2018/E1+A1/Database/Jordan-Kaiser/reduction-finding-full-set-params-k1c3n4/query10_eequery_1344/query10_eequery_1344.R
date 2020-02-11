@@ -1,0 +1,1 @@
+784c41a7fd1872e5047ba9f2f88d70ea query10_eequery_1344.qdimacs 5041 40833

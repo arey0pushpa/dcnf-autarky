@@ -1,0 +1,21 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 2309
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 2309
+c
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/Preusser/formula_add/add6_REDUCED.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        818
+c no.of clauses    2309
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  2309
+c
+c QBFLIB/Preusser/formula_add/add6_REDUCED.qdimacs 818 2309 E1 [] 0 12 806 2309 NONE

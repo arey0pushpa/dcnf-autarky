@@ -1,0 +1,1 @@
+0a878fb7ff034534824e01b53d698cbc query52_trivial_1344n.qdimacs 145 201

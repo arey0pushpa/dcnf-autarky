@@ -1,0 +1,1 @@
+48e9040b53e17ccdcfd5c5a3b01822e5 query05_query51_1344n.qdimacs 449 1267

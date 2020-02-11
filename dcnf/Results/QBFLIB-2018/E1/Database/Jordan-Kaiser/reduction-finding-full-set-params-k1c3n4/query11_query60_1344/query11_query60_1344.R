@@ -1,0 +1,1 @@
+5be1bc8696db35d6d8a83a3e2da1af05 query11_query60_1344.qdimacs 863 1996

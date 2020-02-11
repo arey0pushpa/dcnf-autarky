@@ -1,0 +1,1 @@
+1bc2dfc8a44cdf8615764404b69744a8 query49_query24_1344.qdimacs 152 810

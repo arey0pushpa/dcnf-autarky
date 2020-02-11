@@ -1,0 +1,1 @@
+ccd97791d2212416502a7d9e7a47dcbf query55_query60_1344.qdimacs 975 2248

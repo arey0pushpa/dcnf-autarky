@@ -1,0 +1,1 @@
+cb452d7f492b4dd747e9047d3aca5078 query24_query54_1344.qdimacs 945 4957

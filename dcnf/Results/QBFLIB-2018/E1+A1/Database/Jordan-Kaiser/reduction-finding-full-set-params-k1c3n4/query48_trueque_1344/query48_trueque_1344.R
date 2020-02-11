@@ -1,0 +1,1 @@
+117a360ba04c64dfda5db51cdb11f4f4 query48_trueque_1344.qdimacs 81 117

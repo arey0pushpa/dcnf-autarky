@@ -1,0 +1,21 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 5094
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 5094
+c
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/Lee-Jiang/genpatch/unit11_3_b.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        1754
+c no.of clauses    5094
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  5094
+c
+c QBFLIB/Lee-Jiang/genpatch/unit11_3_b.qdimacs 1754 5094 E1 [] 0 8 1730 5094 NONE

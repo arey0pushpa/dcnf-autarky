@@ -1,0 +1,1 @@
+099b0b3710424e5767dd1ce77d8bdc78 query27_query64_1344.qdimacs 895 2182

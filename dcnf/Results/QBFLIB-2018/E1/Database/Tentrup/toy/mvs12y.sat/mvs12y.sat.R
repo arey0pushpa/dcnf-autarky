@@ -1,0 +1,1 @@
+c7b60e260ec5048c0e915b876f39154c mvs12y.sat.qdimacs 264 687

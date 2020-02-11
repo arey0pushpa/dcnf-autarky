@@ -1,0 +1,1 @@
+0dd757cc68dd62a95ea4067c981dc599 query44_nxquery_1344n.qdimacs 2065 7264

@@ -1,0 +1,1 @@
+d9cb16dbba776c1c6a44105adc14d494 query02_query58_1344.qdimacs 757 1904

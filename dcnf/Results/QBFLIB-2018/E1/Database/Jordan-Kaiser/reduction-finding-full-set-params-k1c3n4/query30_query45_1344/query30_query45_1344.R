@@ -1,0 +1,1 @@
+fee492d24f90daae731acf44451e1ee9 query30_query45_1344.qdimacs 617 3795

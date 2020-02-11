@@ -1,0 +1,1 @@
+eaec108b3963cf36b0158fda4ef203f8 query42_query30_1344n.qdimacs 523 980

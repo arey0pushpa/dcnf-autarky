@@ -1,0 +1,1 @@
+357aad66ddc7c3af64c9c95134e9a83d query57_query21_1344.qdimacs 2271 8420

@@ -1,0 +1,1 @@
+12f54547a12c6187e1edb129d9a324ca query26_query25_1344n.qdimacs 447 1265

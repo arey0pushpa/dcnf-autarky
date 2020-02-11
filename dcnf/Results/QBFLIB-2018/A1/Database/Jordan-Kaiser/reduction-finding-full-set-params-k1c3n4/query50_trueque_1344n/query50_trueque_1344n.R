@@ -1,0 +1,1 @@
+daa3e056ef6dad8776cce147e688807c query50_trueque_1344n.qdimacs 17 17

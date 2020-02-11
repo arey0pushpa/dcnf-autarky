@@ -1,0 +1,1 @@
+b2d0c2cf8041b0fb1f316fc0524a2527 query54_query58_1344.qdimacs 1123 2522

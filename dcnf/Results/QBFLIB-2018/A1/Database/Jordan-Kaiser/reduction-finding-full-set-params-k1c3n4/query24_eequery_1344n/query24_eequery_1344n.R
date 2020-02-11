@@ -1,0 +1,1 @@
+96b402d6a2e4296f4b626dcae64ed4cb query24_eequery_1344n.qdimacs 477 666

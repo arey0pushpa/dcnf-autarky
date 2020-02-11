@@ -1,0 +1,1 @@
+039e076b23300cb4b01c573b579e597f trueque_query57_1344.qdimacs 318 1099

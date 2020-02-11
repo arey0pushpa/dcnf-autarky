@@ -1,0 +1,1 @@
+dd78cf0a170a12959ceeff349af2cd25 query51_query30_1344n.qdimacs 52 65

@@ -1,0 +1,1 @@
+de985f344096d8f29e95d819a07cdfb6 query64_exquery_1344.qdimacs 427 726

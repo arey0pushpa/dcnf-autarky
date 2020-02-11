@@ -1,0 +1,1 @@
+0270ed9cff6377eb51a23c20f661ad3b query21_trueque_1344n.qdimacs 17 2

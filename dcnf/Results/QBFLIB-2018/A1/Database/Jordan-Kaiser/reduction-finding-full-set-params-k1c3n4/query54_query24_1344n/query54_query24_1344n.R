@@ -1,0 +1,1 @@
+97f1980b0ebdb659720121e5e9f195c5 query54_query24_1344n.qdimacs 144 287

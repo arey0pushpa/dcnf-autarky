@@ -1,0 +1,1 @@
+b9cba55e3d7565a808da59aa40ce683f sgen3-n300-s12830984-sat.cnf.dqdimacs 23 2280

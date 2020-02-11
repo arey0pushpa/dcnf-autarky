@@ -1,0 +1,1 @@
+fafc84bfe4351e0c8f4f60f8c7478ce6 query34_query55_1344n.qdimacs 883 1847

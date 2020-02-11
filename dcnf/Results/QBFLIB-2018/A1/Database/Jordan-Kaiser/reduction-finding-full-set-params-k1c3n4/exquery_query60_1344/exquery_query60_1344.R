@@ -1,0 +1,1 @@
+90cf86d8c3c8b6cff7c5cf15dc4238b0 exquery_query60_1344.qdimacs 567 1428

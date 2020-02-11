@@ -1,0 +1,1 @@
+561c52368e65a5ae739b3df019a018cb trueque_query08_1344.qdimacs 201 808

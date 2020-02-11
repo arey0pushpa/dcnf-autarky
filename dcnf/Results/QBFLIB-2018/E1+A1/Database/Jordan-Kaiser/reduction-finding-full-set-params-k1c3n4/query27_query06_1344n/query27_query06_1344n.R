@@ -1,0 +1,1 @@
+4adca8e57e3d36bdaa141fa10b888f73 query27_query06_1344n.qdimacs 617 1755

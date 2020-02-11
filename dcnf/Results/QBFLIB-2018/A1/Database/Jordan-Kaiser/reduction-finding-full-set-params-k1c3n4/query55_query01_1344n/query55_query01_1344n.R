@@ -1,0 +1,1 @@
+243b1ea0f0df6410ea6365bac9ae0344 query55_query01_1344n.qdimacs 329 553

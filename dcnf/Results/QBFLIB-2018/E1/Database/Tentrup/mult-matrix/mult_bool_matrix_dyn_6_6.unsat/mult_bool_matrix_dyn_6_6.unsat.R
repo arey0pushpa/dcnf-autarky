@@ -1,0 +1,1 @@
+336cc98662e28424739491ea3c445439 mult_bool_matrix_dyn_6_6.unsat.qdimacs 3670 10866

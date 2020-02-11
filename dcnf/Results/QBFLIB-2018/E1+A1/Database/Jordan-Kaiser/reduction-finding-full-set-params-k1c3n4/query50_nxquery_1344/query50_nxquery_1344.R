@@ -1,0 +1,1 @@
+820a8e8641fd5ace2169d80536f02495 query50_nxquery_1344.qdimacs 111 166

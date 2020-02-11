@@ -1,0 +1,1 @@
+212c99055ccb0855d4062c6f8ffdbf75 query33_query10_1344n.qdimacs 930 1907

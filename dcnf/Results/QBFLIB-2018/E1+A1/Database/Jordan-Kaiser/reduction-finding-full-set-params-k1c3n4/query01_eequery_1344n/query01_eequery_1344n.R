@@ -1,0 +1,1 @@
+cf97c981b7e43cc03ee3f85afaad5d00 query01_eequery_1344n.qdimacs 447 1265

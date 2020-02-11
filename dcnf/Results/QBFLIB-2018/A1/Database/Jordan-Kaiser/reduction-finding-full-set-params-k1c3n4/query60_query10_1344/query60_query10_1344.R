@@ -1,0 +1,1 @@
+9fcab47a91daa440f6783adc94b85bd0 query60_query10_1344.qdimacs 2783 9647

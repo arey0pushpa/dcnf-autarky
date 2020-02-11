@@ -1,0 +1,1 @@
+192d362ae3cc4fd9588a1e7a2be99616 query71_eequery_1344.qdimacs 2245 8359

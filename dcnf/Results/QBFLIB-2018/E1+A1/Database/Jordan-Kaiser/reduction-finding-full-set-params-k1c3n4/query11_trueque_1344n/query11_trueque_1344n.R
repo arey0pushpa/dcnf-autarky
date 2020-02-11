@@ -1,0 +1,1 @@
+b726e5b7a9ea8dd8068b6360f0448201 query11_trueque_1344n.qdimacs 21 9

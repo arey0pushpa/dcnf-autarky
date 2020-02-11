@@ -1,0 +1,1 @@
+aeaaee7d71e0d32b6d9ba02fc1c1644f query05_query42_1344n.qdimacs 732 1989

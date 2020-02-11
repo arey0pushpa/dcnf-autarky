@@ -1,0 +1,1 @@
+e892852f1fd751ecae8db68a89e0d906 query51_query48_1344.qdimacs 926 2201

@@ -1,0 +1,1 @@
+b6cea9b3eb4dee603f7e888f1ab02273 query23_query57_1344.qdimacs 987 1814

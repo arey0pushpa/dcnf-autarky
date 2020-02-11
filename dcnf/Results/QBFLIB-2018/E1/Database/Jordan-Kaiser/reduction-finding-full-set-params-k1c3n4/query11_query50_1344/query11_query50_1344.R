@@ -1,0 +1,1 @@
+fbc18279d4dd82f21dd60bf46a4b381d query11_query50_1344.qdimacs 711 1614

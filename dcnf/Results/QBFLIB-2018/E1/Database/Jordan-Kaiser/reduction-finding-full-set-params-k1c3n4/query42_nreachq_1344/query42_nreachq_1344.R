@@ -1,0 +1,1 @@
+3988f293df032288431f6bcbf177ecf4 query42_nreachq_1344.qdimacs 7707 44337

@@ -1,0 +1,1 @@
+7cba4919002ffd50f78bd39c249d3eeb cube_c11_ser--opt-42_.qdimacs 4202 67530

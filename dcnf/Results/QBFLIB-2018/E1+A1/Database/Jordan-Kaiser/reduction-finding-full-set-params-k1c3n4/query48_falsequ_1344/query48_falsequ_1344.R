@@ -1,0 +1,1 @@
+e4c4056aa3439a9b895a389326344c75 query48_falsequ_1344.qdimacs 65 125

@@ -1,0 +1,1 @@
+96c7edc03a37deb69680db5b4842fa40 connect_7x6_3_R.qdimacs 97742 77330

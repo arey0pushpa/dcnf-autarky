@@ -1,0 +1,1 @@
+975ae7c19337216d02aebcaad33b6624 trivial_query36_1344.qdimacs 1509 5901

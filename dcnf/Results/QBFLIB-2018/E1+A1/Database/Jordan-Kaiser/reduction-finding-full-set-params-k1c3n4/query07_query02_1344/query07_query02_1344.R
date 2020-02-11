@@ -1,0 +1,1 @@
+39aef4e9f8f6e9d87470174ecc9a3c40 query07_query02_1344.qdimacs 1333 2777

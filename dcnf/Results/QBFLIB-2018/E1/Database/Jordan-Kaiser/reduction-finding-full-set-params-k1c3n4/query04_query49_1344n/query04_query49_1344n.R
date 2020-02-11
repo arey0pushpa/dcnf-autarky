@@ -1,0 +1,1 @@
+fcb2d422d0d6d762b8609a0a32d400c9 query04_query49_1344n.qdimacs 624 1587

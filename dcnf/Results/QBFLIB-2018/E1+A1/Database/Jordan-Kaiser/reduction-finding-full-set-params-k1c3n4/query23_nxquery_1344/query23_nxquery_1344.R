@@ -1,0 +1,1 @@
+f4160b02051c1a7f9e39e1d2cc0043b6 query23_nxquery_1344.qdimacs 171 493

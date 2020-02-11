@@ -1,0 +1,1 @@
+2355b2ca2845c1163bb9e8a4b3bb0b03 trivial_query64_1344n.qdimacs 1953 6878

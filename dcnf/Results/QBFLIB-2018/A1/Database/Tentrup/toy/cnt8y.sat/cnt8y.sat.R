@@ -1,0 +1,1 @@
+ba49ebc7682b92624b127c3d9d35d567 cnt8y.sat.qdimacs 144 395

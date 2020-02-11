@@ -1,0 +1,1 @@
+8a3ddb7dd87d3f7f7d71af7913043fdd query10_query15_1344.qdimacs 351 3307

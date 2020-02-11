@@ -1,0 +1,1 @@
+e7d798aaf05899a647464e345d51471a query45_exquery_1344n.qdimacs 111 165

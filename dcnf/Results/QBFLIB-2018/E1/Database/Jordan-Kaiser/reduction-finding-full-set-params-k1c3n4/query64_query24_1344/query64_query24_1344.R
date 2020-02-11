@@ -1,0 +1,1 @@
+3ba9bb2b78db024f817c7d855d52d894 query64_query24_1344.qdimacs 119 188

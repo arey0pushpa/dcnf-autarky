@@ -1,0 +1,1 @@
+a7c82378aea66e10a891ebdb189827f8 query58_query45_1344n.qdimacs 2295 9370

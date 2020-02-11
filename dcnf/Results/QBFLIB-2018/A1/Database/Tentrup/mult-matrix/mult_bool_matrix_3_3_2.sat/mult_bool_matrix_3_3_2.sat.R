@@ -1,0 +1,1 @@
+85f45bacee996d82ecfbb7a09ba80996 mult_bool_matrix_3_3_2.sat.qdimacs 459 1302

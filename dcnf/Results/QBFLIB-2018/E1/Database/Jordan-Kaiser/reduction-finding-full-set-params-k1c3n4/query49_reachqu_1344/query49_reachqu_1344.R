@@ -1,0 +1,1 @@
+d0a14939fb1f0121b0b85fa9b2a48621 query49_reachqu_1344.qdimacs 7599 43947

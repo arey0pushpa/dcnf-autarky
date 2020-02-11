@@ -1,0 +1,1 @@
+5182f233cc8bc7458deabea9eeb10c70 query42_query05_1344n.qdimacs 3989 14168

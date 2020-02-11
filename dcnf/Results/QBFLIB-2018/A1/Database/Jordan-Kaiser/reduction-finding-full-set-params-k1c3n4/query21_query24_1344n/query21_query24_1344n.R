@@ -1,0 +1,1 @@
+14e183f3c0e084c36bf25fea80480257 query21_query24_1344n.qdimacs 43 39

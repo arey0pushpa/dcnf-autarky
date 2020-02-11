@@ -1,0 +1,1 @@
+421e9a706025c248de8bfa3bae5dacde arbiter-05-comp-error02-qbf-hardness-depth-2.qdimacs 324 666

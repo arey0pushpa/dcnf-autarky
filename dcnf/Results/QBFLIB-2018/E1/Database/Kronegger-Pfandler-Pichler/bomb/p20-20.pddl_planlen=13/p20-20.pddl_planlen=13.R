@@ -1,0 +1,1 @@
+8ab5b1ab8d0cbd1126031e203f280887 p20-20.pddl_planlen=13.qdimacs 7700 1172163

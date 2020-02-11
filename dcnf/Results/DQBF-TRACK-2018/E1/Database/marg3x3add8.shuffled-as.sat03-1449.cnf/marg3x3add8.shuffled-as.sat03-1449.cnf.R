@@ -1,0 +1,1 @@
+c247a6a1890bff83a6ecc713f999a6f3 marg3x3add8.shuffled-as.sat03-1449.cnf.dqdimacs 22 1824

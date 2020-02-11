@@ -1,0 +1,1 @@
+e283a2c659dba25be57f1dcdc78acaee query57_query64_1344.qdimacs 4073 11683

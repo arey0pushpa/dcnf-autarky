@@ -1,0 +1,1 @@
+a8a93cab2f6785b9ecd4ac8b0125b283 query30_query60_1344.qdimacs 1883 6391

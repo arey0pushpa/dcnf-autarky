@@ -1,0 +1,1 @@
+57371f2e35b7fd73ea276c81038f288d query42_exquery_1344.qdimacs 2065 7295

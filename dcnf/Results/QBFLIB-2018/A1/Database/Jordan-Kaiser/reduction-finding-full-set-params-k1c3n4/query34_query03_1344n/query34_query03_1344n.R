@@ -1,0 +1,1 @@
+7253e8d130bfb14f30dfbd75188f165f query34_query03_1344n.qdimacs 921 2011

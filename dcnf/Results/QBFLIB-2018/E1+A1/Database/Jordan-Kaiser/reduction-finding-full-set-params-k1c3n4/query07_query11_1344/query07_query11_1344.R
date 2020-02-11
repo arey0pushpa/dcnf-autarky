@@ -1,0 +1,1 @@
+ddd79c9263de9fd3b2baf705fa88cf0c query07_query11_1344.qdimacs 1989 7773

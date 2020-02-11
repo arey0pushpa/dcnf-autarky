@@ -1,0 +1,1 @@
+21b30f55d3e883ecfe5681034c5f8e33 query09_trivial_1344.qdimacs 2130 7568

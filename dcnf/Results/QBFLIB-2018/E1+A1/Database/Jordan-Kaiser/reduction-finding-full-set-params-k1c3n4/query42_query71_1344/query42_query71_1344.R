@@ -1,0 +1,1 @@
+5535d9a78f99097a540f5bcbaf0ddd8e query42_query71_1344.qdimacs 8308 50192

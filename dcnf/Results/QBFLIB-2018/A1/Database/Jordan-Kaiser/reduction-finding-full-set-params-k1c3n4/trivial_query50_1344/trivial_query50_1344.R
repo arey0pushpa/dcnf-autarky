@@ -1,0 +1,1 @@
+718dc35cebba1fd6c558406ad3300270 trivial_query50_1344.qdimacs 757 3661

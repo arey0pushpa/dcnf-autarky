@@ -1,0 +1,1 @@
+93d992c84b8e9e8fabf83b690e3e5324 battleship-13-13-unsat.cnf.dqdimacs 26 7605

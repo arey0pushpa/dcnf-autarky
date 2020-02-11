@@ -1,0 +1,1 @@
+692881ccbd2ce44afddc84b30c08e4ba query64_query05_1344.qdimacs 643 1088

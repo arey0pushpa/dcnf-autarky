@@ -1,0 +1,1 @@
+76fe6ce9af7e0113c78180c698edd30b query60_query01_1344.qdimacs 1813 3985

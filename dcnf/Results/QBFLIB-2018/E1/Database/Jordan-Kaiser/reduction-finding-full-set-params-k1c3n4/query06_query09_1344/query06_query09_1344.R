@@ -1,0 +1,1 @@
+0a3cd93339b20f5393afd93fa62ca755 query06_query09_1344.qdimacs 2437 9293

@@ -1,0 +1,1 @@
+bb3ffae3e5221eefcc27b407b086c2f5 query52_query31_1344n.qdimacs 903 2177

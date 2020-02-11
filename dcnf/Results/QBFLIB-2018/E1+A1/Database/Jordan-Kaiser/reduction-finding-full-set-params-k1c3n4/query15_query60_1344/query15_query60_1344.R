@@ -1,0 +1,1 @@
+7df7653e39cce2d4b2896c02eaed3c23 query15_query60_1344.qdimacs 1915 5699

@@ -1,0 +1,1 @@
+3322a5da9fdfde3038593e6dba92f0b5 query10_eequery_1344n.qdimacs 5041 32530

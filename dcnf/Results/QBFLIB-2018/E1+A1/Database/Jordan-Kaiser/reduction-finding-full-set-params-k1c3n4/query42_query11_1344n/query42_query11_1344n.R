@@ -1,0 +1,1 @@
+3d711a878edf2ce03c7caae5b6fcb2e2 query42_query11_1344n.qdimacs 5149 40500

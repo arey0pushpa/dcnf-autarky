@@ -1,0 +1,1 @@
+14853ee30dcda14819193edd6fa9c870 comp.blif_0.10_0.20_0_0_inp_exact.qdimacs 310 831

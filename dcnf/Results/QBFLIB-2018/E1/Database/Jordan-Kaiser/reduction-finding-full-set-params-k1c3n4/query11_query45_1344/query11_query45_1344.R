@@ -1,0 +1,1 @@
+bda0092d76c02ef4f130541b97643cf5 query11_query45_1344.qdimacs 711 1614

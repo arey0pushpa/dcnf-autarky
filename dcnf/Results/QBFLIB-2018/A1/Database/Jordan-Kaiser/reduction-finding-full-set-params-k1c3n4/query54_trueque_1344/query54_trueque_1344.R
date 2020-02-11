@@ -1,0 +1,1 @@
+0deb27d8adac85aee3cb788b940a15cd query54_trueque_1344.qdimacs 135 213

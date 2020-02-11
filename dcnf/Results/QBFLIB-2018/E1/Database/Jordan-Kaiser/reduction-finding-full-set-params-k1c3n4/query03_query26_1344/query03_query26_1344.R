@@ -1,0 +1,1 @@
+9184a2ebb49f6ab3fdef563d27c75e57 query03_query26_1344.qdimacs 1369 2825

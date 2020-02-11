@@ -1,0 +1,1 @@
+66f5558111d8acd967aa7a75cb1ea4b7 ntrivil_trueque_1344.qdimacs 5 5

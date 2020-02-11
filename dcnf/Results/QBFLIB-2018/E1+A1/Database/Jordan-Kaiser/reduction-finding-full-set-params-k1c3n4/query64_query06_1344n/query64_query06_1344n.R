@@ -1,0 +1,1 @@
+4145c37e9b91adf79ddade2004669e96 query64_query06_1344n.qdimacs 1313 3191

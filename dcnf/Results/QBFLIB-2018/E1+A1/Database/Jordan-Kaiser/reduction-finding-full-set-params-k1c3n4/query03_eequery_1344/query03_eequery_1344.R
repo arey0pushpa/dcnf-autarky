@@ -1,0 +1,1 @@
+59f7526c3d980442b64257cf2cbc8f0e query03_eequery_1344.qdimacs 2089 8077

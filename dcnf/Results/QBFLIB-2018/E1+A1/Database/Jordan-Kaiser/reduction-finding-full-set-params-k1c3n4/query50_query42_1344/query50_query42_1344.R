@@ -1,0 +1,1 @@
+43abccf6f3baf85aa589b9d3a7d27c45 query50_query42_1344.qdimacs 1026 2775

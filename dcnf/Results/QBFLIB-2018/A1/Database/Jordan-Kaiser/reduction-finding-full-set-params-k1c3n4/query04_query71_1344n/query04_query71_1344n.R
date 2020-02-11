@@ -1,0 +1,1 @@
+de96cda587efc799708c3726c00dd142 query04_query71_1344n.qdimacs 619 1757

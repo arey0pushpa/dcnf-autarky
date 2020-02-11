@@ -1,0 +1,1 @@
+ccbdfdc5290fcf02470ae68c265097ca mult2.sat.qdimacs 66 166

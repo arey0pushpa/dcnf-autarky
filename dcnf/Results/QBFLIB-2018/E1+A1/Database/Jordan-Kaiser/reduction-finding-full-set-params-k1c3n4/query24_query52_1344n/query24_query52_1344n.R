@@ -1,0 +1,1 @@
+6ea9042db9ce6014728a5ec08b101476 query24_query52_1344n.qdimacs 453 618

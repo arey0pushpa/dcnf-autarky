@@ -1,0 +1,1 @@
+b74cf6854adf30875ce2ab94d11ef13e query55_query23_1344.qdimacs 83 168

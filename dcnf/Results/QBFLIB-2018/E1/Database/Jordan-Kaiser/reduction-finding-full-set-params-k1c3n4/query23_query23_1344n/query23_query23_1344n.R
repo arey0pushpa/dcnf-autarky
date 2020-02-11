@@ -1,0 +1,1 @@
+74db20c1bf9b1233cfbaed47d45356f3 query23_query23_1344n.qdimacs 19 31

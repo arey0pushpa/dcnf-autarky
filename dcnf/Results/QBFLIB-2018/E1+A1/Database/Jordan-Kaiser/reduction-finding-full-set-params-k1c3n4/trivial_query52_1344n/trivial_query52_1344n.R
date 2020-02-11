@@ -1,0 +1,1 @@
+506ddb30dc4c33424dcb5fdd57e53147 trivial_query52_1344n.qdimacs 837 3878

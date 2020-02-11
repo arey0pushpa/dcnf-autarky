@@ -1,0 +1,1 @@
+9d613ca92c567402148596a6fc978fcc query64_trivial_1344n.qdimacs 441 741

@@ -1,0 +1,1 @@
+80dee2bdac5854137965ced12840a9de query44_trivial_1344n.qdimacs 2344 7590

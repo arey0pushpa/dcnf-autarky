@@ -1,0 +1,1 @@
+4ad8c2b23dce6e4fc7dc697da5f65a8a query27_query08_1344.qdimacs 494 1553

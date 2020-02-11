@@ -1,0 +1,1 @@
+7d03dcdf175b4079e84f29a26956ac4b query24_query27_1344n.qdimacs 333 466

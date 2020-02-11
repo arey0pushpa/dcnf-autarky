@@ -1,0 +1,1 @@
+1d5c153e40bcdc30a2d35ddd567e0323 query24_exquery_1344.qdimacs 171 493

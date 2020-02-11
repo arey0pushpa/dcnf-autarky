@@ -1,0 +1,1 @@
+c7b74a20c6a45848b5c59e077953e181 query06_axquery_1344.qdimacs 843 1699

@@ -1,0 +1,1 @@
+05ab4d19f321a084ea2cf777d2f1330c query27_query03_1344n.qdimacs 461 1281

@@ -1,0 +1,1 @@
+eba5ed972d7cfa8ddfd28bac300e16e5 query30_query42_1344n.qdimacs 2708 7573

@@ -1,0 +1,1 @@
+edbc3897400ef36d74196c21b28f16de ttt_5x5-shape-1-GTTT-2-1-torus-0.qdimacs 2014 8769

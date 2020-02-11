@@ -1,0 +1,1 @@
+9313b5b057d42beb8913bfa9076c93ba query11_reachqu_1344n.qdimacs 798 1841

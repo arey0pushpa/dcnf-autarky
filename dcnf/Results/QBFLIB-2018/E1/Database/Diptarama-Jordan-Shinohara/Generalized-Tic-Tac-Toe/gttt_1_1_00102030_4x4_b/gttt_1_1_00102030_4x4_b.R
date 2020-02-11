@@ -1,0 +1,1 @@
+61efc0f0c23c443647ba90a174befacc gttt_1_1_00102030_4x4_b.qdimacs 6052 13083

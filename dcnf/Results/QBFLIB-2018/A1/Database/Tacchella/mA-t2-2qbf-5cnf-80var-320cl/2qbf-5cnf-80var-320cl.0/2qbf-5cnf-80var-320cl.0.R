@@ -1,0 +1,1 @@
+def0bdb850c7e6749fc6b5fcd0d1dd31 2qbf-5cnf-80var-320cl.0.qdimacs 160 320

@@ -1,0 +1,1 @@
+120b83f08c4546cc034c55b0e1af4d23 query52_query34_1344.qdimacs 911 2192

@@ -1,0 +1,1 @@
+a4813adcba26eb00561299ad37e74711 query50_query57_1344.qdimacs 993 2442

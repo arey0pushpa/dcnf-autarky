@@ -1,0 +1,1 @@
+f3e3072a5fe5f81b86c2414b0a6e02f5 query44_query23_1344.qdimacs 222 646

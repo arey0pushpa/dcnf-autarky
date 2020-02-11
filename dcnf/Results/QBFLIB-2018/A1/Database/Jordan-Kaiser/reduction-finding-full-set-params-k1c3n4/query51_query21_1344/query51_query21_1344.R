@@ -1,0 +1,1 @@
+afa887093d86d3588586461f67aacceb query51_query21_1344.qdimacs 733 1672

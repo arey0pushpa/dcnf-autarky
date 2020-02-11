@@ -1,0 +1,1 @@
+4591b418918d23952eb2b7a5e2dc2d56 query21_trivial_1344n.qdimacs 729 1463

@@ -1,0 +1,1 @@
+92b303bdc11147695cc4dd87842f7def query01_query06_1344.qdimacs 625 1786

@@ -1,0 +1,1 @@
+d7fc47a2fdb22dff0faafe8bf5e98bf3 query71_query08_1344.qdimacs 2437 9389

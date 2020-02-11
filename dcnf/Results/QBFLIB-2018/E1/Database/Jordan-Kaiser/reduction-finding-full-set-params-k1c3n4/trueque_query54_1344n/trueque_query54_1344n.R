@@ -1,0 +1,1 @@
+4f8c6d82c668162893a006cee3056c67 trueque_query54_1344n.qdimacs 309 492

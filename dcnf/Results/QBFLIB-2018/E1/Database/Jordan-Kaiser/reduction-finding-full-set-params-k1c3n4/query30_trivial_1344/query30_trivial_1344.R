@@ -1,0 +1,1 @@
+79479468f48f4bfb8b5cead6090fd8ec query30_trivial_1344.qdimacs 128 336

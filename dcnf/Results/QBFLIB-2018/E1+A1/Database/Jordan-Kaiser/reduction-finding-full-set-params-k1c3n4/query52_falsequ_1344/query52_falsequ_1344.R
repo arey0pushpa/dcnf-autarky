@@ -1,0 +1,1 @@
+05c24c60794efa5969a11848cd157d54 query52_falsequ_1344.qdimacs 23 17

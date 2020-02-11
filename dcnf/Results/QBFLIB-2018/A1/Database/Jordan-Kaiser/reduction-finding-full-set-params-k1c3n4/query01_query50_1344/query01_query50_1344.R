@@ -1,0 +1,1 @@
+a4d625eaeb61f7888ac0463749718eff query01_query50_1344.qdimacs 415 1174

@@ -1,0 +1,1 @@
+ec5133163b6bf1cea37e6736954f40b5 reachqu_query23_1344n.qdimacs 1 1

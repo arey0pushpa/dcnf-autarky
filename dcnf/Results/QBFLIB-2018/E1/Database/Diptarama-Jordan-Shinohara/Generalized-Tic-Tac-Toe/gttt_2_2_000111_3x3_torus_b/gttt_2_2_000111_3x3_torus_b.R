@@ -1,0 +1,1 @@
+726e320cb2c4c54eeb66eba48196b1b1 gttt_2_2_000111_3x3_torus_b.qdimacs 1325 4012

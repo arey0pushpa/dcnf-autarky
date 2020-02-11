@@ -1,0 +1,1 @@
+ac99607af82afaad20cc394ef8ffaafd sgen3-n160-s40283905-sat.cnf.dqdimacs 21 1216

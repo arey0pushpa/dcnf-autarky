@@ -1,0 +1,1 @@
+ecfd14016ebfdf89ff49c4c8e258a376 query01_query60_1344.qdimacs 741 1824

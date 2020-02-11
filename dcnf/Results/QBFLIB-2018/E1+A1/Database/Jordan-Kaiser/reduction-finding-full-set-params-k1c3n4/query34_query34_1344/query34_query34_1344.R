@@ -1,0 +1,1 @@
+289386ccf40e06019febd33cab67bd5e query34_query34_1344.qdimacs 1063 2470

@@ -1,0 +1,1 @@
+bf80b647b74b90f7a8e555a3e9c5d821 trueque_ntrivil_1344n.qdimacs 80 113

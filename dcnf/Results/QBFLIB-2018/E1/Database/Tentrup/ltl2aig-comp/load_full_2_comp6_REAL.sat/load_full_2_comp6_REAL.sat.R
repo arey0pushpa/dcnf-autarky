@@ -1,0 +1,1 @@
+4d75ba2f83eb723fa813080ddcdd13fd load_full_2_comp6_REAL.sat.qdimacs 12955 40700

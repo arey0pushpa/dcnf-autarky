@@ -1,0 +1,1 @@
+59e68c6041d3169fa4878481a8315dd2 query51_trueque_1344.qdimacs 21 9

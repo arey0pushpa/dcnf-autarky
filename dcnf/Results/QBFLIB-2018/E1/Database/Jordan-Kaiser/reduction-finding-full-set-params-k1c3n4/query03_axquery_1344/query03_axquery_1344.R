@@ -1,0 +1,1 @@
+8fbd0f8558b8813d6fbee41b482f82fc query03_axquery_1344.qdimacs 687 1417

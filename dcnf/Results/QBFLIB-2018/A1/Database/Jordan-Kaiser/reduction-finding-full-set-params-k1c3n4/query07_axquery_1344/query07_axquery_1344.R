@@ -1,0 +1,1 @@
+6bdcd275d06dc827ec875deb49c286f4 query07_axquery_1344.qdimacs 683 1401

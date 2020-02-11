@@ -1,0 +1,1 @@
+f720246ccfbc0d976199eb051febbfec query27_query36_1344n.qdimacs 595 1725

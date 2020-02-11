@@ -1,0 +1,1 @@
+fb70f22877814cca70bf3e3d17cdb9e2 horn_400CNF1960_2aQBF_710.qdimacs 400 1960

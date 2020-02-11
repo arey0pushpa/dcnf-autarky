@@ -1,0 +1,1 @@
+93d0c7ef015d41fa1aaf95c2b62afb91 query23_query60_1344.qdimacs 885 1446

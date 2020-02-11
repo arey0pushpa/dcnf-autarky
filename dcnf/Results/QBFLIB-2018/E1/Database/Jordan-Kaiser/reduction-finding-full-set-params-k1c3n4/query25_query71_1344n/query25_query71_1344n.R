@@ -1,0 +1,1 @@
+7d668655ff247ccf8306f3a596dc225a query25_query71_1344n.qdimacs 913 2195

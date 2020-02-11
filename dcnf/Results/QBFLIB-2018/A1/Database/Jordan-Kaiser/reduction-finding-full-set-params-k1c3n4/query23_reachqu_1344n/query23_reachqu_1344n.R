@@ -1,0 +1,1 @@
+e6d069b21f569d235dcd9458bab8cfc7 query23_reachqu_1344n.qdimacs 697 3832

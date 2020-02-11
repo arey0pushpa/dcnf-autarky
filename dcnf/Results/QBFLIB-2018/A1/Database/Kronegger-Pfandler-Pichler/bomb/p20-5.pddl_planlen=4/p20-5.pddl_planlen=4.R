@@ -1,0 +1,1 @@
+ca7baa4cf78f3863aaac902e70fcb43f p20-5.pddl_planlen=4.qdimacs 920 24174

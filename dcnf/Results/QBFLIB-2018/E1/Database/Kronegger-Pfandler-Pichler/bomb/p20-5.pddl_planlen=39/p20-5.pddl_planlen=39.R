@@ -1,0 +1,1 @@
+0833464a4f500bcbda0b20ee5085a78f p20-5.pddl_planlen=39.qdimacs 8095 237709

@@ -1,0 +1,24 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 2463
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 2449
+c
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 2449
+c
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/MayerEichberger-Saffidine/PositionalGames_hex/hex_rand_5x5-8m-6.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        925
+c no.of clauses    2463
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  2449
+c
+c QBFLIB/MayerEichberger-Saffidine/PositionalGames_hex/hex_rand_5x5-8m-6.qdimacs 925 2463 E1 [273 274 275 276 277 278 592 625 658 691 724 757 790 823] 0 136 775 2449 RED

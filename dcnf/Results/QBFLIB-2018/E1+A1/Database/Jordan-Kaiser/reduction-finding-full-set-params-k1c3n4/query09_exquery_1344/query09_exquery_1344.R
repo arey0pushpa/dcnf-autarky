@@ -1,0 +1,1 @@
+42e343b836bff959adf5c06ca2a6a9d4 query09_exquery_1344.qdimacs 1851 6859

@@ -1,0 +1,1 @@
+4f21355e8212963c9050590e716efd86 query09_trueque_1344n.qdimacs 23 14

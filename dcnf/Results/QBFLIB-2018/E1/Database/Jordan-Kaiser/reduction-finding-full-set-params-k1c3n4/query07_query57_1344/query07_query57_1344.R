@@ -1,0 +1,1 @@
+f57f8ef7f9f491c37ec00e654b7bc2b8 query07_query57_1344.qdimacs 3103 10866

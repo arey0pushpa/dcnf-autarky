@@ -1,0 +1,1 @@
+99351aafc7c95c398e18e1e5fb52475d query52_nxquery_1344n.qdimacs 123 177

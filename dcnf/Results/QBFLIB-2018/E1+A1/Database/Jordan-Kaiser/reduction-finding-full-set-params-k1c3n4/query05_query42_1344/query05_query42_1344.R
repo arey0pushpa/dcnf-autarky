@@ -1,0 +1,1 @@
+a73e23ebd44f92b6960d6d3aee27ada1 query05_query42_1344.qdimacs 732 2172
