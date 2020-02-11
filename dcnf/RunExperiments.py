@@ -20,12 +20,12 @@ if sys.argv[1] == "-h" or sys.argv[1] == "--help":
 inputpath = sys.argv[1]
 
 # Create three directories 
-Path("./AutarkiesQEF").mkdir(parents=True, exist_ok=True)
-Path("./DatabaseQEF").mkdir(parents=True, exist_ok=True)
-Path("./ExperimentsQEF").mkdir(parents=True, exist_ok=True)
+Path("./Autarkies").mkdir(parents=True, exist_ok=True)
+Path("./Database").mkdir(parents=True, exist_ok=True)
+Path("./Experiments").mkdir(parents=True, exist_ok=True)
 
-outputpath1 = './DatabaseQEF/'
-outputpath2 = './ExperimentsQEF/'
+outputpath1 = './Database/'
+outputpath2 = './Experiments/'
 suffix = '.R'
 
 print ("c Starting the directory structure setup.")

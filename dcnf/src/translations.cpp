@@ -274,7 +274,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   // pa variable := Only consider unique mapping
-  cls_t pa_var_set;
+  // cls_t pa_var_set;
   // bigbag to push all concrete bf variable assmts
   minsat_ass pa_var_msat_ass(active_evars.size());
   // dqbf Var to Cnf var Map; pa_vars for each bigbag element
@@ -288,6 +288,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       lit_t slit = std::abs(dummy[0]);
       coord_t univar = std::abs(dummy[1]);
       // Avoid the case: the uni variable do not occur anymore
+      // And Make sure univar is not True and False
+      // Just Use dcnf_clauses[univar].present !
       if ((std::find(active_avars.begin(), active_avars.end(), univar) ==
            active_avars.end()) &&
           univar != no_of_vars + 1 && univar != no_of_vars + 2) {
@@ -295,6 +297,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       }
       // Extract the position of the existential var in evars
       lit_t elit = active_evar_index[slit - 1];
+      // That PA Variable entry already present
       lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
       if (pa_indx != -1) {
         clausewise_pa_var_map[present_cls_index[c]].push_back(
