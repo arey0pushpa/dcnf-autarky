@@ -27,6 +27,8 @@ typedef std::vector<pairs_t> sel_bf;   // represent bf var set
 typedef std::vector<cls_t> minsat_ass; // vector of clause-set
 typedef std::uint32_t coord_t;         // coordinates
 typedef std::set<lit_t> set_t;         // coordinates
+typedef std::set<set_t> sets_t;         // coordinates
+typedef std::set<std::set<cl_t>> sets_cls;         // coordinates
 typedef std::vector<std::vector<std::pair<lit_t, cl_t>>> bflbf_t; // bflbf type
 
 enum Error_codes {

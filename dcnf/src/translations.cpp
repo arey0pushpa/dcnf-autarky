@@ -192,7 +192,7 @@ void dcnf::display_rresult() {
   r_out += std::to_string(active_evars.size()) + " ";
   r_out += std::to_string(present_clauses.size()) + " ";
   r_out += result;
-  
+
   // r_out += std::to_string(running_time(start)) + " ";
   std::cout << "c\nc " << r_out << "\n";
   std::exit(0);
@@ -274,44 +274,50 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   // pa variable := Only consider unique mapping
-  // cls_t pa_var_set;
   // bigbag to push all concrete bf variable assmts
   minsat_ass pa_var_msat_ass(active_evars.size());
+
+  // Create a Set for each concete var assignemnt
+  cls_t pavar_msat_ea(active_evars.size());
+  minsat_ass pavar_msat_ee(active_evars.size());
+
+  lit_t current_size = 0;
+  lit_t pa_indx;
+
   // dqbf Var to Cnf var Map; pa_vars for each bigbag element
   cls_t msat_concrete_var_map(active_evars.size());
+
+  cls_t msat_concrete_var_ea(active_evars.size());
+  cls_t msat_concrete_var_ee(active_evars.size());
+
   cls_t clausewise_pa_var_map(
       present_clauses.size());  // create clausewise cnf vars
-  // coord_t msat_cntr = 1;
+
   for (lit_t c : present_clauses) {
     for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[c][j];
+      assert(dummy.size() == 2 || dummy.size() == 4);
+
       lit_t slit = std::abs(dummy[0]);
-      coord_t univar = std::abs(dummy[1]);
-      // Avoid the case: the uni variable do not occur anymore
-      // And Make sure univar is not True and False
-      // Just Use dcnf_clauses[univar].present !
-      if ((std::find(active_avars.begin(), active_avars.end(), univar) ==
-           active_avars.end()) &&
-          univar != no_of_vars + 1 && univar != no_of_vars + 2) {
+      lit_t univar = std::abs(dummy[1]);
+      if (!dcnf_clauses[univar - 1].present && univar != no_of_vars + 1 &&
+          univar != no_of_vars + 2) {
         continue;
       }
-      // Extract the position of the existential var in evars
+
       lit_t elit = active_evar_index[slit - 1];
-      // That PA Variable entry already present
-      lit_t pa_indx = find_vector_index(pa_var_msat_ass[elit], dummy);
-      if (pa_indx != -1) {
-        clausewise_pa_var_map[present_cls_index[c]].push_back(
-            msat_concrete_var_map[elit][pa_indx]);
+
+      if (dummy.size() == 2) {
+        pavar_msat_ea[elit].insert(univar);
+        msat_concrete_var_ea[elit].push_back(index);
       } else {
-        pa_var_msat_ass[elit].push_back(dummy);
-        msat_concrete_var_map[elit].push_back(index);
-        //  ++msat_cntr;
-        clausewise_pa_var_map[present_cls_index[c]].push_back(index);
-        pa_vars.push_back(index);
-        ++index;
+        pavar_msat_ee[elit].insert(dummy);
+        msat_concrete_var_ee[elit].push_back(index);
       }
     }
   }
+
+  exit(0);
 
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
