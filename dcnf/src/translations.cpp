@@ -8,7 +8,8 @@ void dcnf::propagate_cls_removal(lit_t cls_indx) {
   // TODO: Check for the use of cls_indx
   for (lit_t l : dcnf_clauses[cls_indx].lits) {
     // Not sure if this check is required
-    if (!dcnf_variables[std::abs(l) - 1].present) continue;
+    if (!dcnf_variables[std::abs(l) - 1].present)
+      continue;
     if (l > 0) {
       dcnf_variables[std::abs(l) - 1].pos_cls.erase(cls_indx);
     } else {
@@ -129,8 +130,10 @@ lit_t running_time(
 }
 
 void dcnf::print_results() {
-  if (output_type == 0) output();
-  if (output_type == 0 || output_type == 1) display_rresult();
+  if (output_type == 0)
+    output();
+  if (output_type == 0 || output_type == 1)
+    display_rresult();
 }
 
 /** handle output of an Aut_reduction based on aut_present */
@@ -206,8 +209,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cls_t bf_vars;
   cl_t pa_vars;
 
-  cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
-  cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
+  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
+  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
 
   lit_t index = 1;
 
@@ -219,7 +222,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   if (index == 1) {
     result = "SAT";
-    return 10;  // empty cls list; return SAT
+    return 10; // empty cls list; return SAT
   }
 
   // bf variable := two_dim [v] [f_v]
@@ -236,7 +239,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     s_bf.clear();
   }
 
-  if (encoding == 1) {  // LOG Encoding
+  if (encoding == 1) { // LOG Encoding
     cl_t s_lbf;
     coord_t lbf_var_size = 0;
     coord_t lbf_enc = 0;
@@ -276,22 +279,20 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   // pa variable := Only consider unique mapping
   // bigbag to push all concrete bf variable assmts
   minsat_ass pa_var_msat_ass(active_evars.size());
-
   // Create a Set for each concete var assignemnt
-  cls_t pavar_msat_ea(active_evars.size());
-  minsat_ass pavar_msat_ee(active_evars.size());
+  vecsets_t pavar_msat_ea(active_evars.size());
+  vecsets_cls pavar_msat_ee(active_evars.size());
 
   lit_t current_size = 0;
   lit_t pa_indx;
 
   // dqbf Var to Cnf var Map; pa_vars for each bigbag element
   cls_t msat_concrete_var_map(active_evars.size());
-
   cls_t msat_concrete_var_ea(active_evars.size());
   cls_t msat_concrete_var_ee(active_evars.size());
 
   cls_t clausewise_pa_var_map(
-      present_clauses.size());  // create clausewise cnf vars
+      present_clauses.size()); // create clausewise cnf vars
 
   for (lit_t c : present_clauses) {
     for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
@@ -300,7 +301,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
       lit_t slit = std::abs(dummy[0]);
       lit_t univar = std::abs(dummy[1]);
-      if (!dcnf_clauses[univar - 1].present && univar != no_of_vars + 1 &&
+      if (!dcnf_variables[univar - 1].present && univar != no_of_vars + 1 &&
           univar != no_of_vars + 2) {
         continue;
       }
@@ -308,11 +309,25 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       lit_t elit = active_evar_index[slit - 1];
 
       if (dummy.size() == 2) {
+        current_size = pavar_msat_ea[elit].size();
         pavar_msat_ea[elit].insert(univar);
-        msat_concrete_var_ea[elit].push_back(index);
+        if (pavar_msat_ea[elit].size() > current_size) {
+          msat_concrete_var_ea[elit].push_back(index);
+          clausewise_pa_var_map[present_cls_index[c]].push_back(indx);
+          pa_vars.push_back(index);
+          ++index;
+        } else {
+          clausewise_pa_var_map[present_cls_index[c]].push_back(indx);
+        }
       } else {
+        current_size = pavar_msat_ee[elit].size();
         pavar_msat_ee[elit].insert(dummy);
-        msat_concrete_var_ee[elit].push_back(index);
+        if (pavar_msat_ea[elit].size() > current_size) {
+          msat_concrete_var_ee[elit].push_back(index);
+          clausewise_pa_var_map[present_cls_index[c]].push_back(indx);
+          pa_vars.push_back(index);
+          ++index;
+        }
       }
     }
   }
@@ -320,17 +335,17 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   exit(0);
 
   // --- Build Constraints
-  non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
+  non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
 
   satisfied_clauses(lbf_vars, bf_vars, pa_var_msat_ass, msat_concrete_var_map,
                     cnf_fml, bf2lbf_var_map,
-                    active_evar_index);  // (4.2)
+                    active_evar_index); // (4.2)
 
-  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
+  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
 
   untouched_clauses(lbf_vars, bf_vars, cs_vars, cnf_fml, bf2lbf_var_map,
                     present_cls_index,
-                    active_evar_index);  // (4.4)
+                    active_evar_index); // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (lit_t e : active_evars) {
@@ -374,7 +389,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_size = bf_var_size + std::to_string(bf_vars[i][j]) + " ";
     }
-    if (i < bf_vars.size() - 1) bf_var_size = bf_var_size + " +  ";
+    if (i < bf_vars.size() - 1)
+      bf_var_size = bf_var_size + " +  ";
   }
 
   if (encoding == 1) {
@@ -406,9 +422,9 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   fout.close();
 
   std::future<int> future = std::async(std::launch::async, []() {
-    auto retVal = system(
-        "./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > "
-        "/tmp/a.out");
+    auto retVal =
+        system("./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > "
+               "/tmp/a.out");
     return retVal;
   });
 
@@ -444,21 +460,21 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     while (std::getline(file, line)) {
       char s1 = line[0];
       switch (s1) {
-        case 'v': {
-          line = line.substr(line.find_first_of(" \t") + 1);
-          std::stringstream ss(line);
-          for (lit_t i = 0; ss >> i;) {
-            var_assgn.push_back(i);
-          }
-          break;
+      case 'v': {
+        line = line.substr(line.find_first_of(" \t") + 1);
+        std::stringstream ss(line);
+        for (lit_t i = 0; ss >> i;) {
+          var_assgn.push_back(i);
         }
-        case 's': {
-          if (line[2] == 'U') {
-            result = "UNSAT";
-            return 20;
-          }
-          break;
+        break;
+      }
+      case 's': {
+        if (line[2] == 'U') {
+          result = "UNSAT";
+          return 20;
         }
+        break;
+      }
       }
     }
     if (file.bad()) {
@@ -545,7 +561,7 @@ coord_t dcnf::e_autarky(lit_t e) {
   set_t intersect;
   set_t s1 = dcnf_variables[e - 1].pos_cls;
   set_t s2 = dcnf_variables[e - 1].neg_cls;
-  if (s1.size() == 0 || s2.size() == 0) {  // Pure Lit case
+  if (s1.size() == 0 || s2.size() == 0) { // Pure Lit case
     update_data_structure(e);
     final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars + 1});
     if (present_clauses.size() > 0)
@@ -563,7 +579,8 @@ coord_t dcnf::e_autarky(lit_t e) {
     set_t set_D;
     // Implement a func or change vector to a set
     for (lit_t l1 : cls_s1) {
-      if (std::abs(l1) == e) continue;
+      if (std::abs(l1) == e)
+        continue;
       if (l1 > 0) {
         compl_C.insert(-l1);
       } else {
@@ -592,8 +609,10 @@ coord_t dcnf::e_autarky(lit_t e) {
   cl_t vassgnmt;
   vassgnmt.push_back(e);
   for (lit_t l : dcnf_clauses[*s1.begin()].lits) {
-    if (std::abs(l) == e) continue;
-    if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end()) continue;
+    if (std::abs(l) == e)
+      continue;
+    if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end())
+      continue;
     vassgnmt.push_back(l ? -l : std::abs(l));
   }
   final_assgmt.push_back(vassgnmt);
