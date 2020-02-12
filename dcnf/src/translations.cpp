@@ -313,18 +313,16 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
         pavar_msat_ea[elit].insert(univar);
         if (pavar_msat_ea[elit].size() > current_size) {
           msat_concrete_var_ea[elit].push_back(index);
-          clausewise_pa_var_map[present_cls_index[c]].push_back(indx);
+          clausewise_pa_var_map[present_cls_index[c]].push_back(index);
           pa_vars.push_back(index);
           ++index;
-        } else {
-          clausewise_pa_var_map[present_cls_index[c]].push_back(indx);
         }
       } else {
         current_size = pavar_msat_ee[elit].size();
         pavar_msat_ee[elit].insert(dummy);
         if (pavar_msat_ea[elit].size() > current_size) {
           msat_concrete_var_ee[elit].push_back(index);
-          clausewise_pa_var_map[present_cls_index[c]].push_back(indx);
+          clausewise_pa_var_map[present_cls_index[c]].push_back(index);
           pa_vars.push_back(index);
           ++index;
         }
