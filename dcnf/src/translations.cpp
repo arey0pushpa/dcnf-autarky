@@ -283,8 +283,12 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   vecsets_t pavar_msat_ea(active_evars.size());
   vecsets_cls pavar_msat_ee(active_evars.size());
 
+  cls_t msat_ea(active_evars.size());
+  minsat_ass msat_ee(active_evars.size());
+
   lit_t current_size = 0;
   lit_t pa_indx;
+  lit_t pos = 0;
 
   // dqbf Var to Cnf var Map; pa_vars for each bigbag element
   cls_t msat_concrete_var_map(active_evars.size());
@@ -312,19 +316,31 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
         current_size = pavar_msat_ea[elit].size();
         pavar_msat_ea[elit].insert(univar);
         if (pavar_msat_ea[elit].size() > current_size) {
+          msat_ea[elit].push_back(univar);
           msat_concrete_var_ea[elit].push_back(index);
           clausewise_pa_var_map[present_cls_index[c]].push_back(index);
           pa_vars.push_back(index);
           ++index;
+        } else {
+          pos = std::distance(
+              msat_ea[elit].begin(),
+              std::find(msat_ea[elit].begin(), msat_ea[elit].end(), univar));
+          clausewise_pa_var_map[present_cls_index[c]].push_back(pos);
         }
       } else {
         current_size = pavar_msat_ee[elit].size();
         pavar_msat_ee[elit].insert(dummy);
         if (pavar_msat_ea[elit].size() > current_size) {
+          msat_ee[elit].push_back(dummy);
           msat_concrete_var_ee[elit].push_back(index);
           clausewise_pa_var_map[present_cls_index[c]].push_back(index);
           pa_vars.push_back(index);
           ++index;
+        } else {
+          pos = std::distance(
+              msat_ee[elit].begin(),
+              std::find(msat_ee[elit].begin(), msat_ee[elit].end(), dummy));
+          clausewise_pa_var_map[present_cls_index[c]].push_back(pos);
         }
       }
     }
