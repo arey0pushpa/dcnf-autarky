@@ -302,16 +302,15 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
       cl_t dummy = minsat_clause_assgmt[c][j];
       assert(dummy.size() == 2 || dummy.size() == 4);
-
       lit_t slit = std::abs(dummy[0]);
       lit_t univar = std::abs(dummy[1]);
+      // Check if you need Active clause
       if (!dcnf_variables[univar - 1].present && univar != no_of_vars + 1 &&
           univar != no_of_vars + 2) {
         continue;
       }
 
       lit_t elit = active_evar_index[slit - 1];
-
       if (dummy.size() == 2) {
         current_size = pavar_msat_ea[elit].size();
         pavar_msat_ea[elit].insert(univar);
@@ -330,7 +329,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       } else {
         current_size = pavar_msat_ee[elit].size();
         pavar_msat_ee[elit].insert(dummy);
-        if (pavar_msat_ea[elit].size() > current_size) {
+        if (pavar_msat_ee[elit].size() > current_size) {
           msat_ee[elit].push_back(dummy);
           msat_concrete_var_ee[elit].push_back(index);
           clausewise_pa_var_map[present_cls_index[c]].push_back(index);
@@ -346,7 +345,21 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
   }
 
-  exit(0);
+  // Put everything back in pavar_msat_ass
+  for (coord_t i = 0; i < active_evars.size(); ++i) {
+    for (lit_t j : msat_ea[i]) {
+      pa_var_msat_ass[i].push_back({active_evars[i], j});
+    }
+    for (cl_t k : msat_ee[i]) {
+      pa_var_msat_ass[i].push_back(k);
+    }
+    for (lit_t l : msat_concrete_var_ea[i]) {
+      msat_concrete_var_map[i].push_back(l);
+    }
+    for (lit_t m : msat_concrete_var_ee[i]) {
+      msat_concrete_var_map[i].push_back(m);
+    }
+  }
 
   // --- Build Constraints
   non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
