@@ -324,7 +324,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
           pos = std::distance(
               msat_ea[elit].begin(),
               std::find(msat_ea[elit].begin(), msat_ea[elit].end(), univar));
-          clausewise_pa_var_map[present_cls_index[c]].push_back(pos);
+          clausewise_pa_var_map[present_cls_index[c]].push_back(
+              msat_concrete_var_ea[elit][pos]);
         }
       } else {
         current_size = pavar_msat_ee[elit].size();
@@ -339,7 +340,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
           pos = std::distance(
               msat_ee[elit].begin(),
               std::find(msat_ee[elit].begin(), msat_ee[elit].end(), dummy));
-          clausewise_pa_var_map[present_cls_index[c]].push_back(pos);
+          clausewise_pa_var_map[present_cls_index[c]].push_back(
+              msat_concrete_var_ee[elit][pos]);
         }
       }
     }
