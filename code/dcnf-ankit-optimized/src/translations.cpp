@@ -304,6 +304,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       assert(dummy.size() == 2 || dummy.size() == 4);
       lit_t slit = std::abs(dummy[0]);
       lit_t univar = std::abs(dummy[1]);
+      lit_t unilit = dummy[1];
       // Check if you need Active clause
       if (!dcnf_variables[univar - 1].present && univar != no_of_vars + 1 &&
           univar != no_of_vars + 2) {
@@ -313,9 +314,9 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       lit_t elit = active_evar_index[slit - 1];
       if (dummy.size() == 2) {
         current_size = pavar_msat_ea[elit].size();
-        pavar_msat_ea[elit].insert(univar);
+        pavar_msat_ea[elit].insert(unilit);
         if (pavar_msat_ea[elit].size() > current_size) {
-          msat_ea[elit].push_back(univar);
+          msat_ea[elit].push_back(unilit);
           msat_concrete_var_ea[elit].push_back(index);
           clausewise_pa_var_map[present_cls_index[c]].push_back(index);
           pa_vars.push_back(index);
@@ -323,7 +324,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
         } else {
           pos = std::distance(
               msat_ea[elit].begin(),
-              std::find(msat_ea[elit].begin(), msat_ea[elit].end(), univar));
+              std::find(msat_ea[elit].begin(), msat_ea[elit].end(), unilit));
           clausewise_pa_var_map[present_cls_index[c]].push_back(
               msat_concrete_var_ea[elit][pos]);
         }
