@@ -112,7 +112,7 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
 class dcnf {
 public:
   dcnf() {
-    output_file_name = "/tmp/dcnfAutarky.dimacs";
+    output_file_name = "/tmp/dcnfAutarkyOpt.dimacs";
     aut_level = 1;            // 1-level Autarky
     s_level = 0;              // relaxed, non-strict
     encoding = 2;             // Linear encoding 

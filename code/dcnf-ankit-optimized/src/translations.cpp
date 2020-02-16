@@ -456,8 +456,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   std::future<int> future = std::async(std::launch::async, []() {
     auto retVal =
-        system("./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > "
-               "/tmp/a.out");
+        system("./build/lingeling/lingeling -q /tmp/dcnfAutarkyOpt.dimacs > "
+               "/tmp/b.out");
     return retVal;
   });
 
@@ -483,7 +483,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   if (status == std::future_status::ready) {
-    std::string filenm = "/tmp/a.out";
+    std::string filenm = "/tmp/b.out";
     std::string line;
     std::ifstream file(filenm);
     if (!file.is_open()) {
