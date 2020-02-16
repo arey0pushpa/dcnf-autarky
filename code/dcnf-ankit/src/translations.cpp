@@ -180,19 +180,21 @@ void dcnf::display_rresult() {
     aut_type = "E1+A1";
   }
   std::string r_out = "";
-  r_out += filename + " ";
+  r_out += "\"" + filename + "\"" + " ";
   r_out += std::to_string(no_of_vars) + " ";
   r_out += std::to_string(no_of_clauses) + " ";
-  r_out += aut_type + " ";
-  r_out += "[" + display_string(assigned_evars) + "] ";
+  r_out += "\"" + aut_type + "\"" + " ";
+  //r_out += "[" + display_string(assigned_evars) + "] ";
   r_out += std::to_string(ntaut) + " ";
   // r_out += "[ " + display_string(active_avars) + "] ";
   r_out += std::to_string(active_avars.size()) + " ";
   // r_out += "[ " + display_string(active_evars) + "] ";
   r_out += std::to_string(active_evars.size()) + " ";
-  r_out += result + " ";
+  r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
+  r_out += "\"" + result + "\"" + " ";
   // r_out += std::to_string(running_time(start)) + " ";
-  std::cout << "c\nc " << r_out << "\n";
+  std::cout << "c\nc filename pn pc autarky ntaut rpa rpe rpcdiff result\n";
+  std::cout << "c " << r_out << "\n";
   std::exit(0);
 }
 
