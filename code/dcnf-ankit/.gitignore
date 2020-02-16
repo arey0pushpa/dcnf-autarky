@@ -1,0 +1,6 @@
+*.o
+*~
+dcnf_autarky
+dcnf_autarky_debug
+*_output.dimacs
+
