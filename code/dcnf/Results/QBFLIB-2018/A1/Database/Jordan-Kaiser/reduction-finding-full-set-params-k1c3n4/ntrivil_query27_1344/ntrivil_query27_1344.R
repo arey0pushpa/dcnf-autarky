@@ -1,0 +1,1 @@
+252fe32f2692459b07c7d3b68313caab ntrivil_query27_1344.qdimacs 609 1457

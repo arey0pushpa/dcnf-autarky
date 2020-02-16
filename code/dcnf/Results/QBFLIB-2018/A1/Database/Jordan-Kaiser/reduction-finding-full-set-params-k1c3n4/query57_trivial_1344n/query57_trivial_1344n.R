@@ -1,0 +1,1 @@
+5a22afc687246cc1799546d43d5064d0 query57_trivial_1344n.qdimacs 965 1933

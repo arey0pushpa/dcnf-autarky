@@ -1,0 +1,1 @@
+ca4c4c1ec7596eaeca1a941d44221394 query23_query64_1344.qdimacs 1037 1593

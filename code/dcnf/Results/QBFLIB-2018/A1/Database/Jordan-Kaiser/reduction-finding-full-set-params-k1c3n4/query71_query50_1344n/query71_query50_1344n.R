@@ -1,0 +1,1 @@
+14ab8d5c688bdc9d9d18135427ae5c18 query71_query50_1344n.qdimacs 2117 7984

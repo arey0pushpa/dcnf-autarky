@@ -1,0 +1,1 @@
+3ca54b439fb29f5b3e37e28f06e9845f query23_query57_1344n.qdimacs 987 4995

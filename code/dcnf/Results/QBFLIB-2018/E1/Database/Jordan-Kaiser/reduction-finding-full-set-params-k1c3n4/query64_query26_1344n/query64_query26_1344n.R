@@ -1,0 +1,1 @@
+8d58b5ec9a25e46dd7cdfc8b7fe48c75 query64_query26_1344n.qdimacs 641 1097

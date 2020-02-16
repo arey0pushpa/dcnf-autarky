@@ -1,0 +1,1 @@
+f5c1da2a4abafef79718d2ab0ab23551 query60_query06_1344.qdimacs 3097 11794

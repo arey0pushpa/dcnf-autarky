@@ -1,0 +1,1 @@
+217e3a76d571ae8d35a635ef5367ab30 query24_query03_1344.qdimacs 515 3458

@@ -1,0 +1,1 @@
+1b735ced774be98a32c4d53ce538eacc query48_query30_1344.qdimacs 415 3567

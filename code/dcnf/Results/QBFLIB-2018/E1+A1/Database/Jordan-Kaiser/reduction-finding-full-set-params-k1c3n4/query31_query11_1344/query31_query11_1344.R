@@ -1,0 +1,1 @@
+f214d4178bb9c659c8d36e49aff14b9f query31_query11_1344.qdimacs 867 1902

@@ -1,0 +1,1 @@
+a980e6686188d1ff7f46b02333f3f634 query02_nreachq_1344.qdimacs 590 1733

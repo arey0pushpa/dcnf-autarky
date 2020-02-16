@@ -1,0 +1,1 @@
+6b0d1ad44fdcd53c7ca0139ad227c7bb query57_trueque_1344n.qdimacs 135 276

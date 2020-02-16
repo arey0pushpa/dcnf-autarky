@@ -1,0 +1,1 @@
+3d52da5aab03cdbca241d09ac5fd19ee query50_query60_1344n.qdimacs 855 1965

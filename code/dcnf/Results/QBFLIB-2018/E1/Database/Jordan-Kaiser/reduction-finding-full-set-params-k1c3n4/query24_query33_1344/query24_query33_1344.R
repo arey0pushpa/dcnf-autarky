@@ -1,0 +1,1 @@
+1ba0a3b6bfb1f468149c8b4fa6800785 query24_query33_1344.qdimacs 805 1273

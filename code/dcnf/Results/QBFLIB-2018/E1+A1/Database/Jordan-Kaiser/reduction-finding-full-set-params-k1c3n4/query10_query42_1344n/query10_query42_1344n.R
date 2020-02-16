@@ -1,0 +1,1 @@
+51d3d792f78a7b2bf5c3dc7e13cbc982 query10_query42_1344n.qdimacs 8963 42366

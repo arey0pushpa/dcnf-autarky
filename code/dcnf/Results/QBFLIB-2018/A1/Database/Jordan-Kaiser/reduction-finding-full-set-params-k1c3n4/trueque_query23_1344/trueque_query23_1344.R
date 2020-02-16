@@ -1,0 +1,1 @@
+cead6e1f4599ff2e114eb4669d1c2593 trueque_query23_1344.qdimacs 1 2

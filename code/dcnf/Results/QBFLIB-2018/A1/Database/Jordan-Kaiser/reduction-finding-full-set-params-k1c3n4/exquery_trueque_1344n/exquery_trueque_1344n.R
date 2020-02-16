@@ -1,0 +1,1 @@
+a2914c06d65e457c22952aebd6ebff39 exquery_trueque_1344n.qdimacs 5 5

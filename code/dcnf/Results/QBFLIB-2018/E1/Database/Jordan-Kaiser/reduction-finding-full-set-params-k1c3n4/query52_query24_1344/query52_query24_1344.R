@@ -1,0 +1,1 @@
+cf228da57dd412809554623562ebf54c query52_query24_1344.qdimacs 33 36

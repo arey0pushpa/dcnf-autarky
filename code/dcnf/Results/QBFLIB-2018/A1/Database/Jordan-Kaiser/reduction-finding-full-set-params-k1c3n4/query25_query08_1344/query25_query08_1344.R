@@ -1,0 +1,1 @@
+79fa44dbade359ecf7230a32a46cb6f3 query25_query08_1344.qdimacs 790 2113

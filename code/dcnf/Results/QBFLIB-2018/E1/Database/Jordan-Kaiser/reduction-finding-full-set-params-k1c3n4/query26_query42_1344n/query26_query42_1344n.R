@@ -1,0 +1,1 @@
+6ea3679e4f5bedc694c61c62680923a4 query26_query42_1344n.qdimacs 738 1995

@@ -1,0 +1,1 @@
+97475a3a6fff5f422ff6c94c2176f6d6 p20-10.pddl_planlen=0.qdimacs 120 120

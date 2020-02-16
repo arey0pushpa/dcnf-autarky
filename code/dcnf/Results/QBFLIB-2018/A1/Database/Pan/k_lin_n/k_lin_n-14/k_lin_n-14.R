@@ -1,0 +1,1 @@
+18fac23530dc64807ab0db61f6cb5a9a k_lin_n-14.qdimacs 2960 33831

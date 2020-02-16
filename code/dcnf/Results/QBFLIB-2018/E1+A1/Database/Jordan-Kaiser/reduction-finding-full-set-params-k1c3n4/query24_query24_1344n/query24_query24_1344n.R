@@ -1,0 +1,1 @@
+81cda56071acc7f934be6359328737b0 query24_query24_1344n.qdimacs 19 31

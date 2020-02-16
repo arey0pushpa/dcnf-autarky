@@ -1,0 +1,1 @@
+0cc2c2cb450986b015e1f4e63e162c01 ntrivil_query48_1344n.qdimacs 1589 5312

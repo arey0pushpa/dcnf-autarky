@@ -1,0 +1,1 @@
+2ce6376a699aaadcffc17ec519f3d5b0 query30_exquery_1344.qdimacs 83 186

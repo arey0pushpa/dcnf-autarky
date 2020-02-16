@@ -1,0 +1,1 @@
+205b0302380a3bee2492c6fc91d0299c query30_query24_1344n.qdimacs 1 1

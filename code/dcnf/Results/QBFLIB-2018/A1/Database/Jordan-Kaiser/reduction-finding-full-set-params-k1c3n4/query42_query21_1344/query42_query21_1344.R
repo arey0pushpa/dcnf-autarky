@@ -1,0 +1,1 @@
+110dd9dbc208c4700ce07aa59fcc9c83 query42_query21_1344.qdimacs 5300 41328

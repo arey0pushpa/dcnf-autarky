@@ -1,0 +1,1 @@
+87eae2ab18103276d46a2a5f1f8cb50d query55_query57_1344.qdimacs 1113 2666

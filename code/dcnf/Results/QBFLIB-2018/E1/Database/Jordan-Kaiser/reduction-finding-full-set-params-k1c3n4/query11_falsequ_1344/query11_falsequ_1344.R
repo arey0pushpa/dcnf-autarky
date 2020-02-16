@@ -1,0 +1,1 @@
+7391c05fc008140ed430bdf9421c984c query11_falsequ_1344.qdimacs 21 9

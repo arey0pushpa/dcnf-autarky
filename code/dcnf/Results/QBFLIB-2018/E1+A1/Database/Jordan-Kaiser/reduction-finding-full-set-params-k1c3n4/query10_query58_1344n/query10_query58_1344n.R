@@ -1,0 +1,1 @@
+3f2b752e7f069fc37c2a6f18a5b5d3b9 query10_query58_1344n.qdimacs 8760 37888

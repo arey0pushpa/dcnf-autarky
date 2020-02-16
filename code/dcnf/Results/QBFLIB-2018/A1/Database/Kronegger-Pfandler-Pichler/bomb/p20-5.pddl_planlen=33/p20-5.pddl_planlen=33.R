@@ -1,0 +1,1 @@
+4452bd6864147ced83bf82c22ced6321 p20-5.pddl_planlen=33.qdimacs 6865 201103

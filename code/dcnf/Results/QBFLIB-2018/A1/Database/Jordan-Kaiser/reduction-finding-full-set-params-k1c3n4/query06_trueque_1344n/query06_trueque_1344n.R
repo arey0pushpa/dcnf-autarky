@@ -1,0 +1,1 @@
+5b7841546656355db24f1d8e8a23fe4b query06_trueque_1344n.qdimacs 99 168

@@ -1,0 +1,1 @@
+ebe6d180bc9926673845cd3f40a3d95b query06_query10_1344n.qdimacs 2629 7866

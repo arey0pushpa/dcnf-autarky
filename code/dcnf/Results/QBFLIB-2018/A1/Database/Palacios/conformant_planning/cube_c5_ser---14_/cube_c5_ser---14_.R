@@ -1,0 +1,1 @@
+a5d32418ec429f687e1975154cea62f4 cube_c5_ser---14_.qdimacs 652 5210

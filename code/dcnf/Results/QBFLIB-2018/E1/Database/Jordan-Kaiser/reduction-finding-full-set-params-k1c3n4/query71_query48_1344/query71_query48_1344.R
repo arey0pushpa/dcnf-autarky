@@ -1,0 +1,1 @@
+52d9cd19cd77247beda98c6bda63af88 query71_query48_1344.qdimacs 2949 10429

@@ -1,0 +1,1 @@
+253ec2a48fae86cb0437e893b931667b query01_query08_1344n.qdimacs 502 1333

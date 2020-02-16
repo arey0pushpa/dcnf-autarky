@@ -1,0 +1,1 @@
+fee40cd27b32cf534ac2e371ae002a61 trivial_query54_1344.qdimacs 1829 6677

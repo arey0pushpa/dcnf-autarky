@@ -1,0 +1,1 @@
+c2bf26521006c7c23f0b865b7529f6da test4_quant_squaring4.qdimacs 860 1540

@@ -1,0 +1,1 @@
+49b4f9805d3cbd7fabfbb283f3767722 query55_query52_1344.qdimacs 843 1898

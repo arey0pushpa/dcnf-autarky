@@ -1,0 +1,1 @@
+e38e48bf07abbe211c2bc308f200ea97 query07_query04_1344n.qdimacs 1309 2746

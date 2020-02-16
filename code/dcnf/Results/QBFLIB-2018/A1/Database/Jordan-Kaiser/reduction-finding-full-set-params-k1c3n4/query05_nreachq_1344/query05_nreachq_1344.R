@@ -1,0 +1,1 @@
+8d17b7e000078e75e883cd1a9aff1d06 query05_nreachq_1344.qdimacs 592 1702

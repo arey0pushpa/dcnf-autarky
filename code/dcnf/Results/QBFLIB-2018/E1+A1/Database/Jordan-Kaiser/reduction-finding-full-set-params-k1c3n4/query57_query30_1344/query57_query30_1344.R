@@ -1,0 +1,1 @@
+b110fa6f90f90c2790d9aecc20350af2 query57_query30_1344.qdimacs 337 1301

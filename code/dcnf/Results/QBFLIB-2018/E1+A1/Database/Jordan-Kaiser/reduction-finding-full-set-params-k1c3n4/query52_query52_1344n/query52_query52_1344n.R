@@ -1,0 +1,1 @@
+3703fe8b58150cb633a3ef1dac69c03c query52_query52_1344n.qdimacs 735 1673

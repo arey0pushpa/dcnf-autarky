@@ -1,0 +1,1 @@
+85a05ed83238578193c6cf0d56a47bbf cnt2n.sat.qdimacs 84 225

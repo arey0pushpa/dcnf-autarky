@@ -1,0 +1,1 @@
+26d90b24827ee7c22daa38c2064d510f query08_query30_1344.qdimacs 303 3107

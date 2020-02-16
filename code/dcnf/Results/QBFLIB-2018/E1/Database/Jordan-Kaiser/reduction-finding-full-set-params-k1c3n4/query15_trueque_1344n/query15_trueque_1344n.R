@@ -1,0 +1,1 @@
+eae545530ca6374e4f4cd888722d5cf0 query15_trueque_1344n.qdimacs 1 1

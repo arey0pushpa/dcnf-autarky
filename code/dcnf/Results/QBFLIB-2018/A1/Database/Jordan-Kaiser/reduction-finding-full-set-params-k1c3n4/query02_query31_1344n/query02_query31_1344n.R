@@ -1,0 +1,1 @@
+36bd0717bc7023dd9dd517d456410ab7 query02_query31_1344n.qdimacs 595 1725

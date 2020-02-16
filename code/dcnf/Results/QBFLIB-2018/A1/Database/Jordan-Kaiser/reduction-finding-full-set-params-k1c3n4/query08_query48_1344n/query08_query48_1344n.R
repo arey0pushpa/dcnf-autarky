@@ -1,0 +1,1 @@
+c8419bbfddcdd821d54bb15750bbebfc query08_query48_1344n.qdimacs 8095 46330

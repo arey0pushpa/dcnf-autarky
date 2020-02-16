@@ -1,0 +1,1 @@
+d26d169f6765a180bb50383f51fbfc9d query71_query03_1344n.qdimacs 2319 8437

@@ -1,0 +1,1 @@
+2b4292c416937a9c6df3a15e8f601226 query30_query23_1344n.qdimacs 1 1

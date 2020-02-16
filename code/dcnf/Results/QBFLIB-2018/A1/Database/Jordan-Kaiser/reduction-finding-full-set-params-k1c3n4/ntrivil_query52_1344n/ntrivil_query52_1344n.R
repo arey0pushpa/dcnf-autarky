@@ -1,0 +1,1 @@
+9b21dad859efa34fab487e979afcec6e ntrivil_query52_1344n.qdimacs 837 3878

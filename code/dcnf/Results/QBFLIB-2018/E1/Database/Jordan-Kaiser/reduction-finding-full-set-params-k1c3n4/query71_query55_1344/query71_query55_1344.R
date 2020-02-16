@@ -1,0 +1,1 @@
+40f1aba2ff48c7bbaadb64f32245211d query71_query55_1344.qdimacs 2469 7655

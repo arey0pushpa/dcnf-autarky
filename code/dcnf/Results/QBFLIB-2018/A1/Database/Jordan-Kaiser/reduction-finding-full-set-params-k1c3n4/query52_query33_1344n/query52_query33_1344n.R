@@ -1,0 +1,1 @@
+7adcef4024454ed1cbe16618db66b416 query52_query33_1344n.qdimacs 911 2191

@@ -1,0 +1,1 @@
+e80f6966a4d749ed2edfd7a3b1407c6c ntrivil_query58_1344.qdimacs 1765 6118

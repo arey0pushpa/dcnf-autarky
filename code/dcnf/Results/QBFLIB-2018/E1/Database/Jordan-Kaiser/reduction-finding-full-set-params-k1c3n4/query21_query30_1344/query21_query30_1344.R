@@ -1,0 +1,1 @@
+36bbb2794585faa5f95ceab061040c89 query21_query30_1344.qdimacs 101 831

@@ -1,0 +1,1 @@
+a233694a3e7268f80f1a58564c0bd635 query52_falsequ_1344n.qdimacs 23 14

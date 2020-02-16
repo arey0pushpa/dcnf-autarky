@@ -1,0 +1,1 @@
+ecc5bb4e40e4254f93264fe5f53871e7 query71_query30_1344.qdimacs 257 1113

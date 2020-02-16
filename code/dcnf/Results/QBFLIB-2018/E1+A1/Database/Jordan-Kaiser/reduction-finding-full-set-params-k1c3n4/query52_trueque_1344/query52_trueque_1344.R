@@ -1,0 +1,1 @@
+357351b1ae143be7660b49eb1b186441 query52_trueque_1344.qdimacs 23 14

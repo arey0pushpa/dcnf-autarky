@@ -1,0 +1,1 @@
+1b5e60970f3f580c71dbd83be33df7b2 query60_query11_1344n.qdimacs 2303 9422

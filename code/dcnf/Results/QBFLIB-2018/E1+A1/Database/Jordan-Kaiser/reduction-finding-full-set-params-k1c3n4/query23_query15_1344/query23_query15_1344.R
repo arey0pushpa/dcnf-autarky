@@ -1,0 +1,1 @@
+fa5194e7ba2dc99bca7f7b7d1dfae323 query23_query15_1344.qdimacs 53 347

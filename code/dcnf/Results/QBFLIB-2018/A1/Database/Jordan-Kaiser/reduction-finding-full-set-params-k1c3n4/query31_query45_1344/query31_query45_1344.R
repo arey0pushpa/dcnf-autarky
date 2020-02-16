@@ -1,0 +1,1 @@
+8a2e499a16c9646b86d6e075e370f3df query31_query45_1344.qdimacs 859 1882

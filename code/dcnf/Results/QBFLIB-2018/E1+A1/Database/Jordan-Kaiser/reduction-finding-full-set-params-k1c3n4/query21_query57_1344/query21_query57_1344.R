@@ -1,0 +1,1 @@
+4aef387bddc35bcacc484a7d02521305 query21_query57_1344.qdimacs 3107 10918

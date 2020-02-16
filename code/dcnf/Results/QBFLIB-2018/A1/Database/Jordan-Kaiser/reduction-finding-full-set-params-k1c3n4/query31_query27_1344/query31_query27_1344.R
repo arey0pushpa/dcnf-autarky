@@ -1,0 +1,1 @@
+56b6f2d53eaa60cf71d9e6a459ca9a44 query31_query27_1344.qdimacs 357 586

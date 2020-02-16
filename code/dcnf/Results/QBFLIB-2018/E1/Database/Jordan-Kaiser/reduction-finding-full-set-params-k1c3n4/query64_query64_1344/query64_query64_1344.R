@@ -1,0 +1,1 @@
+fc32b3bf7720bb47948a574d2a440eac query64_query64_1344.qdimacs 1603 3570

@@ -1,0 +1,1 @@
+71078d31c5e38f60565889dce3b11587 battleship-11-11-unsat.cnf.dqdimacs 25 4477

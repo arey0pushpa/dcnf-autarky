@@ -1,0 +1,24 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 6580
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 6386
+c
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 6386
+c
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/Herbstritt/blackbox-01X-QBF/biu.mv.xl_ao.bb-b003-p020-IPF03-c03.blif-biu.inv.prop.bb-bmc.conf02.01X-QBF.BB1-01X.BB2-Zi.BB3-01X.with-IOC.unfold-003.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        4388
+c no.of clauses    6580
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  6386
+c
+c QBFLIB/Herbstritt/blackbox-01X-QBF/biu.mv.xl_ao.bb-b003-p020-IPF03-c03.blif-biu.inv.prop.bb-bmc.conf02.01X-QBF.BB1-01X.BB2-Zi.BB3-01X.with-IOC.unfold-003.qdimacs 4388 6580 E1 [1064 1065 1066 1067 1068 1069 1070 1071 1072 1073 1074 1075 1076 1077 1078 1079 1080 1081 1082 1083 1084 1085 1086 1087 1088 1089 1090 1091 1092 1093 1094 1095 1096 1097 1100 1101 1142 1143 1144 1145 1146 1147 1148 1149 1150 1151 1152 1153 1154 1155 1156 1157 1170 1171 1630 1631 1632 1633 1634 1635 1636 1637 1638 1639 1640 1641 1642 1643 1644 1645 1646 1647 1648 1649 1650 1651 1652 1653 1654 1655 1656 1657 1658 1659 1660 1661 1662 1663 1666 1667 1708 1709 1710 1711 1712 1713 1714 1715 1716 1717 1718 1719 1720 1721 1722 1723 1736 1737 2196 2197 2198 2199 2200 2201 2202 2203 2204 2205 2206 2207 2208 2209 2210 2211 2212 2213 2214 2215 2216 2217 2218 2219 2220 2221 2222 2223 2224 2225 2226 2227 2228 2229 2232 2233 2241 2243 2247 2249 2251 2253 2255 2257 2259 2261 2263 2265 2267 2269 2271 2273 2274 2275 2276 2277 2278 2279 2280 2281 2282 2283 2284 2285 2286 2287 2288 2289 2302 2303] 0 35 2566 6386 RED

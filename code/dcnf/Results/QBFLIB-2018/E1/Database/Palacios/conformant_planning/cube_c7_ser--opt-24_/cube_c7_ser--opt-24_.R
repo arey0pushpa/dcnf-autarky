@@ -1,0 +1,1 @@
+9e3992413f1a33de8c687592149c6dbb cube_c7_ser--opt-24_.qdimacs 1542 15510

@@ -1,0 +1,1 @@
+c96fee2090ea90f295c7a90c7d118e6b query54_query09_1344n.qdimacs 1026 2235

@@ -1,0 +1,24 @@
+Linear encoding.
+  - Add the "Command-variable" Encoding for AMO constraint.
+  - Make sure that uep is preserved.
+
+  Sequential Commander encoding:
+  The encoding  uses 3n-6 binary clauses (without uep) and < n/2 variables.
+  Given V = {v1,..,vn}
+  seco(v1, ..., vn) is defined recursively
+
+   i.  Base case n <= 4:
+      seco(v1,v2,v3,v4) = the binomial(4,2)=6 prime-clauses for
+                          amo(v1,v2,v3,v4)
+   ii.  Recursion for n >= 5:
+      seco(v1,...,vn) = Conjunction of
+                      binomial(3,2)=3 prime-clauses for amo(v1,v2,v3)
+                      and v1->w, v2->w, v3->w for the commander-variable w
+                      and seco(w,v3,...,vn).
+   Handle UEP:
+     The problem is that v1=...=vn=0 admits many solutions.
+
+   For each commander-variable w(x,y,z) add
+      w -> x v y v z (i.e., the 4-clause {-w,x,y,z}).
+
+

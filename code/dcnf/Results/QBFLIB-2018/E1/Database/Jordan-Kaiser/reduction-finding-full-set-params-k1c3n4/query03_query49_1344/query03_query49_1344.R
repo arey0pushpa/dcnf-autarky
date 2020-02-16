@@ -1,0 +1,1 @@
+cfea23d13ad33ca7cad665ac3c00d6ac query03_query49_1344.qdimacs 2793 10147

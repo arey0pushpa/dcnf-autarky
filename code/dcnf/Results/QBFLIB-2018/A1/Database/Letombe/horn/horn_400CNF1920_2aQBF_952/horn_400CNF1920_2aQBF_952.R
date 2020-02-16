@@ -1,0 +1,1 @@
+d20dbf2f73bfe695339ad5ec97a802cf horn_400CNF1920_2aQBF_952.qdimacs 400 1920

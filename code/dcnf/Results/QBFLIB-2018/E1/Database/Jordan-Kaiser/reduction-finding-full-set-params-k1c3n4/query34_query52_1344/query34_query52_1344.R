@@ -1,0 +1,1 @@
+e71cc8e4e5dc06edd0096098a514c685 query34_query52_1344.qdimacs 887 1952

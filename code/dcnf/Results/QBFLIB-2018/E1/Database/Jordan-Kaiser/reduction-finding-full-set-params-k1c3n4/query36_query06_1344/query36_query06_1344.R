@@ -1,0 +1,1 @@
+bfd0b1b14e299b30d0b7bc7e94dfcba2 query36_query06_1344.qdimacs 1069 2512

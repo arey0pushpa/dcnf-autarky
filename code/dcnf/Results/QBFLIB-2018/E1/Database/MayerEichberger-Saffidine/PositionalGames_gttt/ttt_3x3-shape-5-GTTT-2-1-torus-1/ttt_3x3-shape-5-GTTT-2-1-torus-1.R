@@ -1,0 +1,1 @@
+367181612be7112348a7572ca2c7e04e ttt_3x3-shape-5-GTTT-2-1-torus-1.qdimacs 418 1329

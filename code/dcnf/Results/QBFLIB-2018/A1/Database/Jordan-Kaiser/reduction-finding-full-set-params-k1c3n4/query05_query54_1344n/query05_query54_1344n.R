@@ -1,0 +1,1 @@
+0e3cbebe1351bf949055e199cebbbf58 query05_query54_1344n.qdimacs 677 1921

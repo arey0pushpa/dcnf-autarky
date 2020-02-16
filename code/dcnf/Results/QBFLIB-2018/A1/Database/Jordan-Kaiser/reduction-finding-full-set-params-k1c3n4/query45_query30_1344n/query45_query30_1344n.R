@@ -1,0 +1,1 @@
+c59d59076dbfcb69599ec852b58b0177 query45_query30_1344n.qdimacs 44 57

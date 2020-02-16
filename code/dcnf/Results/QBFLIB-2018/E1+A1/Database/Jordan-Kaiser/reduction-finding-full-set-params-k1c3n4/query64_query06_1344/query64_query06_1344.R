@@ -1,0 +1,1 @@
+53dd9d7f87d97ee6de3046a384c4eccb query64_query06_1344.qdimacs 1313 3250

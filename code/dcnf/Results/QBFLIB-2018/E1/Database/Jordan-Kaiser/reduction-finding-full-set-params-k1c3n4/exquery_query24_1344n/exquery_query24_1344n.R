@@ -1,0 +1,1 @@
+c7d7985331b652d5933dd320794044f9 exquery_query24_1344n.qdimacs 15 17

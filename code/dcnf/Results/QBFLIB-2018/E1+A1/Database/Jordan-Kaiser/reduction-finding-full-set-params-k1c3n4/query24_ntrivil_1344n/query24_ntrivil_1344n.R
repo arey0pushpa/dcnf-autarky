@@ -1,0 +1,1 @@
+fad1d1ea914fb8d9e68510cbbd7b5236 query24_ntrivil_1344n.qdimacs 193 523

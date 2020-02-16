@@ -1,0 +1,1 @@
+6f3ddbc2f94e872c1d608fcb1f8f11b2 ring4_6.qdimacs 107 440

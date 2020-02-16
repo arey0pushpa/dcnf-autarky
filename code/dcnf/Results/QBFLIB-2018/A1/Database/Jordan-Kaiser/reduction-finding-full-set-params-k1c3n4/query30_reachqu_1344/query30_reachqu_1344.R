@@ -1,0 +1,1 @@
+0590c1cbdd4283fabb7018a533e66fd7 query30_reachqu_1344.qdimacs 1891 7951

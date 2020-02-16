@@ -1,0 +1,1 @@
+6dc472e786cf86c6677f22c8878b6196 mult_bool_matrix_3_5_2.sat.qdimacs 1259 3672

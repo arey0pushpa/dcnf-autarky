@@ -1,0 +1,1 @@
+69c95c3726edcc37f46de73042dfab06 query07_query60_1344n.qdimacs 3097 9739

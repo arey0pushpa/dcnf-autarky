@@ -1,0 +1,1 @@
+fad827bda9ec4eb24715e75cd140e941 exquery_trivial_1344n.qdimacs 137 213

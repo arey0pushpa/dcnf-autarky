@@ -1,0 +1,1 @@
+c3c4a8492e3eb4986ad71fc78ce430e7 p5-5.pddl_planlen=13.qdimacs 950 8088

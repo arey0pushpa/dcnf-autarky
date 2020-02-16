@@ -1,0 +1,1 @@
+85c8d6921a1137b24d545adff0c45d4e trueque_query07_1344.qdimacs 127 227

@@ -1,0 +1,1 @@
+560f270d5a7a546abe4b120b7bf0600d query07_trueque_1344.qdimacs 5 5

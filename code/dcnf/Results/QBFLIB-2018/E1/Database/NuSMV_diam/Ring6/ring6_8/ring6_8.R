@@ -1,0 +1,1 @@
+7f69a246ebac0f83dd7c3c190f1c3bd9 ring6_8.qdimacs 175 998

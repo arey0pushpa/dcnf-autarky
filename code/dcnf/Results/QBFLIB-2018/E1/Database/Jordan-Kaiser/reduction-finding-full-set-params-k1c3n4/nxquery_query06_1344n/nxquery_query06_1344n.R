@@ -1,0 +1,1 @@
+880019da35f31dc8770169c2eab20ad7 nxquery_query06_1344n.qdimacs 505 1415

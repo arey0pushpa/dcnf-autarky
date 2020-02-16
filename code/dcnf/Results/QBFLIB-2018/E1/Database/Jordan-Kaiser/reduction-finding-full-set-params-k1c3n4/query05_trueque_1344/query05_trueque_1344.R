@@ -1,0 +1,1 @@
+7c194a3d12961070505817e18051f1ff query05_trueque_1344.qdimacs 10 7

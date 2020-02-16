@@ -1,0 +1,1 @@
+071dc06bff5f40b874c4e310492b8f80 query52_exquery_1344n.qdimacs 123 177

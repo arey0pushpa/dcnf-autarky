@@ -1,0 +1,1 @@
+086917dcafd0f359adbe174ad921ab2c query50_query10_1344.qdimacs 766 1901

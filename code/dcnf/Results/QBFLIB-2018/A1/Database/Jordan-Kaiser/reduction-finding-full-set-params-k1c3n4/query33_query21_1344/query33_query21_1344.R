@@ -1,0 +1,1 @@
+d9efca61fef1dd84e11577b300402cf1 query33_query21_1344.qdimacs 889 1954

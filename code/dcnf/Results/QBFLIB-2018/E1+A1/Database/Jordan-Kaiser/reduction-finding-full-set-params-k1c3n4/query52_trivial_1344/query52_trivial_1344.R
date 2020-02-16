@@ -1,0 +1,1 @@
+8d6aa775717af20bebb4689514adef21 query52_trivial_1344.qdimacs 145 242

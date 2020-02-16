@@ -1,0 +1,1 @@
+8f0fcaa52e82c5790b8193c6b916d10c query51_exquery_1344.qdimacs 119 174

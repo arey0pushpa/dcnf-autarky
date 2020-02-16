@@ -1,0 +1,1 @@
+cc1182223ae2018f3166d8564c3d8f8b query33_ntrivil_1344.qdimacs 297 502

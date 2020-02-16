@@ -1,0 +1,1 @@
+978ffc407ea6093f9ffec270c10abdc8 query15_query51_1344.qdimacs 554 2424

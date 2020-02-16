@@ -1,0 +1,1 @@
+b4585cdad0102eb9c0927bf42be41fc4 query24_query50_1344n.qdimacs 413 3102

@@ -1,0 +1,1 @@
+570ef330ccdb3a997ebd9051ae87e6ca query51_query57_1344n.qdimacs 1001 2391

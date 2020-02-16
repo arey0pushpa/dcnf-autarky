@@ -1,0 +1,1 @@
+939dcdfbc2c0fed9a8a4d9c6a913683c query01_query10_1344n.qdimacs 574 1329

@@ -1,0 +1,1 @@
+482d428d95fe9fc8d9528c57a76db89f query01_trueque_1344.qdimacs 13 9

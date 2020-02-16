@@ -1,0 +1,1 @@
+4e3ad18c970f654d7eed57fa86338a4f query23_query71_1344.qdimacs 827 4754

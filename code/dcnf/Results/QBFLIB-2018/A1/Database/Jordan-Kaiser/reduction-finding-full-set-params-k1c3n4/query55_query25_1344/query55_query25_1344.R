@@ -1,0 +1,1 @@
+1dcad2051437f40ea89d8c9ab9bc161b query55_query25_1344.qdimacs 855 1934

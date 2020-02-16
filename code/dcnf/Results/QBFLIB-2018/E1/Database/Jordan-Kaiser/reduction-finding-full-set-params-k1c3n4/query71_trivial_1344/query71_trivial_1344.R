@@ -1,0 +1,1 @@
+61c7e6d45da3cb95415f0677133a0858 query71_trivial_1344.qdimacs 885 1860

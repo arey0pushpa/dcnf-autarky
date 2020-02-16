@@ -1,0 +1,1 @@
+974235bdfa7d891bd5bf7efefb3d45ed query54_query30_1344n.qdimacs 280 527

@@ -1,0 +1,1 @@
+8717eaaa2983fd22e6c66c8ced768ed0 query26_query48_1344.qdimacs 630 1761

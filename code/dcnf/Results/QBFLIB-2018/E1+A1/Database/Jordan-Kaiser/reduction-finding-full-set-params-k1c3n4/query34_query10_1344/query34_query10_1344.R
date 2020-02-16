@@ -1,0 +1,1 @@
+ec53b8ab8c65634c69faa04011303caf query34_query10_1344.qdimacs 930 2071

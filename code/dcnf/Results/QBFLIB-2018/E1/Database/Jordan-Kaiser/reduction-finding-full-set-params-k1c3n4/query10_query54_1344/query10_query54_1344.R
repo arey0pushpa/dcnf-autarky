@@ -1,0 +1,1 @@
+6e41b3e7e14e222f1a1a6051facd5f37 query10_query54_1344.qdimacs 8341 50385

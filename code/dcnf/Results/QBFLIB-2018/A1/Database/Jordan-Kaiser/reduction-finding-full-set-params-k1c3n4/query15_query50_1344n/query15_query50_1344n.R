@@ -1,0 +1,1 @@
+44cf139698baf936ade670c17e007e87 query15_query50_1344n.qdimacs 617 2176

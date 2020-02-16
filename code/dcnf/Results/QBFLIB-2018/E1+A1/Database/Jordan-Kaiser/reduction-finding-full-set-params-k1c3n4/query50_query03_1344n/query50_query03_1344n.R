@@ -1,0 +1,1 @@
+85a1b47ad3a31b2f54951747d6fa54eb query50_query03_1344n.qdimacs 757 1721

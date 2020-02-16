@@ -1,0 +1,1 @@
+df3dbd8a7774425daf6e6fe4ce01ec7d cnt30n.unsat.qdimacs 1036 2971

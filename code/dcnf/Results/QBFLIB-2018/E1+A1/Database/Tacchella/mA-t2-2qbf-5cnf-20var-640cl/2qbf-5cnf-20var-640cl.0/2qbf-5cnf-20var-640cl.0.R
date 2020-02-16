@@ -1,0 +1,1 @@
+ca50016b9257f81c5d1eb30f0b63dfd1 2qbf-5cnf-20var-640cl.0.qdimacs 40 640

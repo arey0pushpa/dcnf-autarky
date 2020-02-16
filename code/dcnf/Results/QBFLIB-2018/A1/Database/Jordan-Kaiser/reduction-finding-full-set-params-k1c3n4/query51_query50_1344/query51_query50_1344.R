@@ -1,0 +1,1 @@
+0663ca594a38aafd02e6eb2d79b43168 query51_query50_1344.qdimacs 711 1614

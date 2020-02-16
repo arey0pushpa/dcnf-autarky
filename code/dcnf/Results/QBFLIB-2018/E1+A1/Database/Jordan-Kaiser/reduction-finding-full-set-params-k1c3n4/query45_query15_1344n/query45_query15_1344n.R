@@ -1,0 +1,1 @@
+699d9b9ec48925c683001340d69d1f0d query45_query15_1344n.qdimacs 44 57

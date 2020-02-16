@@ -1,0 +1,1 @@
+3793951ab86c704e4f3cdc1b6c891742 p20-5.pddl_planlen=34.qdimacs 7070 207204

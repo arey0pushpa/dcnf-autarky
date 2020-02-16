@@ -1,0 +1,1 @@
+c80cdfdefcbc173eb02f2bad7f1ed798 trueque_query03_1344.qdimacs 204 703

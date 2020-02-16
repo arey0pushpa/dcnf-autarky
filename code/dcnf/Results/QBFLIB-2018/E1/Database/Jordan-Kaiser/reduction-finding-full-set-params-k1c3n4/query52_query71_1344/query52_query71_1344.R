@@ -1,0 +1,1 @@
+039bec829b796ee46992715da42e4fe8 query52_query71_1344.qdimacs 925 2248

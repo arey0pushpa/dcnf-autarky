@@ -1,0 +1,1 @@
+57571377ab9eb743ee1358087f4aecae query24_nxquery_1344n.qdimacs 167 486

@@ -1,0 +1,1 @@
+6952b8e0ceebb0fe12b44aaa12b495bb query06_query48_1344n.qdimacs 2949 9642

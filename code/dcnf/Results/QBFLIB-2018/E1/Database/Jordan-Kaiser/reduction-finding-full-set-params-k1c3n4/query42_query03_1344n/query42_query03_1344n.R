@@ -1,0 +1,1 @@
+5b3460b864eba748adaff9201956e3ca query42_query03_1344n.qdimacs 5812 41978

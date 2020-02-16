@@ -1,0 +1,1 @@
+80f7bb2df4bbf4693846e2acf1a1907d query26_nxquery_1344n.qdimacs 189 305

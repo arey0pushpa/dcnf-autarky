@@ -1,0 +1,6 @@
+c The case of example where var only occurs in the prefix and 
+p cnf 3 2
+a 1 0
+e 2 3 0
+1 -2 0 
+-1 2 0

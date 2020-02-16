@@ -1,0 +1,1 @@
+74bf664650dc8d313444055f7a275cdb query60_reachqu_1344n.qdimacs 2879 9800

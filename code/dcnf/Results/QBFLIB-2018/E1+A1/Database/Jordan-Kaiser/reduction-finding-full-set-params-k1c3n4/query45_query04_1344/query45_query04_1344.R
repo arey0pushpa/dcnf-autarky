@@ -1,0 +1,1 @@
+2387b3f252ce99a710b1e61fc306df71 query45_query04_1344.qdimacs 211 320

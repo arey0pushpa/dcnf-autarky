@@ -1,0 +1,1 @@
+77a9f337e1a48cf9c18c591023ce228a query42_query24_1344n.qdimacs 222 410

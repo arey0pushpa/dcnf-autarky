@@ -1,0 +1,1 @@
+73751920daa1cab3157e5ad9b83d63ce p20-10.pddl_planlen=24.qdimacs 8040 554504

@@ -1,0 +1,1 @@
+8bfb5edc146ab6044c6a1fafdcd9434d query11_nreachq_1344.qdimacs 798 2005

@@ -1,0 +1,1 @@
+886cbdc5b355c5c8c3bf60bf86e60caa stmt19_2_180.qdimacs 1572 5013

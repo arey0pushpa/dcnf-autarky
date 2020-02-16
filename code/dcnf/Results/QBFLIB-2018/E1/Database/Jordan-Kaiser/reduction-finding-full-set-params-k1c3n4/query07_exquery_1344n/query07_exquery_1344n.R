@@ -1,0 +1,1 @@
+ba9754629a44a44d19b08cb7d16f2738 query07_exquery_1344n.qdimacs 651 1362

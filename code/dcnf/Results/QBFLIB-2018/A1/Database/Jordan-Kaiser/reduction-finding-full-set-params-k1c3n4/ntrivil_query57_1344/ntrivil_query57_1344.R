@@ -1,0 +1,1 @@
+e19e27b35876ae36dd1a954c051cbf3b ntrivil_query57_1344.qdimacs 1903 6834

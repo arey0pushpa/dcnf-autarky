@@ -1,0 +1,1 @@
+69aebfdfe3ff7a4874b73ebe8a82c2e3 query36_query06_1344n.qdimacs 1069 2471

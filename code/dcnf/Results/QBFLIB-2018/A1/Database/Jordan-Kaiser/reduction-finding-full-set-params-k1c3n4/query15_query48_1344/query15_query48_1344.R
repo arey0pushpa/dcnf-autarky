@@ -1,0 +1,1 @@
+b9bc84a9cae82faf4b4c37781e25306f query15_query48_1344.qdimacs 1560 8376

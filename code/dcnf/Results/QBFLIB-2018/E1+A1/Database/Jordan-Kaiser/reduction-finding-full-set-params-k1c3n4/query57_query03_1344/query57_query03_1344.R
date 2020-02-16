@@ -1,0 +1,1 @@
+478620c2840779daaa7faddbdc756d74 query57_query03_1344.qdimacs 2399 8740

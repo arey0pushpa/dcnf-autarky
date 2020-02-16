@@ -1,0 +1,1 @@
+a420da413ab7af868ca3343ae373463e trueque_query08_1344n.qdimacs 201 241

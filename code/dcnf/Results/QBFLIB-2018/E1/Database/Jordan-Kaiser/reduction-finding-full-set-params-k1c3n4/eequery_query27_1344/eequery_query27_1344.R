@@ -1,0 +1,1 @@
+7e5140c00ee7a57c610ec78b3fecf50e eequery_query27_1344.qdimacs 201 310

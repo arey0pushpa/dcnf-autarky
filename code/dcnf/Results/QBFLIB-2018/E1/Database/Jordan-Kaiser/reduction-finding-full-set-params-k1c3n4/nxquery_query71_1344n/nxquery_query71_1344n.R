@@ -1,0 +1,1 @@
+51f41e59733458022df51bdb2d3d2d7e nxquery_query71_1344n.qdimacs 505 1415

@@ -1,0 +1,1 @@
+bc74bdcb8d27b8cc8de316df354d0668 query24_query09_1344n.qdimacs 561 772

@@ -1,0 +1,1 @@
+6260472f02d7d3d2975144f4dadc1b35 query34_eequery_1344n.qdimacs 899 1987

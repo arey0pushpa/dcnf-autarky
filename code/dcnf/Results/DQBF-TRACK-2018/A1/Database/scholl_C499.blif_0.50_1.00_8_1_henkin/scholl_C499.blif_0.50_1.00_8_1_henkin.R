@@ -1,0 +1,1 @@
+af5db774101a0a11d175824738c773fc scholl_C499.blif_0.50_1.00_8_1_henkin.dqdimacs 893 2583

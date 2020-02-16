@@ -1,0 +1,1 @@
+e071d686cf77df43a1b0f7caf030ee07 trueque_query04_1344.qdimacs 134 190

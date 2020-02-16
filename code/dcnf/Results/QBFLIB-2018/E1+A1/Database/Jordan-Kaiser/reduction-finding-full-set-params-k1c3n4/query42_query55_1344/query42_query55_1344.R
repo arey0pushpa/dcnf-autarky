@@ -1,0 +1,1 @@
+a72e4c7a63ecba17a7f13eb3e4b662a7 query42_query55_1344.qdimacs 6717 36035

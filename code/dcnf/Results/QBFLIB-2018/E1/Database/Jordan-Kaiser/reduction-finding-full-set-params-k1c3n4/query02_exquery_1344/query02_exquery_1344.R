@@ -1,0 +1,1 @@
+fd5856a075d16ae7bb765a0d9a099b07 query02_exquery_1344.qdimacs 181 298

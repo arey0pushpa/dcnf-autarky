@@ -1,0 +1,1 @@
+390b3ce65087d254b121e22adbecb582 query02_trueque_1344n.qdimacs 9 2

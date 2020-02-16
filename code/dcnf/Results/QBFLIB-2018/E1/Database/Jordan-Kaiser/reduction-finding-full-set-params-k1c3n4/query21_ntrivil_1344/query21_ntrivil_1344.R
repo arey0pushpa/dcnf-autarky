@@ -1,0 +1,1 @@
+1cd5aedc4f568422a07c3f6ee8f2c416 query21_ntrivil_1344.qdimacs 729 1578

@@ -1,0 +1,1 @@
+fb4b83b7fcf466e8dbf38efc6db9c669 query05_query33_1344.qdimacs 605 1742

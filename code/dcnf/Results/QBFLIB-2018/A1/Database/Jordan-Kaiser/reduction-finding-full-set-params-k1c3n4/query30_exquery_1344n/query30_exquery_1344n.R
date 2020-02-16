@@ -1,0 +1,1 @@
+24633f19f91daacdb2cadfdbbab62820 query30_exquery_1344n.qdimacs 83 197

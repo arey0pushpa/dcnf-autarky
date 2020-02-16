@@ -1,0 +1,1 @@
+19abd266fbe76c252e234edb61085489 query27_query45_1344n.qdimacs 407 1165

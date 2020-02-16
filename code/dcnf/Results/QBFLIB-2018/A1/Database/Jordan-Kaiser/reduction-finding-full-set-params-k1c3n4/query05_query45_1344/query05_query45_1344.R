@@ -1,0 +1,1 @@
+c7c6d2ef7feec6e408c971e909597e1d query05_query45_1344.qdimacs 409 1168

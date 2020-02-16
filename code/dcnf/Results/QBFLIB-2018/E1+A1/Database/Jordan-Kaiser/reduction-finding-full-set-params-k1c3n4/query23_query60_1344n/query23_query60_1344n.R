@@ -1,0 +1,1 @@
+5b17b7dc54747080dc2200a70ccfd07e query23_query60_1344n.qdimacs 885 4343

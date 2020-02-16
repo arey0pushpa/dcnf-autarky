@@ -1,0 +1,1 @@
+8ce8936c947acc9db33f6185e9653315 query58_trivial_1344.qdimacs 1049 2322

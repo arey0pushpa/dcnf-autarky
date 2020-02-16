@@ -1,0 +1,1 @@
+eddd47b24f7e6bace800c260f86d4cac trueque_query02_1344n.qdimacs 129 162

@@ -1,0 +1,1 @@
+1e80497e6f5bfb4d15a2a4a4e57248c7 reachqu_nxquery_1344.qdimacs 1865 5917

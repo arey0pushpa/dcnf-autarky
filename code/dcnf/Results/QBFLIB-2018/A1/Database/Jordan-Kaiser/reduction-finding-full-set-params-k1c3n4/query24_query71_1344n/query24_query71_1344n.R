@@ -1,0 +1,1 @@
+fe80b84e2411fc0637bfb1169e3bfa24 query24_query71_1344n.qdimacs 811 4675

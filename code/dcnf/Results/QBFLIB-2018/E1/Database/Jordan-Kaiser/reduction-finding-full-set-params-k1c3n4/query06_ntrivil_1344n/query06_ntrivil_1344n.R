@@ -1,0 +1,1 @@
+f11356ec021690fe0b4b6b9a9ea0b103 query06_ntrivil_1344n.qdimacs 885 1745

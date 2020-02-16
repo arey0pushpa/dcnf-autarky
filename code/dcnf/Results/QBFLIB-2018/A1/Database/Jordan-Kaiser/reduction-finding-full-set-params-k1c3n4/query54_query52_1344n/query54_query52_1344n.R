@@ -1,0 +1,1 @@
+d7e8c0759edf5aaac3e8d683955b9fe0 query54_query52_1344n.qdimacs 959 2131

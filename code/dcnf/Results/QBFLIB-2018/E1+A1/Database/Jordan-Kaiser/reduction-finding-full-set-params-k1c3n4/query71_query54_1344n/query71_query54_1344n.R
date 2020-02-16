@@ -1,0 +1,1 @@
+98653d603ccdcc28d256a6da80487c3d query71_query54_1344n.qdimacs 3189 11000

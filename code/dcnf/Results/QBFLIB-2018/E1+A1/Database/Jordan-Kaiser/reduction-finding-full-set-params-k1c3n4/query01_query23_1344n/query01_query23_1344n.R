@@ -1,0 +1,1 @@
+3430d35fd4fab18aae2f3494a68dc687 query01_query23_1344n.qdimacs 23 21

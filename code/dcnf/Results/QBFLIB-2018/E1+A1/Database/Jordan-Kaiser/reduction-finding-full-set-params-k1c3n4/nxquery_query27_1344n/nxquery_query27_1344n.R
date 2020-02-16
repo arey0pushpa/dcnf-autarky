@@ -1,0 +1,1 @@
+9f8b8a98ef782c834d43f8a8987316a0 nxquery_query27_1344n.qdimacs 237 385

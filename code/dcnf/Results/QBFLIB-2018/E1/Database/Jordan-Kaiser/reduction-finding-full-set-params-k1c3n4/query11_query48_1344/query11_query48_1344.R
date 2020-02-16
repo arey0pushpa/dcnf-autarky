@@ -1,0 +1,1 @@
+20d9d096f91fbee1412b94dd354c3d13 query11_query48_1344.qdimacs 926 2201

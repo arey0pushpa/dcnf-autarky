@@ -1,0 +1,1 @@
+3ba56f9f82363843475c92df701b8d60 query27_nreachq_1344n.qdimacs 590 1537

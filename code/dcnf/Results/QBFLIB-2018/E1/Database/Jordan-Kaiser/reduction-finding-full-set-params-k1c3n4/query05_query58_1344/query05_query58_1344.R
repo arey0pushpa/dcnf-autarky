@@ -1,0 +1,1 @@
+fcbcef5afae5f769b23658267977a014 query05_query58_1344.qdimacs 759 1897

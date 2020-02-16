@@ -1,0 +1,1 @@
+0b28406f2b6d8b33aa52c5ff26f06b72 ntrivil_query54_1344.qdimacs 1829 6677

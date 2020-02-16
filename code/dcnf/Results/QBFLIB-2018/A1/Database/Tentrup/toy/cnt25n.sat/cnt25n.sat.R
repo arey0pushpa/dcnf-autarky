@@ -1,0 +1,1 @@
+fd86fc3b080a8f1c5345486f349f5d1b cnt25n.sat.qdimacs 868 2523

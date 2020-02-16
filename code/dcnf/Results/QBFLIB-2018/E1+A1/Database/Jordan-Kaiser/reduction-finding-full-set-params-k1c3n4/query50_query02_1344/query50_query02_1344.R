@@ -1,0 +1,1 @@
+17679348bed1a71fd3d9152d420ee1b7 query50_query02_1344.qdimacs 217 326

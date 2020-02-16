@@ -1,0 +1,1 @@
+d2a8e09d717074053b6e6780f309adae query33_nxquery_1344.qdimacs 275 456

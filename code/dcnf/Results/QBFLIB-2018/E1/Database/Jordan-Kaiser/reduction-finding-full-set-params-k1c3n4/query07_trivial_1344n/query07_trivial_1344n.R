@@ -1,0 +1,1 @@
+08f13f33ca3f4e22260a59fc73609f31 query07_trivial_1344n.qdimacs 725 1447

@@ -1,0 +1,1 @@
+2d0c8498ce9a2f28b1c43b6c85128d58 query60_ntrivil_1344n.qdimacs 1025 2179

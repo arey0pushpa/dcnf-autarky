@@ -1,0 +1,1 @@
+228137349bff82ab426f9d07fe090d8c query52_query15_1344.qdimacs 56 275

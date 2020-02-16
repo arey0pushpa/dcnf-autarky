@@ -1,0 +1,1 @@
+c053fce4d4674793c9187fab446e5953 query45_trueque_1344.qdimacs 17 17

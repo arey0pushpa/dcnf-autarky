@@ -1,0 +1,1 @@
+ab4d8a7e79b43ce1a56a65e1b68c78f8 query30_query06_1344.qdimacs 1981 6620

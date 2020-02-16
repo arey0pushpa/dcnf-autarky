@@ -1,0 +1,1 @@
+71c14b9b2c95f4d369e5980b9ac25647 ntrivil_query07_1344n.qdimacs 438 1243

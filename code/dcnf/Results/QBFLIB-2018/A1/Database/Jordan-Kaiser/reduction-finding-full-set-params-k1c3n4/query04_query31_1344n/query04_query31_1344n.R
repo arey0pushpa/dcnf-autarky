@@ -1,0 +1,1 @@
+e592f78d0fc6ce194cb83d3c3ea546d3 query04_query31_1344n.qdimacs 597 1727

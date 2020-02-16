@@ -1,0 +1,1 @@
+918d57c5543b8332170c8fd42f30eb7e query10_trivial_1344.qdimacs 2088 7666

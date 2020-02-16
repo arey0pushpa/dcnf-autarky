@@ -1,0 +1,1 @@
+624d8b305e3043cac599d938a1cc27de query27_eequery_1344n.qdimacs 439 1257

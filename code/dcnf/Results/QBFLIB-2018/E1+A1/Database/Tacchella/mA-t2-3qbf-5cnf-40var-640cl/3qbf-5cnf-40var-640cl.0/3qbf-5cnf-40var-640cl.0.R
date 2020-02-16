@@ -1,0 +1,1 @@
+42111fae2890d56deb20cdd0153e46c8 3qbf-5cnf-40var-640cl.0.qdimacs 120 640

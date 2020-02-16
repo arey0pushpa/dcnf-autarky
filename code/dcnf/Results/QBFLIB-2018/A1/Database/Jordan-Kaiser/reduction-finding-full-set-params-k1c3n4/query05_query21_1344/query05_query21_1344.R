@@ -1,0 +1,1 @@
+5c67b3af5f666a0fa2b2836de53b4ec6 query05_query21_1344.qdimacs 431 1229

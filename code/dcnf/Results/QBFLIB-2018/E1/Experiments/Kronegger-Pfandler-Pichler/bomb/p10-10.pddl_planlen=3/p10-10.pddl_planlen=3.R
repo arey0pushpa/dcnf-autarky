@@ -1,0 +1,24 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 19308
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 19038
+c
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 19038
+c
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/Kronegger-Pfandler-Pichler/bomb/p10-10.pddl_planlen=3.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        650
+c no.of clauses    19308
+c no.of taut cls   320
+c 
+c Output Parameters: 
+c remaining no.of clauses  19038
+c
+c QBFLIB/Kronegger-Pfandler-Pichler/bomb/p10-10.pddl_planlen=3.qdimacs 650 19308 E1 [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 24 25 26 27 28 30 31 33 35 36 38 39 41 42 43 44 45 46 47 48 49 50 51 52 53 55 56 57 58 59 60 62 63 64 65 66 67 68 70 71 72 73 74 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 411 412 413 414 415 416 417 418 419 420 421 422 423 424 425 426 427 428 429 430 431 432 433 434 435 436 437 438 439 440 441 442 443 444 445 446 447 448 449 450 451 452 453 454 455 456 457 458 459 460 461 462 463 464 465 466 467 468 469 470 591 592 593 594 595 596 597 598 599 600 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620 621 622 623 624 625 626 627 628 629 630 631 632 633 634 635 636 637 638 639 640 641 642 643 644 645 646 647 648 649 650] 320 10 380 19038 RED

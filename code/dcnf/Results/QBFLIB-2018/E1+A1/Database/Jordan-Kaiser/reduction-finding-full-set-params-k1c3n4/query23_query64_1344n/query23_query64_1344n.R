@@ -1,0 +1,1 @@
+8c94a656baf4cee9066a5dc9162497b2 query23_query64_1344n.qdimacs 1037 5270

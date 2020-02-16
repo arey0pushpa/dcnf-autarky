@@ -1,0 +1,1 @@
+3b97e17af573c9b0a87f2bbb9b35c35f query02_query24_1344n.qdimacs 18 13

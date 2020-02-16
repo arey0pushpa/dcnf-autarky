@@ -1,0 +1,1 @@
+30174197cbd3223f7353ef8acfa38b5a ntrivil_query26_1344n.qdimacs 577 1418

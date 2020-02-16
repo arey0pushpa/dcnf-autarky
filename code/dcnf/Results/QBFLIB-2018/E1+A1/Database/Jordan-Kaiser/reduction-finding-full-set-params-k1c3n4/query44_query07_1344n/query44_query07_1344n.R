@@ -1,0 +1,1 @@
+fe8787aa3fbfb0740d4a1a6ca3a4b9ba query44_query07_1344n.qdimacs 3467 13386

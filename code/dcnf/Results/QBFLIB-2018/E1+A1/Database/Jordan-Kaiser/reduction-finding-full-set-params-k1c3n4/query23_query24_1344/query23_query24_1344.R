@@ -1,0 +1,1 @@
+1daec90019e117b89aa3da9b3390dbd3 query23_query24_1344.qdimacs 1 2

@@ -1,0 +1,1 @@
+82c01ad5d61e3f2c24f481b0a6802de1 2qbf-5cnf-20var-40cl.0.qdimacs 40 40

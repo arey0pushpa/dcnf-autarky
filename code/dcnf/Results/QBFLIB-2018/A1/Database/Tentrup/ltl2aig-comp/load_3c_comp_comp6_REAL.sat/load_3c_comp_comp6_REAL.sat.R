@@ -1,0 +1,1 @@
+c215c9055ca2a58ecc9a942b3422bf87 load_3c_comp_comp6_REAL.sat.qdimacs 20155 64800

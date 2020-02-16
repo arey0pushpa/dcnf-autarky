@@ -1,0 +1,1 @@
+993d2b38a5ac3c8eb2aeffecd9f17a29 query07_query50_1344n.qdimacs 1957 7686

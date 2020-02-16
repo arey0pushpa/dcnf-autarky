@@ -1,0 +1,1 @@
+473a9620ed619c1ab522f11a87cd9050 query34_exquery_1344n.qdimacs 275 455

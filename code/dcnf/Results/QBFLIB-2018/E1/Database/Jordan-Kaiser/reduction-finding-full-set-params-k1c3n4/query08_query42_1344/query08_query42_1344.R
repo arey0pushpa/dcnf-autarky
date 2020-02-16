@@ -1,0 +1,1 @@
+afd80f083aac359d19ed5e36be4ef45f query08_query42_1344.qdimacs 9823 55599

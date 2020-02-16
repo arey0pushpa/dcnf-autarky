@@ -1,0 +1,1 @@
+41dbcc4b7e98c2d7a7994c9af39f2a87 query06_query15_1344n.qdimacs 257 438

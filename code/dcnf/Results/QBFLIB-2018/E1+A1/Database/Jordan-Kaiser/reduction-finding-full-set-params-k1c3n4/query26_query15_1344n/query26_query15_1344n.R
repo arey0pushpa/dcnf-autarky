@@ -1,0 +1,1 @@
+0a7fbb2dae1f5e92ef0868787ebd8df6 query26_query15_1344n.qdimacs 44 57

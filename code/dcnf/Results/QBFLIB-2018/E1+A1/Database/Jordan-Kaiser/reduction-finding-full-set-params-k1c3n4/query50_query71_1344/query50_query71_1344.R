@@ -1,0 +1,1 @@
+ca1ac7180e4133d76f54f44e02058adf query50_query71_1344.qdimacs 913 2254

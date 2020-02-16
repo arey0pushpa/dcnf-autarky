@@ -1,0 +1,1 @@
+b86642f5dd2fe5d6bb4e646512e50ad7 query07_query36_1344n.qdimacs 2709 9926

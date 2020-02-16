@@ -1,0 +1,1 @@
+b4eb859c0b203972d6bd0014c00fb1e2 query27_query50_1344n.qdimacs 407 1165

@@ -1,0 +1,1 @@
+4bd5d136dec0870cacee06ea20945148 query08_query01_1344.qdimacs 3737 13713

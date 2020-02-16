@@ -1,0 +1,1 @@
+615daa5fac175c129419624e1d1af8f7 query15_query05_1344n.qdimacs 183 405

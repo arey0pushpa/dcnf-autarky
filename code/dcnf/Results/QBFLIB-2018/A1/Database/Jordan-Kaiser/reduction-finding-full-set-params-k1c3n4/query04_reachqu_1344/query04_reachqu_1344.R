@@ -1,0 +1,1 @@
+53bbd6a7a12d5d967c4807c844d4d316 query04_reachqu_1344.qdimacs 592 1702

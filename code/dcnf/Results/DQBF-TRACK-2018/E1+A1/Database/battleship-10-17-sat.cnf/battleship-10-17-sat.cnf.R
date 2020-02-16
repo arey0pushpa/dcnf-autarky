@@ -1,0 +1,1 @@
+852e9979626d675bad71d448bf20c52a battleship-10-17-sat.cnf.dqdimacs 26 6030

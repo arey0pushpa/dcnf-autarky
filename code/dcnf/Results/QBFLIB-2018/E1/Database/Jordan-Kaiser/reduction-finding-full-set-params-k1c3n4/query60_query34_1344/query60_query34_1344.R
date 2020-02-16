@@ -1,0 +1,1 @@
+a4d7bd9af04bf4c197269cc1944900ac query60_query34_1344.qdimacs 3055 11645

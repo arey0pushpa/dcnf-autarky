@@ -1,0 +1,1 @@
+15dc16b6d762ec868df1329108e13ab2 query45_query10_1344n.qdimacs 766 1617

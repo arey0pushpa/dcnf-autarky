@@ -1,0 +1,1 @@
+17303a858bb898c40ab8081340d1b580 4qbf-5cnf-20var-80cl.0.qdimacs 80 80

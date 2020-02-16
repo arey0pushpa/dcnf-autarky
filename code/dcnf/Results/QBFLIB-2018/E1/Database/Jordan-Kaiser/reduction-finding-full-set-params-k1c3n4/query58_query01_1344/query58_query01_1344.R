@@ -1,0 +1,1 @@
+3b7ab2b16fc1ce3f12a51fdef84486b2 query58_query01_1344.qdimacs 1837 4013

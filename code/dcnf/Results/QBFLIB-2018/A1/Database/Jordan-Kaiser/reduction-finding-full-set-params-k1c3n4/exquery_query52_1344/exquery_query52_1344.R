@@ -1,0 +1,1 @@
+d85c8d505d3d2b49493a02bce2b07e51 exquery_query52_1344.qdimacs 315 882

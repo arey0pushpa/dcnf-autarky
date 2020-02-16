@@ -1,0 +1,1 @@
+7a142a2a042cc4f6c10dd0d3108c2670 query52_query02_1344n.qdimacs 229 337

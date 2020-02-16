@@ -1,0 +1,1 @@
+ffbfbfb165dfab453f1c63ddd5e1317f query60_query02_1344.qdimacs 1717 3793

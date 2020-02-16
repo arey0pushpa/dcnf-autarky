@@ -1,0 +1,1 @@
+84af58b333c9fe93fb0a3c3cf8565878 reachqu_query48_1344.qdimacs 7475 48699

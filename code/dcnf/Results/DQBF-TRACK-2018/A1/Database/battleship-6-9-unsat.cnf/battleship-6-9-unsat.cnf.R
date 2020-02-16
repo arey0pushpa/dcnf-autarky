@@ -1,0 +1,1 @@
+d4060bffe2546c15bfa96b3cc2f27485 battleship-6-9-unsat.cnf.dqdimacs 21 1026

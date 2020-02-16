@@ -1,0 +1,1 @@
+8d2fc9013d2d5a6b0c407575cb6adf25 query71_query23_1344n.qdimacs 125 205

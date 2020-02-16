@@ -1,0 +1,1 @@
+591fea603fb8a724d2164397dbeb7364 query04_query71_1344.qdimacs 619 1783

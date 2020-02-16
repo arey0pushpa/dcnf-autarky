@@ -1,0 +1,1 @@
+59c372576ddb4a77ec16a85dbd885993 query23_query54_1344.qdimacs 949 1705

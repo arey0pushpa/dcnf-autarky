@@ -1,0 +1,1 @@
+d7e4dd948744474753022a60cb97fa4d nxquery_trueque_1344.qdimacs 5 5

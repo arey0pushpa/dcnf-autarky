@@ -1,0 +1,1 @@
+fbe454960110c3e4db00500aae9873e4 exquery_query06_1344.qdimacs 505 1438

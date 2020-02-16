@@ -1,0 +1,1 @@
+ed2963cbbd669de9ff1bf5902e782c68 query48_query03_1344n.qdimacs 5704 41768

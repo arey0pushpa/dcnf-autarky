@@ -1,0 +1,1 @@
+af2dc31c1e6ca8b5ca16dd4e342fd209 query26_exquery_1344.qdimacs 189 306

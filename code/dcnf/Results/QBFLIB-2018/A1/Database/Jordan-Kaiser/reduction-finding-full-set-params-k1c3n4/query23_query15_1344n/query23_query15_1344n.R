@@ -1,0 +1,1 @@
+640401da6f7096f3cb118b4b8f472264 query23_query15_1344n.qdimacs 53 96

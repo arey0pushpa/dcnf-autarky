@@ -1,0 +1,1 @@
+dd8c23395ab9755d52e1acd319bce156 query64_query10_1344.qdimacs 1166 2801

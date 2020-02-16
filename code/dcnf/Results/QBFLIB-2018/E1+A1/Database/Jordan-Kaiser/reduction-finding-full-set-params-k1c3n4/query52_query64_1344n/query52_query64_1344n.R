@@ -1,0 +1,1 @@
+31049eea2a039324c7df8b7e2b44fa78 query52_query64_1344n.qdimacs 983 2145

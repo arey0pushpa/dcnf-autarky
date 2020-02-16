@@ -1,0 +1,1 @@
+a7f3c968c3a4869fe6650867cdfabe27 mod2-rand3bip-sat-270-1.shuffled-as.sat05-2248.cnf.dqdimacs 23 3240

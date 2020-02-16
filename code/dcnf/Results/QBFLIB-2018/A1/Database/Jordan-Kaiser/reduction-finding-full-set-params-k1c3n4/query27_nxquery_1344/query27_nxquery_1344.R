@@ -1,0 +1,1 @@
+f88b1c5b381abb2fad4f15aa5ed043b9 query27_nxquery_1344.qdimacs 181 298

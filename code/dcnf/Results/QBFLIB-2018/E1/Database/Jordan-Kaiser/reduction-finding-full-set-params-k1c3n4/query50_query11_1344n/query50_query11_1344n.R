@@ -1,0 +1,1 @@
+505798a934158ae98f5fed0f8c9abb20 query50_query11_1344n.qdimacs 711 1625

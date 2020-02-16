@@ -1,0 +1,1 @@
+6bf23361efe1d6b504ac0bcf572183ff query04_query36_1344.qdimacs 597 1728

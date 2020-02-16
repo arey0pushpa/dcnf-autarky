@@ -1,0 +1,1 @@
+b7133680c13b6253b9778cfeddbc7b47 query11_query42_1344n.qdimacs 1034 2435

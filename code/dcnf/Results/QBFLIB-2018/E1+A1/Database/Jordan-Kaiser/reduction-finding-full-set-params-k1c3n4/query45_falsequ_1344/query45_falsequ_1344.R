@@ -1,0 +1,1 @@
+6a786b094fcdebfc0ca74dd0f3b93d58 query45_falsequ_1344.qdimacs 17 2

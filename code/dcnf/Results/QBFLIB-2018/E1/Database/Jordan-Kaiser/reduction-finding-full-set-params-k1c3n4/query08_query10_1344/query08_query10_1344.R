@@ -1,0 +1,1 @@
+4a97e87e2d5f8f616fa0e0acc7cc79dd query08_query10_1344.qdimacs 7103 39167

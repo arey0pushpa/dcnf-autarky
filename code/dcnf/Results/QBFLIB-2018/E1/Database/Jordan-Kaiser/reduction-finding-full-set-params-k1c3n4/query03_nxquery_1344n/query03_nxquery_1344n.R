@@ -1,0 +1,1 @@
+28638892dcc3b6f355eddee020ecad63 query03_nxquery_1344n.qdimacs 655 1378

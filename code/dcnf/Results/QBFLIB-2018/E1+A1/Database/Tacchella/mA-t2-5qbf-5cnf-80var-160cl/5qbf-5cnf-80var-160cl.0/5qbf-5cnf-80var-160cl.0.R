@@ -1,0 +1,1 @@
+a0b6cfd87074c174bb2cc05ce4d6f7f4 5qbf-5cnf-80var-160cl.0.qdimacs 400 160

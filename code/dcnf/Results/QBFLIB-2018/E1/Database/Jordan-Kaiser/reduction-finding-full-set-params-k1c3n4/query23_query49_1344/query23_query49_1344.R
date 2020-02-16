@@ -1,0 +1,1 @@
+66d270849f6708dbb70f042f8aebea56 query23_query49_1344.qdimacs 809 4423

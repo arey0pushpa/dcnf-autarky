@@ -1,0 +1,1 @@
+643d93d0d9a175c32bb75d6eeb12c207 query23_query08_1344n.qdimacs 553 3480

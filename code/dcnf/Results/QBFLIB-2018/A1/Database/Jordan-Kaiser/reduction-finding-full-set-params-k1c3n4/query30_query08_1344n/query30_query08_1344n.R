@@ -1,0 +1,1 @@
+e84d9c1eeda07ad0d314d9d93c4409c2 query30_query08_1344n.qdimacs 741 2480

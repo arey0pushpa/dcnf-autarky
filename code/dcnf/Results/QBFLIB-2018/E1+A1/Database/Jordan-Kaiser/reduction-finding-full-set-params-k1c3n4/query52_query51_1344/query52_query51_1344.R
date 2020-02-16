@@ -1,0 +1,1 @@
+e1f1dfd681e51be672d2bc448b561ddf query52_query51_1344.qdimacs 755 1718

@@ -1,0 +1,1 @@
+c9ffdbd044052953bc7ff87957a87102 query30_query11_1344n.qdimacs 689 2274

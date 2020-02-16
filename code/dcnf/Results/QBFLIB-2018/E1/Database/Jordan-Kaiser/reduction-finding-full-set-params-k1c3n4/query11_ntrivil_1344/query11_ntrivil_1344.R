@@ -1,0 +1,1 @@
+4bc89a67055609b6412aadb7c0306e4f query11_ntrivil_1344.qdimacs 141 220

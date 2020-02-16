@@ -1,0 +1,1 @@
+53fa5649ffaf893bba28b40befa87b66 exquery_nreachq_1344.qdimacs 478 1409

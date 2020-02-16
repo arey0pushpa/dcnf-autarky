@@ -1,0 +1,1 @@
+2d95233ee63c55e770039bf118f29ce7 query01_nxquery_1344n.qdimacs 189 305

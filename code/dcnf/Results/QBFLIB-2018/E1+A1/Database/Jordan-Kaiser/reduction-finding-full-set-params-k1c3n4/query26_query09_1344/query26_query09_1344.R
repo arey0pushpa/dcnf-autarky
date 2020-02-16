@@ -1,0 +1,1 @@
+86086ddebf4f6247abbfcf6447e7e668 query26_query09_1344.qdimacs 502 1477

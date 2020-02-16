@@ -1,0 +1,1 @@
+83020c78dc5c4bc8aa6bd5a70fb92be1 query60_trivial_1344n.qdimacs 1025 2179

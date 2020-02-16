@@ -1,0 +1,1 @@
+0c5dd40864f350b3feae4800aa0ace16 query09_query52_1344.qdimacs 5127 40671

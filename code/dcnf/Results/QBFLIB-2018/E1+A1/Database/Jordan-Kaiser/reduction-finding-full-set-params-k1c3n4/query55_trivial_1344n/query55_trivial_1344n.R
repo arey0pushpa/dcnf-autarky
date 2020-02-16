@@ -1,0 +1,1 @@
+46c965d7ab2238b54b0c95ae88c3fc91 query55_trivial_1344n.qdimacs 253 425

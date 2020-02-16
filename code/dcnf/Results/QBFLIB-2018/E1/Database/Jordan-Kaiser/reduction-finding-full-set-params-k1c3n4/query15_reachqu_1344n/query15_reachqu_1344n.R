@@ -1,0 +1,1 @@
+502bad7619c7c6c24744d74f3ede042c query15_reachqu_1344n.qdimacs 1791 5810

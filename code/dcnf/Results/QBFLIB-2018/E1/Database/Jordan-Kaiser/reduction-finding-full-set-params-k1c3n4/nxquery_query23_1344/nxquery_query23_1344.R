@@ -1,0 +1,1 @@
+890d0dca0db2befa3176bb3a9608b123 nxquery_query23_1344.qdimacs 15 24

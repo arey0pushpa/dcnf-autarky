@@ -1,0 +1,1 @@
+c6cc4f23fc58e10367ac02a0d5eb12fa bs8n.sat.qdimacs 213 587

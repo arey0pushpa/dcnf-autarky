@@ -1,0 +1,1 @@
+df2adcb71135c66253a3c0fd39d0dde6 query03_query58_1344n.qdimacs 3229 9867

@@ -1,0 +1,1 @@
+bb0ecc02caea5c1d500a64ee60f981cb query57_query50_1344.qdimacs 2197 8179

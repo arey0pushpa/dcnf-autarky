@@ -1,0 +1,1 @@
+dad2d310aed2c858d972f2f1fe773039 query31_query03_1344n.qdimacs 913 1997

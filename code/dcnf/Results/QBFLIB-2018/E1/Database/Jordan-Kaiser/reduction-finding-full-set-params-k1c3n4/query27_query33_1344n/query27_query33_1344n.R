@@ -1,0 +1,1 @@
+4860016bd99daaccbb6b443f8b4e9730 query27_query33_1344n.qdimacs 603 1739

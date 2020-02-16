@@ -1,0 +1,1 @@
+0656e3daad0e3cae08e07ce1da60b029 query50_trueque_1344.qdimacs 17 2

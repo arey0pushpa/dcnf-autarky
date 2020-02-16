@@ -1,0 +1,1 @@
+df66f84d43e069a84f016be355dc41b0 query06_query45_1344n.qdimacs 2117 7984

@@ -1,0 +1,1 @@
+1ffbbf4dae3f5309800922d8410c8feb query48_trivial_1344.qdimacs 2236 7974

@@ -1,0 +1,1 @@
+bbd6d3399eeaf0087ab5b900f70c1280 nxquery_query54_1344.qdimacs 563 1580

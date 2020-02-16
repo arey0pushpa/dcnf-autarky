@@ -1,0 +1,1 @@
+bc7f6d65eadcb6264c07898294251ff3 query26_query09_1344n.qdimacs 502 1333

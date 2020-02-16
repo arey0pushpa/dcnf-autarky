@@ -1,0 +1,1 @@
+fcf1483ce098663cc710ec969c9b8343 query26_query15_1344.qdimacs 44 197

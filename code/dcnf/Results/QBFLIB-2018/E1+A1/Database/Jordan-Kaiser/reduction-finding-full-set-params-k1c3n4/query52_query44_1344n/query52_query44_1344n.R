@@ -1,0 +1,1 @@
+52ba713be54b375dfd77ed418ab3406d query52_query44_1344n.qdimacs 1038 2439

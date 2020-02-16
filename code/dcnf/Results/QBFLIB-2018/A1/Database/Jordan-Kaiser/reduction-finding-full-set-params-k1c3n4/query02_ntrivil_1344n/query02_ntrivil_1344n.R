@@ -1,0 +1,1 @@
+ca07e8e0e5d0e95c376cf288fd7eba5a query02_ntrivil_1344n.qdimacs 195 313

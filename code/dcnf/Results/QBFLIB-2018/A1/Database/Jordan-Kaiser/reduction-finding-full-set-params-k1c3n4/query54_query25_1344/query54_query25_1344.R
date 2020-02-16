@@ -1,0 +1,1 @@
+0cea5892d881ae0331dac0f6f871ce4b query54_query25_1344.qdimacs 971 2168

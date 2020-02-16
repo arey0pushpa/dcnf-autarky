@@ -1,0 +1,1 @@
+c10ec5a2a017d9bdffc441a792a2c919 query08_query05_1344.qdimacs 3769 13745

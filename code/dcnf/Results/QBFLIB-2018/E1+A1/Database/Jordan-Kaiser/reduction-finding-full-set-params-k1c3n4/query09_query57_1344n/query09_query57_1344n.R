@@ -1,0 +1,1 @@
+fb5cd29e9d5ea050dee18565e7fffca3 query09_query57_1344n.qdimacs 9374 52128

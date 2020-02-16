@@ -1,0 +1,1 @@
+ba7de97cea139b299c41685faa5f2838 nreachq_query57_1344.qdimacs 8612 42330

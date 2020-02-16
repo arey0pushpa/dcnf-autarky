@@ -1,0 +1,1 @@
+cc2ab31654f2efcf98d5c7a1735fe4f8 tlc05-uniform-depth-1.qdimacs 697 1816

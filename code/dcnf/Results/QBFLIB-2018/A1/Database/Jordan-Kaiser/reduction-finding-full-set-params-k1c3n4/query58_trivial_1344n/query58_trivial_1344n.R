@@ -1,0 +1,1 @@
+8c10a7df79a2bc364c3342cd332dd02e query58_trivial_1344n.qdimacs 1049 2207

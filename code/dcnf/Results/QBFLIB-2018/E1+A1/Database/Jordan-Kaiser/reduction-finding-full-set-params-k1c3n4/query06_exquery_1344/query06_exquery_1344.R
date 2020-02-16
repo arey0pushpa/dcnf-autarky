@@ -1,0 +1,1 @@
+64f241e3d46c2b24d96b832b7c021320 query06_exquery_1344.qdimacs 811 1667

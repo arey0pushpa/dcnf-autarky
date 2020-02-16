@@ -1,0 +1,1 @@
+642cb5ecbb2cd47d768f49d9f650b6fc query11_query44_1344.qdimacs 1034 2603

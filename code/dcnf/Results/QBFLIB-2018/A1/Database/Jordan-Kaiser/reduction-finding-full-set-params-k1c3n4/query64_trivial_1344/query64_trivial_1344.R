@@ -1,0 +1,1 @@
+ecd7caae2a5a7da28c0c845f635021e9 query64_trivial_1344.qdimacs 441 800

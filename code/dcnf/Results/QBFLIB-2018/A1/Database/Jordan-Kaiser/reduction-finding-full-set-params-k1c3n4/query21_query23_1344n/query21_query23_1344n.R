@@ -1,0 +1,1 @@
+7914c001aebf010624c92f49389d226c query21_query23_1344n.qdimacs 47 55

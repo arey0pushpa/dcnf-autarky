@@ -1,0 +1,1 @@
+a13cd9521d110bacd95c0e3aa32203eb nreachq_query24_1344.qdimacs 1 2

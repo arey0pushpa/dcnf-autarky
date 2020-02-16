@@ -1,0 +1,1 @@
+842e5d7780fe7caf1dcba0e17cdcdfc4 query02_query15_1344.qdimacs 36 177

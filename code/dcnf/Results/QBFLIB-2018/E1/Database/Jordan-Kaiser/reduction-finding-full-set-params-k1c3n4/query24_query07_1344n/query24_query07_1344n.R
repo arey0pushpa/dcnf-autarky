@@ -1,0 +1,1 @@
+a98435c2364364ab7abdd6472adfaace query24_query07_1344n.qdimacs 234 287

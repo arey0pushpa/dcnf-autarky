@@ -1,0 +1,1 @@
+6c2fb84357c6a2fe7d6d44b88453b7de query01_query60_1344n.qdimacs 741 1801

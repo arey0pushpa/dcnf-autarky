@@ -1,0 +1,25 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input Clause Count: 320
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 65
+c
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 4
+c
+c Performing E1-Autarky iteration.
+c Input Parameter (command line, file): 
+c input filename   QBFLIB/Tacchella/mA-t2-3qbf-5cnf-160var-320cl/3qbf-5cnf-160var-320cl.0.qdimacs
+c output filename  /tmp/dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        480
+c no.of clauses    320
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  0
+c
+c QBFLIB/Tacchella/mA-t2-3qbf-5cnf-160var-320cl/3qbf-5cnf-160var-320cl.0.qdimacs 480 320 E1 [4 14 23 25 29 30 39 42 43 48 51 55 57 58 59 60 62 64 65 67 71 72 73 74 77 80 81 82 84 86 87 88 91 94 96 98 99 100 101 104 107 115 118 119 120 121 125 126 127 128 130 136 138 139 140 141 142 143 144 145 147 148 149 151 155 157 160 321 324 326 327 330 331 332 334 336 337 338 339 342 343 345 346 347 349 350 353 355 357 358 359 362 363 365 368 369 371 372 373 375 377 378 379 381 382 384 385 387 388 389 390 391 392 394 396 397 399 400 402 404 408 410 411 412 413 414 415 416 417 418 419 420 422 423 424 425 428 429 430 431 432 434 436 438 439 440 441 442 443 445 447 448 449 450 451 452 453 454 455 456 457 460 463 464 465 466 467 470 471 472 474 475 476 477 478 479 480 5 7 10 12 16 17 20 21 22 24 27 31 33 35 36 37 38 40 41 44 45 46 47 52 54 56 61 63 69 70 76 83 85 93 95 102 103 106 108 110 111 114 116 117 124 129 131 132 134 146 150 153 154 158 159 323 325 328 329 333 335 340 344 348 351 352 354 360 364 366 367 370 380 383 386 393 401 406 407 409 421 426 427 433 435 437 444 446 459 461 462 468 469 3 15 32 122 156 376] 0 0 0 0 SAT

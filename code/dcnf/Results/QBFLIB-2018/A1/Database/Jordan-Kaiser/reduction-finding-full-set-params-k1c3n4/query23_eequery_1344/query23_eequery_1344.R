@@ -1,0 +1,1 @@
+ab1cd842473e9052c5c8ae19c5202450 query23_eequery_1344.qdimacs 473 665

@@ -1,0 +1,1 @@
+6ad32d82ebdaa201dfc280321baf1187 query23_query10_1344n.qdimacs 649 2968

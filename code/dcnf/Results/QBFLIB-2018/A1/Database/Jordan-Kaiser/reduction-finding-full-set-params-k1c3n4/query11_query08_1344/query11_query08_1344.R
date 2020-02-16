@@ -1,0 +1,1 @@
+25894c5398e2a4a585bf58caf0b83bf7 query11_query08_1344.qdimacs 798 1941

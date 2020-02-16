@@ -1,0 +1,1 @@
+719a55d9ba7c1291fb989151fcace840 query58_query03_1344n.qdimacs 2497 9823

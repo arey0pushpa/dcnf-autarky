@@ -1,0 +1,1 @@
+e00f5b6ee9755c7462a6fbc5f8f96162 query71_trueque_1344n.qdimacs 95 134

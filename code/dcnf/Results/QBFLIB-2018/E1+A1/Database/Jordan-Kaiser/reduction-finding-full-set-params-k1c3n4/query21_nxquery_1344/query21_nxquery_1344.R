@@ -1,0 +1,1 @@
+6f9c594b8359e2a9276a69e03c5e53a0 query21_nxquery_1344.qdimacs 655 1385

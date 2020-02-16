@@ -1,0 +1,1 @@
+672f63ff784da5495776fbeb4f2deacd query07_query36_1344.qdimacs 2709 9933

@@ -1,0 +1,1 @@
+9c5b8619b0cc886c0c0916bbdabaa297 query52_query08_1344.qdimacs 802 2035

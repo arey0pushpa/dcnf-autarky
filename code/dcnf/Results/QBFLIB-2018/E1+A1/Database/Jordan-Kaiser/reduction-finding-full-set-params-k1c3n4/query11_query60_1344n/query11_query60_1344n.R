@@ -1,0 +1,1 @@
+b29e44e5f2ad5bd5d27dfe81b8ba66a1 query11_query60_1344n.qdimacs 863 1973

@@ -1,0 +1,1 @@
+41fa43aefead12e8c41669a3c8385077 query23_query09_1344.qdimacs 553 1331

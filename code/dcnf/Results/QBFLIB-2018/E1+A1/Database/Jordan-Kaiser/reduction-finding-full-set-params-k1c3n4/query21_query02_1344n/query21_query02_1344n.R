@@ -1,0 +1,1 @@
+18af046b7e27f499e8ca41c2ffec1447 query21_query02_1344n.qdimacs 1337 2786

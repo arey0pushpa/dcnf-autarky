@@ -1,0 +1,1 @@
+3f03bb120ae7cd22fc779c4d4c25f881 query08_query27_1344n.qdimacs 3609 13554
