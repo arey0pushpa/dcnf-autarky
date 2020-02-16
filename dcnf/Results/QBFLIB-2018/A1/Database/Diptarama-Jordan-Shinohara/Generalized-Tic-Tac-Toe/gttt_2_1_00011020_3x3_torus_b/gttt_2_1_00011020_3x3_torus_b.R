@@ -1,1 +1,0 @@
-5bed4042d62a1a7b8f2c52b4063b65e4 gttt_2_1_00011020_3x3_torus_b.qdimacs 2013 7180

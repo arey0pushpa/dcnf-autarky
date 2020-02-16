@@ -1,1 +1,0 @@
-b99cd90d473dfae82e8b02e44f56f107 query48_nreachq_1344.qdimacs 7599 43947

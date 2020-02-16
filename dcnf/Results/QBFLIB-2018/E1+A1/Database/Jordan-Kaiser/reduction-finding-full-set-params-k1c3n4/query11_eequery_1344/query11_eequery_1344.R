@@ -1,1 +1,0 @@
-a95d26f1c484afc33b68ff4e326627fc query11_eequery_1344.qdimacs 743 1706

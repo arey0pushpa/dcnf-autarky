@@ -1,1 +1,0 @@
-94ff8eeb272ac8a3dae4254fc17e8414 query24_trueque_1344n.qdimacs 1 2

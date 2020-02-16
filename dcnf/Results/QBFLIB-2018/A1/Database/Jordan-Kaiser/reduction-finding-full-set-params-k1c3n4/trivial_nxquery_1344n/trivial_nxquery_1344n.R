@@ -1,1 +1,0 @@
-c90166314a2cdad9f4c7174dd08355fb trivial_nxquery_1344n.qdimacs 315 734

@@ -1,1 +1,0 @@
-0663de107c8ad2c8aaa7f8ad2770408a query57_query71_1344.qdimacs 3023 10636

@@ -1,1 +1,0 @@
-2a67865e9aa305cf1a417dfdd35f1837 query01_ntrivil_1344.qdimacs 203 344

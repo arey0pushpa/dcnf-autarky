@@ -1,1 +1,0 @@
-ea24e8099889f22ebfc3b0bfd1dd404a query04_query25_1344.qdimacs 441 1260

@@ -1,1 +1,0 @@
-8b9edb38c32afb19c5005618afa11754 query48_query60_1344n.qdimacs 9036 46704

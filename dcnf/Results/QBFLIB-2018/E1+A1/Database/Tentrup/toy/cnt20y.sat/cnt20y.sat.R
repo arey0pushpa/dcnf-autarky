@@ -1,1 +1,0 @@
-8a68477bf347b5e3449ae176ba52fd0e cnt20y.sat.qdimacs 334 905

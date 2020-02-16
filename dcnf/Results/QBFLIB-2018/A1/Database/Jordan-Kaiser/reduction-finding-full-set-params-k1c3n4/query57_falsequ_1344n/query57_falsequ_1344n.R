@@ -1,1 +1,0 @@
-3dfbca52100a8772bb05356df847d88b query57_falsequ_1344n.qdimacs 139 214

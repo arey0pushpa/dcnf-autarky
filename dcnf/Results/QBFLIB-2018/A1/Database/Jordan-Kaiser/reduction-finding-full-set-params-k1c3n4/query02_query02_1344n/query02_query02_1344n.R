@@ -1,1 +1,0 @@
-50ae590ecbf128624f1fe68b546c9ffc query02_query02_1344n.qdimacs 333 541

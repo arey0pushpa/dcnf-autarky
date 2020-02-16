@@ -1,1 +1,0 @@
-8c9b7bf1261e1e37d751e2f50981225b nxquery_query34_1344.qdimacs 491 1400

@@ -1,1 +1,0 @@
-70ea924eaa92d91c02f9ce6d85ad1c8b query55_query23_1344n.qdimacs 83 121

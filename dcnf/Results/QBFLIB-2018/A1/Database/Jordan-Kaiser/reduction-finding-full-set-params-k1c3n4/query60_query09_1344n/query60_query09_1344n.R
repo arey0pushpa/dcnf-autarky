@@ -1,1 +1,0 @@
-926d76efbbaa156f03f9ffeefaeb58f3 query60_query09_1344n.qdimacs 2591 9960

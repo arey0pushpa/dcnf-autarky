@@ -1,1 +1,0 @@
-4a406e00023a31341ec6af42a7731ad5 ntrivil_query11_1344.qdimacs 789 3741

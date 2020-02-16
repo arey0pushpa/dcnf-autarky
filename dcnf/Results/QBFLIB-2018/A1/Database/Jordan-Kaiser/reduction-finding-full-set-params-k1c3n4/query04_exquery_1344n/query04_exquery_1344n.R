@@ -1,1 +1,0 @@
-f45bae88dc01aefc270efeb3c5631db5 query04_exquery_1344n.qdimacs 183 299

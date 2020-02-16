@@ -1,1 +1,0 @@
-97d1182fb5affbe16669f21044b2d531 query54_query21_1344.qdimacs 961 2170

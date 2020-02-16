@@ -1,1 +1,0 @@
-2e26d4ad0bd48e8c2c972ff52b1338e8 query03_ntrivil_1344.qdimacs 729 1578

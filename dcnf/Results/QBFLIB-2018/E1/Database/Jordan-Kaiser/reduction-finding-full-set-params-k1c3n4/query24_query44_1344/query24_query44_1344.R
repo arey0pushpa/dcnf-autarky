@@ -1,1 +1,0 @@
-e31a01f6c1c3f52c8f601bdfba4aaf99 query24_query44_1344.qdimacs 961 2315

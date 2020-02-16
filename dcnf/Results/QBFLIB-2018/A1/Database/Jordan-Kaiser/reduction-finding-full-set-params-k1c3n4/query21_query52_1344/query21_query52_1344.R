@@ -1,1 +1,0 @@
-6e71e04aacbd1984c26a34139cbbca43 query21_query52_1344.qdimacs 2041 7933

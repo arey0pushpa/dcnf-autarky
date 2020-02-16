@@ -1,1 +1,0 @@
-4df100f5f6d375c9aa1a86fbab78da3a dungeon_i25-m12-u3-v0.pddl_planlen=0.qdimacs 591 589

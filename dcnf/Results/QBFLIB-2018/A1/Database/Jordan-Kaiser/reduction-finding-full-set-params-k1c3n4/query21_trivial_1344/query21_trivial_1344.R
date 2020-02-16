@@ -1,1 +1,0 @@
-14c465afff704ff872d1ef1864ef557a query21_trivial_1344.qdimacs 729 1578

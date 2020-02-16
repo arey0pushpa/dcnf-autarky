@@ -1,1 +1,0 @@
-4a85d25f349f3348ba658e87d90c86bd query42_eequery_1344.qdimacs 5533 41683

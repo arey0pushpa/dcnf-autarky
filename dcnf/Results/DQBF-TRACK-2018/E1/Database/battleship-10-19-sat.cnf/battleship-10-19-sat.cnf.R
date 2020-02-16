@@ -1,1 +1,0 @@
-ad1975bced31c68ec22da24a338c6815 battleship-10-19-sat.cnf.dqdimacs 26 6810

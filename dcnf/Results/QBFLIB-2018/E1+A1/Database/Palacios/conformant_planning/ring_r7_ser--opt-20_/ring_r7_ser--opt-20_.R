@@ -1,1 +1,0 @@
-1cc3f90cdd0c52e6f5ed13a5d8441ce4 ring_r7_ser--opt-20_.qdimacs 1095 325976

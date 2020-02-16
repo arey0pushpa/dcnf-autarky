@@ -1,1 +1,0 @@
-3becc4419b7285fda550b7832a9029e5 S-adeu-39.qdimacs 5382 12506

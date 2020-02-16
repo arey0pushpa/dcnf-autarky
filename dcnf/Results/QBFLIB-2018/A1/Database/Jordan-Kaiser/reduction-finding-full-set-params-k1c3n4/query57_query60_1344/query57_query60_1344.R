@@ -1,1 +1,0 @@
-bcc4a9a19540b082ef612cd1ce5ac9b7 query57_query60_1344.qdimacs 3337 10340

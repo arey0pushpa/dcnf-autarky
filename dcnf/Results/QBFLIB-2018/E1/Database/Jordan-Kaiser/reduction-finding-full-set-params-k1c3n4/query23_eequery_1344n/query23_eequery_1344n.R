@@ -1,1 +1,0 @@
-ec4fe936b8772799d68a3c42d5981585 query23_eequery_1344n.qdimacs 473 3342

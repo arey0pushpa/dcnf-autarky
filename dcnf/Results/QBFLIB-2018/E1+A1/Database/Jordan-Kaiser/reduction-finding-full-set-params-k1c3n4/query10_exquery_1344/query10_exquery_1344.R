@@ -1,1 +1,0 @@
-14fc182678d2dfc6a9c355f618d4aff6 query10_exquery_1344.qdimacs 1845 6861

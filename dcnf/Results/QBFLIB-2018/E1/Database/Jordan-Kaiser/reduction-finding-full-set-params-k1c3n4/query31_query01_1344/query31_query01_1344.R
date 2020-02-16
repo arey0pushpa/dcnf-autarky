@@ -1,1 +1,0 @@
-9f27aa60f2f3e6412ae941a70fa6fedb query31_query01_1344.qdimacs 365 594

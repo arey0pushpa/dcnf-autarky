@@ -1,1 +1,0 @@
-7b2312cd4d64d6a025364ba2c5a65b1f query24_query34_1344.qdimacs 801 4669

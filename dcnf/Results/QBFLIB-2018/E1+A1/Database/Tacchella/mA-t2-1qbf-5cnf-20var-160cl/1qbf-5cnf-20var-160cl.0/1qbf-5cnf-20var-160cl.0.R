@@ -1,1 +1,0 @@
-051e07696a9227dfe2411e16ea12c5e6 1qbf-5cnf-20var-160cl.0.qdimacs 20 160

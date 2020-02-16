@@ -1,1 +1,0 @@
-c762596f69c4fa2cec6054ba62ae9fb7 query27_query58_1344.qdimacs 757 1904

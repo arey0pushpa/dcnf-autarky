@@ -1,1 +1,0 @@
-1a820aec4f12ce0b0cfc1ca7ab547c0e trueque_query26_1344.qdimacs 133 202

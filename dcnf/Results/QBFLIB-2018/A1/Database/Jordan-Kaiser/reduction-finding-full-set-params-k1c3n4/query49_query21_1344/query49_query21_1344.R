@@ -1,1 +1,0 @@
-c63aca0f8792a70b4c4b3aed6d81cab9 query49_query21_1344.qdimacs 5192 41082

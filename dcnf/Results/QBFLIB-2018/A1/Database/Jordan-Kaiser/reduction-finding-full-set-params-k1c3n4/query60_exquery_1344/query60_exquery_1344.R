@@ -1,1 +1,0 @@
-af1b561fea30391f4a86b30cbe32d48d query60_exquery_1344.qdimacs 983 2133

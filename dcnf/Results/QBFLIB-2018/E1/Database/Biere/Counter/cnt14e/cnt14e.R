@@ -1,1 +1,0 @@
-b8c6fd2ddf7aadb86447bf0e216347ad cnt14e.qdimacs 1334 3543

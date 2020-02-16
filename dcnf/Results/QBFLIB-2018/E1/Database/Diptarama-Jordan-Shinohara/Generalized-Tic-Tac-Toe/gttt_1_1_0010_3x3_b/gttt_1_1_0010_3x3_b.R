@@ -1,1 +1,0 @@
-e1cca65fcd198dafa24030c6e5c0108d gttt_1_1_0010_3x3_b.qdimacs 1525 3458

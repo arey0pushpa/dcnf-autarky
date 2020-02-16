@@ -1,1 +1,0 @@
-763676dccd5833b0a3817a55dc95642f query15_exquery_1344.qdimacs 79 151

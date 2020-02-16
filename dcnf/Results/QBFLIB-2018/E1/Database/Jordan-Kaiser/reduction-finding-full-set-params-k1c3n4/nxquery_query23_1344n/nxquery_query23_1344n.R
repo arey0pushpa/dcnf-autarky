@@ -1,1 +1,0 @@
-5f729f977505cf305574beef5bbdfa72 nxquery_query23_1344n.qdimacs 15 17

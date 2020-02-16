@@ -1,1 +1,0 @@
-317c39011d75e28aa8a91bc8c9ffee13 query30_query34_1344n.qdimacs 1914 5305

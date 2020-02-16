@@ -1,1 +1,0 @@
-9b0870258837cbba3eddf6f97f200f87 query71_nreachq_1344.qdimacs 2725 9453

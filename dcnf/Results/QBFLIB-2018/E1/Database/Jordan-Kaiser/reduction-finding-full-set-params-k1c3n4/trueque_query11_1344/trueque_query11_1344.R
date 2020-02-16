@@ -1,1 +1,0 @@
-d5764a8c90b9506de0db900c29ff6bda trueque_query11_1344.qdimacs 179 630

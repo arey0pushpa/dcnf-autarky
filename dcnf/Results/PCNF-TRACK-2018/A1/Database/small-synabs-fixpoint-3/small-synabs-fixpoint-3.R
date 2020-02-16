@@ -1,1 +1,0 @@
-ceeaa8d8e85ac161db07755bab3efa83 small-synabs-fixpoint-3.qdimacs 620 1785

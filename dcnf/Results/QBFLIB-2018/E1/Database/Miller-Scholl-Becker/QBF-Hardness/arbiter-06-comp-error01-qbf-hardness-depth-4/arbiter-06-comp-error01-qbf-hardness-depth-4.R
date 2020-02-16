@@ -1,1 +1,0 @@
-9f70d7125c47f87d063c9a170a61a08b arbiter-06-comp-error01-qbf-hardness-depth-4.qdimacs 674 1676

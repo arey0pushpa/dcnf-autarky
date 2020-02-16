@@ -1,1 +1,0 @@
-92027eab53647d9680ffff877d35a871 kenoopp1.qdimacs 284 681

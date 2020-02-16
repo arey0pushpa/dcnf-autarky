@@ -1,1 +1,0 @@
-3bc3804befd17343ec11633fcaad9654 query04_trueque_1344n.qdimacs 10 7

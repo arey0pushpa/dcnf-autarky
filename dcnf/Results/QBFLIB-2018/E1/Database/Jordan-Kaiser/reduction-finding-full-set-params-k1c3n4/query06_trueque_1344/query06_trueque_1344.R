@@ -1,1 +1,0 @@
-d5aedb5ecf42d7fd013ed8448c5d159c query06_trueque_1344.qdimacs 99 141

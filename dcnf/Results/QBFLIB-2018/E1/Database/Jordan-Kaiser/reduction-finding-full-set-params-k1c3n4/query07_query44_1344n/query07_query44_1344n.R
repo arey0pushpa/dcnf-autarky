@@ -1,1 +1,0 @@
-383027672dedfeee50a1ed7bc7b7a82b query07_query44_1344n.qdimacs 3221 10952

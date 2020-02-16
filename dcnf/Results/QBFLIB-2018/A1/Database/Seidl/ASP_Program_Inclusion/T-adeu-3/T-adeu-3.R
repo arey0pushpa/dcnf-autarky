@@ -1,1 +1,0 @@
-27bfc5576a2ce247dd6b95bf2d946580 T-adeu-3.qdimacs 4790 11738

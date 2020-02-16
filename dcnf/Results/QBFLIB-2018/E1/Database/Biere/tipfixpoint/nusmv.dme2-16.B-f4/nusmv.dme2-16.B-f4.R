@@ -1,1 +1,0 @@
-bcab67b052d61fbdeab75f5ff43f5cfd nusmv.dme2-16.B-f4.qdimacs 20952 56530

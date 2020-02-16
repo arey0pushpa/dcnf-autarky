@@ -1,1 +1,0 @@
-b994bce15c2863f6698c83b48daa3176 query25_query34_1344.qdimacs 899 2180

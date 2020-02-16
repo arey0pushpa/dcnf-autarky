@@ -1,1 +1,0 @@
-24b32cee697bb5d43029c7cd7d110b3a T-adeu-26.qdimacs 4790 11882

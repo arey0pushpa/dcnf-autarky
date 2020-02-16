@@ -1,1 +1,0 @@
-f7e891ba1751ca2f57d2b3be17a762de query44_query42_1344.qdimacs 10043 57313

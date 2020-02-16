@@ -1,1 +1,0 @@
-0a75c1fa1ae0799af5e73d72a557ce26 query11_query57_1344n.qdimacs 1001 2391

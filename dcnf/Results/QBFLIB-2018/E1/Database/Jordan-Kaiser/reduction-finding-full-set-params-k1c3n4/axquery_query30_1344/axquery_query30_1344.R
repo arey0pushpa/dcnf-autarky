@@ -1,1 +1,0 @@
-c78b7e371e8e1cd389887b731f2d83ed axquery_query30_1344.qdimacs 32 185

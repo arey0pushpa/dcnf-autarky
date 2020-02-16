@@ -1,1 +1,0 @@
-25fa4c44c4b167b914d02418aea3967e szymanski-14-s.qdimacs 56177 57431

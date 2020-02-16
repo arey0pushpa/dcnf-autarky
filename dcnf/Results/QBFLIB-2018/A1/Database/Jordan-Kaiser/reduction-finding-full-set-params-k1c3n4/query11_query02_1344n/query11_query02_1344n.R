@@ -1,1 +1,0 @@
-047508c046864a8d9a0873dcdbe4e53f query11_query02_1344n.qdimacs 225 333

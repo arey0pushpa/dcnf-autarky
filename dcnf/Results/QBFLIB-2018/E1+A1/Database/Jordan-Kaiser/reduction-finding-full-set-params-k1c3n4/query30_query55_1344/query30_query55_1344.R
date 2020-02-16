@@ -1,1 +1,0 @@
-cd790a8c0db6f4666b209ec6a6318d7c query30_query55_1344.qdimacs 1361 5331

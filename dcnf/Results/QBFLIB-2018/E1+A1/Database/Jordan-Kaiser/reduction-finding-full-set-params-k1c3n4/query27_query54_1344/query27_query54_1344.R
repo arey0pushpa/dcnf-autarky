@@ -1,1 +1,0 @@
-8f600a5e458bf1f10c37ce026ccbfb55 query27_query54_1344.qdimacs 675 1920

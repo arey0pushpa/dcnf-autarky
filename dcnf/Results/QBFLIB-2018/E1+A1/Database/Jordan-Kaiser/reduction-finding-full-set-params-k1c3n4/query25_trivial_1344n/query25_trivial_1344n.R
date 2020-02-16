@@ -1,1 +1,0 @@
-992babe1a24b4afea4458fc57ef4b3be query25_trivial_1344n.qdimacs 133 189

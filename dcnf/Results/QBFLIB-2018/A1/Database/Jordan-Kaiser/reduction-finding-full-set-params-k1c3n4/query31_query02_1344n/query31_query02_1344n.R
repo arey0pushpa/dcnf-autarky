@@ -1,1 +1,0 @@
-77a6483e7da87b237a8c1fec6f4a94e4 query31_query02_1344n.qdimacs 373 601

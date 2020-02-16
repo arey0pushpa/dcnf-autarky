@@ -1,1 +1,0 @@
-97ba84e4b30b3ff834c434b4c55a8efe horn_400CNF1520_2aQBF_387.qdimacs 400 1520

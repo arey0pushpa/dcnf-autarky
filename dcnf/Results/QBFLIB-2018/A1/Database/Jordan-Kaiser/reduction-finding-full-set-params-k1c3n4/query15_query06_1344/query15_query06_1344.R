@@ -1,1 +1,0 @@
-2fbbaea4b262e4890375d523fc97e0f6 query15_query06_1344.qdimacs 1949 5689

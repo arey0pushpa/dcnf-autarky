@@ -1,1 +1,0 @@
-45434e988621abdfdb45071dfd492ddc query04_query34_1344n.qdimacs 605 1741

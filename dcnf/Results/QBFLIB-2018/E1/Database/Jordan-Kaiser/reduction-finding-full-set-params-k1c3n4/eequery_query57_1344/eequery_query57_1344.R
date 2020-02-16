@@ -1,1 +1,0 @@
-14a208aee23181bfc8d0550c971b829e eequery_query57_1344.qdimacs 993 2442

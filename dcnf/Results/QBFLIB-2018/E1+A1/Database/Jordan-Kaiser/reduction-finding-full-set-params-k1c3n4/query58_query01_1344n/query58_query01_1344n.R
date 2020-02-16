@@ -1,1 +1,0 @@
-bb47a2899fb779dac49e10f7698d8b80 query58_query01_1344n.qdimacs 1837 4006

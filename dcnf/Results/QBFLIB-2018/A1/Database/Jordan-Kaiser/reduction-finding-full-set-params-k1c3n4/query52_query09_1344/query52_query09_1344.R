@@ -1,1 +1,0 @@
-b66a8043361ddfde2b28001837f1a14a query52_query09_1344.qdimacs 802 1975

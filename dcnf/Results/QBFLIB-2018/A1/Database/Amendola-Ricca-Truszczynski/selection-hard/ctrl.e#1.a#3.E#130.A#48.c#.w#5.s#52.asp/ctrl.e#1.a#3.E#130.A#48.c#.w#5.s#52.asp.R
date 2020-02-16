@@ -1,1 +1,0 @@
-1ca1f443481c8a907de8a241fa2ace94 ctrl.e#1.a#3.E#130.A#48.c#.w#5.s#52.asp.qdimacs 5377 15598

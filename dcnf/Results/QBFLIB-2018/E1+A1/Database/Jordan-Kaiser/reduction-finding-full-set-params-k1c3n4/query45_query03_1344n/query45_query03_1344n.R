@@ -1,1 +1,0 @@
-c596f3dc059776b23e1221cd4503c2ba query45_query03_1344n.qdimacs 757 1721

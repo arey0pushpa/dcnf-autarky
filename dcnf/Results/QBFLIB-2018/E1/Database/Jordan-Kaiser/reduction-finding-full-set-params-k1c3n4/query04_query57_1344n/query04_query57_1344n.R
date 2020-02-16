@@ -1,1 +1,0 @@
-c853fa399747acfd124c6cc6f60cdb33 query04_query57_1344n.qdimacs 699 1945

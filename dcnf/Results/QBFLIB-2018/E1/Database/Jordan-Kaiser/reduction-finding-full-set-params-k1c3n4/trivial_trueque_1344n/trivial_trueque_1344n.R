@@ -1,1 +1,0 @@
-f6a57bf620e626b99ad73139efa3ae64 trivial_trueque_1344n.qdimacs 5 2

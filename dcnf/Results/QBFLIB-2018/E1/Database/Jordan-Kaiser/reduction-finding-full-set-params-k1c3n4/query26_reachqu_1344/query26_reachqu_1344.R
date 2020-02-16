@@ -1,1 +1,0 @@
-9a36a1e8df158e82751928dfec486259 query26_reachqu_1344.qdimacs 598 1697

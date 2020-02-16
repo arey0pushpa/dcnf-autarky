@@ -1,1 +1,0 @@
-12eef2fd8a70e90252a9c4a9131d72dd query33_query50_1344n.qdimacs 867 1895

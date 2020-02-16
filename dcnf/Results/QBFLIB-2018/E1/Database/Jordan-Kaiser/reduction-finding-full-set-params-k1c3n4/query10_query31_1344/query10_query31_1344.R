@@ -1,1 +1,0 @@
-3cc14eba93731681a8de4fba91beba50 query10_query31_1344.qdimacs 7225 47745

@@ -1,1 +1,0 @@
-05d8aa886b8ffa0180d28b7d9432d7bc query27_query57_1344n.qdimacs 697 1943

@@ -1,1 +1,0 @@
-4982084d3843e9d4a1eedee611cc5afb query58_ntrivil_1344.qdimacs 1049 2322

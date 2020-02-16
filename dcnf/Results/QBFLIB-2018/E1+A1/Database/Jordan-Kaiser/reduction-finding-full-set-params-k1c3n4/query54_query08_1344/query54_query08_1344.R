@@ -1,1 +1,0 @@
-d42be267f92178d6afc9646fed5f7fce query54_query08_1344.qdimacs 1026 2583

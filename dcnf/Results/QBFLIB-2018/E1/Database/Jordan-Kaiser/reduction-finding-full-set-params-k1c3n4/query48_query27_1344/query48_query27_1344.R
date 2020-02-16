@@ -1,1 +1,0 @@
-4d5ff4d1e1e931097caef398f3d5d902 query48_query27_1344.qdimacs 3721 13829

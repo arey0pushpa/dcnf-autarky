@@ -1,1 +1,0 @@
-cfe87dace24ebe69ec72ec8c155d97fa query07_query54_1344n.qdimacs 3029 10702

@@ -1,1 +1,0 @@
-0067c97ac470fff819a37187efaaffdb query64_query07_1344.qdimacs 732 1340

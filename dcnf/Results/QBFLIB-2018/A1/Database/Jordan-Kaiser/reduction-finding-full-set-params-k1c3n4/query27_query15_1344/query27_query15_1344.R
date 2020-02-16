@@ -1,1 +1,0 @@
-60ebe30e606f0c990a44cc37211bfce5 query27_query15_1344.qdimacs 36 233

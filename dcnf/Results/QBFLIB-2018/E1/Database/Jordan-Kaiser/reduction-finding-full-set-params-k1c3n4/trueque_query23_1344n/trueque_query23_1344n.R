@@ -1,1 +1,0 @@
-05a8106c2d686cb3014c57af3530db60 trueque_query23_1344n.qdimacs 1 1

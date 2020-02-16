@@ -1,1 +1,0 @@
-8b5cb408a7e82e584df8a664ce6b8bb1 query02_reachqu_1344n.qdimacs 590 1537

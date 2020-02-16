@@ -1,1 +1,0 @@
-7c4d3a4a2275fc0743c12c8d4e650372 query55_trueque_1344n.qdimacs 73 146

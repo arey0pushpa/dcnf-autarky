@@ -1,1 +1,0 @@
-c9ccf89504053cef4b46d711b03e55de query02_query54_1344n.qdimacs 675 1919

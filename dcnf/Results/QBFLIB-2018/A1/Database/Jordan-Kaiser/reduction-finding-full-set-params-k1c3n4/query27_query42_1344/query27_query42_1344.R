@@ -1,1 +1,0 @@
-75d1bb17b7f02b7ee43baca097326cba query27_query42_1344.qdimacs 730 2215

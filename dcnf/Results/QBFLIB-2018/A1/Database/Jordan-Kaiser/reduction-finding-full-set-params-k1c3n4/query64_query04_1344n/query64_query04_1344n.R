@@ -1,1 +1,0 @@
-94cd5d73e47e2c2722c70ae863edf1e2 query64_query04_1344n.qdimacs 643 1087

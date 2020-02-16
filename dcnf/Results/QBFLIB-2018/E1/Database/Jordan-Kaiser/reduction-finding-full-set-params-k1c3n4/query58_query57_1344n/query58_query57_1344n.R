@@ -1,1 +1,0 @@
-6fff20dd8e698d7d1edf94ff00a29ec9 query58_query57_1344n.qdimacs 3441 12471

@@ -1,1 +1,0 @@
-9c2b05a8b2f0d9face24c7f8ff8f6d45 query58_query04_1344n.qdimacs 1781 3902

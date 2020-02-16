@@ -1,1 +1,0 @@
-d4e58b76b613a88d2b1677be9bb113ef query52_query10_1344.qdimacs 778 1847

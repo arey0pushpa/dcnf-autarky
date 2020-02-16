@@ -1,1 +1,0 @@
-d124661b0f3c74bcd5ae32d2124875a8 dungeon_i10-m10-u10-v0.pddl_planlen=174.qdimacs 36891 101349

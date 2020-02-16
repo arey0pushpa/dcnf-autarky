@@ -1,1 +1,0 @@
-558418c36b569a3c4459e43fc1f28e23 query06_trivial_1344n.qdimacs 885 1745

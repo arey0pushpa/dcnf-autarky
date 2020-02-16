@@ -1,1 +1,0 @@
-5ac428ca348f86881a4e7df927bd27e2 query57_query03_1344n.qdimacs 2399 8625

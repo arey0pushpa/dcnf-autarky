@@ -1,1 +1,0 @@
-def7a4b59e7dc59f49069d36dd3766fc query03_query54_1344.qdimacs 3033 10725

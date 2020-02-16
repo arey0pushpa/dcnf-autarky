@@ -1,1 +1,0 @@
-79698b7cbb3cc787e1adfb07020495ce query42_query21_1344n.qdimacs 5300 40698

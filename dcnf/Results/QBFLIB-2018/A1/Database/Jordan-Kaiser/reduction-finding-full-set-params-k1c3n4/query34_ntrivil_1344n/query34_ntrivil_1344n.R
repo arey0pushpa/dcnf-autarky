@@ -1,1 +1,0 @@
-cf9260341603e8c7fb2c2d1fd1b2fbd1 query34_ntrivil_1344n.qdimacs 297 479

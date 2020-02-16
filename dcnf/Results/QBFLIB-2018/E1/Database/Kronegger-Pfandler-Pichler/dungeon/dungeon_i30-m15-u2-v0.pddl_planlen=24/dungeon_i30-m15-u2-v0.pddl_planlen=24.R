@@ -1,1 +1,0 @@
-cd5d3bd43ae959451d1279b48e4ca6f5 dungeon_i30-m15-u2-v0.pddl_planlen=24.qdimacs 25091 366317

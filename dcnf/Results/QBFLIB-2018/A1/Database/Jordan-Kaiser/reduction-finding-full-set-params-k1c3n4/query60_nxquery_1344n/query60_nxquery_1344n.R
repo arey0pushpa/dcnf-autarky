@@ -1,1 +1,0 @@
-97a1bc5d0da963ea63b6a42273ce7b32 query60_nxquery_1344n.qdimacs 983 2126

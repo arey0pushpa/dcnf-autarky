@@ -1,1 +1,0 @@
-9d2e6ac37be525a6637cdaf503f30d72 query02_falsequ_1344n.qdimacs 9 9

@@ -1,1 +1,0 @@
-a742bf4a18e5ca446a7973d82a61cca2 query21_query08_1344.qdimacs 2281 9107

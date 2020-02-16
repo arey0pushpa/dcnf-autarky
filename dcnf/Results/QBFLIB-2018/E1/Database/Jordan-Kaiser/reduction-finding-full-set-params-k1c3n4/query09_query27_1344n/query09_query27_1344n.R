@@ -1,1 +1,0 @@
-594fe64446af9d142087bd454cedeaf0 query09_query27_1344n.qdimacs 3615 13566

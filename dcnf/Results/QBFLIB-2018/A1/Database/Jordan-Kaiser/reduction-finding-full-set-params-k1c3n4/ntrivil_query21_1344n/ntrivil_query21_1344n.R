@@ -1,1 +1,0 @@
-40cf3c633eb3fd724e6c6d783748717d ntrivil_query21_1344n.qdimacs 831 3787

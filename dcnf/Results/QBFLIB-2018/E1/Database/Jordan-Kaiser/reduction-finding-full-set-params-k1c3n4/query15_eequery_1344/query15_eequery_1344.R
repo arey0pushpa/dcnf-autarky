@@ -1,1 +1,0 @@
-f2a449a43a30bd249f9210869b4bdd50 query15_eequery_1344.qdimacs 482 2079

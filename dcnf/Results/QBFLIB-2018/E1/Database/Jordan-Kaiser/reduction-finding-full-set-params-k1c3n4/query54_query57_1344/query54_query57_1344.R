@@ -1,1 +1,0 @@
-1a19befd4b4590bfe10caba2eae6d838 query54_query57_1344.qdimacs 1229 2912

@@ -1,1 +1,0 @@
-f435236d0f7a4577d84ed2dda6674044 query23_ntrivil_1344n.qdimacs 177 239

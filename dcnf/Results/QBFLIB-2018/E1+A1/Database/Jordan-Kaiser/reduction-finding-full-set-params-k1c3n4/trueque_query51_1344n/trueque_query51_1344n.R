@@ -1,1 +1,0 @@
-46f4ad8a851540c65d2f72a382a6d10f trueque_query51_1344n.qdimacs 195 234

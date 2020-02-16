@@ -1,1 +1,0 @@
-729c09024b3cc55bbfc6f68191bc4665 query09_query24_1344n.qdimacs 98 136

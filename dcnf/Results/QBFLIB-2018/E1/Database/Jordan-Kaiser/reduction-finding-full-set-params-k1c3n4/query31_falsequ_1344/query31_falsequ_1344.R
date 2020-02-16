@@ -1,1 +1,0 @@
-b291a26af966daf4ce82737a4e052aab query31_falsequ_1344.qdimacs 95 161

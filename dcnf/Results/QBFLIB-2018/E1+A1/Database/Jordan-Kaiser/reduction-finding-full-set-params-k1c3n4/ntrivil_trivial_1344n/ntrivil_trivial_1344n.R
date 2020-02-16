@@ -1,1 +1,0 @@
-c5d639c5df3facf9ce8096c50599c3c7 ntrivil_trivial_1344n.qdimacs 357 787

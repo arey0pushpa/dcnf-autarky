@@ -1,1 +1,0 @@
-bce0eaeaa347e95661ea808bb1512427 query55_query34_1344n.qdimacs 1019 2415

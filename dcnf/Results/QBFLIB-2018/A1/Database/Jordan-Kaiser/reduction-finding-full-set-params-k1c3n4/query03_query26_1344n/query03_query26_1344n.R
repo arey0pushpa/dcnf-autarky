@@ -1,1 +1,0 @@
-63e86353c9ff97b4743fdedb8e47cad3 query03_query26_1344n.qdimacs 1369 2818

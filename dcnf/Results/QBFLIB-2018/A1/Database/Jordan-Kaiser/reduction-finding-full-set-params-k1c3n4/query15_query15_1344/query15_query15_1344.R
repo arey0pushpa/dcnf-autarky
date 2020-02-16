@@ -1,1 +1,0 @@
-7e69d02f0a8f56ff44492f71d88acc59 query15_query15_1344.qdimacs 123 1027

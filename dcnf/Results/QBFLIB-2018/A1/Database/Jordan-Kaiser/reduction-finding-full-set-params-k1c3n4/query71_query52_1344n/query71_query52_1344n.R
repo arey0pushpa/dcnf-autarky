@@ -1,1 +1,0 @@
-5dead21fea57974992419a546df2ac1b query71_query52_1344n.qdimacs 2197 8208

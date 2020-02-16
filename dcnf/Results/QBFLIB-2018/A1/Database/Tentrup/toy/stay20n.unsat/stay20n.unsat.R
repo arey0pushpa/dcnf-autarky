@@ -1,1 +1,0 @@
-61974bd450e83fc4f62a2edb9d0777c9 stay20n.unsat.qdimacs 5717 16971

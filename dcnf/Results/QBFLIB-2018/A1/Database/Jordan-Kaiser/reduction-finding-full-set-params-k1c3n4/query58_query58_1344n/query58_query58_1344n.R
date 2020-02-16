@@ -1,1 +1,0 @@
-861cf3d61d3b5110dbdd1f9c5a4e0b77 query58_query58_1344n.qdimacs 3711 11851

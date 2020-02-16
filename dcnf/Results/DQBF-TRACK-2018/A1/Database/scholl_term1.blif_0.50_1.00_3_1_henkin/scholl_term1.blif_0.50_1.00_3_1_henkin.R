@@ -1,1 +1,0 @@
-5a657e5902aac8f4a10b5f4bffe93a9c scholl_term1.blif_0.50_1.00_3_1_henkin.dqdimacs 1028 3536

@@ -1,1 +1,0 @@
-6a7cbfc10c207c36c63eae371f645228 query26_query54_1344n.qdimacs 683 1927

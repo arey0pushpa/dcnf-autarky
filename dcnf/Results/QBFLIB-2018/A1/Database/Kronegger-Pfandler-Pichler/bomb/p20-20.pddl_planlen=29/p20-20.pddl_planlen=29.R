@@ -1,1 +1,0 @@
-23b7f517f827b363e3ea72026b76fca4 p20-20.pddl_planlen=29.qdimacs 16980 2616179

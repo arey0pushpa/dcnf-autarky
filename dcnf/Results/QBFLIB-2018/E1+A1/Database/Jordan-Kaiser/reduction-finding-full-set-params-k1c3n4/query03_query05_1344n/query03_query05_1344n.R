@@ -1,1 +1,0 @@
-e0c608c5ad582ac74f94a69fc8513fcb query03_query05_1344n.qdimacs 1313 2762

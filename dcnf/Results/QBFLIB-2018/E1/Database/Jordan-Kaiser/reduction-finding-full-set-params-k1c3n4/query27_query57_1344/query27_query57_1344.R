@@ -1,1 +1,0 @@
-3fd6dc1c4a97367bb66024a34b5b5a38 query27_query57_1344.qdimacs 697 1978

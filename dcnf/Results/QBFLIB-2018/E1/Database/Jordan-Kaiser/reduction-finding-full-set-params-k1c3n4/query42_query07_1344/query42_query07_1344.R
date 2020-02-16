@@ -1,1 +1,0 @@
-6c22411caedc757cfac1aa39a99a1b9d query42_query07_1344.qdimacs 3467 14016

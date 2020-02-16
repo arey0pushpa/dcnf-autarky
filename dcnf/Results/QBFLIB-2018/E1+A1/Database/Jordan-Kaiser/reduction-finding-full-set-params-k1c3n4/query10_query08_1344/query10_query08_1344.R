@@ -1,1 +1,0 @@
-8ed05e8ad53407fe7b8048cdde88c9e2 query10_query08_1344.qdimacs 5595 45271

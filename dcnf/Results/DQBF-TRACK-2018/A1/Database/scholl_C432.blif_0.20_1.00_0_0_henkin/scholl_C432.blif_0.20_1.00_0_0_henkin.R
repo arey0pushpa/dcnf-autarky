@@ -1,1 +1,0 @@
-4e17ba52fbc8319b702683bfe06f012f scholl_C432.blif_0.20_1.00_0_0_henkin.dqdimacs 612 1514

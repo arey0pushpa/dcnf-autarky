@@ -1,1 +1,0 @@
-6274bd13aa8b9e339eabcc7269ba1a06 query08_query25_1344.qdimacs 5313 41229

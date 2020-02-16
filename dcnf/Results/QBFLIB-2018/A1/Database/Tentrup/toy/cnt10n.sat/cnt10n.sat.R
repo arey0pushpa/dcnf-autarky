@@ -1,1 +1,0 @@
-09a4c7dafb85ce120fd6cbf5227787a1 cnt10n.sat.qdimacs 358 1031

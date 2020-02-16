@@ -1,1 +1,0 @@
-8a91a24e5c45171e19de4953989c9b15 query07_nxquery_1344.qdimacs 651 1369

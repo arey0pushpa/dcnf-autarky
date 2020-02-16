@@ -1,1 +1,0 @@
-74bd16760d6060b53dbce5a6cbff29c7 query42_exquery_1344n.qdimacs 2065 7264

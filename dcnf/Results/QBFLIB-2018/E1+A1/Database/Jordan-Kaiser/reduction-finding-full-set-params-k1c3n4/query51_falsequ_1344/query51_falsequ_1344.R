@@ -1,1 +1,0 @@
-f8c966fdb25a2da759e3d5b0f56ec554 query51_falsequ_1344.qdimacs 21 18

@@ -1,1 +1,0 @@
-4854bc5418c3f01a5e86c1b29b8da6f7 nxquery_query48_1344.qdimacs 510 1413

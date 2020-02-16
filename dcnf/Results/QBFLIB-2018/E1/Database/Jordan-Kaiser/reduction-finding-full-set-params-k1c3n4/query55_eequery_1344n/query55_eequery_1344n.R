@@ -1,1 +1,0 @@
-4cc9ab9cbe915886ca7f135441cacd35 query55_eequery_1344n.qdimacs 855 1933

@@ -1,1 +1,0 @@
-09a0c03639c9c81f660abacfefa398fc ring_r4_ser--opt-11_.qdimacs 373 5333

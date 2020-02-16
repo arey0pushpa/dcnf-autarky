@@ -1,1 +1,0 @@
-c84d14e1c66a6821f03215e82a4e8f9a falsequ_query55_1344n.qdimacs 231 629

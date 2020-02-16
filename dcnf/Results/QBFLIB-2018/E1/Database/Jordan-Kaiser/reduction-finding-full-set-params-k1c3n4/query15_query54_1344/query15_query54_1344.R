@@ -1,1 +1,0 @@
-357c0baa3f3d1a7a108ebb7a28ce5bb1 query15_query54_1344.qdimacs 2498 7200

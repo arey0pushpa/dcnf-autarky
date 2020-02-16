@@ -1,1 +1,0 @@
-53efc36df2812b74a86af3fb84f08cab query57_reachqu_1344.qdimacs 2805 9689

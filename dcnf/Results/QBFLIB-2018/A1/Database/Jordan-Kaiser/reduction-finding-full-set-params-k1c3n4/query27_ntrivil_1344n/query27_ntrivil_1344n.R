@@ -1,1 +1,0 @@
-ea545b987a86c9fa7a8fc2232a07e164 query27_ntrivil_1344n.qdimacs 195 313

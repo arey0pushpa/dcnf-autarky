@@ -1,1 +1,0 @@
-d803e92325d1f778af0dc44a6980de8c query03_query45_1344.qdimacs 1961 7709

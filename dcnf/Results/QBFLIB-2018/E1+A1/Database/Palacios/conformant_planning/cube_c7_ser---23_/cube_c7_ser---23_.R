@@ -1,1 +1,0 @@
-c1c2dbbede043b1e24ce855d8f305950 cube_c7_ser---23_.qdimacs 1479 15164

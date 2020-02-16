@@ -1,1 +1,0 @@
-cf31e45ce8177a236fb8681bce815444 query48_ntrivil_1344.qdimacs 2236 7974

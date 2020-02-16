@@ -1,1 +1,0 @@
-c9dac7f91c2899f1fbcd6e57cf4b2700 trueque_trivial_1344n.qdimacs 76 93

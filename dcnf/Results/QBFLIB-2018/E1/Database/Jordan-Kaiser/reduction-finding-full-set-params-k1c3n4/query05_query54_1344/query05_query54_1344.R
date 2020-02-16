@@ -1,1 +1,0 @@
-500db7ecb4aa139336a1cc7c3aa29419 query05_query54_1344.qdimacs 677 1922

@@ -1,1 +1,0 @@
-b981cc275febae4a2e764508dc01aae4 query10_query44_1344n.qdimacs 8899 51094

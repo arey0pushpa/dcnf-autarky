@@ -1,1 +1,0 @@
-bbc476c205f5c62530c5e60bbd39accb query57_query02_1344.qdimacs 1573 3263

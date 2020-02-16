@@ -1,1 +1,0 @@
-1d40bc4c257517a41fad662aabd2c30c mult_bool_matrix_12_12_10.unsat.qdimacs 21492 63366

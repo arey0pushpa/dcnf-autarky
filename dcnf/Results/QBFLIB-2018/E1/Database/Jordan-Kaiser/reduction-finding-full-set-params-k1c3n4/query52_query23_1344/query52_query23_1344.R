@@ -1,1 +1,0 @@
-50f87ea942c2ad025dd22d47942c978e query52_query23_1344.qdimacs 32 65

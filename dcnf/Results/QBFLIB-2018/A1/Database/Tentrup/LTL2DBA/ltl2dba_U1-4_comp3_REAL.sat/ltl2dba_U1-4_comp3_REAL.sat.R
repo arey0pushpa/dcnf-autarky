@@ -1,1 +1,0 @@
-e32bee05402ff0a4457220c6b0f1f53a ltl2dba_U1-4_comp3_REAL.sat.qdimacs 9379 31226

@@ -1,1 +1,0 @@
-7019a572da37842eebc74d04cde7926e query27_query23_1344n.qdimacs 18 13

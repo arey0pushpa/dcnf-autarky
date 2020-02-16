@@ -1,1 +1,0 @@
-6130f9c3050639ce2ed33428e037d01b query54_trivial_1344n.qdimacs 369 659

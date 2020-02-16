@@ -1,1 +1,0 @@
-79e2919c802abee63bb02d1f3a8e6baa query05_query31_1344n.qdimacs 597 1727

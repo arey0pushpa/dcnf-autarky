@@ -1,1 +1,0 @@
-0c7408daf010300692cd8fc8f0ad05b7 query27_axquery_1344n.qdimacs 173 277

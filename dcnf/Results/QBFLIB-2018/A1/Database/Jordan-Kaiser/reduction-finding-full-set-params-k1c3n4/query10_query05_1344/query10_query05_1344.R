@@ -1,1 +1,0 @@
-1a2ad26554147fd2d643db40abd745fa query10_query05_1344.qdimacs 3649 13565

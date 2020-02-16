@@ -1,1 +1,0 @@
-470e1d3ca436ca64941d55d3e919fe68 ltl2dba_E4_comp4_REAL.sat.qdimacs 21027 75460

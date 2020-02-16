@@ -1,1 +1,0 @@
-a87996e6268149de69fa4b3f5ef4c9ce query42_trivial_1344.qdimacs 2344 8220

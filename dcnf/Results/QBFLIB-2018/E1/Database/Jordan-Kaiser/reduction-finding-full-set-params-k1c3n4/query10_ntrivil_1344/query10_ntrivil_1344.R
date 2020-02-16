@@ -1,1 +1,0 @@
-ea94d763a92d53d5a7a03bc4f6f623f1 query10_ntrivil_1344.qdimacs 2072 6674

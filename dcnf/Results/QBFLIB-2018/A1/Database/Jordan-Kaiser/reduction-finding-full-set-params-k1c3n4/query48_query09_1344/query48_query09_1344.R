@@ -1,1 +1,0 @@
-80f0abad3379c3fdc63b928c4f0b3917 query48_query09_1344.qdimacs 6159 45803

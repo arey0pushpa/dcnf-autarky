@@ -1,1 +1,0 @@
-c0954d9a82838aa0e8bf658af75c619b query07_query51_1344n.qdimacs 2117 8086

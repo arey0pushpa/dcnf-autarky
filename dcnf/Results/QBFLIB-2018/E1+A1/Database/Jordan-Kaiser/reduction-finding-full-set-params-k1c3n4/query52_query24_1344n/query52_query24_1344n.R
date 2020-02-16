@@ -1,1 +1,0 @@
-8a6f7fc5500c2e4a1c1e646ea7f79dc4 query52_query24_1344n.qdimacs 33 29

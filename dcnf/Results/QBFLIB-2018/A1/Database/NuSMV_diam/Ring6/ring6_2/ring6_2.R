@@ -1,1 +1,0 @@
-ebe6dd4957bfe297ec8326cd9d950872 ring6_2.qdimacs 55 188

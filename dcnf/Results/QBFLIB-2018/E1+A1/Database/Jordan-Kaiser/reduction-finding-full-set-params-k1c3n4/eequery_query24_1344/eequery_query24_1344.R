@@ -1,1 +1,0 @@
-c43c78592d00c33eab56da5189add9dd eequery_query24_1344.qdimacs 27 24

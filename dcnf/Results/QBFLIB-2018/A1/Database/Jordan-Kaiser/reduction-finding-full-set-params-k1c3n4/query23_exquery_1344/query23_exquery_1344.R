@@ -1,1 +1,0 @@
-e59de74adec43a0d727738e9d75f2039 query23_exquery_1344.qdimacs 167 233

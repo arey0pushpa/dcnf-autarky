@@ -1,1 +1,0 @@
-44243cea065978f00143dffda224bd29 query27_query26_1344n.qdimacs 341 573

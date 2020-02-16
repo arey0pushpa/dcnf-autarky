@@ -1,1 +1,0 @@
-3e0a1acee48d4fc38dd1dd381e1c2db2 gttt_1_1_00011011_3x3_b.qdimacs 1381 3026

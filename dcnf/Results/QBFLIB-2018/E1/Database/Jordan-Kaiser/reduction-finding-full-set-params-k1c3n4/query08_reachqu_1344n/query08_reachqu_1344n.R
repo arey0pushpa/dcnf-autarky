@@ -1,1 +1,0 @@
-0de54c9bc4010b0448df788ad3bc3ef8 query08_reachqu_1344n.qdimacs 7487 39850

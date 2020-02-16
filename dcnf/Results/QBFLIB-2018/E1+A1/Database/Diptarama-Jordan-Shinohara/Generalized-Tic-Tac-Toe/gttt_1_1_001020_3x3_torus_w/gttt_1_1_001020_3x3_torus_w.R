@@ -1,1 +1,0 @@
-46481577fe809b9529cfca9f940c2fa1 gttt_1_1_001020_3x3_torus_w.qdimacs 1633 4212

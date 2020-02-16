@@ -1,1 +1,0 @@
-21aac4b9566e3528c8cc3a8d0d298347 trivial_query21_1344n.qdimacs 831 3787

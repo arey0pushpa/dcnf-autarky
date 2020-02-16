@@ -1,1 +1,0 @@
-cc6759d6ed539c57d4f591dd1c045b67 query26_query58_1344n.qdimacs 765 1877

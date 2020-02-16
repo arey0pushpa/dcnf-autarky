@@ -1,1 +1,0 @@
-b45b13f8275839a42be75fdc9cd31c3a query15_query45_1344.qdimacs 625 2179

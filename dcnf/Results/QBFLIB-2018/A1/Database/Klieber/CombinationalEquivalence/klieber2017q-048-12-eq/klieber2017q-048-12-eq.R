@@ -1,1 +1,0 @@
-d31aa3e3b6a8811bfae21f8528e416e9 klieber2017q-048-12-eq.qdimacs 547 1462

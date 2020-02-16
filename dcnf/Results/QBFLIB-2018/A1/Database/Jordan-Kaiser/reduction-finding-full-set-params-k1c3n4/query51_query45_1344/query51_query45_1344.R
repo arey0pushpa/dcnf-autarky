@@ -1,1 +1,0 @@
-69bcf45cf966ce03d8065a79f3f01cea query51_query45_1344.qdimacs 711 1614

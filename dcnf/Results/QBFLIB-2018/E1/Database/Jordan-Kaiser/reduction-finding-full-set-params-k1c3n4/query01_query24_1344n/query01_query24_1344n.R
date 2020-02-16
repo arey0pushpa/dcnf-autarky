@@ -1,1 +1,0 @@
-69e121ee038e1a3a1cbb1db633d22c3d query01_query24_1344n.qdimacs 22 21

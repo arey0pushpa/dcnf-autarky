@@ -1,1 +1,0 @@
-e806738de1928ffa9191ba65a5dd6c9e query27_query71_1344.qdimacs 617 1790

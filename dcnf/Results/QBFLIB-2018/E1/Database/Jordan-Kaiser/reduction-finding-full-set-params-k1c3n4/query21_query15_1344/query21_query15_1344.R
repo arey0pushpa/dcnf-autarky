@@ -1,1 +1,0 @@
-3becfe6829ced878a81df5773ef20b46 query21_query15_1344.qdimacs 101 735

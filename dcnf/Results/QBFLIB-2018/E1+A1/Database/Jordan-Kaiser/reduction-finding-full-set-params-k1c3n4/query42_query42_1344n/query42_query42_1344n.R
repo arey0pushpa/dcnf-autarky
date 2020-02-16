@@ -1,1 +1,0 @@
-18b2d392b21754d18f10bdfc52b41eab query42_query42_1344n.qdimacs 10043 53216

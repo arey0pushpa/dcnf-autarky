@@ -1,1 +1,0 @@
-7fb64f18acaa01bcbb5c96176cd56122 query01_query42_1344.qdimacs 738 2163

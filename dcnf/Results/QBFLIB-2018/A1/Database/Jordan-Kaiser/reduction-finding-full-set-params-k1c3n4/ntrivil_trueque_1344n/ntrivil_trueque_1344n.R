@@ -1,1 +1,0 @@
-3e2a3b739edda77e41e938ff8968419f ntrivil_trueque_1344n.qdimacs 5 2

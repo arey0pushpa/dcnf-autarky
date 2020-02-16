@@ -1,1 +1,0 @@
-6a59fbbf73949b9ddd55340f12abdf5a query11_query34_1344n.qdimacs 907 2187

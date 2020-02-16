@@ -1,1 +1,0 @@
-1f8b6f861cc4d386bb655f82779b47a0 query23_query26_1344.qdimacs 313 433

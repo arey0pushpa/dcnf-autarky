@@ -1,1 +1,0 @@
-6ac88cd14abadb037d9e8651476a227b query51_query60_1344n.qdimacs 863 1973

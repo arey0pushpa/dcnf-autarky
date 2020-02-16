@@ -1,1 +1,0 @@
-2f98cebc3a7c5d3c78ecd9d7be6a5928 gttt_1_1_000111_4x4_b.qdimacs 6948 17307

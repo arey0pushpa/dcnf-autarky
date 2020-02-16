@@ -1,1 +1,0 @@
-03e40abb4cf8948e2faa1b9d4540c9e6 query58_reachqu_1344n.qdimacs 2903 9828

@@ -1,1 +1,0 @@
-d9531103795d8fe3bdeb89b73c136e78 query49_nxquery_1344.qdimacs 1957 7085

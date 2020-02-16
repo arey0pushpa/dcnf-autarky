@@ -1,1 +1,0 @@
-3bfc34662b63a6abb1d9e0349262d13c query26_query60_1344.qdimacs 741 1824

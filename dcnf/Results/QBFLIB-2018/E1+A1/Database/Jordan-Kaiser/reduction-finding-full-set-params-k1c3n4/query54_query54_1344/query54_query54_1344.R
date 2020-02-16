@@ -1,1 +1,0 @@
-7cc6ea69ef702dc42493768ccdeb6f86 query54_query54_1344.qdimacs 1207 2830

@@ -1,1 +1,0 @@
-19a6ffaeb64c8f49d361430de81b3019 query06_query01_1344.qdimacs 1461 3043

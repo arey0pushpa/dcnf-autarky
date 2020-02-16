@@ -1,1 +1,0 @@
-ab0fe4454f219c72fe2c0b27cd53620a eequery_trueque_1344n.qdimacs 17 17

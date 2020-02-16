@@ -1,1 +1,0 @@
-a4910c45eb08de118112a94ca0b757da query04_query54_1344n.qdimacs 677 1921

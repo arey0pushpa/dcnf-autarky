@@ -1,1 +1,0 @@
-c36a5bee7d92e5cfc8bad412a5e64375 query01_nreachq_1344.qdimacs 598 1697

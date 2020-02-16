@@ -1,1 +1,0 @@
-fe272824bb3aa38965b78b90a63a7494 k_dum_n-20.qdimacs 972 2530

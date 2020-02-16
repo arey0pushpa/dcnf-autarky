@@ -1,1 +1,0 @@
-bd58c8f399fa1ea211c5677c45c6dd0e query27_query09_1344.qdimacs 494 1505

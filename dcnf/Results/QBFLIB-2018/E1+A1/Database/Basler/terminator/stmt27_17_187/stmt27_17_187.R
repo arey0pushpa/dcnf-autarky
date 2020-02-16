@@ -1,1 +1,0 @@
-68dbf48b4b82acd259bde67f62ce6e28 stmt27_17_187.qdimacs 1868 5997

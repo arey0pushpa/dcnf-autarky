@@ -1,1 +1,0 @@
-50ab9055b4e1846b4c9bf719fab89e9d query10_query23_1344.qdimacs 1 2

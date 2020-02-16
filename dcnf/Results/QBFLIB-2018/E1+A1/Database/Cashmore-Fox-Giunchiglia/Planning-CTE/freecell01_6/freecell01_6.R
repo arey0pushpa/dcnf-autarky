@@ -1,1 +1,0 @@
-bbb1dad7dab92e8b83acbc2a17c5cd3c freecell01_6.qdimacs 1712 261807

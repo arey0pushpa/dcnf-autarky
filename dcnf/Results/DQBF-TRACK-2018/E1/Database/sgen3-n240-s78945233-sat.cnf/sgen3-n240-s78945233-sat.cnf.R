@@ -1,1 +1,0 @@
-55bfbc1b2c838c3aa6b206b85becdbc0 sgen3-n240-s78945233-sat.cnf.dqdimacs 22 1824

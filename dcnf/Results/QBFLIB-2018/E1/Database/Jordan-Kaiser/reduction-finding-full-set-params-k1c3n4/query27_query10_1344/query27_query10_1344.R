@@ -1,1 +1,0 @@
-b206680ff2c1c1a579998abf406533cf query27_query10_1344.qdimacs 566 1517

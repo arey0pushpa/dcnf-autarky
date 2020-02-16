@@ -1,1 +1,0 @@
-02e7f4da45372cacceee9e22df196ce9 query23_query05_1344n.qdimacs 321 930

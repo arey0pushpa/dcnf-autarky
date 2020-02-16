@@ -1,1 +1,0 @@
-2c19e7cff0157c544b621b39d65fe8c6 query30_nreachq_1344n.qdimacs 1791 5810

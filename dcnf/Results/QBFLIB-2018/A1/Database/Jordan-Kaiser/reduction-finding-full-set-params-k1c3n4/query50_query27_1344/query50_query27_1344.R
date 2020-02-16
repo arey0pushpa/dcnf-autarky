@@ -1,1 +1,0 @@
-36e27f449dc9764f29590e79f7cdb78b query50_query27_1344.qdimacs 201 310

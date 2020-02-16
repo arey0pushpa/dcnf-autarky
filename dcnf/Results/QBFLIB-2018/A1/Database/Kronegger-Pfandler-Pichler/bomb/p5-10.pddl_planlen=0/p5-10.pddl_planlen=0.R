@@ -1,1 +1,0 @@
-30a6d5b3e983cbc172ff843c9a4e159d p5-10.pddl_planlen=0.qdimacs 60 60

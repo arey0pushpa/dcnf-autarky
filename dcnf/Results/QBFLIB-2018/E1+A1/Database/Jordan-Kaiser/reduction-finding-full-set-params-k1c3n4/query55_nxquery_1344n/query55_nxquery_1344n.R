@@ -1,1 +1,0 @@
-06c748e94871bb7c4c05b839ccf90ca6 query55_nxquery_1344n.qdimacs 231 401

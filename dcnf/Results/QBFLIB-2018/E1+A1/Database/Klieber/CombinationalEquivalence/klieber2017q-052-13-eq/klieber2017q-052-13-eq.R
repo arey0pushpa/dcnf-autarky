@@ -1,1 +1,0 @@
-0e72ba4cd76b188e1e22dbb97d8ebe4e klieber2017q-052-13-eq.qdimacs 606 1624

@@ -1,1 +1,0 @@
-a17280f9e3d894879f1887beb3924cf7 query02_axquery_1344.qdimacs 173 278

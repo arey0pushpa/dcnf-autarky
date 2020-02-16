@@ -1,1 +1,0 @@
-d382a442c87d6c67a40944cadab3b7ba query42_query26_1344.qdimacs 4213 14423

@@ -1,1 +1,0 @@
-8ba4479c31cb088e8fd499dc495c1afe query52_query49_1344.qdimacs 930 2295

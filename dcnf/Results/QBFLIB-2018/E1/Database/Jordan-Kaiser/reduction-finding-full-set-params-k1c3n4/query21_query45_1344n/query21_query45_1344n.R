@@ -1,1 +1,0 @@
-c0a2c4477786a0a12ea4233961eaa8bb query21_query45_1344n.qdimacs 1961 7702

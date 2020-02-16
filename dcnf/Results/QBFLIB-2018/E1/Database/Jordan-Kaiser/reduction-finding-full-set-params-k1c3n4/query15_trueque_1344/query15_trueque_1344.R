@@ -1,1 +1,0 @@
-bd3c06aab1a41032c7116abf45a4886a query15_trueque_1344.qdimacs 1 2

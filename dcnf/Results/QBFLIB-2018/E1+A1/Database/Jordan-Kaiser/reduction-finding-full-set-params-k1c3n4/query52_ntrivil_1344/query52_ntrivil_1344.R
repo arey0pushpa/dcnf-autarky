@@ -1,1 +1,0 @@
-8cd2e145d08e6ef5e9fc7c2b3a7aec28 query52_ntrivil_1344.qdimacs 145 242

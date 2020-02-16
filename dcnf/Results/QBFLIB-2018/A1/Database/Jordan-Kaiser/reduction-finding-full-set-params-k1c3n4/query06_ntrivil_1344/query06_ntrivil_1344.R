@@ -1,1 +1,0 @@
-a33eca8b075845d8a2fb8b2a8a55440e query06_ntrivil_1344.qdimacs 885 1860

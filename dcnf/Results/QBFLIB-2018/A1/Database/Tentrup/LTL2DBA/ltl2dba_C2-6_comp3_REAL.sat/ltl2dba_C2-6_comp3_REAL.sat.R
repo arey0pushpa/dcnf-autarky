@@ -1,1 +1,0 @@
-d77f82bcf97755e53e157bea98599154 ltl2dba_C2-6_comp3_REAL.sat.qdimacs 2923 8304

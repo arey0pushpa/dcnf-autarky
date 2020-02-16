@@ -1,1 +1,0 @@
-cf00097c80c4646a5cc82f3436a9dbc2 query30_axquery_1344.qdimacs 94 196

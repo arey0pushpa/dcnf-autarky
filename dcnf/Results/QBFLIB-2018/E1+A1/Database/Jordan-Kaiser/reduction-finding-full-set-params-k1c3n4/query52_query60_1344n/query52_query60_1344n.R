@@ -1,1 +1,0 @@
-e63cf792b3f56907ba6e4deff24afb95 query52_query60_1344n.qdimacs 867 1977

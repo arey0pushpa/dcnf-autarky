@@ -1,1 +1,0 @@
-bb98cda3b648de01a86926f3c550dfe0 query57_eequery_1344.qdimacs 2325 8547

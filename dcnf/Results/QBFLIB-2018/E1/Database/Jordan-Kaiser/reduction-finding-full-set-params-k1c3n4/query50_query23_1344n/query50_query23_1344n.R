@@ -1,1 +1,0 @@
-9bd98607649b8c45debb31298ce8cddc query50_query23_1344n.qdimacs 26 13

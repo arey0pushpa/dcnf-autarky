@@ -1,1 +1,0 @@
-9cd7f381b9ff9f603164ce0c40d89d8d query58_query06_1344n.qdimacs 3121 11719

@@ -1,1 +1,0 @@
-1ecb3ff2fc6315fd77dc14d86c4baef9 query23_query42_1344.qdimacs 961 2315

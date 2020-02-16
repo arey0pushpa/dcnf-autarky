@@ -1,1 +1,0 @@
-c666dc7a3dbc5676d9724c7daacfa140 query50_query06_1344n.qdimacs 913 2195

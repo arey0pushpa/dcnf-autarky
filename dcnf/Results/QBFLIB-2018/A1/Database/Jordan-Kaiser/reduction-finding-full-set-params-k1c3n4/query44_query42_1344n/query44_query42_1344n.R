@@ -1,1 +1,0 @@
-7e3e64ba2d4feb7aad2bec98d8d46f30 query44_query42_1344n.qdimacs 10043 53216

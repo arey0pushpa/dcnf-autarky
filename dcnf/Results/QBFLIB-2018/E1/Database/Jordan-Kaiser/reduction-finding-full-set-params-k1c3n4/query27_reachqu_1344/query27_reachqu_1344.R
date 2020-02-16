@@ -1,1 +1,0 @@
-5492962d58de2b505a6eb75e873c0326 query27_reachqu_1344.qdimacs 590 1733

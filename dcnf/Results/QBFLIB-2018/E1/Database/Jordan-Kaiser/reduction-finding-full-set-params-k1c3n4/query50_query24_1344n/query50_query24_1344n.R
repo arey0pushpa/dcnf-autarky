@@ -1,1 +1,0 @@
-a701ae32310890cc0b36f479fd923ab5 query50_query24_1344n.qdimacs 27 29

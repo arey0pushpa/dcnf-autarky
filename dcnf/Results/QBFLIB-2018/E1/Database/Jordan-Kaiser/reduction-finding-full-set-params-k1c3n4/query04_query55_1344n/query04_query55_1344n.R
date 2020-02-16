@@ -1,1 +1,0 @@
-dd52162339fded4dd98cbdc8294eb062 query04_query55_1344n.qdimacs 521 1263

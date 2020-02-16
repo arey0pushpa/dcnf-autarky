@@ -1,1 +1,0 @@
-c2cd2b485f68021e29b04a69abb5c504 3qbf-5cnf-160var-1280cl.0.qdimacs 480 1280

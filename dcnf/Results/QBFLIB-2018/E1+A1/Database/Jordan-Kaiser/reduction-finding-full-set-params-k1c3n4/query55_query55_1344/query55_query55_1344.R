@@ -1,1 +1,0 @@
-c0594b6ebc8807bc14336e37479ae0c5 query55_query55_1344.qdimacs 839 1794

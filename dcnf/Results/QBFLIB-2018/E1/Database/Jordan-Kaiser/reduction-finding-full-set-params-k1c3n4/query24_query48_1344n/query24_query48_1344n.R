@@ -1,1 +1,0 @@
-5e4584908c0af2e94fc53eeb6f7b505a query24_query48_1344n.qdimacs 809 1380

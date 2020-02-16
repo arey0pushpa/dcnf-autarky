@@ -1,1 +1,0 @@
-141364f2ed9b4b9bf0f6c53c1e9fc327 query45_query27_1344.qdimacs 201 310

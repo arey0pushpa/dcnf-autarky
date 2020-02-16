@@ -1,1 +1,0 @@
-be1dda2f9775954351e2563c03eb8460 query07_trivial_1344.qdimacs 725 1526

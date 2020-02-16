@@ -1,1 +1,0 @@
-501031d37f45cafc1da3ec8668bf11fb query27_query48_1344n.qdimacs 622 1585

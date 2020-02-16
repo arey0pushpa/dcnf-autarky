@@ -1,1 +1,0 @@
-b470bb751f39b31186ae7dd671d052b6 query45_query08_1344n.qdimacs 790 1765

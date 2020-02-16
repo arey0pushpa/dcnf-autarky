@@ -1,1 +1,0 @@
-5f71e8a0caf6a73afc10fedb350a6a85 query64_query21_1344n.qdimacs 1125 2637

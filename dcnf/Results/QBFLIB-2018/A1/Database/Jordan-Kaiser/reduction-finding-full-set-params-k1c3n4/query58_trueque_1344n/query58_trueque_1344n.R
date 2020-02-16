@@ -1,1 +1,0 @@
-bd138f5085006357c4e953478a02bca9 query58_trueque_1344n.qdimacs 105 174

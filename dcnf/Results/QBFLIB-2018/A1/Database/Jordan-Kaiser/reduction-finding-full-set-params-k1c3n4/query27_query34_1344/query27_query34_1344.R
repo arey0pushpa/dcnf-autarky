@@ -1,1 +1,0 @@
-9b97fa23f785eb12994f2f0a3cbade6a query27_query34_1344.qdimacs 603 1740

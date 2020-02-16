@@ -1,1 +1,0 @@
-f3da4b90b15703dd0b70d3496cd8c4b4 query07_ntrivil_1344.qdimacs 725 1526

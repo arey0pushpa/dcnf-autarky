@@ -1,1 +1,0 @@
-18b69d3fa5117a67e042dd088887f9b3 mult7.sat.qdimacs 948 2752

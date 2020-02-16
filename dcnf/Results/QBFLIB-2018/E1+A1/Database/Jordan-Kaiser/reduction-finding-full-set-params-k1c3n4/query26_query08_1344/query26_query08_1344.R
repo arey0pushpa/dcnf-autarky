@@ -1,1 +1,0 @@
-d9570162232c0bf3baec651e89eb6205 query26_query08_1344.qdimacs 502 1501

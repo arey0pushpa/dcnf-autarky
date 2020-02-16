@@ -1,1 +1,0 @@
-a380b5aabbd82adf5ec59453882dec01 query25_query10_1344.qdimacs 766 1961

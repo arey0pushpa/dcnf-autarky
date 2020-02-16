@@ -1,1 +1,0 @@
-12b492c956abf57ea81f2565ab39c263 trueque_trueque_1344n.qdimacs 1 2

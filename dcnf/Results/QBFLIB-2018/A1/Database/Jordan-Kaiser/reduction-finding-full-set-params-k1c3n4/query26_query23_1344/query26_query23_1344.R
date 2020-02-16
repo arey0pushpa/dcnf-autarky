@@ -1,1 +1,0 @@
-b7890199fa61aafa7aa3bf9264975988 query26_query23_1344.qdimacs 22 39

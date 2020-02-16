@@ -1,1 +1,0 @@
-c1355ebdc0dc36890aa83ab72b71ae0c query48_query42_1344.qdimacs 9935 56923

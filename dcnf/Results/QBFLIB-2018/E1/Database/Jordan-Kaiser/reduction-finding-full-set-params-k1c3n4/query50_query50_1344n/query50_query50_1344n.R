@@ -1,1 +1,0 @@
-d5978f16ff0ed777c3576e343b0c3d23 query50_query50_1344n.qdimacs 703 1605

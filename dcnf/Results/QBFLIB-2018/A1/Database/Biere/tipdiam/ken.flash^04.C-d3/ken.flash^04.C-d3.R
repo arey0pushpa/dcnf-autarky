@@ -1,1 +1,0 @@
-327bd0dbc18e1bbb054993283463ca8c ken.flash^04.C-d3.qdimacs 9448 27094

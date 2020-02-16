@@ -1,1 +1,0 @@
-02838de0a18baac4d58648a38028057b stay14n.sat.qdimacs 2693 7947

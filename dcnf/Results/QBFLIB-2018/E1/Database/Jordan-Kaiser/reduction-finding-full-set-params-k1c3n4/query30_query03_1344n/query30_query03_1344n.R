@@ -1,1 +1,0 @@
-76b1e562fdc988e5233bedee8a4a2070 query30_query03_1344n.qdimacs 613 2503

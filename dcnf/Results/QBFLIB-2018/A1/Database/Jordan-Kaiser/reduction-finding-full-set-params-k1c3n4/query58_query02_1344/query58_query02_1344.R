@@ -1,1 +1,0 @@
-fa2366317142e655ca4efbb63fca5695 query58_query02_1344.qdimacs 1741 3821

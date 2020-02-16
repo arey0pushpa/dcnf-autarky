@@ -1,1 +1,0 @@
-e6a969b588628269caaaa55c4299eab8 query57_query06_1344n.qdimacs 3023 10521

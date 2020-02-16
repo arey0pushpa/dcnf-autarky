@@ -1,1 +1,0 @@
-0dc407dec74e1293cb85074e701f62c1 trivial_query25_1344.qdimacs 885 4029

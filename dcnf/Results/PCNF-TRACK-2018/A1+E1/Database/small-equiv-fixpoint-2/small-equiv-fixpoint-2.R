@@ -1,1 +1,0 @@
-d8c4944ae8fd5f0dbda9c44c5da52f32 small-equiv-fixpoint-2.qdimacs 5024 16527

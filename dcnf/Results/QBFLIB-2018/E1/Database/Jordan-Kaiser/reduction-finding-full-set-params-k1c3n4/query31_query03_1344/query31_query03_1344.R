@@ -1,1 +1,0 @@
-4eacdc20ebcfb34f0e0fdc942adbccdc query31_query03_1344.qdimacs 913 2038

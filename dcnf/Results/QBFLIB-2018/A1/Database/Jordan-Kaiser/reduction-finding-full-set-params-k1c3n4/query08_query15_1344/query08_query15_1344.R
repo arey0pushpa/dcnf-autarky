@@ -1,1 +1,0 @@
-47654ba1ea63649461c0cceaf43a0eef query08_query15_1344.qdimacs 303 3107

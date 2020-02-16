@@ -1,1 +1,0 @@
-8ef420dd817b06a7971bfd5dda72f172 query24_query08_1344.qdimacs 489 3959

@@ -1,1 +1,0 @@
-deb47a0faa52b6044f5bf2c51e923947 query42_reachqu_1344.qdimacs 7707 44001

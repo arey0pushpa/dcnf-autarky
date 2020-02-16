@@ -1,1 +1,0 @@
-db6a289efe94977045376a44df50113c ring_r6_ser--opt-17_.qdimacs 813 82019

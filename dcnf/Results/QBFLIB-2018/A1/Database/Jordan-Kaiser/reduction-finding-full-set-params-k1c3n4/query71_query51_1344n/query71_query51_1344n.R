@@ -1,1 +1,0 @@
-98e1bb5534888bd3f64dfe1ce1f515c0 query71_query51_1344n.qdimacs 2277 8384

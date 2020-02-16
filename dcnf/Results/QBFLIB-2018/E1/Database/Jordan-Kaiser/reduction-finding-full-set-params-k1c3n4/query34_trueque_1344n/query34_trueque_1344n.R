@@ -1,1 +1,0 @@
-fae358f53fb0a8e4e3727103e648b47b query34_trueque_1344n.qdimacs 99 168

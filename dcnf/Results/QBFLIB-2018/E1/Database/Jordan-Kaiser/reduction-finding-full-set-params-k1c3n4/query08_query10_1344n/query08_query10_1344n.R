@@ -1,1 +1,0 @@
-df96c819a6e17fc81894dacf5d28b9c2 query08_query10_1344n.qdimacs 7103 36394

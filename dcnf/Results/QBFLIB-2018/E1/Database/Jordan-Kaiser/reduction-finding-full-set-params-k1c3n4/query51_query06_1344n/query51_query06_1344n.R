@@ -1,1 +1,0 @@
-25cefd494f8a9653aa1e2655d17d81a0 query51_query06_1344n.qdimacs 921 2203

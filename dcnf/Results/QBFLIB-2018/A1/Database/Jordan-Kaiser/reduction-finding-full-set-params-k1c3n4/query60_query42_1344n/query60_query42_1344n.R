@@ -1,1 +1,0 @@
-40fee9b062b1e76a787671fca49a4c26 query60_query42_1344n.qdimacs 3535 12608

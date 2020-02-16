@@ -1,1 +1,0 @@
-f8edc92bcf2529ebffaeb9947fd2abc8 query71_query25_1344.qdimacs 2245 8359

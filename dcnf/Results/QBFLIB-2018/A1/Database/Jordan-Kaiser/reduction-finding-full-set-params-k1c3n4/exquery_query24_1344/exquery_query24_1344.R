@@ -1,1 +1,0 @@
-c27f2e6b11c2f1108b0cd1bb46d9f067 exquery_query24_1344.qdimacs 15 24

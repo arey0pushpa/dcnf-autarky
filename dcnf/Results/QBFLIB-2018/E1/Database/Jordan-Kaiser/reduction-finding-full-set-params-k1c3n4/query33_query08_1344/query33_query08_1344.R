@@ -1,1 +1,0 @@
-71ff1be93a9cb17f222962f65f056dac query33_query08_1344.qdimacs 954 2223

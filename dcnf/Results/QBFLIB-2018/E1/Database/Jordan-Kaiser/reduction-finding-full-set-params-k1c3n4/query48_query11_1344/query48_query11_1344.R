@@ -1,1 +1,0 @@
-ead3c289d5274d87fed4a126be64d7e6 query48_query11_1344.qdimacs 5041 40321

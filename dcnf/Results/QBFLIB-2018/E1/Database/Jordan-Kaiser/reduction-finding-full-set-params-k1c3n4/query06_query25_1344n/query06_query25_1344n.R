@@ -1,1 +1,0 @@
-1d5fadbe49f242701761eca81779f8eb query06_query25_1344n.qdimacs 2245 8352

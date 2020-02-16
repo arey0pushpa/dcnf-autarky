@@ -1,1 +1,0 @@
-2d4aa42d5226615c0462af01780cc292 query64_exquery_1344n.qdimacs 427 725

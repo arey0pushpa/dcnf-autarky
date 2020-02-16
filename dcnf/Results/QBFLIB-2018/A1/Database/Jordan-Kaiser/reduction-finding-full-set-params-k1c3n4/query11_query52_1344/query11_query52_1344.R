@@ -1,1 +1,0 @@
-ccc64830488d15120da7bb6c500d711e query11_query52_1344.qdimacs 731 1670

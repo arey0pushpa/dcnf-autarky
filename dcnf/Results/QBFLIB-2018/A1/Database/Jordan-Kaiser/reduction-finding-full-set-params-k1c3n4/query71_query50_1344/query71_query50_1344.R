@@ -1,1 +1,0 @@
-75f9317b8b6b2aab6f15425f1beb1980 query71_query50_1344.qdimacs 2117 7991

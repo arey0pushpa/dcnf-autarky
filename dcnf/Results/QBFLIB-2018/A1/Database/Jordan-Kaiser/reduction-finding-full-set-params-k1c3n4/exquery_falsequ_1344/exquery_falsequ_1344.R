@@ -1,1 +1,0 @@
-7398acb6433a391ab1dfe6cdc2f13193 exquery_falsequ_1344.qdimacs 5 5

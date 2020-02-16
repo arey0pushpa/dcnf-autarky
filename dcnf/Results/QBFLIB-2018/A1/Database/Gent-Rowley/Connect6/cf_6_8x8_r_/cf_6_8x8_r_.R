@@ -1,1 +1,0 @@
-5cf97e3fe2f101ddbe7bd9f03b01a984 cf_6_8x8_r_.qdimacs 99864 147841

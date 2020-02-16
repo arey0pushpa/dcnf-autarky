@@ -1,1 +1,0 @@
-82ada1cce5b074008711f08456096011 query50_falsequ_1344.qdimacs 17 17

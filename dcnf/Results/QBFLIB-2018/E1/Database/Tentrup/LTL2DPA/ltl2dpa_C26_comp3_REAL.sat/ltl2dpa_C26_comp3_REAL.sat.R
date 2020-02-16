@@ -1,1 +1,0 @@
-797140a91f937fc4980a613f27d78555 ltl2dpa_C26_comp3_REAL.sat.qdimacs 8064 23262

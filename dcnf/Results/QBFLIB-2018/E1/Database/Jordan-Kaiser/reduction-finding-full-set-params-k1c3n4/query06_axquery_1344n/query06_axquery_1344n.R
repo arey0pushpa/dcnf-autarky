@@ -1,1 +1,0 @@
-bc87e4de5a8ec786affbf9b6af75cf80 query06_axquery_1344n.qdimacs 843 1692

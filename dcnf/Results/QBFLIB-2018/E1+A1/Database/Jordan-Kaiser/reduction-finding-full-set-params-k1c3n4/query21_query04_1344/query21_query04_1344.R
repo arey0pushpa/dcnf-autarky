@@ -1,1 +1,0 @@
-2d60885cdbce6def81fc103d0e66cf48 query21_query04_1344.qdimacs 1313 2769

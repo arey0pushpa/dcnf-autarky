@@ -1,1 +1,0 @@
-0fab6351319bcd79f7917a756483548c trueque_query15_1344n.qdimacs 15 17

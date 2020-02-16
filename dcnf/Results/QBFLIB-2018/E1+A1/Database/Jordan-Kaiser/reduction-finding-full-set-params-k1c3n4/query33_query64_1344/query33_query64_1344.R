@@ -1,1 +1,0 @@
-e68fbeb9d40c1172e2ad1dead3097ff3 query33_query64_1344.qdimacs 1135 2424

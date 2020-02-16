@@ -1,1 +1,0 @@
-be7c0a15d990d702b945707b53e1384e eequery_query02_1344n.qdimacs 217 325

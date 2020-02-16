@@ -1,1 +1,0 @@
-11c060355b2e7793f72103f0cc61ade9 trueque_query55_1344n.qdimacs 231 334

@@ -1,1 +1,0 @@
-97e711fc517fc1386547f1d4ac3aeba5 exquery_query57_1344.qdimacs 585 1626

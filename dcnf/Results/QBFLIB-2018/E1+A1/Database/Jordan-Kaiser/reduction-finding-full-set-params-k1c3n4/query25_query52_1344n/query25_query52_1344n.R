@@ -1,1 +1,0 @@
-6aa1f39fa893c51580fc7f0aa6f55570 query25_query52_1344n.qdimacs 723 1661

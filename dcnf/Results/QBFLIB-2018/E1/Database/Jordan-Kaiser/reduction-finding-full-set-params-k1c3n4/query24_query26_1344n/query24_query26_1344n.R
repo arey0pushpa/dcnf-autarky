@@ -1,1 +1,0 @@
-f57b9d25ae79ca7e958c6885fce9ee1f query24_query26_1344n.qdimacs 317 434

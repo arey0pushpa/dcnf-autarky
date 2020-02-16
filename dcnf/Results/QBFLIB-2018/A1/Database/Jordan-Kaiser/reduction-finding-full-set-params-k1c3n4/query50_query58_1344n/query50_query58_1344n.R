@@ -1,1 +1,0 @@
-7fc3c403d2ae696e309880cd8e4dc142 query50_query58_1344n.qdimacs 887 1993

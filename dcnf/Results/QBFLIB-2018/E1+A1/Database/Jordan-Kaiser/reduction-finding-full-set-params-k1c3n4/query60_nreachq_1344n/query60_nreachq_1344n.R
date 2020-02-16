@@ -1,1 +1,0 @@
-a2786ce05cd647c8268f8b8cc77cd513 query60_nreachq_1344n.qdimacs 2879 9800

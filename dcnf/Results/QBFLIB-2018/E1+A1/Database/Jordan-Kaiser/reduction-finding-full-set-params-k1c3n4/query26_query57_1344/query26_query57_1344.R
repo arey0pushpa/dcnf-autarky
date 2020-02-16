@@ -1,1 +1,0 @@
-1cb4c3de145df21150d4317559df21e5 query26_query57_1344.qdimacs 705 1974

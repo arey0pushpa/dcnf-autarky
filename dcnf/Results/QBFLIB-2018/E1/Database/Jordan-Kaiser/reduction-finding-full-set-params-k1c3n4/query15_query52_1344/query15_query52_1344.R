@@ -1,1 +1,0 @@
-080c30bc65f5fa7dc6774a9d2b410eb5 query15_query52_1344.qdimacs 662 2235

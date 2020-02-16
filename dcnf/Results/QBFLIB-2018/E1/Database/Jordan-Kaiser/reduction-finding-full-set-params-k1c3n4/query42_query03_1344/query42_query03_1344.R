@@ -1,1 +1,0 @@
-5eba3ac559f709babbb6ad91bf0a61f4 query42_query03_1344.qdimacs 5812 42608

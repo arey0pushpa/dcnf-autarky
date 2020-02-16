@@ -1,1 +1,0 @@
-6258802897afb147d1dcc5e566a3cf86 query36_query23_1344.qdimacs 105 156

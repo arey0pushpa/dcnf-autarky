@@ -1,1 +1,0 @@
-dc1c46ded753866bfecf38ca741f9651 query55_query03_1344.qdimacs 877 2004

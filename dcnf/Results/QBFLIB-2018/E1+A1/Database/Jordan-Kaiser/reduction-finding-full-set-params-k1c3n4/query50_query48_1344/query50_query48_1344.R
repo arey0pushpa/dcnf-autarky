@@ -1,1 +1,0 @@
-cbd5df1962a60a5b49bff0f56a49aa84 query50_query48_1344.qdimacs 918 2373

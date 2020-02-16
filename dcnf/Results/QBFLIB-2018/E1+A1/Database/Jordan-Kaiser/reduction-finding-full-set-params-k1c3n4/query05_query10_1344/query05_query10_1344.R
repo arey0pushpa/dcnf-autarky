@@ -1,1 +1,0 @@
-c6cae6fc89fc0b168e901716c0e9c617 query05_query10_1344.qdimacs 568 1502

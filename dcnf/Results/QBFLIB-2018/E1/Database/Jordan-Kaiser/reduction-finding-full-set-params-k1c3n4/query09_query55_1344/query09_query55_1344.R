@@ -1,1 +1,0 @@
-a3b29d48dd0cebdfd078960f60bf0b56 query09_query55_1344.qdimacs 6503 35599

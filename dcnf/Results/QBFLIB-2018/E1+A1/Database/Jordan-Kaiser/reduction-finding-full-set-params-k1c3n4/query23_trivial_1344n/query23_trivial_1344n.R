@@ -1,1 +1,0 @@
-ef47b9fbedea13503a0b805ab345fd29 query23_trivial_1344n.qdimacs 193 523

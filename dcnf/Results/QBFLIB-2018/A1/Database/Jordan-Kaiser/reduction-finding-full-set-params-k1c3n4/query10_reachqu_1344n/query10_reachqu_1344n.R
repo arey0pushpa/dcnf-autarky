@@ -1,1 +1,0 @@
-aceefdb1705093e8a28270f8c725d74c query10_reachqu_1344n.qdimacs 6915 32006

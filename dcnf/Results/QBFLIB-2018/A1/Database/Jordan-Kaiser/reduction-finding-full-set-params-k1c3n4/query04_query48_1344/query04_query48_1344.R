@@ -1,1 +1,0 @@
-8f1a6920286b7cea650879aa03a09d8f query04_query48_1344.qdimacs 624 1770

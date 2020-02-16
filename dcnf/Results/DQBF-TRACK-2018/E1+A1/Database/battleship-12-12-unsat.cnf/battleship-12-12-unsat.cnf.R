@@ -1,1 +1,0 @@
-5722dd0a348c6effabbdbdbf5025d0e4 battleship-12-12-unsat.cnf.dqdimacs 26 5904

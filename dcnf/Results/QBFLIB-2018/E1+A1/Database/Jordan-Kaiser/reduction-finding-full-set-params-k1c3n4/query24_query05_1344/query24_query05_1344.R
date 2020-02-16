@@ -1,1 +1,0 @@
-53339cd442adef674927dbed1057a8ea query24_query05_1344.qdimacs 317 917

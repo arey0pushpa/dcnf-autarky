@@ -1,1 +1,0 @@
-7160327f0ee34711e926802760fa8d9c cnt20y.unsat.qdimacs 334 905

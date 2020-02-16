@@ -1,1 +1,0 @@
-e8ac5f2c844335bc1917561533feed3b query49_query03_1344n.qdimacs 5704 41768

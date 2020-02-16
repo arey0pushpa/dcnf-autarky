@@ -1,1 +1,0 @@
-54efd6afd2f93f08faee6ae80d62ed98 query05_query08_1344n.qdimacs 496 1327

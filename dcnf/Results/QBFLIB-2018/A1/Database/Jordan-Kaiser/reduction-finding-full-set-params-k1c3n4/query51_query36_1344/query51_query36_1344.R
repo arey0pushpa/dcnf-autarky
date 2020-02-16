@@ -1,1 +1,0 @@
-39fb51685a090798cc77bbeab17ae23b query51_query36_1344.qdimacs 899 2174

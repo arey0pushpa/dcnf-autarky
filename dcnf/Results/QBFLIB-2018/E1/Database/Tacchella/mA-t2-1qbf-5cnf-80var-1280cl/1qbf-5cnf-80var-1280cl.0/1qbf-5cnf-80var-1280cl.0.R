@@ -1,1 +1,0 @@
-4fb6a694543d0e090053c0d11aeef9ff 1qbf-5cnf-80var-1280cl.0.qdimacs 80 1280

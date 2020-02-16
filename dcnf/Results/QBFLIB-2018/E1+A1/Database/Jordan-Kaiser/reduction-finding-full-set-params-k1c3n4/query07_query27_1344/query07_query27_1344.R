@@ -1,1 +1,0 @@
-a5b276f333509af9eef178bed11bb250 query07_query27_1344.qdimacs 1269 2713

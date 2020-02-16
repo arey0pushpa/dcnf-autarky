@@ -1,1 +1,0 @@
-96969e3f46c7e289267abb17ba43c969 battleship-11-21-sat.cnf.dqdimacs 27 9207

@@ -1,1 +1,0 @@
-b4c7acd8474051bbaedfede59392a20e query60_query64_1344.qdimacs 4379 13773

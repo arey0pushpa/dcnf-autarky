@@ -1,1 +1,0 @@
-bc9ca7250fa106a5e5107c4ef5511b0b query48_query27_1344n.qdimacs 3721 13798

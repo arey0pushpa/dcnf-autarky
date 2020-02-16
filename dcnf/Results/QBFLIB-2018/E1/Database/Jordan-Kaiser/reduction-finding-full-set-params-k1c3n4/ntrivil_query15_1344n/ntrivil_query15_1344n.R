@@ -1,1 +1,0 @@
-71db0c28b2ddf43b1778f058d5d57078 ntrivil_query15_1344n.qdimacs 85 140

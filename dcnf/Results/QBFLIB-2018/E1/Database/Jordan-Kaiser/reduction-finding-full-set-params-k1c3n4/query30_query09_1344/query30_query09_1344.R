@@ -1,1 +1,0 @@
-f90ee701c4fece8d9076c01ddee368ce query30_query09_1344.qdimacs 699 5400

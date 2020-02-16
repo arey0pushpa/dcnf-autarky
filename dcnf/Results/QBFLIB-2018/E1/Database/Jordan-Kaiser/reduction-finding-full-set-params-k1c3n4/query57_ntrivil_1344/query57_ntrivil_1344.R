@@ -1,1 +1,0 @@
-227d467c69c9889dbe4fc5c42bf307a4 query57_ntrivil_1344.qdimacs 965 2048

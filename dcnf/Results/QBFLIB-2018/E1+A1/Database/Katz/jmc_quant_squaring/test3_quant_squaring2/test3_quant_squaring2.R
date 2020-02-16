@@ -1,1 +1,0 @@
-a5e1342dc3d5ea0d70091b03b16a71bb test3_quant_squaring2.qdimacs 349 643

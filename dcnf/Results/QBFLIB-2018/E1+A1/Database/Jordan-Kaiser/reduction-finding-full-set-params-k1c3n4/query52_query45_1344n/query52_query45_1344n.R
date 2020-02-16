@@ -1,1 +1,0 @@
-6705f142ef5d102afa3584f946c1f26f query52_query45_1344n.qdimacs 715 1617

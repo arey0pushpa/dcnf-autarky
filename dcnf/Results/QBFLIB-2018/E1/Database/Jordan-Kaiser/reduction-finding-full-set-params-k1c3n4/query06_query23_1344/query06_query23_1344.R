@@ -1,1 +1,0 @@
-5bfee06fcf48d04498b2581be17d4e0e query06_query23_1344.qdimacs 121 300

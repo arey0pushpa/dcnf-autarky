@@ -1,1 +1,0 @@
-119ec58020b5a3a1a3dd7f7cdecd182f ntrivil_query44_1344.qdimacs 2021 7527

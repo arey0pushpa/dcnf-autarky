@@ -1,1 +1,0 @@
-c85ca8b7cec3ad80879b67929e9edfce eequery_query44_1344n.qdimacs 1026 2427

@@ -1,1 +1,0 @@
-5c59d8ecdf60536a7b6daf807f203ccf query11_query52_1344n.qdimacs 731 1669

@@ -1,1 +1,0 @@
-7c58b3ffbb31ac1baaef2c2695254780 query48_query54_1344n.qdimacs 9201 52034

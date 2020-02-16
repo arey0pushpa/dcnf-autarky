@@ -1,1 +1,0 @@
-da7310e20aa6b6781f4ed2da044514b6 query52_eequery_1344.qdimacs 747 1710

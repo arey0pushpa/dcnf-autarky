@@ -1,1 +1,0 @@
-89eda65c8513dd3f985a5625abd5f597 query21_query11_1344n.qdimacs 1993 7782

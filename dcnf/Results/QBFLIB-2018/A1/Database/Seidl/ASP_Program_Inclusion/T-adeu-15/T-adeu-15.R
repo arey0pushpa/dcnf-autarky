@@ -1,1 +1,0 @@
-0388fb2bd0cf069aa138ec92716ec786 T-adeu-15.qdimacs 4790 11786

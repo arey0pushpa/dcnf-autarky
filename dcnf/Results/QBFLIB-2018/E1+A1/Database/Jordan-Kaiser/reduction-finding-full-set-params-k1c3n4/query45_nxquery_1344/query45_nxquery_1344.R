@@ -1,1 +1,0 @@
-5138fec7c74a897c50652ccf3470e839 query45_nxquery_1344.qdimacs 111 166

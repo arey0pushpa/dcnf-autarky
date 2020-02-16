@@ -1,1 +1,0 @@
-51f1ea1b8150abbe2a2f566862e988f6 query51_query48_1344n.qdimacs 926 2033

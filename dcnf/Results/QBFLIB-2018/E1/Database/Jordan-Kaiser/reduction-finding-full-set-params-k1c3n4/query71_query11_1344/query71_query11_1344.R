@@ -1,1 +1,0 @@
-41c02ebeeb1450d97ddc1504e1231ba2 query71_query11_1344.qdimacs 2149 8071

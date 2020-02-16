@@ -1,1 +1,0 @@
-157f12a178a785d515dfe51e3fa238ea query05_query60_1344.qdimacs 735 1821

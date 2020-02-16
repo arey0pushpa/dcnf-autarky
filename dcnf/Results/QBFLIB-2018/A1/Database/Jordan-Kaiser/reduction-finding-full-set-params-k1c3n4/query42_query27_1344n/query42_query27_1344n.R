@@ -1,1 +1,0 @@
-1a1b649b0d5b42ba649cb5b57d8d08cd query42_query27_1344n.qdimacs 3829 14008

@@ -1,1 +1,0 @@
-9c3fefc7c4e95d9bfc1da9b1af182eab ring_r6_ser---16_.qdimacs 767 81826

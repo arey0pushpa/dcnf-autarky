@@ -1,1 +1,0 @@
-e495cff758e468be45acf8ef5cda9eeb query04_ntrivil_1344n.qdimacs 197 315

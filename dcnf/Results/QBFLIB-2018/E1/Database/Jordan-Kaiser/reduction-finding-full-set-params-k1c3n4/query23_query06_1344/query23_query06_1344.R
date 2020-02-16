@@ -1,1 +1,0 @@
-1c40ed77a4d4f7a18d20fb99b1178dc7 query23_query06_1344.qdimacs 811 1350

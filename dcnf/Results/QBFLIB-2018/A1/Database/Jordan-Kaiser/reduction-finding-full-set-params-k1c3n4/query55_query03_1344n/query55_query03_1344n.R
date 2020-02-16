@@ -1,1 +1,0 @@
-dec4ffdbf80e298080b6b39adc51dd32 query55_query03_1344n.qdimacs 877 1957

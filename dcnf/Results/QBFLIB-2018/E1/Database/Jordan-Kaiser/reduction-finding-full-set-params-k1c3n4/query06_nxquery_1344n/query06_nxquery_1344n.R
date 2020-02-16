@@ -1,1 +1,0 @@
-202fc1c99e7ae262107f1c51fae6afe4 query06_nxquery_1344n.qdimacs 811 1660

@@ -1,1 +1,0 @@
-435ca94054f5cb83c7d640939fcec82f p10-10.pddl_planlen=10.qdimacs 1980 66010

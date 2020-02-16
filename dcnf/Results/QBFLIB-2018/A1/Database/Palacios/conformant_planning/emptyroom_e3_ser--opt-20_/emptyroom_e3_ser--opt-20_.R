@@ -1,1 +1,0 @@
-29b246cb0f3671011d95f07abe8bb08a emptyroom_e3_ser--opt-20_.qdimacs 982 6286

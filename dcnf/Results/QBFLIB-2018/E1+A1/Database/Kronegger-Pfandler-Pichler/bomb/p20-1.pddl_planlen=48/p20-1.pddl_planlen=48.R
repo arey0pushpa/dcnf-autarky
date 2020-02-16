@@ -1,1 +1,0 @@
-50409e27c001fb8cb9a6ffcc715ade90 p20-1.pddl_planlen=48.qdimacs 5124 20114

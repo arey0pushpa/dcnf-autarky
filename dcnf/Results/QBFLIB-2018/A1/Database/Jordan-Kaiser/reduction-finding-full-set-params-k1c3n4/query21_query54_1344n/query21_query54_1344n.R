@@ -1,1 +1,0 @@
-6f7dbf51b719020b4dcdf32254acd15a query21_query54_1344n.qdimacs 3033 10718

@@ -1,1 +1,0 @@
-a38a37d0f9ffefa88efb7a34e50d1f56 query50_query21_1344.qdimacs 725 1700

@@ -1,1 +1,0 @@
-11a8b2ba7a23755a530b2ea090f395bb query64_query52_1344n.qdimacs 1123 2657

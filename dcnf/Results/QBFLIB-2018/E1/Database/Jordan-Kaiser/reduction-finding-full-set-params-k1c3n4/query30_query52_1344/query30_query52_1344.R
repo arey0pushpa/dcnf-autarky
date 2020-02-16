@@ -1,1 +1,0 @@
-459ab20cfe94f439a8168a0290db18e7 query30_query52_1344.qdimacs 670 3829

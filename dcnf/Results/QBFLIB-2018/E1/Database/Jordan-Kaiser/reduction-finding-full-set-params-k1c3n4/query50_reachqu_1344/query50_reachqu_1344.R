@@ -1,1 +1,0 @@
-9bd2d65435d5bc3b67193e4438e3064a query50_reachqu_1344.qdimacs 790 2117

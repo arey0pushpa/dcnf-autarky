@@ -1,1 +1,0 @@
-87963fc13a43a056c53b3df709b8bbef query06_query03_1344.qdimacs 2319 8552

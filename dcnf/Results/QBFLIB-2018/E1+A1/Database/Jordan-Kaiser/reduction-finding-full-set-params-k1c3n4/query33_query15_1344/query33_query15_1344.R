@@ -1,1 +1,0 @@
-61419636e7ff745ded62d6d1b65d75dc query33_query15_1344.qdimacs 208 487

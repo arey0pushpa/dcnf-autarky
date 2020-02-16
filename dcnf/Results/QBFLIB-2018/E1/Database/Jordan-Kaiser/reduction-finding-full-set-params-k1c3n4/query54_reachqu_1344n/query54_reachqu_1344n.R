@@ -1,1 +1,0 @@
-d874b0d7e7cca01bbbed314cc8724921 query54_reachqu_1344n.qdimacs 1026 2303

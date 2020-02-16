@@ -1,1 +1,0 @@
-de2f689c85bfa812805ff8414fcdfc35 query51_query26_1344.qdimacs 233 342

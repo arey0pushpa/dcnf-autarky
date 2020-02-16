@@ -1,1 +1,0 @@
-1f982dce561e452446ff363b4bfcfa45 query10_query48_1344n.qdimacs 7451 37086

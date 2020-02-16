@@ -1,6 +1,0 @@
-c The case of example where var only occurs in the prefix and 
-p cnf 4 2
-a 4 0
-e 2 3 0
--2 -4 0 
--2 -3 -4 0

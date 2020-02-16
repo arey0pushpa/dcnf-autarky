@@ -1,1 +1,0 @@
-1424e99ad2f14241231fd8869a6101ae axquery_query24_1344n.qdimacs 14 13

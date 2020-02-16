@@ -1,1 +1,0 @@
-196fbcfbaee56d6ee338c9f725a3335b query15_query31_1344.qdimacs 1850 5091

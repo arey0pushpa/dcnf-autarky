@@ -1,1 +1,0 @@
-7ae53b51e291bc12e0c21e86fbf9bef1 trivial_query42_1344n.qdimacs 2021 6920

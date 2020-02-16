@@ -1,1 +1,0 @@
-0457e951cdefaa93cb6076403252d62b query27_query03_1344.qdimacs 461 1316

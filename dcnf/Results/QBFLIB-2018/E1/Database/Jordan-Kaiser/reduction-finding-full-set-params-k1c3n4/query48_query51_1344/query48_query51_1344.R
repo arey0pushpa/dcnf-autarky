@@ -1,1 +1,0 @@
-260a85156fc93888fa081eacebe20e2f query48_query51_1344.qdimacs 5553 41601

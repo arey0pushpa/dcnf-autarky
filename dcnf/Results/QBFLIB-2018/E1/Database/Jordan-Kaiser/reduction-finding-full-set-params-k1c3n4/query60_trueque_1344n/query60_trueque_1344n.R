@@ -1,1 +1,0 @@
-e62350dea219abf53a8d6d11e1632013 query60_trueque_1344n.qdimacs 89 158

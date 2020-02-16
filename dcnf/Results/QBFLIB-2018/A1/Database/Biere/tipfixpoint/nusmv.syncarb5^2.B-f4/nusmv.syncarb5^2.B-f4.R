@@ -1,1 +1,0 @@
-d6023de43466f7fe585ea1299c4b4dee nusmv.syncarb5^2.B-f4.qdimacs 681 1849

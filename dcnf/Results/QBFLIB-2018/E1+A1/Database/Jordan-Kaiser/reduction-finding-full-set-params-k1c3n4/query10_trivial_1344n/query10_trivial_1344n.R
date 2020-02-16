@@ -1,1 +1,0 @@
-7d8ad515b7252dbddefca96bdfcab404 query10_trivial_1344n.qdimacs 2088 6148

@@ -1,1 +1,0 @@
-11b9b663d0f27e1d3bc9119c543bf3b3 query42_query30_1344.qdimacs 523 3813

@@ -1,1 +1,0 @@
-441da87bf685749bb34a0b90f7d631eb query25_query57_1344n.qdimacs 993 2383

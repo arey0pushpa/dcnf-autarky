@@ -1,1 +1,0 @@
-363be5b5a98296c4d5372e63a61dfec5 query11_query23_1344.qdimacs 30 39

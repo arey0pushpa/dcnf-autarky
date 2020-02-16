@@ -1,1 +1,0 @@
-be6f49d2f97fd92e2e655a6bbd41c6b3 query60_query08_1344.qdimacs 2591 10687

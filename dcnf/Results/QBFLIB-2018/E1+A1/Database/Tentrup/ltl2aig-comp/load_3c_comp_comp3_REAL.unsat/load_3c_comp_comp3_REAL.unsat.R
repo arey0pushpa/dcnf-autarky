@@ -1,1 +1,0 @@
-1b9802044858ca2dcb8e79aff5c3551a load_3c_comp_comp3_REAL.unsat.qdimacs 11965 36660

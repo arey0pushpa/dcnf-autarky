@@ -1,1 +1,0 @@
-9f6e466c8c412797e7c013a6dfe193c5 trivial_query03_1344n.qdimacs 959 4107

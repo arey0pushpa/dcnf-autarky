@@ -1,1 +1,0 @@
-94a98747cdb0378737a85b4206bd8eac query07_ntrivil_1344n.qdimacs 725 1447

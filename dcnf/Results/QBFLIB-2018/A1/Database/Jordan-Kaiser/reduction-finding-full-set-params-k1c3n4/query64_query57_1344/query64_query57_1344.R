@@ -1,1 +1,0 @@
-28ba9ec9fb822ea6762ed82cff60e770 query64_query57_1344.qdimacs 1393 3438

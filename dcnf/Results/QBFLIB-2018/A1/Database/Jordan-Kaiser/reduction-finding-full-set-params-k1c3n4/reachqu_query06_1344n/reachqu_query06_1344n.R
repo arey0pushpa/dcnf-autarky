@@ -1,1 +1,0 @@
-0c37880c23f64f1d8afa1492d7ac09f0 reachqu_query06_1344n.qdimacs 7492 39120

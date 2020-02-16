@@ -1,1 +1,0 @@
-01919e921ee3f51c8aefd31300a97067 query30_query04_1344n.qdimacs 183 371

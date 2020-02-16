@@ -1,1 +1,0 @@
-07fece626362d0fa8c9894e75aaff2bb query31_query52_1344.qdimacs 879 1938

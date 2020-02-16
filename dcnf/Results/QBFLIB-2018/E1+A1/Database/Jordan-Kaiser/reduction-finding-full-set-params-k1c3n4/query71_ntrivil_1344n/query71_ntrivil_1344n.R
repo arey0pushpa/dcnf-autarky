@@ -1,1 +1,0 @@
-2ed0a18898821d498913e5dd1b85160a query71_ntrivil_1344n.qdimacs 885 1745

@@ -1,1 +1,0 @@
-8a88b6bc1620ab6d78c148d1eb9b7bec axquery_trueque_1344.qdimacs 5 5

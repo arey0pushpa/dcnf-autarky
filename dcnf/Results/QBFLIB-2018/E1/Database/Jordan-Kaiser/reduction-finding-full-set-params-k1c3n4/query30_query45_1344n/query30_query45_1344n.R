@@ -1,1 +1,0 @@
-97a72c4f1c3defda3a85f5e94ea905cf query30_query45_1344n.qdimacs 617 2176

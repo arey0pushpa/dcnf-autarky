@@ -1,1 +1,0 @@
-d36db6744fc696fb02a2c19a6b078ccd query31_query11_1344n.qdimacs 867 1901

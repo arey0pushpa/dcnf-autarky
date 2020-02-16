@@ -1,1 +1,0 @@
-c589e06e5292169938859491faa820dc exquery_reachqu_1344.qdimacs 478 1397

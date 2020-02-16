@@ -1,1 +1,0 @@
-e34f49ade3f3ce0fad67931f5f35fcf5 query23_query11_1344.qdimacs 425 569

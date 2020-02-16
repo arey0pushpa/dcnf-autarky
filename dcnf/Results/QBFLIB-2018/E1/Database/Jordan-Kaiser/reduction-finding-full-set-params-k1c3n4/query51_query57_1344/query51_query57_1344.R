@@ -1,1 +1,0 @@
-6e4b14201b1ba6daaa4e051fa4ab9a1c query51_query57_1344.qdimacs 1001 2414

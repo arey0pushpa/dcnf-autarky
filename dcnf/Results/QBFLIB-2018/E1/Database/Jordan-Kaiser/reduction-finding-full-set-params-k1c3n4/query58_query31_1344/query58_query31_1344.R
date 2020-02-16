@@ -1,1 +1,0 @@
-ab60d1e3e96317b23f3e5cf7e3ebd32a query58_query31_1344.qdimacs 3047 11617

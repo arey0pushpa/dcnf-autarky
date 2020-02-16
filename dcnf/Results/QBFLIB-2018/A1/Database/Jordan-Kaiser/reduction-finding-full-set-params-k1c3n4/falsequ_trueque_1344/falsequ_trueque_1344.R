@@ -1,1 +1,0 @@
-fa6c9f68a96c5860ceb948dc9c945556 falsequ_trueque_1344.qdimacs 1 2

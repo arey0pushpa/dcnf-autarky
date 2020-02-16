@@ -1,1 +1,0 @@
-0c7bf76c490bb5a18ce8f83c8d48ccca query10_query27_1344.qdimacs 3513 13413

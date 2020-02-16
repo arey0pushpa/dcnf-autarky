@@ -1,1 +1,0 @@
-c15599a0c4b2cbb641824ce575b5828c query60_nxquery_1344.qdimacs 983 2133

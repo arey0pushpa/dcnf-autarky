@@ -1,1 +1,0 @@
-4349b8304fccfa096d61e5faefc396d0 query23_query27_1344n.qdimacs 329 970

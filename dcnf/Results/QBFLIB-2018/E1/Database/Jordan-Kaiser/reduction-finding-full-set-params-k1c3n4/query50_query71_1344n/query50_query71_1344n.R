@@ -1,1 +1,0 @@
-5e265cfc41e84094b9d8b5f6e0c2c1a2 query50_query71_1344n.qdimacs 913 2195

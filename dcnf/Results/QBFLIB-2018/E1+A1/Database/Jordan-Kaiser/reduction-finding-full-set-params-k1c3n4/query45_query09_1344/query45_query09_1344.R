@@ -1,1 +1,0 @@
-8457834dc0a544abb3b26baeb96759d4 query45_query09_1344.qdimacs 790 2017

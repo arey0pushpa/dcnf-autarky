@@ -1,1 +1,0 @@
-b341b5d70eec85e096b06b24c1de2fbf connect_9x8_8_R.qdimacs 99972 144512

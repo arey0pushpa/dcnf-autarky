@@ -1,1 +1,0 @@
-9adc4d344cd59f2a427aae51ff5c43f7 query30_query21_1344.qdimacs 716 4303

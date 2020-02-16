@@ -1,1 +1,0 @@
-4f9372ac54e24cbd14c241bb5f1a9974 query21_query44_1344n.qdimacs 3225 10968

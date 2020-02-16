@@ -1,1 +1,0 @@
-e3afba914cbc3a077a7fde9629e95ef2 query07_query30_1344n.qdimacs 85 140

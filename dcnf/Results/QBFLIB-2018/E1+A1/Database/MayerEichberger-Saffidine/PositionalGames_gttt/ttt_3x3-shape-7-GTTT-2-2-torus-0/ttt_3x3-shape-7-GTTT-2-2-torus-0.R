@@ -1,1 +1,0 @@
-15e6877f974983c20946a15be9c6ca9b ttt_3x3-shape-7-GTTT-2-2-torus-0.qdimacs 282 817

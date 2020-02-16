@@ -1,1 +1,0 @@
-76db97b9b5667471bb3d7bccc3fb66fc query27_query34_1344n.qdimacs 603 1739

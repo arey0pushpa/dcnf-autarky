@@ -1,1 +1,0 @@
-1c21e0c28eb2e24f62a8ab1bb881ff4d eequery_trivial_1344n.qdimacs 133 189

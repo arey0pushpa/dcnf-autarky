@@ -1,1 +1,0 @@
-7b97700bbcf2fd302a80f505ea604157 query01_query54_1344n.qdimacs 683 1927

@@ -1,1 +1,0 @@
-c110c804848189deb5301ca6d8d9d18e query25_query31_1344.qdimacs 891 2166

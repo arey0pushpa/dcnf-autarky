@@ -1,1 +1,0 @@
-91e05bbaaea96a3eb25ad44e9fae1b05 query60_query71_1344n.qdimacs 3097 11691

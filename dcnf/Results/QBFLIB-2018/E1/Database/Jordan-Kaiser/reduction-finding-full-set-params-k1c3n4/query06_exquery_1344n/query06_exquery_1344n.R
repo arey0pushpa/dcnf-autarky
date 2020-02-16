@@ -1,1 +1,0 @@
-c8d0a4aa45840f4b82404e244db9f7ad query06_exquery_1344n.qdimacs 811 1660

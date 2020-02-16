@@ -1,1 +1,0 @@
-aeb36bea568f37906001304b39cf7d79 query03_trueque_1344.qdimacs 21 9

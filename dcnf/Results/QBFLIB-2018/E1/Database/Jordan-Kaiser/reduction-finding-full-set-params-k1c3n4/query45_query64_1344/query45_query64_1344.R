@@ -1,1 +1,0 @@
-c614d0d4640e0edd5b8477ccc4010e74 query45_query64_1344.qdimacs 971 2134

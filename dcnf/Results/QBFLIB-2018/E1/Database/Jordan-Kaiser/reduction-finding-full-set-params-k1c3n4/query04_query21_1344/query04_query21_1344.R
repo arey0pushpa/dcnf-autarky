@@ -1,1 +1,0 @@
-0f173fca446ce2215b8cfc08e8bc361d query04_query21_1344.qdimacs 431 1229

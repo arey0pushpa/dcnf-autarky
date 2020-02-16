@@ -1,1 +1,0 @@
-494a7da80c6f52e0037baddfa306eae8 query30_query27_1344.qdimacs 158 357

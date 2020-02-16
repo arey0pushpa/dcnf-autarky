@@ -1,1 +1,0 @@
-6fd55a4cb5d7639adee50131584bd047 ring6_16.qdimacs 335 2078

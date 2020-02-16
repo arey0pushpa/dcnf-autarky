@@ -1,1 +1,0 @@
-b67852a4ca01e8fdf2173672c60e9dbd query15_query42_1344.qdimacs 2580 10026

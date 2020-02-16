@@ -1,1 +1,0 @@
-8d1fe66bf3a1012d1433c17a64c101b8 query25_query21_1344n.qdimacs 725 1641

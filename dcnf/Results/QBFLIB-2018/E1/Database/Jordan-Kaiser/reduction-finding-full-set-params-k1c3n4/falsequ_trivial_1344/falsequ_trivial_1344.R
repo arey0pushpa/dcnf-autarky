@@ -1,1 +1,0 @@
-e8b92cf423d65d8ae626559cfe3f25d8 falsequ_trivial_1344.qdimacs 80 107

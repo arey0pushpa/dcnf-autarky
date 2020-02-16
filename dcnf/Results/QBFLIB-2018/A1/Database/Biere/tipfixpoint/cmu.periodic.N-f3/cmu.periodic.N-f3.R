@@ -1,1 +1,0 @@
-c731163ba2cd957888f83d3019647058 cmu.periodic.N-f3.qdimacs 8774 25651

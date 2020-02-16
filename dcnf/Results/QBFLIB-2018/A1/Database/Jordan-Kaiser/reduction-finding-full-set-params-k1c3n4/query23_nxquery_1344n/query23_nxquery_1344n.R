@@ -1,1 +1,0 @@
-74871812afd184fb0571eadbbd4a4e20 query23_nxquery_1344n.qdimacs 171 234

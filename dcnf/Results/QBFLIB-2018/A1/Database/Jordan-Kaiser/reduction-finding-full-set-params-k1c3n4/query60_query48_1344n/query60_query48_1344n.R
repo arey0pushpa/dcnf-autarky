@@ -1,1 +1,0 @@
-db9b8afc1cc84ff4348deb8bdc436c79 query60_query48_1344n.qdimacs 3103 11000

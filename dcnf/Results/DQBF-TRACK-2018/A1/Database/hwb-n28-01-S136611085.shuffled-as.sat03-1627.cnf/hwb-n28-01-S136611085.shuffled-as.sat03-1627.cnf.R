@@ -1,1 +1,0 @@
-76baccba5f06e49f0fd17aca684293f1 hwb-n28-01-S136611085.shuffled-as.sat03-1627.cnf.dqdimacs 24 3778

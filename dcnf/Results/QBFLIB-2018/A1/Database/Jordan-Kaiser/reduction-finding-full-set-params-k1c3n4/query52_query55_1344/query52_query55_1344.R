@@ -1,1 +1,0 @@
-0dceff27025e770fae519ac41c86cc3d query52_query55_1344.qdimacs 731 1570

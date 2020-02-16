@@ -1,1 +1,0 @@
-bf88dd1ce84483e0fcb93438cb9beed9 query31_eequery_1344n.qdimacs 891 1973

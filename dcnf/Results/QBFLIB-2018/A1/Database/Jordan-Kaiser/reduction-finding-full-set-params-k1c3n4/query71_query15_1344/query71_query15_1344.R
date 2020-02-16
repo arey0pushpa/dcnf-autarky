@@ -1,1 +1,0 @@
-875f66b016ae311a1a9ee195f07ebe28 query71_query15_1344.qdimacs 257 1017

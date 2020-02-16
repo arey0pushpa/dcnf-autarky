@@ -1,1 +1,0 @@
-6596b40ded0dc54f7b2c5a2db5f5fd2f query33_query27_1344.qdimacs 365 600

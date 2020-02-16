@@ -1,1 +1,0 @@
-b5fd63b7ab5e8f96a2deda6ce58cdc18 query45_query23_1344.qdimacs 27 24

@@ -1,1 +1,0 @@
-6afd24857bef4a19f24a1aa2e1574f7c query55_query06_1344.qdimacs 1033 2478

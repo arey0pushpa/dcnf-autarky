@@ -1,1 +1,0 @@
-06b8dab4b88f3c7d16ad0286d5ef4277 reachqu_trueque_1344.qdimacs 85 133

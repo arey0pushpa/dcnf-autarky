@@ -1,1 +1,0 @@
-74b3dd9943a6caae2f894989dbac3da6 query50_query11_1344.qdimacs 711 1626

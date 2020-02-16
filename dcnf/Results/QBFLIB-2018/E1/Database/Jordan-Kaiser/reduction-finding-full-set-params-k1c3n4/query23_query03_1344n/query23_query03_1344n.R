@@ -1,1 +1,0 @@
-4b01cd37f138c91c3da3eb0d231de820 query23_query03_1344n.qdimacs 499 3379

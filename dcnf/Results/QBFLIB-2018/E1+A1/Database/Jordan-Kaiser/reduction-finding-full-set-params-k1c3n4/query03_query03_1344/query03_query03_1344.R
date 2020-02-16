@@ -1,1 +1,0 @@
-8979974dcc746acb2c4380cdafb152c1 query03_query03_1344.qdimacs 2163 8270

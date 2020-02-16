@@ -1,1 +1,0 @@
-132b21ce4b2184995a9b970d9fdc1388 query55_reachqu_1344n.qdimacs 910 2069

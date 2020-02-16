@@ -1,1 +1,0 @@
-4e13ad40fc425e32176928218d52bac6 query25_query05_1344n.qdimacs 211 319

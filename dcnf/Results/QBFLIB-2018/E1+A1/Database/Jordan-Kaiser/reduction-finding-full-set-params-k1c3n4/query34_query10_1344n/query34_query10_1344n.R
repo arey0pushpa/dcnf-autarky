@@ -1,1 +1,0 @@
-fc9da3171c020391e30fafbb68801503 query34_query10_1344n.qdimacs 930 1907

@@ -1,1 +1,0 @@
-9ae04d656cc48bb53ff8da316eabcdbd query10_query15_1344n.qdimacs 351 650

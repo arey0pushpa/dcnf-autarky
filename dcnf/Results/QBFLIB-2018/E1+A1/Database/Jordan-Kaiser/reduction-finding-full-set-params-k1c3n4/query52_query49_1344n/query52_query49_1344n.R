@@ -1,1 +1,0 @@
-8f6cf0d0cc6a3f8c62b33a160f068eab query52_query49_1344n.qdimacs 930 2037

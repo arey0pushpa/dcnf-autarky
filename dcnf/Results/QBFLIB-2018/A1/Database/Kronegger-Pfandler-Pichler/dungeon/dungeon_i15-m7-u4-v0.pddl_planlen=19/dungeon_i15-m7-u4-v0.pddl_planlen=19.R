@@ -1,1 +1,0 @@
-ab49d88785ce545aa480a934a8ce759c dungeon_i15-m7-u4-v0.pddl_planlen=19.qdimacs 5991 24385

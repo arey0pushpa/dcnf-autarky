@@ -1,1 +1,0 @@
-33bcf529eee33acd54b4318ecf5101b5 query11_trivial_1344n.qdimacs 141 197

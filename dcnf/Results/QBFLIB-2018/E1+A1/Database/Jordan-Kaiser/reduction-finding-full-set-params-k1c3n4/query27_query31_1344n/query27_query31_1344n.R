@@ -1,1 +1,0 @@
-caf3751af73c6e9676981cdb3d773b80 query27_query31_1344n.qdimacs 595 1725

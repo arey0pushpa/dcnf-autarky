@@ -1,1 +1,0 @@
-4dd67e5889ce8623a467187ade27c682 query21_falsequ_1344n.qdimacs 21 18

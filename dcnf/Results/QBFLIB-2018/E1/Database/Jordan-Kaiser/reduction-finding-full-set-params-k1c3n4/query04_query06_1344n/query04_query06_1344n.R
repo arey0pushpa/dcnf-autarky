@@ -1,1 +1,0 @@
-c8fcd3784c720481f88f71dc1e34f15c query04_query06_1344n.qdimacs 619 1757

@@ -1,1 +1,0 @@
-33c7353efcd99b9ae5fe8b76aeff7c49 query03_query60_1344.qdimacs 3101 9870

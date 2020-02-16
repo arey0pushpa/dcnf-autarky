@@ -1,1 +1,0 @@
-bf94f9a79300fccc32ed787a98583305 query15_query07_1344n.qdimacs 158 452

@@ -1,1 +1,0 @@
-fbaaf45a540085dc797f205d9bc0ff61 query15_query02_1344n.qdimacs 188 414

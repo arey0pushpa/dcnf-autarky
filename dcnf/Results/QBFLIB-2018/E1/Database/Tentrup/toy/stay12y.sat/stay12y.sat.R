@@ -1,1 +1,0 @@
-a2ed593703834acfc3a49b99b9eacfec stay12y.sat.qdimacs 1219 3539

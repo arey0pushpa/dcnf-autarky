@@ -1,1 +1,0 @@
-0f9451f78c28fa0ed98168a08b23b3ea query57_axquery_1344.qdimacs 923 1887

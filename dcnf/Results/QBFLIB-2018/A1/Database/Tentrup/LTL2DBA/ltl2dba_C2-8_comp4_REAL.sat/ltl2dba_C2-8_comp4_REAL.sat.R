@@ -1,1 +1,0 @@
-f26c38f6907e0dc3f44465cd4911d62a ltl2dba_C2-8_comp4_REAL.sat.qdimacs 4715 13546

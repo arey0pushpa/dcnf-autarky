@@ -1,1 +1,0 @@
-53f0974debafe7fd403425e42ba43a5b query44_query25_1344.qdimacs 5533 41683

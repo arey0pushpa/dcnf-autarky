@@ -1,1 +1,0 @@
-2d504eade871d8fbb4ab77452c61e2c0 query57_ntrivil_1344n.qdimacs 965 1933

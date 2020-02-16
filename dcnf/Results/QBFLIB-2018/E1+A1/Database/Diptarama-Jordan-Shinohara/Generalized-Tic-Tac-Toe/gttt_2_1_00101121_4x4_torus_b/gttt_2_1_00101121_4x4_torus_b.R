@@ -1,1 +1,0 @@
-f3b7ad5a6a47253e8ea6cce24165a4b6 gttt_2_1_00101121_4x4_torus_b.qdimacs 11212 29931

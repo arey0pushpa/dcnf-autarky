@@ -1,1 +1,0 @@
-222df2789d44ace3d885dd3baecf9333 query24_query23_1344.qdimacs 1 2

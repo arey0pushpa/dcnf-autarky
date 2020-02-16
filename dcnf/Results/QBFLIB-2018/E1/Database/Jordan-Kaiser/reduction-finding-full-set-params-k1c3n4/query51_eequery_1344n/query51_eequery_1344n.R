@@ -1,1 +1,0 @@
-dfc06a15a00d77f1740ddf7267f65495 query51_eequery_1344n.qdimacs 743 1705

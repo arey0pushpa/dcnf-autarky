@@ -1,1 +1,0 @@
-bdf86f62223c47a47f0fc9ae2082171b cnt02.qdimacs 42 103

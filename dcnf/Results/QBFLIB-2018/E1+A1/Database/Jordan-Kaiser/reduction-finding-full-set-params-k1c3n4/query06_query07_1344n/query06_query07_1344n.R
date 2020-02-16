@@ -1,1 +1,0 @@
-ea95d127ef20bc27acc15658542ea693 query06_query07_1344n.qdimacs 1510 3413

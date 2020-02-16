@@ -1,1 +1,0 @@
-9d61b19e2493d34da0779a933d6c54c2 query24_trivial_1344.qdimacs 177 570

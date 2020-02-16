@@ -1,1 +1,0 @@
-f8bbdf6b8fe82fc437f2d79f245b9dd2 query57_query23_1344.qdimacs 165 380

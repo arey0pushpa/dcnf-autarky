@@ -1,1 +1,0 @@
-0281d7708a5c4647f00e02c38cae2c56 trueque_query71_1344.qdimacs 278 401

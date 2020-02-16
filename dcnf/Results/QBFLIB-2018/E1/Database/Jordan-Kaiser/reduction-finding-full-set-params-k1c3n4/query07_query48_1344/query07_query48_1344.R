@@ -1,1 +1,0 @@
-30af14eba9fb9ed8b35fc681ec4253c6 query07_query48_1344.qdimacs 2789 9951

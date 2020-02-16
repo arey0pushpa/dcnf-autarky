@@ -1,1 +1,0 @@
-0cb17c48bbf75e3f78ca706bcca1fc83 query52_reachqu_1344.qdimacs 802 2063

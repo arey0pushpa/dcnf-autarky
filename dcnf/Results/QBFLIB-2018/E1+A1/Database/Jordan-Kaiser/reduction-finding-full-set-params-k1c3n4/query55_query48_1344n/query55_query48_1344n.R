@@ -1,1 +1,0 @@
-a3a8dab55cac842dc38f21d30d519df5 query55_query48_1344n.qdimacs 1038 2261

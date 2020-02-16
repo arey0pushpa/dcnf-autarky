@@ -1,1 +1,0 @@
-b14e75760a35b99cc0f34a38ee1dac9f query51_query71_1344.qdimacs 921 2226

@@ -1,1 +1,0 @@
-f1e39bb588cdfe792766b725174ca805 query33_query24_1344.qdimacs 109 190

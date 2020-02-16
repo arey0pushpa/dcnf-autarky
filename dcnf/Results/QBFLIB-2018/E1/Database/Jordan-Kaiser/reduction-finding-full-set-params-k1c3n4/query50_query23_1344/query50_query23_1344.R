@@ -1,1 +1,0 @@
-054cadfac0f207e0c868e7fd57d01492 query50_query23_1344.qdimacs 26 83

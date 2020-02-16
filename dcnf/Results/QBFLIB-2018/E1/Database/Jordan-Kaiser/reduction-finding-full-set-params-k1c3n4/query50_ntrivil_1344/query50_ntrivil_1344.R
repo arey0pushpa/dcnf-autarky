@@ -1,1 +1,0 @@
-2f81d0b1a8591bd9efcf860e6c11bbd1 query50_ntrivil_1344.qdimacs 133 248

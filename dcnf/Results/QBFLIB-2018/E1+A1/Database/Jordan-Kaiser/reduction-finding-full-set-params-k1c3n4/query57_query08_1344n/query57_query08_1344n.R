@@ -1,1 +1,0 @@
-331b8af1da51ed08c7c161baa10f2817 query57_query08_1344n.qdimacs 2517 8790

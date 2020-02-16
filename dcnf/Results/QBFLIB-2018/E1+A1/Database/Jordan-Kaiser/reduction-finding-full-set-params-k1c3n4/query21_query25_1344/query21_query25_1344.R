@@ -1,1 +1,0 @@
-e712a8233d0ff406d8e6b3d7a6df03e0 query21_query25_1344.qdimacs 2089 8077

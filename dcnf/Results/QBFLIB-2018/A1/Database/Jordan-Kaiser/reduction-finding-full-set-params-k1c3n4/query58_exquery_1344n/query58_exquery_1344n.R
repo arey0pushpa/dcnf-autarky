@@ -1,1 +1,0 @@
-6ffca3e8c0dd52b27829db3a3e62f12d query58_exquery_1344n.qdimacs 1007 2154

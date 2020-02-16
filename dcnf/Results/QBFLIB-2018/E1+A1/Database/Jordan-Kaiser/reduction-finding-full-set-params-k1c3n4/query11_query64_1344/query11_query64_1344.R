@@ -1,1 +1,0 @@
-0d6284c25a39a9a6ede5751cd3be11c0 query11_query64_1344.qdimacs 979 2142

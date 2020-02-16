@@ -1,1 +1,0 @@
-8c5cef603cbc9229b61b784bfc3b29c4 query06_query11_1344.qdimacs 2149 8071

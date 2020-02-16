@@ -1,1 +1,0 @@
-06845f39b1a078f2484eea38989feb17 query24_query51_1344n.qdimacs 489 666

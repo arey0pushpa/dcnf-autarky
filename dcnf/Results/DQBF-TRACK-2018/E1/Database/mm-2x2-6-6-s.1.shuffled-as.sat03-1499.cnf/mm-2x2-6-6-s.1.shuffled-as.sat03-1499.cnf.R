@@ -1,1 +1,0 @@
-8fa57dea42eded0dd162ddd8da3b2652 mm-2x2-6-6-s.1.shuffled-as.sat03-1499.cnf.dqdimacs 26 10784

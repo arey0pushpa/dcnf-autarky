@@ -1,1 +1,0 @@
-9668130ed13ceebd31750c1e6787456e query36_trueque_1344n.qdimacs 95 134

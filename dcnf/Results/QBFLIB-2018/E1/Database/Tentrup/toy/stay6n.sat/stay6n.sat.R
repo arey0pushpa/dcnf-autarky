@@ -1,1 +1,0 @@
-6c4faec2a08f815d48903fac5837efea stay6n.sat.qdimacs 453 1289

@@ -1,1 +1,0 @@
-10e388a84262a30e21b35f2c4ea912fb query60_ntrivil_1344.qdimacs 1025 2282

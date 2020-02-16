@@ -1,1 +1,0 @@
-86aef20dd86e4647b510212a52cbb75c ken.oop^2.C-f2.qdimacs 3485 9442

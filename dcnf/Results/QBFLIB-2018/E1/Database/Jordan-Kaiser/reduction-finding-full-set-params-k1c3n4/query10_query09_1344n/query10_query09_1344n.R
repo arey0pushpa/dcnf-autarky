@@ -1,1 +1,0 @@
-27a5f47db85e01c67cc9f9615b2d268f query10_query09_1344n.qdimacs 5667 33358

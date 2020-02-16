@@ -1,1 +1,0 @@
-eb0762fabdc666e64470bc8fe5c7f24f query09_trueque_1344.qdimacs 23 17

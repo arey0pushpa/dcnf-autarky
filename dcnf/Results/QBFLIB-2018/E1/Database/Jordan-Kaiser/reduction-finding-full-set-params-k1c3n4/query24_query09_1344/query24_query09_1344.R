@@ -1,1 +1,0 @@
-7e0757a089c831d83273ad7dc81ef1d0 query24_query09_1344.qdimacs 561 4031

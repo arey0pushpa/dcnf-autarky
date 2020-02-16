@@ -1,1 +1,0 @@
-d1563c396fe1c8d15b5366ff21d5dac6 query42_ntrivil_1344n.qdimacs 2344 7590

@@ -1,1 +1,0 @@
-f6f5af3b6fb6693588f73e5fadb6b7a7 trueque_query15_1344.qdimacs 15 36

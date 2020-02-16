@@ -1,1 +1,0 @@
-89207c353abba52fe2cf2fef8f9a0e03 query05_query64_1344.qdimacs 897 2184

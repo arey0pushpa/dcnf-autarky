@@ -1,1 +1,0 @@
-81948ce5fcc336faf2324a14f922d4e1 query01_query58_1344.qdimacs 765 1900

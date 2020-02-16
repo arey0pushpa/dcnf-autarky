@@ -1,1 +1,0 @@
-8d8589882eac2a6bfc5401f934a09785 query11_trivial_1344.qdimacs 141 220
