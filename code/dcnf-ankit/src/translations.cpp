@@ -197,6 +197,7 @@ void dcnf::display_rresult() {
   std::cout << "c " << r_out << "\n";
   std::cout << "p cnf " << no_of_vars << " " 
 	    << present_clauses.size() << "\n";
+  if (present_clauses.size() == 0) std::exit(0);
   for (coord_t i; i < aed_lines.size(); ++i) {
    std::cout << aed_lines[i] << "\n";
   }
