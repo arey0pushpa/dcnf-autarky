@@ -28,6 +28,7 @@ typedef std::vector<cls_t> minsat_ass; // vector of clause-set
 typedef std::uint32_t coord_t;         // coordinates
 typedef std::set<lit_t> set_t;         // coordinates
 typedef std::vector<std::vector<std::pair<lit_t, cl_t>>> bflbf_t; // bflbf type
+typedef std::vector<std::string> vstr_t; // clause-sets
 
 enum Error_codes {
   file_reading_error = 1,

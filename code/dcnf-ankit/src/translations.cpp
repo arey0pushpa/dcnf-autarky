@@ -195,6 +195,17 @@ void dcnf::display_rresult() {
   // r_out += std::to_string(running_time(start)) + " ";
   std::cout << "c\nc filename pn pc autarky ntaut rpa rpe rpcdiff result\n";
   std::cout << "c " << r_out << "\n";
+  std::cout << "p cnf " << no_of_vars << " " 
+	    << present_clauses.size() << "\n";
+  for (coord_t i; i < aed_lines.size(); ++i) {
+   std::cout << aed_lines[i] << "\n";
+  }
+  for (lit_t c : present_clauses) {
+    assert(c >= 0);
+    cl_t c1 = dcnf_clauses[c].lits;
+    print_1d_vector(c1);
+    std::cout << "0\n"; 
+  }
   std::exit(0);
 }
 

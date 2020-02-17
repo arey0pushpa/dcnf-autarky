@@ -62,6 +62,7 @@ int main(int argc, char *argv[]) {
   cl_t a_vars;     // {forall-var}
   cls_t dep_set;   // {{dep-var}...}
   cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
+  vstr_t aed_lines; // Input formula uni existential and dependency lines 
   // ** Add scope enum
   coord_t aut_present = 10;  // autarky present
   coord_t min_dep_size = 0;  // Used in statistics collection
@@ -74,7 +75,7 @@ int main(int argc, char *argv[]) {
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
   d->cmdline_parsing(argc, argv);
   // TODO: Remove these number of parameters
-  parse_qdimacs_file(d->filename, dcnf_fml, dep_set, a_vars, e_vars,
+  parse_qdimacs_file(d->filename, aed_lines, dcnf_fml, dep_set, a_vars, e_vars,
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
 
@@ -82,6 +83,7 @@ int main(int argc, char *argv[]) {
 
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
+  d->aed_lines = aed_lines;
   // Dependent_set and e-a-var sorted
   // ** Encapsulate this operation!
   std::sort(dep_set.begin(), dep_set.end(),

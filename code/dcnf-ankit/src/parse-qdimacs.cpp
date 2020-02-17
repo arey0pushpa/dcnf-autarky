@@ -84,7 +84,8 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
   }
 }
 
-void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
+void parse_qdimacs_file(std::string filename, vstr_t& aed_lines, 
+		        cls_t &dcnf_fml, cls_t &dep_set,
                         cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
                         coord_t &no_of_var, coord_t &dependency_var,
                         coord_t s_level, coord_t &min_dep_size,
@@ -146,6 +147,9 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
         } else {
           q_line = 'e';
         }
+
+	aed_lines.push_back(line);
+
         cl_t clause = extract_int(line);
         assert(clause.size() >= 1);
         for (lit_t i : clause) {
@@ -188,6 +192,9 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
               << '\n';
           std::exit(input_format_violation);
         }
+
+	aed_lines.push_back(line);
+
         q_line = 'a';
         cl_t clause = extract_int(line);
         // assert(clause.size() >= 1);
@@ -221,6 +228,9 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
         } else {
           q_line = 'd';
         }
+
+	aed_lines.push_back(line);
+
         cl_t inner_vec;
         ++dependency_var;
         cl_t clause = extract_int(line);

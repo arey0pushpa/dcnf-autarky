@@ -21,23 +21,21 @@ inputpath = sys.argv[1]
 
 # Create three directories 
 Path("./Autarkies").mkdir(parents=True, exist_ok=True)
-Path("./Database").mkdir(parents=True, exist_ok=True)
+#Path("./Database").mkdir(parents=True, exist_ok=True)
 Path("./Experiments").mkdir(parents=True, exist_ok=True)
 
-outputpath1 = './Database/'
+#outputpath1 = './Database/'
 outputpath2 = './Experiments/'
 suffix = '.R'
 
+"""
 print ("c Starting the directory structure setup.")
-
 # Create the directory structure similar to the input file in Database
 for dirpath, dirnames, filenames in os.walk(inputpath):
     structure = os.path.join(outputpath1, dirpath[len(inputpath):])
     if not filenames:
         continue
     for f1 in filenames:
-        if not f1.endswith('.qdimacs'):
-            continue
         f = os.path.splitext(f1)[0]
         path = structure + '/' + f
         Path(path).mkdir(parents=True, exist_ok=True) 
@@ -64,6 +62,7 @@ for dirpath, dirnames, filenames in os.walk(inputpath):
                         out1.write ('ERR.')
                        
 print ("c Completed creating the Directory structure setup.\nc")
+"""
 
 print ("c Starting Experiments...")
 
@@ -73,15 +72,13 @@ for dirpath, dirnames, filenames in os.walk(inputpath):
     if not filenames:
         continue
     for files in filenames:
-        if not files.endswith('.qdimacs'):
-            continue
         f = os.path.splitext(files)[0]
         path = structure2 + '/' + f
         Path(path).mkdir(parents=True, exist_ok=True) 
         fff = path + '/' + f + suffix
         Path(fff).touch()
         file_dir = dirpath + '/' + files; 
-        cmd = ["timeout", "4000", "./dcnf_autarky", "-i", file_dir, "-e", "2", "-r", "1"] 
+        cmd = ["./dcnf_autarky", "-i", file_dir, "-e", "2", "-r", "3"] 
         with open(fff, "w") as out:
             subprocess.call(cmd, stdout=out, stderr=subprocess.PIPE)
 
