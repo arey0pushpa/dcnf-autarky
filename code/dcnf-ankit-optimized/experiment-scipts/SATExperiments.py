@@ -33,8 +33,6 @@ print ("c Starting Experiments...")
 # Run the Experiments and collect the data
 for dirpath, dirnames, filenames in os.walk(inputpath):
     structure2 = os.path.join(outputpath2, dirpath[len(inputpath):])
-    if not filenames:
-        continue
     for files in filenames:
         f = os.path.splitext(files)[0]
         path = structure2 + '/' + f
