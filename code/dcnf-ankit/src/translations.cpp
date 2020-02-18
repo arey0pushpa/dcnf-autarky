@@ -408,10 +408,13 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   fout.close();
 
-  std::future<int> future = std::async(std::launch::async, []() {
-    auto retVal = system(
-        "./build/lingeling/lingeling -q /tmp/dcnfAutarky.dimacs > "
-        "/tmp/a.out");
+  std::string sat_out = "/tmp/" + fname + ".out";
+  std::string cmd("./build/lingeling/lingeling -q ");
+  cmd += output_file_name;
+  cmd += " > ";
+  cmd += sat_out;
+  std::future<int> future = std::async(std::launch::async, [=]() {
+    auto retVal = system(cmd.c_str());
     return retVal;
   });
 
@@ -422,7 +425,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   std::future_status status;
 
-  status = future.wait_for(std::chrono::seconds(2));
+  status = future.wait_for(std::chrono::seconds(7200));
 
   // Handle timout and chek for the MemoryOut
   if (status == std::future_status::timeout) {
@@ -437,7 +440,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   if (status == std::future_status::ready) {
-    std::string filenm = "/tmp/a.out";
+    std::string filenm = sat_out;
     std::string line;
     std::ifstream file(filenm);
     if (!file.is_open()) {

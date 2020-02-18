@@ -113,7 +113,6 @@ void parse_qdimacs_file(std::string filename, vstr_t& aed_lines,
 class dcnf {
 public:
   dcnf() {
-    output_file_name = "/tmp/dcnfAutarky.dimacs";
     aut_level = 1;            // 1-level Autarky
     s_level = 0;              // relaxed, non-strict
     encoding = 2;             // Linear encoding 
@@ -125,7 +124,8 @@ public:
   }
 
   // Variables
-  std::string filename;         // Input filename
+  std::string filename;         // Input file path
+  std::string fname;            // Input filename
   std::string output_file_name; // output file
   coord_t aut_level;            // Autarky level
   coord_t s_level;              // Input DQDIMACS file strictness

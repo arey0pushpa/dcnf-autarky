@@ -55,6 +55,18 @@ void banner() {
                "University. \n";
   std::cout << "c \n";
 }
+std::string getFileName(std::string filePath, bool withExtension = false, 
+		        char seperator = '/') {
+	// Get last dot position
+	std::size_t dotPos = filePath.rfind('.');
+	std::size_t sepPos = filePath.rfind(seperator);
+
+	if(sepPos != std::string::npos)
+	{
+		return filePath.substr(sepPos + 1, filePath.size() - (withExtension || dotPos != std::string::npos ? 1 : dotPos) );
+	}
+	return "";
+}
 
 int main(int argc, char *argv[]) {
   // ** Avoid Global Variables; use of CONST, MOVE, Value orientataion
@@ -81,7 +93,9 @@ int main(int argc, char *argv[]) {
 
   banner();
 
+  d->fname = getFileName(d->filename);
   d->no_of_vars = no_of_var;
+  d->output_file_name = "/tmp/" + d->fname + "-dcnfAutarky.dimacs";
   d->dcnf_variables.resize(no_of_var);
   d->aed_lines = aed_lines;
   // Dependent_set and e-a-var sorted
@@ -199,6 +213,14 @@ int main(int argc, char *argv[]) {
 
   const coord_t cls_size = d->dcnf_clauses.size();
   d->no_of_clauses = cls_size;
+
+  if (d->output_type == 0) { 
+     std::cout << "c Input QBF/DQBF path: " << d->filename << "\n";
+     std::cout << "c Output SAT Translation path: " << d->output_file_name << "\n";
+     std::cout << "c Input clause count (tautology free): " 
+	       << cls_size << "\nc\n";
+  }
+
   d->e_vars = e_vars;
   for (coord_t i = 0; i < cls_size; ++i) {
     d->dcnf_fml.push_back(d->dcnf_clauses[i].lits);
