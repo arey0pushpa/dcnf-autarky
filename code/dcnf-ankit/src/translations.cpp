@@ -198,7 +198,7 @@ void dcnf::display_rresult() {
   std::cout << "p cnf " << no_of_vars << " " 
 	    << present_clauses.size() << "\n";
   if (present_clauses.size() == 0) std::exit(0);
-  for (coord_t i; i < aed_lines.size(); ++i) {
+  for (coord_t i = 0; i < aed_lines.size(); ++i) {
    std::cout << aed_lines[i] << "\n";
   }
   for (lit_t c : present_clauses) {
@@ -422,7 +422,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   std::future_status status;
 
-  status = future.wait_for(std::chrono::seconds(8000));
+  status = future.wait_for(std::chrono::seconds(2));
 
   // Handle timout and chek for the MemoryOut
   if (status == std::future_status::timeout) {
