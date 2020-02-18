@@ -56,12 +56,29 @@ void banner() {
   std::cout << "c \n";
 }
 
+
+std::string getFileName(std::string filePath, bool withExtension = false,
+                        char seperator = '/') {
+        // Get last dot position
+        std::size_t dotPos = filePath.rfind('.');
+        std::size_t sepPos = filePath.rfind(seperator);
+
+        if(sepPos != std::string::npos)
+        {
+                return filePath.substr(sepPos + 1, filePath.size() - (withExtension || dotPos != std::string::npos ? 1 : dotPos) );
+        }
+        return "";
+}
+
+
 int main(int argc, char *argv[]) {
   // ** Avoid Global Variables; use of CONST, MOVE, Value orientataion
   cl_t e_vars;     // {exists-var}
   cl_t a_vars;     // {forall-var}
   cls_t dep_set;   // {{dep-var}...}
   cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
+  vstr_t aed_lines; // Input formula uni existential and dependency lines
+
   // ** Add scope enum
   coord_t aut_present = 10;  // autarky present
   coord_t min_dep_size = 0;  // Used in statistics collection
@@ -74,14 +91,19 @@ int main(int argc, char *argv[]) {
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
   d->cmdline_parsing(argc, argv);
   // TODO: Remove these number of parameters
-  parse_qdimacs_file(d->filename, dcnf_fml, dep_set, a_vars, e_vars,
+  parse_qdimacs_file(d->filename, aed_lines, dcnf_fml, dep_set, a_vars, e_vars,
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
 
   banner();
 
+  d->fname = getFileName(d->filename);
+  d->output_file_name = "/tmp/" + d->fname + "-dcnfAutarky.dimacs";
+
   d->no_of_vars = no_of_var;
   d->dcnf_variables.resize(no_of_var);
+  d->aed_lines = aed_lines;
+
   // Dependent_set and e-a-var sorted
   // ** Encapsulate this operation!
   std::sort(dep_set.begin(), dep_set.end(),
@@ -211,9 +233,12 @@ int main(int argc, char *argv[]) {
     if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
-
+     
   if (d->output_type == 0) {
-     std::cout << "c Input Clause Count: " << cls_size << "\n";
+     std::cout << "c Input QBF/DQBF path: " << d->filename << "\n";
+     std::cout << "c Output SAT Translation Path: " << d->output_file_name << "\n";
+     std::cout << "c Input Clause Count (tautology free): "
+               << cls_size << "\nc\n";
   }
 
   d->min_satisfying_assgn(d->aut_level);

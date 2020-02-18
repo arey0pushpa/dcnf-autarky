@@ -216,7 +216,7 @@ int main(int argc, char *argv[]) {
 
   if (d->output_type == 0) { 
      std::cout << "c Input QBF/DQBF path: " << d->filename << "\n";
-     std::cout << "c Output SAT Translation path: " << d->output_file_name << "\n";
+     std::cout << "c Output SAT translation path: " << d->output_file_name << "\n";
      std::cout << "c Input clause count (tautology free): " 
 	       << cls_size << "\nc\n";
   }

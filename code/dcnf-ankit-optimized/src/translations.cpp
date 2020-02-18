@@ -170,7 +170,7 @@ std::string display_string(cl_t &container) {
 
 /** display R result */
 void dcnf::display_rresult() {
-  // std::string str = "sha1sum ";
+	 // std::string str = "sha1sum ";
   // str = str + filename;
   // const char *command = str.c_str();
   // system(command);
@@ -187,22 +187,32 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_vars) + " ";
   r_out += std::to_string(no_of_clauses) + " ";
   r_out += "\"" + aut_type + "\"" + " ";
-  
   //r_out += "[" + display_string(assigned_evars) + "] ";
   r_out += std::to_string(ntaut) + " ";
   // r_out += "[ " + display_string(active_avars) + "] ";
   r_out += std::to_string(active_avars.size()) + " ";
   // r_out += "[ " + display_string(active_evars) + "] ";
   r_out += std::to_string(active_evars.size()) + " ";
-
   r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
   r_out += "\"" + result + "\"" + " ";
   // r_out += std::to_string(running_time(start)) + " ";
   std::cout << "c\nc filename pn pc autarky ntaut rpa rpe rpcdiff result\n";
   std::cout << "c " << r_out << "\n";
-
+  std::cout << "p cnf " << no_of_vars << " "
+            << present_clauses.size() << "\n";
+  if (present_clauses.size() == 0) std::exit(0);
+  for (coord_t i = 0; i < aed_lines.size(); ++i) {
+   std::cout << aed_lines[i] << "\n";
+  }
+  for (lit_t c : present_clauses) {
+    assert(c >= 0);
+    cl_t c1 = dcnf_clauses[c].lits;
+    print_1d_vector(c1);
+    std::cout << "0\n";
+  }
   std::exit(0);
 }
+
 
 /**** A_Autarky ********/
 coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
@@ -454,10 +464,13 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   fout.close();
 
-  std::future<int> future = std::async(std::launch::async, []() {
-    auto retVal =
-        system("./build/lingeling/lingeling -q /tmp/dcnfAutarkyOpt.dimacs > "
-               "/tmp/b.out");
+  std::string sat_out = "/tmp/" + fname + ".out";
+  std::string cmd("./build/lingeling/lingeling -q ");
+  cmd += output_file_name;
+  cmd += " > ";
+  cmd += sat_out;
+  std::future<int> future = std::async(std::launch::async, [=]() {
+    auto retVal = system(cmd.c_str());
     return retVal;
   });
 
@@ -483,7 +496,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   if (status == std::future_status::ready) {
-    std::string filenm = "/tmp/b.out";
+    std::string filenm = sat_out;
     std::string line;
     std::ifstream file(filenm);
     if (!file.is_open()) {

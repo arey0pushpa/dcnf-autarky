@@ -30,6 +30,7 @@ typedef std::set<lit_t> set_t;                   // coordinates
 typedef std::vector<set_t> vecsets_t;            // coordinates
 typedef std::vector<std::set<cl_t>> vecsets_cls; // coordinates
 typedef std::vector<std::vector<std::pair<lit_t, cl_t>>> bflbf_t; // bflbf type
+typedef std::vector<std::string> vstr_t; // clause-sets
 
 enum Error_codes {
   file_reading_error = 1,

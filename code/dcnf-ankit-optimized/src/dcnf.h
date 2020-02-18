@@ -98,7 +98,8 @@ public:
 void command_line_parsing(int, char *av[], std::string &, unsigned &,
                           unsigned &, bool &, bool &);
 
-void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
+void parse_qdimacs_file(std::string filename, vstr_t& aed_lines, 
+		        cls_t &dcnf_fml, cls_t &dep_set,
                         cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
                         coord_t &no_of_var, coord_t &dependency_var,
                         coord_t s_level, coord_t &min_dep_size,
@@ -112,7 +113,6 @@ void parse_qdimacs_file(std::string filename, cls_t &dcnf_fml, cls_t &dep_set,
 class dcnf {
 public:
   dcnf() {
-    output_file_name = "/tmp/dcnfAutarkyOpt.dimacs";
     aut_level = 1;            // 1-level Autarky
     s_level = 0;              // relaxed, non-strict
     encoding = 2;             // Linear encoding 
@@ -124,7 +124,8 @@ public:
   }
 
   // Variables
-  std::string filename;         // Input filename
+  std::string filename;         // Input file path
+  std::string fname;            // Input filename
   std::string output_file_name; // output file
   coord_t aut_level;            // Autarky level
   coord_t s_level;              // Input DQDIMACS file strictness
@@ -145,6 +146,7 @@ public:
   std::vector<Clauses>
       dcnf_clauses; // Data structure for info about each input clause
 
+  vstr_t aed_lines;        // input uni, existential and d lines
   cls_t dcnf_fml;        // Input cnf fml
   set_t present_clauses; // Present clauses at current iteration
   set_t deleted_clauses; // Set of deleted clause at current iteration
