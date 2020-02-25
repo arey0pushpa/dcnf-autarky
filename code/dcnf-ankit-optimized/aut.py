@@ -26,13 +26,13 @@ inputpath = sys.argv[1]
 
 # Create three directories 
 #Path("./Results").mkdir(parents=True, exist_ok=True)
-Path("./Exper-E1A1-Jordan/").mkdir(parents=True, exist_ok=True)
+#Path("./Exper-E1A1-Kont/").mkdir(parents=True, exist_ok=True)
 
 #outputpath1 = './Database/'
-outputpath2 = './Exper-E1A1-Jordan/'
+outputpath2 = './Exper-E1A1-Miller/'
 suffix = '.dqbf'
 
-MAX_PROCESSES = 7
+MAX_PROCESSES = 2
 
 async def process_csv(files, structure, dirpath, sem):
     async with sem:  # controls/allows running 10 concurrent subprocesses at a time
