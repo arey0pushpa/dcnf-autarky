@@ -48,6 +48,8 @@
 
 #include "dcnf.h"
 #include "util.h"
+#include <chrono>
+
 
 void banner() {
   std::cout << "c DCNF-Autarky [version 0.0.1]. \n"
@@ -79,6 +81,7 @@ int main(int argc, char *argv[]) {
   cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
   vstr_t aed_lines; // Input formula uni existential and dependency lines
 
+
   // ** Add scope enum
   coord_t aut_present = 10;  // autarky present
   coord_t min_dep_size = 0;  // Used in statistics collection
@@ -89,6 +92,8 @@ int main(int argc, char *argv[]) {
 
   // ** Check this new!!
   dcnf_ptr d = std::shared_ptr<dcnf>(new dcnf());
+  d->start_time = std::chrono::high_resolution_clock::now();
+
   d->cmdline_parsing(argc, argv);
   // TODO: Remove these number of parameters
   parse_qdimacs_file(d->filename, aed_lines, dcnf_fml, dep_set, a_vars, e_vars,

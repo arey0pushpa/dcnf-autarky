@@ -198,6 +198,12 @@ void dcnf::display_rresult() {
   // r_out += std::to_string(running_time(start)) + " ";
   std::cout << "c\nc filename pn pc autarky ntaut rpa rpe rpcdiff result\n";
   std::cout << "c " << r_out << "\n";
+  
+  auto end_time = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time -  start_time).count();
+
+  std::cout << "c Total time taken " << duration << " secs.\nc\n";
+ 
   std::cout << "p cnf " << no_of_vars << " "
             << present_clauses.size() << "\n";
   if (present_clauses.size() == 0) std::exit(0);
@@ -481,7 +487,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
   std::future_status status;
 
-  status = future.wait_for(std::chrono::seconds(12000));
+  status = future.wait_for(std::chrono::seconds(3000));
 
   // Handle timout and chek for the MemoryOut
   if (status == std::future_status::timeout) {

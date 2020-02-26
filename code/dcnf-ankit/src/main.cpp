@@ -236,7 +236,7 @@ int main(int argc, char *argv[]) {
     d->active_avars.push_back(a);
   }
 
-  d->min_satisfying_assgn(d->aut_level);
+  //d->min_satisfying_assgn(d->aut_level);
   d->old_cls_size = cls_size;
   coord_t updated_cls_size = 0;
 
