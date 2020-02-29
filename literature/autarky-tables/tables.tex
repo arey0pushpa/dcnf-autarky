@@ -1,0 +1,279 @@
+% Oliver Kullmann, 22.2.2020 (Swansea)
+% The bibtex-entry of this paper is \cite{KullmannShukla2020}.
+% Submitted to SAT 2020:
+% XXX
+
+% Switching between report- and journal-version: uncomment the appropriate
+% block of definitions of \Schrift, \Liste.
+
+\documentclass[runningheads]{llncs}
+
+%\input Latex_macros/Definitionen.tex
+
+\usepackage{enumerate}
+\usepackage[active]{srcltx}
+\usepackage[all]{xy}
+
+\usepackage{xr}
+
+% Added By Ankit
+\usepackage{multirow}
+\usepackage{hyperref}
+
+
+
+\begin{document}
+
+\title{Autarky Tables}
+
+\author{Oliver Kullmann\inst{1} \and Ankit Shukla\inst{2}}
+\authorrunning{O.~Kullmann, A.~Shukla}
+
+\institute{Swansea University, Swansea, UK\\
+  \email{O.Kullmann@Swansea.ac.uk}
+\and
+    Johannes Kepler University, Austria\\
+    \email{ankit.shukla@jku.at}
+}
+
+
+\maketitle
+
+\keywords{QBF, DQBF, autarkies}
+
+
+
+\setcounter{section}{-1}
+\section{TODOS}
+\label{sec:todos}
+
+\begin{enumerate}
+\item For the abstract, can we say more about ``which (D)QCNF benchmarks have which autarkies''?
+\item For the abstract, can see say more about ``while even the above very basic cases can help to solve instances''?
+  \begin{enumerate}
+  \item Are there even instances which are satisfiable under one of the three systems, while they are hard to solver otherwise?
+  \end{enumerate}
+ \item Selection of a naming convention for the family of benchmarks. The QBFLIB organised them by the submitted author's name. For example one such directory is: Kronegger-Pfandler-Pichler. It has two subdirectories, bomb and dungeon. What should we use? The paper \href{https://www.react.uni-saarland.de/publications/cav2017-caqe.pdf}{On Expansion and Resolution in CEGAR Based QBF Solving} use bomb and dungeon as the name of the family in the table.
+ \item The above paper do not consider all the instances but only those that are solved by any solver. Find which instances are solver by a solver from the corresponding benchmark! Is it possible? Our strategy can be consider all instances (not just restricted to solved ones) and see if reduced instance that was not previously solved can be solved by the solver (is there cases the other way around).
+ \item Oliver can you suggest the structure of the experiments table that you have in mind. I had in mind was Table3. What should be the comparison parameter? Average time solving the instances? no. of instance solved out of total?
+\end{enumerate}
+
+
+
+\section{Introduction}
+\label{sec:intro}
+
+
+
+\section{Experiments}
+\label{sec:experiments}
+
+XXX.
+We left out a few families from the QBFLIB to meet our computational constraints. XXX
+
+\begin{table}
+\caption{Families of (D)QCNF instances and the corresponding autarky count}\label{tab:aut-count}
+\begin{tabular}{c|l|c|c|c|c}
+
+\hline
+   \multirow{2}{1cm}{Sr.No} &  \multirow{2}{3cm}{Family} &  \multirow{2}{2cm}{Total instances} & \multicolumn{3}{c}{Autarky system} \\
+    % \hline
+    % \textbf{Inactive Modes} & \textbf{Description}\\
+    \cline{4-6}
+  & & & E1-Autarky & UA1-Autarky & E1+A1-Autarky \\
+    %\hhline{~--}
+    
+\hline
+
+1. & DQBF-track'18 &  334 & 0 & 4 [2] & 4 \\ \hline
+2. & PCNF-track'18 &  463 & 186 &  &  \\ \hline
+
+% Doable Small+ Low Autarky
+3. & Akshay-Chakraborty-John-Shah-Rabe &  44 & 42 &  &  \\ \hline
+
+% No E1, small+medium in size
+4. & Amendola-Ricca-Truszczynski & 1933 & 0 &  &  \\ \hline
+
+%% No E1 Check, medium in size
+5. & Ansotegui &  38 & 0 &  &  \\ \hline
+
+% Medium (Very big and few small) Low Autarky, choti choti 
+6. & Ayari &  71 & 21  &  &  \\ \hline
+
+% Small +, Low Autarky
+7. & Basler &  713 & 711 & 0 & 711 \\ \hline
+
+%% No E1 Check, Small + to medium!
+8. & Biere &  738 & 0 &  &  \\ \hline
+
+% YUGEEE but some Autarky
+9. & Cashmore-Fox-Giunchiglia &  150 & 12 &  &  \\ \hline 
+
+%% No History Check: Very SMALL TARGET!!, Complete E 1 and A1 bith
+10. & Castellini &  169 & 162 &  &  \\ \hline
+
+%% No E1 Check Small +m Complete the E1 redution run
+11. & Chen &  200 & 2 &  &  \\ \hline
+
+% No E1 Check Small _ Medium 
+12. & Diptarama-Jordan-Shinohara &  180 & 0 &  &  \\ \hline
+
+% No history Check Small TARGET, Run E1
+13. & Egly-Seidl-Tompits-Woltran-Zolda &  1080 &  &  &  \\ \hline
+
+% No History Check Medium, Run E1
+14. & Faber-Leone-Maratea-Ricca &  1060 &  &  &  \\ \hline 
+
+% Big but have some autarkies
+15. & Gent-Rowley &  672 & 672 & 0 & 672 \\ \hline
+
+% Medium Big Small Combination but have some autarkies
+16. & Herbstritt &  478 & 400 &  &  \\ \hline
+
+17. & Jordan-Kaiser &  4608 & 566 [326] &  &  \\\hline
+
+%% No  E1 Check Small +
+18. & Katz &  20 & 0 &  &  \\ \hline
+
+% No E1 Check Small 
+19. & Klieber & 50 & 0 &  &  \\ \hline
+
+% Small Good Autarkies E1 not A1 TARGET!	
+20. & Kontchakov&  136 & 135 &  &  \\ \hline
+
+% BIg Excelelnt Autarkies E1 
+21. & Kronegger-Pfandler-Pichler &  1700 & 1700  & 0  & 1700 \\ \hline 
+
+% No E1 Check Small 
+22. & Lahiri-Seshia & 3 & 0 &  &  \\ \hline
+
+% No E1 Check  Medium
+23. & Lee-Jiang &  5 &  0 &  &  \\ \hline
+
+% SAT :) Check!!
+24. & Letz & 14 & 5 [5]  &  &  \\\hline
+
+% Small :) No E1
+25. & Ling &  8 & 0 &  &  \\ \hline
+
+% Yuge low Autarky 
+26. & Mangassarian-Veneris &  171 & 17 &  &  \\ \hline
+
+%% Small+ low Autarky Target
+27. & MayerEichberger-Saffidine &  312 & 312 & 0 & 312 \\\hline
+
+%%Small to big, No E1!
+28. & Messinger &  63 & 0 &  &  \\ \hline
+
+%%Small to medium, Low autakr
+29. & Miller-Marin & 2632 & 2613 &  &  \\ \hline
+
+30. & Miller-Scholl & 198 & 198 &  &  \\ \hline
+
+%%Small to big, Low Autarky, Check again E1
+31. & Mneimneh-Sakallah &  202 & 6 &  &  \\ \hline
+
+% Medium but too many Can Skip this Family!! No E1!
+32. & Narizzano &  4000 & &  &  \\ \hline 
+
+% small a few rest BIG , No E1!
+33. & Palacios & 24 & 0 &  &  \\ \hline
+
+% Small target!! No E1!  Medium
+34. & Pan &  384 & 378 &  &  \\ \hline
+
+% No E1, Small check A1
+35. & Peitl & 10 & 0 &  &  \\\hline
+
+% Small to medium, Low Autarkies
+36. & qbfeval12 & 17 & 0 &  &  \\ \hline
+
+% Mediumbut have low autarkies
+37. & Rabe &  17 &  &   \\ \hline
+
+% Small + size, Small Autarkies
+38. & Rintanen &  131 & 46 [2] &  &  \\\hline
+
+%% Medium to Big (a few small), Low Autarky 
+39. & Sauer-Reimer &  928 & 928 & 0 & 928 \\ \hline
+
+% Check Small, low autarky, Recalculate some changes/
+40. & Scholl-Becker & 64 &  &  &  \\ \hline
+
+% medium, Low Autarkies  	
+41. & Seidl &  200 &  &  &  \\ \hline
+
+% Some SAT Some RED!! Small, recheck E1
+42. & Tacchella &  336 & 53 [23] &  &  \\ \hline 
+
+% Big Medium, No E1
+43. & Tentrup & 1354 & 0  &  &  \\ \hline \hline
+
+Total &  & 26010 &  &  &  \\  \hline \hline
+ 
+
+\hline
+\end{tabular}
+\end{table}
+
+
+We randomly sample from the set of autarky-reduced instances. To represent each family of benchmarks evenly, we normalise the selection. We take the relative contribution of each family to the total number of 2,000 autarky-reduced instances. XXX
+
+\begin{table}
+\caption{Comparison of run time of reduced instance with the original instance}\label{tab:solver-cmp}
+\begin{tabular}{l|l|l|l|l}
+
+\hline
+    \multirow{2}{3cm}{Family}  & \multicolumn{4}{c}{(D)QCNF Solver} \\
+    % \hline
+    % \textbf{Inactive Modes} & \textbf{Description}\\
+    \cline{2-5}
+   & (d)-Caqe & DepQbf & Cute & HQSpre  \\
+    %\hhline{~--}
+    
+\hline
+
+DQBF-track'18 (4) &  4 & 0 & 2 & 4 \\
+
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{Families of (D)QCNF instances and the corresponding autarky count}\label{tab:aut-results}
+\begin{tabular}{l|l|l|l|l|l|l|l|l}
+
+\hline
+    \multirow{2}{3cm}{Family} &  \multirow{2}{2cm}{Total instances} & \multicolumn{3}{c}{Autarky system} & \multicolumn{4}{c}{(D)QCNF Solver} \\
+    % \hline
+    % \textbf{Inactive Modes} & \textbf{Description}\\
+    \cline{3-9}
+   & & E1 & A1 & E1+A1 & Caqe& Depqbf & Cute & HQSpre\\
+    %\hhline{~--}
+    
+\hline
+
+DQBF-track'18 &  334 & 0 & 2 & 4 \\ \hline
+PCNF-track'18 &  463 & 168 & 82 & 174 \\ \hline
+Baseler & 71 & 68 & 40 & 71 \\
+ 
+
+\hline
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+
+
+
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

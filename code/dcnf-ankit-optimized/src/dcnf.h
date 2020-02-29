@@ -24,6 +24,8 @@
 #include <string>
 
 #include "defs.h"
+#include <chrono>
+
 
 /* Clauses class provide information of each of the clauses
  * attached with each clause
@@ -155,6 +157,7 @@ public:
   coord_t old_cls_size;
   //coord_t updated_cls_size;
   coord_t ever_reduced;
+  std::chrono::high_resolution_clock::time_point start_time;
 
   cl_t active_evars;   // Current evar set of active variables
   cl_t assigned_evars; // Evar variables that got assigned
