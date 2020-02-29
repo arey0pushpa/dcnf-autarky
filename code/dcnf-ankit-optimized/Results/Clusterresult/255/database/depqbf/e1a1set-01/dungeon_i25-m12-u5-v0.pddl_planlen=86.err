@@ -1,0 +1,24 @@
+[runlim] version:		1.18
+[runlim] host:			c3n09
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/dungeon_i25-m12-u5-v0.pddl_planlen=86.dqbf
+[runlim] start:			Sat Feb 29 06:08:38 2020
+[runlim] child:			16387
+[runlim] sample:		9.78 time, 10.02 real, 305 MB
+[runlim] sample:		19.77 time, 20.02 real, 329 MB
+[runlim] sample:		29.77 time, 30.02 real, 330 MB
+[runlim] sample:		39.78 time, 40.02 real, 336 MB
+[runlim] sample:		49.78 time, 50.02 real, 338 MB
+[runlim] sample:		59.78 time, 60.02 real, 338 MB
+[runlim] sample:		69.78 time, 70.02 real, 339 MB
+[runlim] end:			Sat Feb 29 06:09:55 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			76.85 seconds
+[runlim] time:			76.58 seconds
+[runlim] space:			339 MB
+[runlim] samples:		768

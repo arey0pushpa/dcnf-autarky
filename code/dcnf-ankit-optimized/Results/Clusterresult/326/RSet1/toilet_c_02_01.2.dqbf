@@ -1,0 +1,68 @@
+c DCNF-Autarky [version 0.0.1]. 
+c Copyright (c) 2018-2019 Swansea University. 
+c 
+c Input QBF/DQBF path: Castellini18//toilet_c_02_01.2.qdimacs
+c Output SAT Translation Path: /tmp/toilet_c_02_01.2.qdimacs-dcnfAutarky.dimacs
+c Input Clause Count (tautology free): 37
+c
+c Performing E1-Autarky iteration.
+c Remaining clauses count after E-Reduction: 34
+c
+c Performing A1-Autarky iteration.
+c Running Lingeling ... 
+c
+c Remaining clauses count after A-Reduction: 34
+c
+c Input Parameter (command line, file): 
+c input filename   Castellini18//toilet_c_02_01.2.qdimacs
+c output filename  /tmp/toilet_c_02_01.2.qdimacs-dcnfAutarky.dimacs
+c autarky level    1
+c conformity level 0
+c encoding type    2
+c no.of var        17
+c no.of clauses    37
+c no.of taut cls   0
+c 
+c Output Parameters: 
+c remaining no.of clauses  34
+c
+c filename pn pc autarky ntaut rpa rpe rpcdiff result
+c "Castellini18//toilet_c_02_01.2.qdimacs" 17 37 "E1+A1" 0 1 13 3 "RED" 
+p cnf 17 34
+e 4 5 6 7 8 9 0
+a 12 0
+e 1 2 3 10 11 13 14 15 16 17 0
+-13 12 0
+12 14 0
+-12 13 0
+-12 -14 0
+-15 0
+-16 0
+-17 0
+-4 -17 0
+-4 -15 0
+-6 -16 0
+-6 -17 0
+-7 17 0
+-4 2 0
+-4 -10 0
+-4 1 0
+-6 3 0
+-6 -11 0
+-6 2 0
+-2 -7 0
+-1 4 15 0
+-15 1 0
+-2 4 6 17 0
+-17 2 7 0
+-10 14 0
+-14 4 10 0
+-3 6 16 0
+-16 3 0
+-11 13 0
+-13 6 11 0
+-4 -6 0
+-4 -7 0
+-6 -7 0
+-10 0
+-11 0

@@ -1,0 +1,51 @@
+[runlim] version:		1.18
+[runlim] host:			c3n01
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/driverlog07_7.qdimacs
+[runlim] start:			Sat Feb 29 06:15:20 2020
+[runlim] child:			4695
+[runlim] sample:		9.98 time, 10.02 real, 18 MB
+[runlim] sample:		19.98 time, 20.02 real, 27 MB
+[runlim] sample:		29.99 time, 30.02 real, 24 MB
+[runlim] sample:		39.98 time, 40.02 real, 31 MB
+[runlim] sample:		49.98 time, 50.02 real, 33 MB
+[runlim] sample:		59.98 time, 60.02 real, 33 MB
+[runlim] sample:		69.98 time, 70.02 real, 37 MB
+[runlim] sample:		79.99 time, 80.02 real, 52 MB
+[runlim] sample:		89.99 time, 90.02 real, 38 MB
+[runlim] sample:		99.99 time, 100.02 real, 46 MB
+[runlim] sample:		109.98 time, 110.02 real, 48 MB
+[runlim] sample:		119.98 time, 120.02 real, 48 MB
+[runlim] sample:		129.98 time, 130.02 real, 48 MB
+[runlim] sample:		139.99 time, 140.02 real, 48 MB
+[runlim] sample:		149.99 time, 150.02 real, 48 MB
+[runlim] sample:		159.99 time, 160.02 real, 68 MB
+[runlim] sample:		169.99 time, 170.02 real, 49 MB
+[runlim] sample:		179.99 time, 180.02 real, 49 MB
+[runlim] sample:		189.99 time, 190.02 real, 49 MB
+[runlim] sample:		199.99 time, 200.02 real, 49 MB
+[runlim] sample:		209.99 time, 210.02 real, 49 MB
+[runlim] sample:		219.99 time, 220.02 real, 49 MB
+[runlim] sample:		229.99 time, 230.02 real, 49 MB
+[runlim] sample:		239.99 time, 240.02 real, 49 MB
+[runlim] sample:		249.99 time, 250.02 real, 49 MB
+[runlim] sample:		259.99 time, 260.02 real, 49 MB
+[runlim] sample:		269.99 time, 270.02 real, 49 MB
+[runlim] sample:		279.99 time, 280.02 real, 50 MB
+[runlim] sample:		289.99 time, 290.02 real, 51 MB
+[runlim] sample:		299.99 time, 300.02 real, 51 MB
+[runlim] sample:		309.99 time, 310.02 real, 51 MB
+[runlim] sample:		319.99 time, 320.02 real, 51 MB
+[runlim] sample:		329.99 time, 330.02 real, 51 MB
+[runlim] sample:		339.99 time, 340.02 real, 63 MB
+[runlim] end:			Sat Feb 29 06:21:07 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			346.75 seconds
+[runlim] time:			346.69 seconds
+[runlim] space:			69 MB
+[runlim] samples:		3467

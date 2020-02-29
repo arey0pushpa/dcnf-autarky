@@ -1,0 +1,58 @@
+[runlim] version:		1.18
+[runlim] host:			c3n10
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/hex_rand_6x6-20m-8.dqbf
+[runlim] start:			Sat Feb 29 06:08:38 2020
+[runlim] child:			19328
+[runlim] sample:		9.97 time, 10.02 real, 15 MB
+[runlim] sample:		19.96 time, 20.02 real, 16 MB
+[runlim] sample:		29.97 time, 30.02 real, 19 MB
+[runlim] sample:		39.97 time, 40.02 real, 20 MB
+[runlim] sample:		49.97 time, 50.02 real, 22 MB
+[runlim] sample:		59.97 time, 60.02 real, 23 MB
+[runlim] sample:		69.97 time, 70.02 real, 25 MB
+[runlim] sample:		79.97 time, 80.02 real, 26 MB
+[runlim] sample:		90.17 time, 90.22 real, 27 MB
+[runlim] sample:		100.17 time, 100.22 real, 28 MB
+[runlim] sample:		110.17 time, 110.22 real, 30 MB
+[runlim] sample:		120.17 time, 120.22 real, 31 MB
+[runlim] sample:		130.17 time, 130.22 real, 32 MB
+[runlim] sample:		140.17 time, 140.22 real, 33 MB
+[runlim] sample:		150.17 time, 150.22 real, 34 MB
+[runlim] sample:		160.17 time, 160.22 real, 35 MB
+[runlim] sample:		170.17 time, 170.22 real, 35 MB
+[runlim] sample:		180.17 time, 180.22 real, 35 MB
+[runlim] sample:		190.17 time, 190.22 real, 36 MB
+[runlim] sample:		200.17 time, 200.22 real, 37 MB
+[runlim] sample:		210.17 time, 210.22 real, 37 MB
+[runlim] sample:		220.17 time, 220.22 real, 39 MB
+[runlim] sample:		230.17 time, 230.22 real, 39 MB
+[runlim] sample:		240.17 time, 240.22 real, 40 MB
+[runlim] sample:		250.17 time, 250.22 real, 40 MB
+[runlim] sample:		260.17 time, 260.22 real, 41 MB
+[runlim] sample:		270.17 time, 270.22 real, 42 MB
+[runlim] sample:		280.17 time, 280.22 real, 43 MB
+[runlim] sample:		290.17 time, 290.22 real, 43 MB
+[runlim] sample:		300.17 time, 300.22 real, 45 MB
+[runlim] sample:		310.17 time, 310.22 real, 45 MB
+[runlim] sample:		320.17 time, 320.22 real, 45 MB
+[runlim] sample:		330.16 time, 330.22 real, 46 MB
+[runlim] sample:		340.16 time, 340.22 real, 46 MB
+[runlim] sample:		350.16 time, 350.22 real, 46 MB
+[runlim] sample:		360.17 time, 360.22 real, 46 MB
+[runlim] sample:		370.17 time, 370.22 real, 48 MB
+[runlim] sample:		380.17 time, 380.22 real, 48 MB
+[runlim] sample:		390.16 time, 390.22 real, 48 MB
+[runlim] sample:		400.16 time, 400.22 real, 49 MB
+[runlim] sample:		410.16 time, 410.22 real, 50 MB
+[runlim] end:			Sat Feb 29 06:15:32 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			414.11 seconds
+[runlim] time:			413.96 seconds
+[runlim] space:			50 MB
+[runlim] samples:		4138

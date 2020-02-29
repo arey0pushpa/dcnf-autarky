@@ -1,0 +1,22 @@
+[runlim] version:		1.18
+[runlim] host:			c3n07
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/RSet1/lights3_021_1_022.dqbf
+[runlim] start:			Thu Feb 27 08:58:10 2020
+[runlim] child:			9196
+[runlim] sample:		9.99 time, 10.02 real, 24 MB
+[runlim] sample:		19.99 time, 20.02 real, 31 MB
+[runlim] sample:		29.99 time, 30.02 real, 38 MB
+[runlim] sample:		39.99 time, 40.02 real, 41 MB
+[runlim] sample:		49.99 time, 50.02 real, 46 MB
+[runlim] end:			Thu Feb 27 08:59:04 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			53.19 seconds
+[runlim] time:			53.09 seconds
+[runlim] space:			47 MB
+[runlim] samples:		531

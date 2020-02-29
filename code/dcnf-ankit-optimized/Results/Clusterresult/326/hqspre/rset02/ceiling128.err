@@ -1,0 +1,29 @@
+[runlim] version:		1.18
+[runlim] host:			c3n01
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/RSet1/ceiling128.R
+[runlim] start:			Thu Feb 27 09:05:22 2020
+[runlim] child:			26133
+[runlim] sample:		10.01 time, 10.02 real, 54 MB
+[runlim] sample:		20.00 time, 20.02 real, 55 MB
+[runlim] sample:		30.01 time, 30.02 real, 55 MB
+[runlim] sample:		40.01 time, 40.02 real, 55 MB
+[runlim] sample:		50.01 time, 50.02 real, 107 MB
+[runlim] sample:		60.00 time, 60.02 real, 120 MB
+[runlim] sample:		70.00 time, 70.02 real, 138 MB
+[runlim] sample:		80.00 time, 80.02 real, 140 MB
+[runlim] sample:		90.01 time, 90.02 real, 142 MB
+[runlim] sample:		100.01 time, 100.02 real, 149 MB
+[runlim] sample:		110.01 time, 110.02 real, 152 MB
+[runlim] sample:		120.01 time, 120.02 real, 159 MB
+[runlim] end:			Thu Feb 27 09:07:31 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			129.38 seconds
+[runlim] time:			129.30 seconds
+[runlim] space:			165 MB
+[runlim] samples:		1293

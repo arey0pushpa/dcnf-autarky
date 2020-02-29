@@ -1,0 +1,28 @@
+[runlim] version:		1.18
+[runlim] host:			c3n27
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/query10_query36_1344.dqbf
+[runlim] start:			Sat Feb 29 07:18:41 2020
+[runlim] child:			13162
+[runlim] sample:		9.80 time, 10.22 real, 124 MB
+[runlim] sample:		19.79 time, 20.21 real, 161 MB
+[runlim] sample:		29.78 time, 30.21 real, 199 MB
+[runlim] sample:		39.79 time, 40.21 real, 235 MB
+[runlim] sample:		49.78 time, 50.21 real, 248 MB
+[runlim] sample:		59.78 time, 60.21 real, 251 MB
+[runlim] sample:		69.78 time, 70.21 real, 278 MB
+[runlim] sample:		79.79 time, 80.21 real, 281 MB
+[runlim] sample:		89.79 time, 90.21 real, 282 MB
+[runlim] sample:		99.89 time, 100.32 real, 282 MB
+[runlim] sample:		109.89 time, 110.32 real, 291 MB
+[runlim] end:			Sat Feb 29 07:20:35 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			113.39 seconds
+[runlim] time:			112.90 seconds
+[runlim] space:			301 MB
+[runlim] samples:		1130

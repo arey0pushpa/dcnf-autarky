@@ -1,0 +1,17 @@
+[runlim] version:		1.18
+[runlim] host:			c3n30
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-instances/nreachq_query26_1344.qdimacs
+[runlim] start:			Sat Feb 29 07:20:17 2020
+[runlim] child:			10840
+[runlim] end:			Sat Feb 29 07:20:19 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			1.20 seconds
+[runlim] time:			1.01 seconds
+[runlim] space:			49 MB
+[runlim] samples:		11

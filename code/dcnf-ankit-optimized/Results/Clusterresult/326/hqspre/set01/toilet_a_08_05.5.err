@@ -1,0 +1,23 @@
+[runlim] version:		1.18
+[runlim] host:			c3n08
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/Set1/toilet_a_08_05.5.qdimacs
+[runlim] start:			Thu Feb 27 06:20:58 2020
+[runlim] child:			10877
+[runlim] sample:		10.00 time, 10.02 real, 61 MB
+[runlim] sample:		20.00 time, 20.02 real, 76 MB
+[runlim] sample:		30.00 time, 30.02 real, 82 MB
+[runlim] sample:		40.00 time, 40.02 real, 110 MB
+[runlim] sample:		50.00 time, 50.02 real, 110 MB
+[runlim] sample:		60.00 time, 60.02 real, 110 MB
+[runlim] end:			Thu Feb 27 06:22:04 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			66.25 seconds
+[runlim] time:			66.20 seconds
+[runlim] space:			110 MB
+[runlim] samples:		662

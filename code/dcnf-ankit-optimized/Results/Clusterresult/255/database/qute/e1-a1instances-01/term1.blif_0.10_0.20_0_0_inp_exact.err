@@ -1,0 +1,20 @@
+[runlim] version:		1.18
+[runlim] host:			c3n02
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-instances/term1.blif_0.10_0.20_0_0_inp_exact.qdimacs
+[runlim] start:			Sat Feb 29 07:36:12 2020
+[runlim] child:			21726
+[runlim] sample:		10.01 time, 10.02 real, 24 MB
+[runlim] sample:		20.01 time, 20.02 real, 30 MB
+[runlim] sample:		30.00 time, 30.02 real, 43 MB
+[runlim] end:			Sat Feb 29 07:36:46 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			33.04 seconds
+[runlim] time:			33.00 seconds
+[runlim] space:			45 MB
+[runlim] samples:		330

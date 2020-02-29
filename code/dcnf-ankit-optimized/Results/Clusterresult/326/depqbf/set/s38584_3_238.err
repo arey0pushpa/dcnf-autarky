@@ -1,0 +1,31 @@
+[runlim] version:		1.18
+[runlim] host:			c3n08
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/Set1/s38584_3_238.qdimacs
+[runlim] start:			Thu Feb 27 10:02:18 2020
+[runlim] child:			12955
+[runlim] sample:		10.00 time, 10.02 real, 54 MB
+[runlim] sample:		20.00 time, 20.02 real, 54 MB
+[runlim] sample:		30.00 time, 30.02 real, 54 MB
+[runlim] sample:		40.00 time, 40.02 real, 57 MB
+[runlim] sample:		50.00 time, 50.02 real, 57 MB
+[runlim] sample:		59.99 time, 60.02 real, 57 MB
+[runlim] sample:		70.00 time, 70.02 real, 57 MB
+[runlim] sample:		80.00 time, 80.02 real, 57 MB
+[runlim] sample:		90.00 time, 90.02 real, 57 MB
+[runlim] sample:		100.00 time, 100.02 real, 57 MB
+[runlim] sample:		110.00 time, 110.02 real, 57 MB
+[runlim] sample:		119.99 time, 120.02 real, 57 MB
+[runlim] sample:		130.00 time, 130.02 real, 57 MB
+[runlim] sample:		139.99 time, 140.02 real, 57 MB
+[runlim] end:			Thu Feb 27 10:04:47 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			148.45 seconds
+[runlim] time:			148.39 seconds
+[runlim] space:			70 MB
+[runlim] samples:		1484

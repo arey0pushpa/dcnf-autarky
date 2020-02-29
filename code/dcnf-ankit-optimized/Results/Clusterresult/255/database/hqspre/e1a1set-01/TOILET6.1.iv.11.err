@@ -1,0 +1,35 @@
+[runlim] version:		1.18
+[runlim] host:			c3n15
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/TOILET6.1.iv.11.qdimacs
+[runlim] start:			Sat Feb 29 06:17:05 2020
+[runlim] child:			17102
+[runlim] sample:		9.99 time, 10.02 real, 58 MB
+[runlim] sample:		19.98 time, 20.02 real, 100 MB
+[runlim] sample:		29.98 time, 30.02 real, 100 MB
+[runlim] sample:		39.98 time, 40.02 real, 100 MB
+[runlim] sample:		49.98 time, 50.02 real, 100 MB
+[runlim] sample:		59.98 time, 60.02 real, 100 MB
+[runlim] sample:		69.98 time, 70.02 real, 100 MB
+[runlim] sample:		79.98 time, 80.02 real, 101 MB
+[runlim] sample:		89.98 time, 90.02 real, 102 MB
+[runlim] sample:		99.98 time, 100.02 real, 144 MB
+[runlim] sample:		109.98 time, 110.02 real, 186 MB
+[runlim] sample:		119.98 time, 120.02 real, 186 MB
+[runlim] sample:		129.98 time, 130.02 real, 186 MB
+[runlim] sample:		139.98 time, 140.02 real, 186 MB
+[runlim] sample:		149.98 time, 150.02 real, 186 MB
+[runlim] sample:		159.98 time, 160.02 real, 186 MB
+[runlim] sample:		169.98 time, 170.02 real, 186 MB
+[runlim] sample:		179.98 time, 180.02 real, 186 MB
+[runlim] end:			Sat Feb 29 06:20:15 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			189.84 seconds
+[runlim] time:			189.78 seconds
+[runlim] space:			190 MB
+[runlim] samples:		1898

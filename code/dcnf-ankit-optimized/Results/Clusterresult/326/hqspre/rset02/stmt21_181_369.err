@@ -1,0 +1,17 @@
+[runlim] version:		1.18
+[runlim] host:			c3n28
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/RSet1/stmt21_181_369.dqbf
+[runlim] start:			Thu Feb 27 09:05:22 2020
+[runlim] child:			1407
+[runlim] end:			Thu Feb 27 09:05:25 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			2.84 seconds
+[runlim] time:			2.74 seconds
+[runlim] space:			82 MB
+[runlim] samples:		28

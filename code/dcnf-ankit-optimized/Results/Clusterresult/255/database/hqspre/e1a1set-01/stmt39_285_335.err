@@ -1,0 +1,46 @@
+[runlim] version:		1.18
+[runlim] host:			c3n07
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/stmt39_285_335.dqbf
+[runlim] start:			Sat Feb 29 06:17:05 2020
+[runlim] child:			20307
+[runlim] sample:		9.93 time, 10.02 real, 102 MB
+[runlim] sample:		19.94 time, 20.02 real, 126 MB
+[runlim] sample:		29.94 time, 30.02 real, 128 MB
+[runlim] sample:		39.94 time, 40.02 real, 141 MB
+[runlim] sample:		49.93 time, 50.02 real, 161 MB
+[runlim] sample:		59.93 time, 60.02 real, 167 MB
+[runlim] sample:		69.93 time, 70.02 real, 203 MB
+[runlim] sample:		79.94 time, 80.02 real, 203 MB
+[runlim] sample:		89.93 time, 90.02 real, 207 MB
+[runlim] sample:		99.93 time, 100.02 real, 207 MB
+[runlim] sample:		109.93 time, 110.02 real, 216 MB
+[runlim] sample:		119.93 time, 120.02 real, 216 MB
+[runlim] sample:		129.93 time, 130.02 real, 216 MB
+[runlim] sample:		139.93 time, 140.02 real, 216 MB
+[runlim] sample:		149.93 time, 150.02 real, 217 MB
+[runlim] sample:		159.94 time, 160.02 real, 217 MB
+[runlim] sample:		169.93 time, 170.02 real, 217 MB
+[runlim] sample:		179.94 time, 180.02 real, 218 MB
+[runlim] sample:		189.94 time, 190.02 real, 218 MB
+[runlim] sample:		199.93 time, 200.02 real, 218 MB
+[runlim] sample:		209.93 time, 210.02 real, 218 MB
+[runlim] sample:		219.93 time, 220.02 real, 218 MB
+[runlim] sample:		229.93 time, 230.02 real, 218 MB
+[runlim] sample:		239.93 time, 240.02 real, 219 MB
+[runlim] sample:		249.93 time, 250.02 real, 219 MB
+[runlim] sample:		259.93 time, 260.02 real, 219 MB
+[runlim] sample:		269.93 time, 270.02 real, 219 MB
+[runlim] sample:		279.93 time, 280.02 real, 219 MB
+[runlim] sample:		289.93 time, 290.02 real, 219 MB
+[runlim] end:			Sat Feb 29 06:22:00 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			294.94 seconds
+[runlim] time:			294.83 seconds
+[runlim] space:			221 MB
+[runlim] samples:		2949

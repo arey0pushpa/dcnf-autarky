@@ -1,0 +1,40 @@
+[runlim] version:		1.18
+[runlim] host:			c3n03
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/RSet1/4qbf-5cnf-100var-600cl.2.dqbf
+[runlim] start:			Thu Feb 27 08:59:10 2020
+[runlim] child:			8311
+[runlim] sample:		9.86 time, 10.02 real, 32 MB
+[runlim] sample:		19.87 time, 20.02 real, 39 MB
+[runlim] sample:		29.86 time, 30.02 real, 45 MB
+[runlim] sample:		39.86 time, 40.02 real, 53 MB
+[runlim] sample:		49.86 time, 50.02 real, 57 MB
+[runlim] sample:		59.87 time, 60.02 real, 62 MB
+[runlim] sample:		69.87 time, 70.02 real, 65 MB
+[runlim] sample:		79.87 time, 80.02 real, 69 MB
+[runlim] sample:		89.86 time, 90.02 real, 72 MB
+[runlim] sample:		99.86 time, 100.02 real, 75 MB
+[runlim] sample:		109.86 time, 110.02 real, 77 MB
+[runlim] sample:		119.87 time, 120.02 real, 79 MB
+[runlim] sample:		129.86 time, 130.02 real, 82 MB
+[runlim] sample:		139.86 time, 140.02 real, 84 MB
+[runlim] sample:		149.86 time, 150.02 real, 87 MB
+[runlim] sample:		159.86 time, 160.02 real, 89 MB
+[runlim] sample:		169.86 time, 170.02 real, 92 MB
+[runlim] sample:		179.86 time, 180.02 real, 95 MB
+[runlim] sample:		189.86 time, 190.02 real, 97 MB
+[runlim] sample:		199.86 time, 200.02 real, 99 MB
+[runlim] sample:		209.86 time, 210.02 real, 100 MB
+[runlim] sample:		219.86 time, 220.02 real, 102 MB
+[runlim] sample:		229.86 time, 230.02 real, 140 MB
+[runlim] end:			Thu Feb 27 09:03:03 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			233.19 seconds
+[runlim] time:			232.96 seconds
+[runlim] space:			175 MB
+[runlim] samples:		2331

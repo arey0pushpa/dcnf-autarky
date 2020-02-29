@@ -1,0 +1,17 @@
+[runlim] version:		1.18
+[runlim] host:			c3n29
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/floor32.R
+[runlim] start:			Sat Feb 29 06:17:04 2020
+[runlim] child:			8794
+[runlim] end:			Sat Feb 29 06:17:06 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			1.16 seconds
+[runlim] time:			0.12 seconds
+[runlim] space:			18 MB
+[runlim] samples:		11

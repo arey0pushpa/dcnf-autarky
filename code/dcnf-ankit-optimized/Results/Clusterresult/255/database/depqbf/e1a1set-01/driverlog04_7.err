@@ -1,0 +1,20 @@
+[runlim] version:		1.18
+[runlim] host:			c3n07
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/driverlog04_7.qdimacs
+[runlim] start:			Sat Feb 29 06:08:38 2020
+[runlim] child:			19754
+[runlim] sample:		9.98 time, 10.02 real, 25 MB
+[runlim] sample:		19.98 time, 20.02 real, 26 MB
+[runlim] sample:		29.98 time, 30.02 real, 27 MB
+[runlim] end:			Sat Feb 29 06:09:12 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			33.98 seconds
+[runlim] time:			33.88 seconds
+[runlim] space:			28 MB
+[runlim] samples:		339

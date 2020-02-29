@@ -1,0 +1,19 @@
+[runlim] version:		1.18
+[runlim] host:			c3n03
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/RSet1/toilet_a_08_01.16.dqbf
+[runlim] start:			Thu Feb 27 09:05:22 2020
+[runlim] child:			9150
+[runlim] sample:		10.00 time, 10.02 real, 54 MB
+[runlim] sample:		20.00 time, 20.02 real, 58 MB
+[runlim] end:			Thu Feb 27 09:05:44 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			22.18 seconds
+[runlim] time:			22.10 seconds
+[runlim] space:			59 MB
+[runlim] samples:		221

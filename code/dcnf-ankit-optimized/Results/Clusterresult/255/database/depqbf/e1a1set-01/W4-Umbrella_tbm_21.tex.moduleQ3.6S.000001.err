@@ -1,0 +1,24 @@
+[runlim] version:		1.18
+[runlim] host:			c3n16
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/W4-Umbrella_tbm_21.tex.moduleQ3.6S.000001.dqbf
+[runlim] start:			Sat Feb 29 06:08:38 2020
+[runlim] child:			20780
+[runlim] sample:		10.00 time, 10.02 real, 31 MB
+[runlim] sample:		20.00 time, 20.02 real, 33 MB
+[runlim] sample:		30.00 time, 30.02 real, 35 MB
+[runlim] sample:		40.00 time, 40.02 real, 38 MB
+[runlim] sample:		50.00 time, 50.02 real, 39 MB
+[runlim] sample:		60.00 time, 60.02 real, 39 MB
+[runlim] sample:		70.00 time, 70.02 real, 42 MB
+[runlim] end:			Sat Feb 29 06:09:54 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			75.44 seconds
+[runlim] time:			75.40 seconds
+[runlim] space:			42 MB
+[runlim] samples:		754

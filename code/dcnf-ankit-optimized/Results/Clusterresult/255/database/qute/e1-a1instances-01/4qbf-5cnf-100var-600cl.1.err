@@ -1,0 +1,19 @@
+[runlim] version:		1.18
+[runlim] host:			c3n23
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-instances/4qbf-5cnf-100var-600cl.1.qdimacs
+[runlim] start:			Sat Feb 29 07:22:50 2020
+[runlim] child:			17064
+[runlim] sample:		10.01 time, 10.02 real, 13 MB
+[runlim] sample:		20.00 time, 20.02 real, 15 MB
+[runlim] end:			Sat Feb 29 07:23:15 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			24.45 seconds
+[runlim] time:			24.41 seconds
+[runlim] space:			17 MB
+[runlim] samples:		244

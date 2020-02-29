@@ -1,0 +1,41 @@
+[runlim] version:		1.18
+[runlim] host:			c3n10
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/Set1/hex_hein_4x4_06.qdimacs
+[runlim] start:			Thu Feb 27 10:03:54 2020
+[runlim] child:			9871
+[runlim] sample:		9.89 time, 10.02 real, 33 MB
+[runlim] sample:		19.88 time, 20.02 real, 46 MB
+[runlim] sample:		29.88 time, 30.02 real, 58 MB
+[runlim] sample:		39.88 time, 40.02 real, 71 MB
+[runlim] sample:		49.88 time, 50.02 real, 82 MB
+[runlim] sample:		59.89 time, 60.02 real, 101 MB
+[runlim] sample:		69.89 time, 70.02 real, 110 MB
+[runlim] sample:		79.88 time, 80.02 real, 119 MB
+[runlim] sample:		89.88 time, 90.02 real, 128 MB
+[runlim] sample:		99.88 time, 100.02 real, 136 MB
+[runlim] sample:		109.88 time, 110.02 real, 146 MB
+[runlim] sample:		119.88 time, 120.02 real, 153 MB
+[runlim] sample:		129.88 time, 130.02 real, 162 MB
+[runlim] sample:		139.89 time, 140.02 real, 171 MB
+[runlim] sample:		149.88 time, 150.02 real, 180 MB
+[runlim] sample:		159.89 time, 160.02 real, 187 MB
+[runlim] sample:		169.88 time, 170.02 real, 196 MB
+[runlim] sample:		179.88 time, 180.02 real, 203 MB
+[runlim] sample:		189.88 time, 190.02 real, 212 MB
+[runlim] sample:		199.88 time, 200.02 real, 220 MB
+[runlim] sample:		209.88 time, 210.02 real, 228 MB
+[runlim] sample:		219.88 time, 220.02 real, 236 MB
+[runlim] sample:		229.88 time, 230.02 real, 244 MB
+[runlim] sample:		239.89 time, 240.02 real, 251 MB
+[runlim] end:			Thu Feb 27 10:08:03 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			248.92 seconds
+[runlim] time:			248.78 seconds
+[runlim] space:			258 MB
+[runlim] samples:		2489

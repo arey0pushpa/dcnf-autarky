@@ -1,0 +1,19 @@
+[runlim] version:		1.18
+[runlim] host:			c3n10
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-Red/arbiter-06-comp-error01-qbf-hardness-depth-15.dqbf
+[runlim] start:			Sat Feb 29 07:18:40 2020
+[runlim] child:			20726
+[runlim] sample:		8.48 time, 10.12 real, 48 MB
+[runlim] sample:		18.48 time, 20.12 real, 78 MB
+[runlim] end:			Sat Feb 29 07:19:06 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			26.50 seconds
+[runlim] time:			24.78 seconds
+[runlim] space:			103 MB
+[runlim] samples:		263

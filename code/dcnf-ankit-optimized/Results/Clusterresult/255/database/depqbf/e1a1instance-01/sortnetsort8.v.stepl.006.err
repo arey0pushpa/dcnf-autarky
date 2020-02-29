@@ -1,0 +1,29 @@
+[runlim] version:		1.18
+[runlim] host:			c3n14
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-instances/sortnetsort8.v.stepl.006.qdimacs
+[runlim] start:			Sat Feb 29 07:09:08 2020
+[runlim] child:			19199
+[runlim] sample:		10.00 time, 10.02 real, 19 MB
+[runlim] sample:		20.00 time, 20.02 real, 24 MB
+[runlim] sample:		30.00 time, 30.02 real, 27 MB
+[runlim] sample:		39.99 time, 40.02 real, 31 MB
+[runlim] sample:		50.00 time, 50.02 real, 32 MB
+[runlim] sample:		60.00 time, 60.02 real, 35 MB
+[runlim] sample:		69.99 time, 70.02 real, 37 MB
+[runlim] sample:		79.99 time, 80.02 real, 38 MB
+[runlim] sample:		90.00 time, 90.02 real, 41 MB
+[runlim] sample:		99.99 time, 100.02 real, 42 MB
+[runlim] sample:		109.99 time, 110.02 real, 43 MB
+[runlim] sample:		119.99 time, 120.02 real, 46 MB
+[runlim] end:			Sat Feb 29 07:11:17 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			128.50 seconds
+[runlim] time:			128.40 seconds
+[runlim] space:			47 MB
+[runlim] samples:		1284

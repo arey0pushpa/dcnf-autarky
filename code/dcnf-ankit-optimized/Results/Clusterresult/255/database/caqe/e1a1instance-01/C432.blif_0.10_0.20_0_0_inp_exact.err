@@ -1,0 +1,33 @@
+[runlim] version:		1.18
+[runlim] host:			c3n22
+[runlim] time limit:		2700 seconds
+[runlim] real time limit:	2700 seconds
+[runlim] space limit:		7000 MB
+[runlim] argv[0]:		./binary
+[runlim] argv[1]:		/data/cnf/ankit/E1-A1-instances/C432.blif_0.10_0.20_0_0_inp_exact.qdimacs
+[runlim] start:			Sat Feb 29 07:20:16 2020
+[runlim] child:			18555
+[runlim] sample:		9.10 time, 10.02 real, 22 MB
+[runlim] sample:		19.10 time, 20.02 real, 30 MB
+[runlim] sample:		29.10 time, 30.02 real, 41 MB
+[runlim] sample:		39.10 time, 40.02 real, 47 MB
+[runlim] sample:		49.11 time, 50.02 real, 55 MB
+[runlim] sample:		59.11 time, 60.02 real, 62 MB
+[runlim] sample:		69.10 time, 70.02 real, 69 MB
+[runlim] sample:		79.11 time, 80.02 real, 79 MB
+[runlim] sample:		89.10 time, 90.02 real, 86 MB
+[runlim] sample:		99.10 time, 100.02 real, 91 MB
+[runlim] sample:		109.10 time, 110.02 real, 100 MB
+[runlim] sample:		119.10 time, 120.02 real, 107 MB
+[runlim] sample:		129.11 time, 130.02 real, 116 MB
+[runlim] sample:		139.10 time, 140.02 real, 122 MB
+[runlim] sample:		149.11 time, 150.02 real, 127 MB
+[runlim] sample:		159.10 time, 160.02 real, 133 MB
+[runlim] end:			Sat Feb 29 07:22:59 2020
+[runlim] status:		ok
+[runlim] result:		0
+[runlim] children:		1
+[runlim] real:			162.18 seconds
+[runlim] time:			161.20 seconds
+[runlim] space:			134 MB
+[runlim] samples:		1621
