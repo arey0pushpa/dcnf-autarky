@@ -1,3 +1,0 @@
- cnt fld to mo unk
-. 326 326 95  1 230
-
