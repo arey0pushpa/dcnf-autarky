@@ -1,0 +1,3 @@
+ result time real space tlim rlim slim
+bloem_ex1 6 0.00 0.23 1.0 12000 12000 7000
+bloem_ex2 6 0.00 0.22 1.0 12000 12000 7000
