@@ -1,4 +1,4 @@
-filename ro to rr tr  0
+filename ro to rr tr to-tr
 "2qbf-5cnf-100var-400cl.1" 3 0.03 3 0.05  -0.02
 "2qbf-5cnf-150var-300cl.1" 3 0.04 3 0.05  -0.01
 "2qbf-5cnf-150var-300cl.2" 3 0.02 3 0.04  -0.02
