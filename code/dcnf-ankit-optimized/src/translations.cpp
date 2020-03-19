@@ -2,6 +2,8 @@
 
 #include "dcnf.h"
 #include "util.h"
+#include <cstring>
+
 
 /** Remove the dead/inactive clauses from the active variable list **/
 void dcnf::propagate_cls_removal(lit_t cls_indx) {
@@ -217,6 +219,17 @@ void dcnf::display_rresult() {
     std::cout << "0\n";
   }
   std::exit(0);
+}
+
+
+// ------- Clean files ----------
+// Remove the /tmp files
+void dcnf::clean_tmp_files (std::string& sat_out) {
+  const int r1 = remove(output_file_name.c_str());
+  const int r2 = remove(sat_out.c_str());
+  if( r1 != 0 || r2 != 0){
+      printf( "c unable to removed the outputfile.\n" );
+  }
 }
 
 
@@ -501,6 +514,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     std::terminate();
   }
 
+
   if (status == std::future_status::ready) {
     std::string filenm = sat_out;
     std::string line;
@@ -523,6 +537,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       case 's': {
         if (line[2] == 'U') {
           result = "UNSAT";
+	  clean_tmp_files(sat_out);
           return 20;
         }
         break;
@@ -531,6 +546,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
     if (file.bad()) {
       result = "ERR";
+      clean_tmp_files(sat_out);
       if (output_type == 0) {
         perror(("c Error while reading file " + filenm).c_str());
       }
@@ -541,6 +557,10 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
     file.close();
   }
+
+  clean_tmp_files(sat_out);
+
+
   // remove last 0 from the assignment
   var_assgn.pop_back();
 

@@ -207,6 +207,7 @@ public:
   void print_remaining_cls();
   void output();
   void print_results();
+  void clean_tmp_files (std::string& sat_out);
 
   //  friend std::ostream &operator<<(std::ostream &os, const dcnf &m);
 };

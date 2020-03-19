@@ -253,6 +253,7 @@ int main(int argc, char *argv[]) {
   while (1) {
     // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
+     auto t1 = std::chrono::high_resolution_clock::now();
       d->selected_boolfunc(d->aut_level);
       cl_t iter_active_evars;
       if (d->output_type == 0)
@@ -274,6 +275,9 @@ int main(int argc, char *argv[]) {
                   << d->present_clauses.size() << "\nc\n";
       }
       updated_cls_size = d->present_clauses.size();
+      auto t2 = std::chrono::high_resolution_clock::now();
+      auto duration = std::chrono::duration_cast<std::chrono::seconds>( t2 - t1 ).count();
+      std::cout << "c This E_Autarky iteration took: " << duration << " secs.\n";
       if (updated_cls_size == d->old_cls_size &&
           (d->reduction_type == 1 || d->result == "UNSAT")) {
         d->print_results();
@@ -293,6 +297,7 @@ int main(int argc, char *argv[]) {
       if (d->output_type == 0) {
         std::cout << "c Performing A1-Autarky iteration.\n";
       }
+     auto t3 = std::chrono::high_resolution_clock::now();
       // Only recalculate in case not already calculated. TEST!!
       assert(d->present_clauses.size() <= d->old_cls_size);
       if ((d->present_clauses.size() != d->old_cls_size) ||
@@ -301,6 +306,9 @@ int main(int argc, char *argv[]) {
       }
 
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
+      auto t4 = std::chrono::high_resolution_clock::now();
+      auto duration1 = std::chrono::duration_cast<std::chrono::seconds>( t4 - t3 ).count();
+      std::cout << "c This A1_Autarky iteration took: " << duration1 << " secs.\n";
       if (d->output_type == 0) {
         std::cout << "c Remaining clauses count after A-Reduction: "
                   << d->present_clauses.size() << "\nc\n";
