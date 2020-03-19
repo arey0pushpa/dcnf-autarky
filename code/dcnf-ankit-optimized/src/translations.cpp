@@ -1,17 +1,15 @@
 #include <future>
 
+#include <cstring>
 #include "dcnf.h"
 #include "util.h"
-#include <cstring>
-
 
 /** Remove the dead/inactive clauses from the active variable list **/
 void dcnf::propagate_cls_removal(lit_t cls_indx) {
   // TODO: Check for the use of cls_indx
   for (lit_t l : dcnf_clauses[cls_indx].lits) {
     // Not sure if this check is required
-    if (!dcnf_variables[std::abs(l) - 1].present)
-      continue;
+    if (!dcnf_variables[std::abs(l) - 1].present) continue;
     if (l > 0) {
       dcnf_variables[std::abs(l) - 1].pos_cls.erase(cls_indx);
     } else {
@@ -132,10 +130,8 @@ lit_t running_time(
 }
 
 void dcnf::print_results() {
-  if (output_type == 0)
-    output();
-  if (output_type == 0 || output_type == 1)
-    display_rresult();
+  if (output_type == 0) output();
+  if (output_type == 0 || output_type == 1) display_rresult();
 }
 
 /** handle output of an Aut_reduction based on aut_present */
@@ -172,7 +168,7 @@ std::string display_string(cl_t &container) {
 
 /** display R result */
 void dcnf::display_rresult() {
-	 // std::string str = "sha1sum ";
+  // std::string str = "sha1sum ";
   // str = str + filename;
   // const char *command = str.c_str();
   // system(command);
@@ -190,7 +186,7 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_clauses) + " ";
   r_out += "\"" + aut_type + "\"" + " ";
   r_out += std::to_string(ntaut) + " ";
-  r_out += "[" + display_string(assigned_evars) + "] ";
+  // r_out += "[" + display_string(assigned_evars) + "] ";
   // r_out += "[ " + display_string(active_avars) + "] ";
   r_out += std::to_string(active_avars.size()) + " ";
   // r_out += "[ " + display_string(active_evars) + "] ";
@@ -198,19 +194,20 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
   r_out += "\"" + result + "\"" + " ";
   // r_out += std::to_string(running_time(start)) + " ";
-  std::cout << "c\nc filename pn pc autarky ntaut assevar rpa rpe rpcdiff result\n";
+  std::cout << "c\nc filename pn pc autarky ntaut rpa rpe rpcdiff result\n";
   std::cout << "c " << r_out << "\n";
-  
+
   auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time -  start_time).count();
+  auto duration =
+      std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time)
+          .count();
 
   std::cout << "c Total time taken " << duration << " secs.\nc\n";
- 
-  std::cout << "p cnf " << no_of_vars << " "
-            << present_clauses.size() << "\n";
+
+  std::cout << "p cnf " << no_of_vars << " " << present_clauses.size() << "\n";
   if (present_clauses.size() == 0) std::exit(0);
   for (coord_t i = 0; i < aed_lines.size(); ++i) {
-   std::cout << aed_lines[i] << "\n";
+    std::cout << aed_lines[i] << "\n";
   }
   for (lit_t c : present_clauses) {
     assert(c >= 0);
@@ -221,17 +218,15 @@ void dcnf::display_rresult() {
   std::exit(0);
 }
 
-
 // ------- Clean files ----------
 // Remove the /tmp files
-void dcnf::clean_tmp_files (std::string& sat_out) {
+void dcnf::clean_tmp_files(std::string &sat_out) {
   const int r1 = remove(output_file_name.c_str());
   const int r2 = remove(sat_out.c_str());
-  if( r1 != 0 || r2 != 0){
-      printf( "c unable to removed the outputfile.\n" );
+  if (r1 != 0 || r2 != 0) {
+    printf("c unable to removed the outputfile.\n");
   }
 }
-
 
 /**** A_Autarky ********/
 coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
@@ -241,8 +236,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cls_t bf_vars;
   cl_t pa_vars;
 
-  cls_t cnf_fml; // dimacs/cnf fml {{lit...}...}
-  cl_t cnf_vars; // dimacs/cnf var {cnf-vars}
+  cls_t cnf_fml;  // dimacs/cnf fml {{lit...}...}
+  cl_t cnf_vars;  // dimacs/cnf var {cnf-vars}
 
   lit_t index = 1;
 
@@ -254,7 +249,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   if (index == 1) {
     result = "SAT";
-    return 10; // empty cls list; return SAT
+    return 10;  // empty cls list; return SAT
   }
 
   // bf variable := two_dim [v] [f_v]
@@ -271,7 +266,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     s_bf.clear();
   }
 
-  if (encoding == 1) { // LOG Encoding
+  if (encoding == 1) {  // LOG Encoding
     cl_t s_lbf;
     coord_t lbf_var_size = 0;
     coord_t lbf_enc = 0;
@@ -328,7 +323,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cls_t msat_concrete_var_ee(active_evars.size());
 
   cls_t clausewise_pa_var_map(
-      present_clauses.size()); // create clausewise cnf vars
+      present_clauses.size());  // create clausewise cnf vars
 
   for (lit_t c : present_clauses) {
     for (coord_t j = 0; j < minsat_clause_assgmt[c].size(); ++j) {
@@ -397,17 +392,17 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   // --- Build Constraints
-  non_trivial_autarky(cs_vars, cnf_fml); // (4.5)
+  non_trivial_autarky(cs_vars, cnf_fml);  // (4.5)
 
   satisfied_clauses(lbf_vars, bf_vars, pa_var_msat_ass, msat_concrete_var_map,
                     cnf_fml, bf2lbf_var_map,
-                    active_evar_index); // (4.2)
+                    active_evar_index);  // (4.2)
 
-  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml); // (4.3)
+  touched_clauses(cs_vars, clausewise_pa_var_map, cnf_fml);  // (4.3)
 
   untouched_clauses(lbf_vars, bf_vars, cs_vars, cnf_fml, bf2lbf_var_map,
                     present_cls_index,
-                    active_evar_index); // (4.4)
+                    active_evar_index);  // (4.4)
 
   if (encoding == 0 || encoding == 2) {
     for (lit_t e : active_evars) {
@@ -451,8 +446,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     for (coord_t j = 0; j < bf_vars[i].size(); ++j) {
       bf_var_size = bf_var_size + std::to_string(bf_vars[i][j]) + " ";
     }
-    if (i < bf_vars.size() - 1)
-      bf_var_size = bf_var_size + " +  ";
+    if (i < bf_vars.size() - 1) bf_var_size = bf_var_size + " +  ";
   }
 
   if (encoding == 1) {
@@ -484,7 +478,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   fout.close();
 
   std::string sat_out = "/tmp/" + fname + ".out";
-  std::string cmd("./build/lingeling/lingeling -q ");
+  std::string cmd("./build/cadical/build/cadical -q ");
   cmd += output_file_name;
   cmd += " > ";
   cmd += sat_out;
@@ -495,14 +489,14 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
 
   cl_t var_assgn;
   if (output_type == 0) {
-    std::cout << "c Running Lingeling ... "
+    std::cout << "c Running Cadical ... "
               << "\n";
   }
   std::future_status status;
 
   status = future.wait_for(std::chrono::seconds(3000));
-  
-// Handle timout and chek for the MemoryOut
+
+  // Handle timout and chek for the MemoryOut
   if (status == std::future_status::timeout) {
     result = "T/O";
     if (output_type == 0) {
@@ -513,7 +507,6 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     }
     std::terminate();
   }
-
 
   if (status == std::future_status::ready) {
     std::string filenm = sat_out;
@@ -526,22 +519,22 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     while (std::getline(file, line)) {
       char s1 = line[0];
       switch (s1) {
-      case 'v': {
-        line = line.substr(line.find_first_of(" \t") + 1);
-        std::stringstream ss(line);
-        for (lit_t i = 0; ss >> i;) {
-          var_assgn.push_back(i);
+        case 'v': {
+          line = line.substr(line.find_first_of(" \t") + 1);
+          std::stringstream ss(line);
+          for (lit_t i = 0; ss >> i;) {
+            var_assgn.push_back(i);
+          }
+          break;
         }
-        break;
-      }
-      case 's': {
-        if (line[2] == 'U') {
-          result = "UNSAT";
-	  clean_tmp_files(sat_out);
-          return 20;
+        case 's': {
+          if (line[2] == 'U') {
+            result = "UNSAT";
+            clean_tmp_files(sat_out);
+            return 20;
+          }
+          break;
         }
-        break;
-      }
       }
     }
     if (file.bad()) {
@@ -559,7 +552,6 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   }
 
   clean_tmp_files(sat_out);
-
 
   // remove last 0 from the assignment
   var_assgn.pop_back();
@@ -633,7 +625,7 @@ coord_t dcnf::e_autarky(lit_t e) {
   set_t intersect;
   set_t s1 = dcnf_variables[e - 1].pos_cls;
   set_t s2 = dcnf_variables[e - 1].neg_cls;
-  if (s1.size() == 0 || s2.size() == 0) { // Pure Lit case
+  if (s1.size() == 0 || s2.size() == 0) {  // Pure Lit case
     update_data_structure(e);
     final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars + 1});
     if (present_clauses.size() > 0)
@@ -651,8 +643,7 @@ coord_t dcnf::e_autarky(lit_t e) {
     set_t set_D;
     // Implement a func or change vector to a set
     for (lit_t l1 : cls_s1) {
-      if (std::abs(l1) == e)
-        continue;
+      if (std::abs(l1) == e) continue;
       if (l1 > 0) {
         compl_C.insert(-l1);
       } else {
@@ -681,10 +672,8 @@ coord_t dcnf::e_autarky(lit_t e) {
   cl_t vassgnmt;
   vassgnmt.push_back(e);
   for (lit_t l : dcnf_clauses[*s1.begin()].lits) {
-    if (std::abs(l) == e)
-      continue;
-    if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end())
-      continue;
+    if (std::abs(l) == e) continue;
+    if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end()) continue;
     vassgnmt.push_back(l ? -l : std::abs(l));
   }
   final_assgmt.push_back(vassgnmt);

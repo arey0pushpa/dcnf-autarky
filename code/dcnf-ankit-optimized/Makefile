@@ -27,10 +27,10 @@ all: dev dcnf_autarky dcnf_aut_debug
 dcnf_aut_debug : 
 	$(CXX) -g -pthread $(CXXSOURCES)
 
-dev: $(BUILDDIR)/buildr $(BUILDDIR)/lingeling
+dev: $(BUILDDIR)/buildr $(BUILDDIR)/cadical
 
-$(BUILDDIR)/lingeling: | $(BUILDDIR)
-	cd $(dir $@); $(git) clone https://github.com/arminbiere/lingeling.git; cd lingeling; ./configure.sh && make 
+$(BUILDDIR)/cadical: | $(BUILDDIR)
+	cd $(dir $@); $(git) clone https://github.com/arminbiere/cadical.git; cd cadical; ./configure && make 
 
 $(BUILDDIR) $(BUILDDIR)/buildr:
 	mkdir -p $@
