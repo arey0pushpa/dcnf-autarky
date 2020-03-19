@@ -189,8 +189,8 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_vars) + " ";
   r_out += std::to_string(no_of_clauses) + " ";
   r_out += "\"" + aut_type + "\"" + " ";
-  //r_out += "[" + display_string(assigned_evars) + "] ";
   r_out += std::to_string(ntaut) + " ";
+  r_out += "[" + display_string(assigned_evars) + "] ";
   // r_out += "[ " + display_string(active_avars) + "] ";
   r_out += std::to_string(active_avars.size()) + " ";
   // r_out += "[ " + display_string(active_evars) + "] ";
@@ -198,7 +198,7 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
   r_out += "\"" + result + "\"" + " ";
   // r_out += std::to_string(running_time(start)) + " ";
-  std::cout << "c\nc filename pn pc autarky ntaut rpa rpe rpcdiff result\n";
+  std::cout << "c\nc filename pn pc autarky ntaut assevar rpa rpe rpcdiff result\n";
   std::cout << "c " << r_out << "\n";
   
   auto end_time = std::chrono::high_resolution_clock::now();
