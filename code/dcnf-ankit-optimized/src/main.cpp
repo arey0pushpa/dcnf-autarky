@@ -272,12 +272,12 @@ int main(int argc, char *argv[]) {
       }
       if (d->output_type == 0) {
         std::cout << "c Remaining clauses count after E-Reduction: "
-                  << d->present_clauses.size() << "\nc\n";
+                  << d->present_clauses.size() << "\n";
       }
       updated_cls_size = d->present_clauses.size();
       auto t2 = std::chrono::high_resolution_clock::now();
       auto duration = std::chrono::duration_cast<std::chrono::seconds>( t2 - t1 ).count();
-      std::cout << "c This E_Autarky iteration took: " << duration << " secs.\n";
+      std::cout << "c This E_Autarky iteration took: " << duration << " secs.\nc\n";
       if (updated_cls_size == d->old_cls_size &&
           (d->reduction_type == 1 || d->result == "UNSAT")) {
         d->print_results();

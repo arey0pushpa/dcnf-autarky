@@ -496,7 +496,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   cl_t var_assgn;
   if (output_type == 0) {
     std::cout << "c Running Lingeling ... "
-              << "\nc\n";
+              << "\n";
   }
   std::future_status status;
 
