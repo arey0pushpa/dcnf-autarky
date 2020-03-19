@@ -26,11 +26,16 @@ inputpath = sys.argv[1]
 
 # Create three directories 
 #Path("./Results").mkdir(parents=True, exist_ok=True)
-#Path("./Exper-E1A1-Kont/").mkdir(parents=True, exist_ok=True)
+#Path("./Exper-E1A1-Jordan/").mkdir(parents=True, exist_ok=True)
 
 #outputpath1 = './Database/'
+<<<<<<< HEAD
 outputpath2 = './Exper-E1A1-PCNF/'
 suffix = '.dqdimacs'
+=======
+outputpath2 = './Exper-E1A1-Tentrup/'
+suffix = '.qdimacs'
+>>>>>>> 42942c675f1ded53aa352980ee14997a7306c150
 
 MAX_PROCESSES = 8
 

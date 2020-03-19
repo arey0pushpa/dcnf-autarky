@@ -501,8 +501,8 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
   std::future_status status;
 
   status = future.wait_for(std::chrono::seconds(3000));
-
-  // Handle timout and chek for the MemoryOut
+  
+// Handle timout and chek for the MemoryOut
   if (status == std::future_status::timeout) {
     result = "T/O";
     if (output_type == 0) {
