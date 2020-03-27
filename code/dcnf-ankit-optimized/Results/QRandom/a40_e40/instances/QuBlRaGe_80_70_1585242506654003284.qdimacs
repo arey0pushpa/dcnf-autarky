@@ -1,0 +1,100 @@
+c Output_time 26.03.2020 18:08:26_+0100 1585242506654306176
+c ** Program information **
+c program_name                          "QBRG_debug"
+c version                               "0.3.20"
+c date                                  "25.3.2020"
+c gid_id                                "673970833836058123f633335630c185360d632e"
+c author                                "Oliver Kullmann"
+c url                                   "https://github.com/OKullmann/oklibrary/blob/master/Satisfiability/Transformers/Generators/Random/QBRG.cpp"
+c ** Machine information **
+c machine_name                          "chyna-Lenovo-G50-70"
+c bogomips                              3791.08
+c ** Compilation information **
+c compiler_version                      "g++ 7.5.0"
+c compilation_date                      "Mar_26_2020 11:16:30"
+c compilation_options                   "--std=c++17 -pedantic -fmax-errors=5 -Wall -Wextra -g -D_GLIBCXX_DEBUG"
+c NDEBUG                                0
+c OPTIMIZE                              0
+c ** Parameters **
+c command-line                          "./QBRG_debug" "a40 40" "70*1,1|2-2,1" "" "1,t" ""
+c output                                "QuBlRaGe_80_70_1585242506654003284.qdimacs"
+c options                               "filtered,renamed"
+c num_quantifier_blocks                 2
+c  quantifier_blocks                    1:a1-40 2:e41-80
+c num_clause-blocks                     1
+c  clause-blocks                        70 * {1-40,1,1/2} | {41-80,1,1/2}
+c num_e-seeds                           23+2=25
+c  e-seeds                              1 0 1 0 3 80 2 40 0 40 1 70 2 1 1 1 1 2 2 2 1 1 2 1 1585242506654003029
+p cnf 62 70
+a 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 0
+e 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 0
+13 -30 0
+-4 -31 0
+-9 31 0
+-28 -32 0
+-3 33 0
+21 33 0
+4 -34 0
+11 -34 0
+15 34 0
+15 35 0
+-26 35 0
+-16 -36 0
+21 36 0
+-2 -37 0
+21 -37 0
+-24 -37 0
+-3 37 0
+5 -38 0
+-13 38 0
+26 38 0
+8 -39 0
+16 -39 0
+-29 40 0
+18 -41 0
+17 41 0
+1 -42 0
+3 42 0
+-2 -43 0
+7 -43 0
+26 -43 0
+27 -43 0
+6 -44 0
+26 44 0
+-28 -45 0
+3 -46 0
+25 46 0
+-11 -47 0
+12 47 0
+21 47 0
+9 -48 0
+-19 49 0
+5 -50 0
+16 -50 0
+27 50 0
+-27 -51 0
+-6 51 0
+-15 51 0
+-2 -52 0
+-7 53 0
+-23 53 0
+-14 54 0
+-5 -55 0
+-22 -55 0
+-27 -55 0
+-28 -55 0
+-3 -56 0
+23 -57 0
+2 57 0
+8 -58 0
+-9 -59 0
+21 -59 0
+1 60 0
+-10 60 0
+2 -61 0
+21 -61 0
+-3 61 0
+9 61 0
+20 61 0
+-19 -62 0
+27 -62 0
