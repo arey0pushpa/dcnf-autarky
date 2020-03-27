@@ -1,3 +1,4 @@
+filename pn pc autarky ntaut rpa rpe rpcdiff result
 "db2/QuBlRaGe_120_80_1585242788865988483.qdimacs" 101 80 "E1" 0 0 0 80 "SAT" 
 "db2/QuBlRaGe_120_81_1585242788867235550.qdimacs" 103 81 "E1" 0 7 6 74 "RED" 
 "db2/QuBlRaGe_120_82_1585242788874273131.qdimacs" 106 82 "E1" 0 3 4 78 "RED" 
