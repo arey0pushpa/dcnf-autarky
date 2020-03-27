@@ -46,10 +46,9 @@
 
 #include <iterator>  // std::advance
 
+#include <chrono>
 #include "dcnf.h"
 #include "util.h"
-#include <chrono>
-
 
 void banner() {
   std::cout << "c DCNF-Autarky [version 0.0.1]. \n"
@@ -58,29 +57,28 @@ void banner() {
   std::cout << "c \n";
 }
 
-
 std::string getFileName(std::string filePath, bool withExtension = false,
                         char seperator = '/') {
-        // Get last dot position
-        std::size_t dotPos = filePath.rfind('.');
-        std::size_t sepPos = filePath.rfind(seperator);
+  // Get last dot position
+  std::size_t dotPos = filePath.rfind('.');
+  std::size_t sepPos = filePath.rfind(seperator);
 
-        if(sepPos != std::string::npos)
-        {
-                return filePath.substr(sepPos + 1, filePath.size() - (withExtension || dotPos != std::string::npos ? 1 : dotPos) );
-        }
-        return "";
+  if (sepPos != std::string::npos) {
+    return filePath.substr(
+        sepPos + 1,
+        filePath.size() -
+            (withExtension || dotPos != std::string::npos ? 1 : dotPos));
+  }
+  return "";
 }
-
 
 int main(int argc, char *argv[]) {
   // ** Avoid Global Variables; use of CONST, MOVE, Value orientataion
-  cl_t e_vars;     // {exists-var}
-  cl_t a_vars;     // {forall-var}
-  cls_t dep_set;   // {{dep-var}...}
-  cls_t dcnf_fml;  // Input Cnf formula {Clauses} := {{lit,...}...}
-  vstr_t aed_lines; // Input formula uni existential and dependency lines
-
+  cl_t e_vars;       // {exists-var}
+  cl_t a_vars;       // {forall-var}
+  cls_t dep_set;     // {{dep-var}...}
+  cls_t dcnf_fml;    // Input Cnf formula {Clauses} := {{lit,...}...}
+  vstr_t aed_lines;  // Input formula uni existential and dependency lines
 
   // ** Add scope enum
   coord_t aut_present = 10;  // autarky present
@@ -238,12 +236,13 @@ int main(int argc, char *argv[]) {
     if (!d->dcnf_variables[a - 1].present) continue;
     d->active_avars.push_back(a);
   }
-     
+
   if (d->output_type == 0) {
-     std::cout << "c Input QBF/DQBF path: " << d->filename << "\n";
-     std::cout << "c Output SAT Translation Path: " << d->output_file_name << "\n";
-     std::cout << "c Input Clause Count (tautology free): "
-               << cls_size << "\nc\n";
+    std::cout << "c Input QBF/DQBF path: " << d->filename << "\n";
+    std::cout << "c Output SAT Translation Path: " << d->output_file_name
+              << "\n";
+    std::cout << "c Input Clause Count (tautology free): " << cls_size
+              << "\nc\n";
   }
 
   d->min_satisfying_assgn(d->aut_level);
@@ -253,7 +252,7 @@ int main(int argc, char *argv[]) {
   while (1) {
     // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
-     auto t1 = std::chrono::high_resolution_clock::now();
+      auto t1 = std::chrono::high_resolution_clock::now();
       d->selected_boolfunc(d->aut_level);
       cl_t iter_active_evars;
       if (d->output_type == 0)
@@ -276,8 +275,10 @@ int main(int argc, char *argv[]) {
       }
       updated_cls_size = d->present_clauses.size();
       auto t2 = std::chrono::high_resolution_clock::now();
-      auto duration = std::chrono::duration_cast<std::chrono::seconds>( t2 - t1 ).count();
-      std::cout << "c This E_Autarky iteration took: " << duration << " secs.\nc\n";
+      auto duration =
+          std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count();
+      std::cout << "c This E_Autarky iteration took: " << duration
+                << " secs.\nc\n";
       if (updated_cls_size == d->old_cls_size &&
           (d->reduction_type == 1 || d->result == "UNSAT")) {
         d->print_results();
@@ -297,7 +298,7 @@ int main(int argc, char *argv[]) {
       if (d->output_type == 0) {
         std::cout << "c Performing A1-Autarky iteration.\n";
       }
-     auto t3 = std::chrono::high_resolution_clock::now();
+      auto t3 = std::chrono::high_resolution_clock::now();
       // Only recalculate in case not already calculated. TEST!!
       assert(d->present_clauses.size() <= d->old_cls_size);
       if ((d->present_clauses.size() != d->old_cls_size) ||
@@ -307,8 +308,10 @@ int main(int argc, char *argv[]) {
 
       aut_present = d->a_autarky(d->filename, d->output_file_name, d->encoding);
       auto t4 = std::chrono::high_resolution_clock::now();
-      auto duration1 = std::chrono::duration_cast<std::chrono::seconds>( t4 - t3 ).count();
-      std::cout << "c This A1_Autarky iteration took: " << duration1 << " secs.\n";
+      auto duration1 =
+          std::chrono::duration_cast<std::chrono::seconds>(t4 - t3).count();
+      std::cout << "c This A1_Autarky iteration took: " << duration1
+                << " secs.\n";
       if (d->output_type == 0) {
         std::cout << "c Remaining clauses count after A-Reduction: "
                   << d->present_clauses.size() << "\nc\n";
