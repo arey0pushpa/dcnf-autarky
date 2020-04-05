@@ -20,10 +20,13 @@ void print_cmd_options() {
                "  output_type = [0 (commandline based {default}); 1 (R based "
                "file)]\n"
                "  reduction = [1 (E_Autarky); 2 (A_Autarky {default}); 3 (Both "
-               "E+A_Autarky)] \n";
+               "E+A_Autarky)] \n  output_type = [0 (detailed output with "
+               "statistics); 1 (R-Style output line)]";
 }
 
-void print_filename(std::string filename) { std::cout << "c input filename   " << filename << "\n"; }
+void print_filename(std::string filename) {
+  std::cout << "c input filename   " << filename << "\n";
+}
 
 void dcnf::cmdline_parsing(int argc, char *argv[]) {
   if (cmd_option_exists(argv, argv + argc, "-h")) {
@@ -49,8 +52,9 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
   if (file_name) {
     filename = file_name;
   } else {
-    std::cout << "c Please provide an input file.\nc Use [-i filename] or see help "
-                 "[-h] for more options\n";
+    std::cout
+        << "c Please provide an input file.\nc Use [-i filename] or see help "
+           "[-h] for more options\n";
     std::exit(0);
   }
 
@@ -84,9 +88,9 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
   }
 }
 
-void parse_qdimacs_file(std::string filename, vstr_t& aed_lines, 
-		        cls_t &dcnf_fml, cls_t &dep_set,
-                        cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
+void parse_qdimacs_file(std::string filename, vstr_t &aed_lines,
+                        cls_t &dcnf_fml, cls_t &dep_set, cl_t &a_vars,
+                        cl_t &e_vars, coord_t &no_of_clauses,
                         coord_t &no_of_var, coord_t &dependency_var,
                         coord_t s_level, coord_t &min_dep_size,
                         coord_t &max_dep_size) {
@@ -148,7 +152,7 @@ void parse_qdimacs_file(std::string filename, vstr_t& aed_lines,
           q_line = 'e';
         }
 
-	aed_lines.push_back(line);
+        aed_lines.push_back(line);
 
         cl_t clause = extract_int(line);
         assert(clause.size() >= 1);
@@ -193,7 +197,7 @@ void parse_qdimacs_file(std::string filename, vstr_t& aed_lines,
           std::exit(input_format_violation);
         }
 
-	aed_lines.push_back(line);
+        aed_lines.push_back(line);
 
         q_line = 'a';
         cl_t clause = extract_int(line);
@@ -229,7 +233,7 @@ void parse_qdimacs_file(std::string filename, vstr_t& aed_lines,
           q_line = 'd';
         }
 
-	aed_lines.push_back(line);
+        aed_lines.push_back(line);
 
         cl_t inner_vec;
         ++dependency_var;
