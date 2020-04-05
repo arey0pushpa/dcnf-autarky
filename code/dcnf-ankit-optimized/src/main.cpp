@@ -98,7 +98,9 @@ int main(int argc, char *argv[]) {
                      no_of_clauses, no_of_var, dependency_var, d->s_level,
                      min_dep_size, max_dep_size);
 
-  banner();
+  if (d->output_type == 0) {
+    banner();
+  }
 
   d->fname = getFileName(d->filename);
   d->output_file_name = "/tmp/" + d->fname + "-dcnfAutarky.dimacs";
@@ -310,8 +312,10 @@ int main(int argc, char *argv[]) {
       auto t4 = std::chrono::high_resolution_clock::now();
       auto duration1 =
           std::chrono::duration_cast<std::chrono::seconds>(t4 - t3).count();
-      std::cout << "c This A1_Autarky iteration took: " << duration1
-                << " secs.\n";
+      if (d->output_type == 0) {
+        std::cout << "c This A1_Autarky iteration took: " << duration1
+                  << " secs.\n";
+      }
       if (d->output_type == 0) {
         std::cout << "c Remaining clauses count after A-Reduction: "
                   << d->present_clauses.size() << "\nc\n";
