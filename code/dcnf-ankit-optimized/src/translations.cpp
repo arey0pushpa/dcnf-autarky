@@ -188,21 +188,26 @@ void dcnf::display_rresult() {
   r_out += std::to_string(ntaut) + " ";
   // r_out += "[" + display_string(assigned_evars) + "] ";
   // r_out += "[ " + display_string(active_avars) + "] ";
-  r_out += std::to_string(active_avars.size()) + " ";
-  // r_out += "[ " + display_string(active_evars) + "] ";
-  r_out += std::to_string(active_evars.size()) + " ";
+  if (output_type == 0) {
+    r_out += std::to_string(active_avars.size()) + " ";
+    // r_out += "[ " + display_string(active_evars) + "] ";
+    r_out += std::to_string(active_evars.size()) + " ";
+  }
   r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
   r_out += "\"" + result + "\"" + " ";
   // r_out += std::to_string(running_time(start)) + " ";
-  std::cout << "c filename pn pc autarky ntaut rpa rpe rpcdiff result\n";
-  std::cout << "c " << r_out << "\n";
 
-  auto end_time = std::chrono::high_resolution_clock::now();
-  auto duration =
-      std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time)
-          .count();
+  if (output_type == 1) {
+    std::cout << "filename pn pc autsys ntaut rpcdiff result\n";
+    std::cout << r_out << "\n";
+  } else {
+    std::cout << "c\nc filename pn pc autsys ntaut rpa rpe rpcdiff result\n";
+    std::cout << "c " << r_out << "\n";
+    auto end_time = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time)
+            .count();
 
-  if (output_type == 0) {
     std::cout << "c Total time taken " << duration << " secs.\nc\n";
 
     std::cout << "p cnf " << no_of_vars << " " << present_clauses.size()
