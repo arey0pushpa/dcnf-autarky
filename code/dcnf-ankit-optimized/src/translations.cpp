@@ -194,7 +194,7 @@ void dcnf::display_rresult() {
     r_out += std::to_string(active_evars.size()) + " ";
   }
   r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
-  r_out += "\"" + result + "\"" + " ";
+  r_out += result + " ";
   // r_out += std::to_string(running_time(start)) + " ";
 
   if (output_type == 1) {
