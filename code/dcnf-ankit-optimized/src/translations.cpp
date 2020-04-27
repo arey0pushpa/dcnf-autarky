@@ -137,6 +137,7 @@ void dcnf::print_results() {
 /** handle output of an Aut_reduction based on aut_present */
 void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   if ((aut_present == 10 && result != "RED") || result == "SAT") {
+    ++naut;
     result = "SAT";
     print_results();
   }
@@ -150,6 +151,7 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
     print_results();
   }
   old_cls_size = present_clauses.size();
+  ++naut;
   result = "RED";
 }
 
@@ -188,20 +190,21 @@ void dcnf::display_rresult() {
   r_out += std::to_string(ntaut) + " ";
   // r_out += "[" + display_string(assigned_evars) + "] ";
   // r_out += "[ " + display_string(active_avars) + "] ";
-  if (output_type == 0) {
-    r_out += std::to_string(active_avars.size()) + " ";
+  //if (output_type == 0) {
+    //r_out += std::to_string(active_avars.size()) + " ";
     // r_out += "[ " + display_string(active_evars) + "] ";
-    r_out += std::to_string(active_evars.size()) + " ";
-  }
+    //r_out += std::to_string(active_evars.size()) + " ";
+  //}
+  r_out += std::to_string(naut) + " "; 
   r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
   r_out += result + " ";
   // r_out += std::to_string(running_time(start)) + " ";
 
   if (output_type == 1) {
-    std::cout << "filename pn pc autsys ntaut rpcdiff result\n";
+    std::cout << "filename pn pc autsys ntaut naut rpcdiff result\n";
     std::cout << r_out << "\n";
   } else {
-    std::cout << "c\nc filename pn pc autsys ntaut rpa rpe rpcdiff result\n";
+    std::cout << "c\nc filename pn pc autsys ntaut naut rpcdiff result\n";
     std::cout << "c " << r_out << "\n";
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration =

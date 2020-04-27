@@ -123,6 +123,7 @@ public:
     coord_t output_type = 0;  // commandline o/p
     result = "NONE";
     ever_reduced = 0;
+    naut  = 0;
   }
 
   // Variables
@@ -139,6 +140,7 @@ public:
                    // start;
 
   coord_t ntaut;         // No of tautological clauses
+  coord_t naut;         // No of autarkies found.
   std::string result;    // SAT, UNSAT, RED, NONE, T/O, ERR
   coord_t no_of_vars;    // No Of variables in the input
   coord_t no_of_clauses; // Input clause set

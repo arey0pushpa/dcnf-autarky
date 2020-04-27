@@ -29,10 +29,10 @@ inputpath = sys.argv[1]
 #Path("./Exper-E1A1-Jordan/").mkdir(parents=True, exist_ok=True)
 
 #outputpath1 = './Database/'
-outputpath2 = './Exper-E1A1-Q3-N40-D08/'
+outputpath2 = './Exper-E1A1-Q4-N70-D09/'
 suffix = '.qdimacs'
 
-MAX_PROCESSES = 7
+MAX_PROCESSES = 5
 
 async def process_csv(files, structure, dirpath, sem):
     async with sem:  # controls/allows running 10 concurrent subprocesses at a time

@@ -39,9 +39,6 @@
  *
  * 6. Output the statistics.
  *
- * 7. printing results:
- *    - Homemade printing instead of the current default printing*
- *    - Handle input file structure errors in the case of the R file output
  */
 
 #include <iterator>  // std::advance
@@ -287,6 +284,7 @@ int main(int argc, char *argv[]) {
       } else if (updated_cls_size != d->old_cls_size) {
         d->ever_reduced = 1;
         d->result = "RED";
+        d->naut += 1;
         if (d->reduction_type == 1) {
           d->old_cls_size = updated_cls_size;
         }
