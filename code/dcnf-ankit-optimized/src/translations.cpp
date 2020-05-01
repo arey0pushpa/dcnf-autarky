@@ -187,7 +187,7 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_vars) + " ";
   r_out += std::to_string(no_of_clauses) + " ";
   r_out += "\"" + aut_type + "\"" + " ";
-  r_out += std::to_string(ntaut) + " ";
+  //r_out += std::to_string(ntaut) + " ";
   // r_out += "[" + display_string(assigned_evars) + "] ";
   // r_out += "[ " + display_string(active_avars) + "] ";
   //if (output_type == 0) {
@@ -201,10 +201,10 @@ void dcnf::display_rresult() {
   // r_out += std::to_string(running_time(start)) + " ";
 
   if (output_type == 1) {
-    std::cout << "filename pn pc autsys ntaut naut rpcdiff result\n";
+    std::cout << "filename pn pc autsys naut rpcdiff result\n";
     std::cout << r_out << "\n";
   } else {
-    std::cout << "c\nc filename pn pc autsys ntaut naut rpcdiff result\n";
+    std::cout << "c\nc filename pn pc autsys naut rpcdiff result\n";
     std::cout << "c " << r_out << "\n";
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration =
