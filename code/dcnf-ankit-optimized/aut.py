@@ -22,7 +22,7 @@ if sys.argv[1] == "-h" or sys.argv[1] == "--help":
     sys.exit(0)
 
 inputpath = sys.argv[1]
-outputpath = './Exper-E1A1-Pan/'
+outputpath = './Exper-E1A1-Eg/'
 suffix = '.qdimacs'
 
 MAX_PROCESSES = 4
