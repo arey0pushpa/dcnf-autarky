@@ -187,15 +187,15 @@ void dcnf::display_rresult() {
   r_out += std::to_string(no_of_vars) + " ";
   r_out += std::to_string(no_of_clauses) + " ";
   r_out += "\"" + aut_type + "\"" + " ";
-  //r_out += std::to_string(ntaut) + " ";
+  // r_out += std::to_string(ntaut) + " ";
   // r_out += "[" + display_string(assigned_evars) + "] ";
   // r_out += "[ " + display_string(active_avars) + "] ";
-  //if (output_type == 0) {
-    //r_out += std::to_string(active_avars.size()) + " ";
-    // r_out += "[ " + display_string(active_evars) + "] ";
-    //r_out += std::to_string(active_evars.size()) + " ";
+  // if (output_type == 0) {
+  // r_out += std::to_string(active_avars.size()) + " ";
+  // r_out += "[ " + display_string(active_evars) + "] ";
+  // r_out += std::to_string(active_evars.size()) + " ";
   //}
-  r_out += std::to_string(naut) + " "; 
+  r_out += std::to_string(naut) + " ";
   r_out += std::to_string(no_of_clauses - present_clauses.size()) + " ";
   r_out += result + " ";
   // r_out += std::to_string(running_time(start)) + " ";
@@ -591,7 +591,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
       if (var_assgn[bf_vars[i][j] - 1] > 0) {
         pair_t sbf = selected_bf[i][j];
         assigned_evars.push_back(sbf.first);
-        final_assgmt.push_back({sbf.first, sbf.second});
+        // final_assgmt.push_back({sbf.first, sbf.second});
       }
     }
   }
@@ -613,15 +613,19 @@ void dcnf::update_data_structure(lit_t e) {
   assigned_evars.push_back(e);
   for (lit_t i : dcnf_variables[e - 1].pos_cls) {
     dcnf_clauses[i].present = 0;
+    propagate_cls_removal(i);
+  }
+  for (lit_t i : dcnf_variables[e - 1].pos_cls) {
     present_clauses.erase(i);
     deleted_clauses.insert(i);
-    propagate_cls_removal(i);
   }
   for (lit_t i : dcnf_variables[e - 1].neg_cls) {
     dcnf_clauses[i].present = 0;
+    propagate_cls_removal(i);
+  }
+  for (lit_t i : dcnf_variables[e - 1].neg_cls) {
     present_clauses.erase(i);
     deleted_clauses.insert(i);
-    propagate_cls_removal(i);
   }
 }
 
@@ -638,7 +642,7 @@ coord_t dcnf::e_autarky(lit_t e) {
   set_t s2 = dcnf_variables[e - 1].neg_cls;
   if (s1.size() == 0 || s2.size() == 0) {  // Pure Lit case
     update_data_structure(e);
-    final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars + 1});
+    // final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars + 1});
     if (present_clauses.size() > 0)
       return 11;
     else
@@ -687,7 +691,7 @@ coord_t dcnf::e_autarky(lit_t e) {
     if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end()) continue;
     vassgnmt.push_back(l ? -l : std::abs(l));
   }
-  final_assgmt.push_back(vassgnmt);
+  // final_assgmt.push_back(vassgnmt);
   if (present_clauses.size() > 0)
     return 11;
   else

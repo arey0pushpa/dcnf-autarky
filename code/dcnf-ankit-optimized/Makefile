@@ -11,13 +11,13 @@ PROGRAM = dcnf_autarky dcnf_autarky_debug
 CXXSOURCES = $(SRCDIR)/main.cpp $(SRCDIR)/constraints.cpp $(SRCDIR)/all-solutions.cpp $(SRCDIR)/parse-qdimacs.cpp $(SRCDIR)/translations.cpp
 CXXOBJECTS = $(CXXSOURCES:.cpp=.o)
 CXXOBJECTS_debug = $(CXXSOURCES:.cpp=_debug.o)
-CXX = g++
+CXX = g++ -D_GLIBCXX_DEBUG
 
 Standard_options = --std=c++11 -pedantic
 Warning_options = -Wall -Werror
 #-ggdb3
 Optimisation_options = -Ofast -DNDEBUG
-Debug_options = -g
+Debug_options = -g -D_GLIBCXX_DEBUG
 
 .PHONY: all dev
 
