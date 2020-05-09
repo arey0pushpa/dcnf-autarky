@@ -23,9 +23,8 @@
 #include <sstream>
 #include <string>
 
-#include "defs.h"
 #include <chrono>
-
+#include "defs.h"
 
 /* Clauses class provide information of each of the clauses
  * attached with each clause
@@ -37,7 +36,7 @@
  * 6. activity of the clause: present
  * */
 class Clauses {
-public:
+ public:
   cl_t lits;
 
   cl_t evars;
@@ -69,10 +68,10 @@ public:
  *   6. The variable is present in the formula after autarky reduction?: present
  */
 class Variables {
-public:
+ public:
   char quantype;
-  cl_t dependency; // absolute var list
-  coord_t eindex;  // 0 based USED!!!
+  cl_t dependency;  // absolute var list
+  coord_t eindex;   // 0 based USED!!!
 
   set_t pos_cls;
   set_t neg_cls;
@@ -100,9 +99,9 @@ public:
 void command_line_parsing(int, char *av[], std::string &, unsigned &,
                           unsigned &, bool &, bool &);
 
-void parse_qdimacs_file(std::string filename, vstr_t& aed_lines, 
-		        cls_t &dcnf_fml, cls_t &dep_set,
-                        cl_t &a_vars, cl_t &e_vars, coord_t &no_of_clauses,
+void parse_qdimacs_file(std::string filename, vstr_t &aed_lines,
+                        cls_t &dcnf_fml, cls_t &dep_set, cl_t &a_vars,
+                        cl_t &e_vars, coord_t &no_of_clauses,
                         coord_t &no_of_var, coord_t &dependency_var,
                         coord_t s_level, coord_t &min_dep_size,
                         coord_t &max_dep_size);
@@ -113,69 +112,69 @@ void parse_qdimacs_file(std::string filename, vstr_t& aed_lines,
 /* A class used for namescpace for the code.
  */
 class dcnf {
-public:
+ public:
   dcnf() {
-    aut_level = 1;            // 1-level Autarky
-    s_level = 0;              // relaxed, non-strict
-    encoding = 2;             // Linear encoding 
-    reduction_type = 2;       // a-autarky
-    coord_t aut_present = 10; // autarky present
-    coord_t output_type = 0;  // commandline o/p
+    aut_level = 1;             // 1-level Autarky
+    s_level = 0;               // relaxed, non-strict
+    encoding = 2;              // Linear encoding
+    reduction_type = 2;        // a-autarky
+    coord_t aut_present = 10;  // autarky present
+    coord_t output_type = 0;   // commandline o/p
     result = "NONE";
     ever_reduced = 0;
-    naut  = 0;
+    naut = 0;
   }
 
   // Variables
-  std::string filename;         // Input file path
-  std::string fname;            // Input filename
-  std::string output_file_name; // output file
-  coord_t aut_level;            // Autarky level
-  coord_t s_level;              // Input DQDIMACS file strictness
-  coord_t encoding;             // Chosen encoding
-  coord_t reduction_type;       // Autarky reduction type
+  std::string filename;          // Input file path
+  std::string fname;             // Input filename
+  std::string output_file_name;  // output file
+  coord_t aut_level;             // Autarky level
+  coord_t s_level;               // Input DQDIMACS file strictness
+  coord_t encoding;              // Chosen encoding
+  coord_t reduction_type;        // Autarky reduction type
   coord_t
-      output_type; // commandline o/p
-                   // std::chrono::time_point<std::chrono::high_resolution_clock>
-                   // start;
+      output_type;  // commandline o/p
+                    // std::chrono::time_point<std::chrono::high_resolution_clock>
+                    // start;
 
-  coord_t ntaut;         // No of tautological clauses
-  coord_t naut;         // No of autarkies found.
-  std::string result;    // SAT, UNSAT, RED, NONE, T/O, ERR
-  coord_t no_of_vars;    // No Of variables in the input
-  coord_t no_of_clauses; // Input clause set
-  cl_t e_vars;           // e variables in the input
+  coord_t ntaut;          // No of tautological clauses
+  coord_t naut;           // No of autarkies found.
+  std::string result;     // SAT, UNSAT, RED, NONE, T/O, ERR
+  coord_t no_of_vars;     // No Of variables in the input
+  coord_t no_of_clauses;  // Input clause set
+  cl_t e_vars;            // e variables in the input
   std::vector<Variables>
-      dcnf_variables; // Data Struture for info about input variables
+      dcnf_variables;  // Data Struture for info about input variables
   std::vector<Clauses>
-      dcnf_clauses; // Data structure for info about each input clause
+      dcnf_clauses;  // Data structure for info about each input clause
 
-  vstr_t aed_lines;        // input uni, existential and d lines
-  cls_t dcnf_fml;        // Input cnf fml
-  set_t present_clauses; // Present clauses at current iteration
-  set_t deleted_clauses; // Set of deleted clause at current iteration
+  vstr_t aed_lines;       // input uni, existential and d lines
+  cls_t dcnf_fml;         // Input cnf fml
+  set_t present_clauses;  // Present clauses at current iteration
+  set_t deleted_clauses;  // Set of deleted clause at current iteration
   //  cl_t active_evar_index; //  Index Lookup for the evar
   //  cl_t present_cls_index; // Lookup for the present clauses
   coord_t old_cls_size;
-  //coord_t updated_cls_size;
+  // coord_t updated_cls_size;
   coord_t ever_reduced;
   std::chrono::high_resolution_clock::time_point start_time;
 
-  cl_t active_evars;   // Current evar set of active variables
-  cl_t assigned_evars; // Evar variables that got assigned
-  cl_t active_avars;   // Current avar set of active variables
-  cl_t assigned_avars; // Avar variables that got assigned
+  cl_t active_evars;    // Current evar set of active variables
+  cl_t assigned_evars;  // Evar variables that got assigned
+  cl_t active_avars;    // Current avar set of active variables
+  cl_t assigned_avars;  // Avar variables that got assigned
 
-  sel_bf selected_bf;              // All bf (v,f) pairs {(e-var, )...}
-  minsat_ass minsat_clause_assgmt; // All S(C)'s: {<e-var,bf(k)>...}
-  cls_t final_assgmt;              // Assignmt for the autarky
+  sel_bf selected_bf;               // All bf (v,f) pairs {(e-var, )...}
+  minsat_ass minsat_clause_assgmt;  // All S(C)'s: {<e-var,bf(k)>...}
+  cls_t final_assgmt;               // Assignmt for the autarky
 
   // std::vector<bf_lbf_converter> bf2lbf_var_map; // bf to lbf var map
 
   // helper functions
   void update_avars();
   void update_evars();
-  void propagate_cls_removal(lit_t i);
+  void propagate_cls_removal(lit_t i, lit_t e);
   void update_data_structure(lit_t e);
   coord_t a_autarky(std::string filename, std::string output_file_name,
                     coord_t encoding);
@@ -209,7 +208,7 @@ public:
   void print_remaining_cls();
   void output();
   void print_results();
-  void clean_tmp_files (std::string& sat_out);
+  void clean_tmp_files(std::string &sat_out);
 
   //  friend std::ostream &operator<<(std::ostream &os, const dcnf &m);
 };

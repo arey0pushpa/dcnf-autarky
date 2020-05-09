@@ -5,11 +5,14 @@
 #include "util.h"
 
 /** Remove the dead/inactive clauses from the active variable list **/
-void dcnf::propagate_cls_removal(lit_t cls_indx) {
+void dcnf::propagate_cls_removal(lit_t cls_indx, lit_t e_indx) {
+  assert(e_indx >= 0);
   // TODO: Check for the use of cls_indx
   for (lit_t l : dcnf_clauses[cls_indx].lits) {
     // Not sure if this check is required
+    assert(std::abs(l) > 0);
     if (!dcnf_variables[std::abs(l) - 1].present) continue;
+    if (std::abs(l) == e_indx) continue;
     if (l > 0) {
       dcnf_variables[std::abs(l) - 1].pos_cls.erase(cls_indx);
     } else {
@@ -576,7 +579,7 @@ coord_t dcnf::a_autarky(std::string filename, std::string output_file_name,
     if (var_assgn[vindx] > 0) {
       dcnf_clauses[c].present = 0;
       deleted_clauses.insert(c);
-      propagate_cls_removal(c);
+      propagate_cls_removal(c, 0);
     } else {
       update_present_cls.insert(c);
     }
@@ -613,19 +616,15 @@ void dcnf::update_data_structure(lit_t e) {
   assigned_evars.push_back(e);
   for (lit_t i : dcnf_variables[e - 1].pos_cls) {
     dcnf_clauses[i].present = 0;
-    propagate_cls_removal(i);
-  }
-  for (lit_t i : dcnf_variables[e - 1].pos_cls) {
     present_clauses.erase(i);
     deleted_clauses.insert(i);
+    propagate_cls_removal(i, e);
   }
   for (lit_t i : dcnf_variables[e - 1].neg_cls) {
     dcnf_clauses[i].present = 0;
-    propagate_cls_removal(i);
-  }
-  for (lit_t i : dcnf_variables[e - 1].neg_cls) {
     present_clauses.erase(i);
     deleted_clauses.insert(i);
+    propagate_cls_removal(i, e);
   }
 }
 
@@ -684,7 +683,7 @@ coord_t dcnf::e_autarky(lit_t e) {
   }
   update_data_structure(e);
   // Add the chosen assgnmnet: first clause
-  cl_t vassgnmt;
+  /*cl_t vassgnmt;
   vassgnmt.push_back(e);
   for (lit_t l : dcnf_clauses[*s1.begin()].lits) {
     if (std::abs(l) == e) continue;
@@ -692,6 +691,7 @@ coord_t dcnf::e_autarky(lit_t e) {
     vassgnmt.push_back(l ? -l : std::abs(l));
   }
   // final_assgmt.push_back(vassgnmt);
+  // */
   if (present_clauses.size() > 0)
     return 11;
   else
