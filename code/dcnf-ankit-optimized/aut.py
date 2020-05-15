@@ -22,10 +22,10 @@ if sys.argv[1] == "-h" or sys.argv[1] == "--help":
     sys.exit(0)
 
 inputpath = sys.argv[1]
-outputpath = './Exper-E1A1-Eg/'
+outputpath = './E1A1-T3-N150-C600/'
 suffix = '.qdimacs'
 
-MAX_PROCESSES = 4
+MAX_PROCESSES = 5
 
 async def process_csv(files, structure, dirpath, sem):
     async with sem:  # controls/allows running 10 concurrent subprocesses at a time

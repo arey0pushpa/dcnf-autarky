@@ -219,6 +219,8 @@ void dcnf::display_rresult() {
     std::cout << "p cnf " << no_of_vars << " " << present_clauses.size()
               << "\n";
     if (present_clauses.size() == 0) std::exit(0);
+
+    /*
     for (coord_t i = 0; i < aed_lines.size(); ++i) {
       std::cout << aed_lines[i] << "\n";
     }
@@ -227,7 +229,7 @@ void dcnf::display_rresult() {
       cl_t c1 = dcnf_clauses[c].lits;
       print_1d_vector(c1);
       std::cout << "0\n";
-    }
+    }*/
   }
   std::exit(0);
 }

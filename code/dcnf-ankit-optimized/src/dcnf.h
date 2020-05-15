@@ -116,6 +116,7 @@ class dcnf {
   dcnf() {
     aut_level = 1;             // 1-level Autarky
     s_level = 0;               // relaxed, non-strict
+    gen = 0;                   // relaxed, non-strict
     encoding = 2;              // Linear encoding
     reduction_type = 2;        // a-autarky
     coord_t aut_present = 10;  // autarky present
@@ -131,6 +132,7 @@ class dcnf {
   std::string output_file_name;  // output file
   coord_t aut_level;             // Autarky level
   coord_t s_level;               // Input DQDIMACS file strictness
+  coord_t gen;         // Genralisation of grounded autarkies; symbolic encoding
   coord_t encoding;              // Chosen encoding
   coord_t reduction_type;        // Autarky reduction type
   coord_t

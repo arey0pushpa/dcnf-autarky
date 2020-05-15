@@ -99,6 +99,9 @@ int main(int argc, char *argv[]) {
     banner();
   }
 
+  std::cout << "The gen value is: " << d->gen << "\n"; 
+  exit(0);
+
   d->fname = getFileName(d->filename);
   d->output_file_name = "/tmp/" + d->fname + "-dcnfAutarky.dimacs";
 

@@ -46,6 +46,7 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
   char *level_set = get_cmd_option(argv, argv + argc, "-l");
   char *encoding_chosen = get_cmd_option(argv, argv + argc, "-e");
   char *strict_level = get_cmd_option(argv, argv + argc, "-s");
+  char *gen_level = get_cmd_option(argv, argv + argc, "-g");
   char *red_type = get_cmd_option(argv, argv + argc, "-r");
   char *op_type = get_cmd_option(argv, argv + argc, "-t");
 
@@ -74,6 +75,10 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
 
   if (strict_level) {
     s_level = std::stoi(strict_level);
+  }
+  
+  if (strict_level) {
+    gen = std::stoi(gen_level);
   }
 
   if (encoding_chosen) {
