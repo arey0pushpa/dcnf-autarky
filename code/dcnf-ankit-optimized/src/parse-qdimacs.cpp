@@ -76,8 +76,8 @@ void dcnf::cmdline_parsing(int argc, char *argv[]) {
   if (strict_level) {
     s_level = std::stoi(strict_level);
   }
-  
-  if (strict_level) {
+
+  if (gen_level) {
     gen = std::stoi(gen_level);
   }
 
