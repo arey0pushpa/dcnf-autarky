@@ -236,6 +236,10 @@ int main(int argc, char *argv[]) {
     d->active_avars.push_back(a);
   }
 
+  if (d->gen > 0) {
+    d->existential_subset();
+  }
+
   if (d->output_type == 0) {
     std::cout << "c Input QBF/DQBF path: " << d->filename << "\n";
     std::cout << "c Output SAT Translation Path: " << d->output_file_name

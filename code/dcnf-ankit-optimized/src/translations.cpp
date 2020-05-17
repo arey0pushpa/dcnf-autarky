@@ -4,6 +4,32 @@
 #include "dcnf.h"
 #include "util.h"
 
+/* Find the subset relationship between the existential variable */
+void dcnf::existential_subset() {
+  cl_t d1, d2;
+  lit_t e1, e2;
+  for (coord_t i = 0; i < active_evars.size() - 1; ++i) {
+    e1 = active_evars[i] - 1;  // handle 0 based index
+    d1 = dcnf_variables[e1].dependency;
+    for (coord_t j = i + 1; j < active_evars.size(); ++j) {
+      e2 = active_evars[j] - 1;  // handle 0 based index
+      d2 = dcnf_variables[e2].dependency;
+      if (d1.size() > d2.size()) {
+        if (std::includes(d1.begin(), d1.end(), d2.begin(), d2.end())) {
+          dcnf_variables[e1].dependency.push_back(e2 + 1);
+        }
+      } else if (std::includes(d2.begin(), d2.end(), d1.begin(), d1.end())) {
+        if (d1.size() < d2.size()) {
+          dcnf_variables[e2].dependency.push_back(e1 + 1);
+        } else {
+          dcnf_variables[e1].dependency.push_back(e2 + 1);
+          dcnf_variables[e2].dependency.push_back(e1 + 1);
+        }
+      }
+    }
+  }
+}
+
 /** Remove the dead/inactive clauses from the active variable list **/
 void dcnf::propagate_cls_removal(lit_t cls_indx, lit_t e_indx) {
   assert(e_indx >= 0);
@@ -48,7 +74,7 @@ void dcnf::update_evars() {
 }
 
 /** Create lbf formula **/
-cl_t lbf_formula(cl_t &lbf_vars, lit_t bf_var) {
+cl_t lbf_formula(cl_t& lbf_vars, lit_t bf_var) {
   coord_t blen = 0;
   boolv_t binary_repr;
   cl_t fml_repr;
@@ -79,7 +105,7 @@ void dcnf::print_remaining_cls() {
 }
 
 /** Home made printing final assignment **/
-void print_final_assignment(cls_t &final_assgmt, coord_t no_of_vars) {
+void print_final_assignment(cls_t& final_assgmt, coord_t no_of_vars) {
   for (cl_t c : final_assgmt) {
     std::cout << "< " << c[0] << "->";
     for (coord_t i = 1; i < c.size(); ++i) {
@@ -158,7 +184,7 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   result = "RED";
 }
 
-std::string display_string(cl_t &container) {
+std::string display_string(cl_t& container) {
   std::string str;
   // for (auto const &c : container) {
   for (coord_t i = 0; i < container.size(); ++i) {
@@ -236,7 +262,7 @@ void dcnf::display_rresult() {
 
 // ------- Clean files ----------
 // Remove the /tmp files
-void dcnf::clean_tmp_files(std::string &sat_out) {
+void dcnf::clean_tmp_files(std::string& sat_out) {
   const int r1 = remove(output_file_name.c_str());
   const int r2 = remove(sat_out.c_str());
   if (r1 != 0 || r2 != 0) {
@@ -643,7 +669,8 @@ coord_t dcnf::e_autarky(lit_t e) {
   set_t s2 = dcnf_variables[e - 1].neg_cls;
   if (s1.size() == 0 || s2.size() == 0) {  // Pure Lit case
     update_data_structure(e);
-    // final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars + 1});
+    // final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars +
+    // 1});
     if (present_clauses.size() > 0)
       return 11;
     else

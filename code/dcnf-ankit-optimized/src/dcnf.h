@@ -66,6 +66,7 @@ class Clauses {
  *   4. positive occurence in clauses: pos_cls
  *   5. neg occurence in clauses: pos_cls
  *   6. The variable is present in the formula after autarky reduction?: present
+ *   7. The other existential variables it depends on
  */
 class Variables {
  public:
@@ -77,6 +78,7 @@ class Variables {
   set_t neg_cls;
 
   bool present;
+  //  cl_t subset_e;
 
   Variables() : quantype('a'), dependency({}), present(1) {}
   void initialise_qtype(char c) { quantype = c; }
@@ -132,9 +134,9 @@ class dcnf {
   std::string output_file_name;  // output file
   coord_t aut_level;             // Autarky level
   coord_t s_level;               // Input DQDIMACS file strictness
-  coord_t gen;         // Genralisation of grounded autarkies; symbolic encoding
-  coord_t encoding;              // Chosen encoding
-  coord_t reduction_type;        // Autarky reduction type
+  coord_t gen;       // Genralisation of grounded autarkies; symbolic encoding
+  coord_t encoding;  // Chosen encoding
+  coord_t reduction_type;  // Autarky reduction type
   coord_t
       output_type;  // commandline o/p
                     // std::chrono::time_point<std::chrono::high_resolution_clock>
@@ -184,6 +186,7 @@ class dcnf {
   void cmdline_parsing(int argc, char *argv[]);
   void display_result(coord_t aut_present, coord_t output_result);
   void display_rresult();
+  void existential_subset();
 
   // void set_all_solutions(const coord_t level);
   void selected_boolfunc(const coord_t level);
