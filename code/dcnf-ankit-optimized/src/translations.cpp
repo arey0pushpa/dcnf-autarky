@@ -657,28 +657,18 @@ void dcnf::update_data_structure(lit_t e) {
 }
 
 coord_t dcnf::e_autarky(lit_t e) {
-  if (dcnf_variables[e - 1].pos_cls.size() +
-          dcnf_variables[e - 1].neg_cls.size() ==
-      0) {
-    // remove. No use!
-    update_data_structure(e);
-    return 11;
-  }
   set_t intersect;
   set_t s1 = dcnf_variables[e - 1].pos_cls;
   set_t s2 = dcnf_variables[e - 1].neg_cls;
   if (s1.size() == 0 || s2.size() == 0) {  // Pure Lit case
     update_data_structure(e);
-    // final_assgmt.push_back({e, s1.size() ? no_of_vars + 2 : no_of_vars +
-    // 1});
     if (present_clauses.size() > 0)
       return 11;
     else
       return 10;
   }
   cl_t vec = dcnf_variables[e - 1].dependency;
-  // OPTIMISATION: If a clause in s1 do not have any dep variable of e just
-  // QUIT!!
+  // OPTIMISATION: If a clause in s1 do not have any dep_var of e, QUIT!!
   for (lit_t j : s1) {
     // if (!dcnf_clauses[j].present) continue;
     cl_t cls_s1 = dcnf_clauses[j].lits;
@@ -698,6 +688,7 @@ coord_t dcnf::e_autarky(lit_t e) {
       set_t intersect_cls;
       cl_t cls_s2 = dcnf_clauses[k].lits;
       for (lit_t l2 : cls_s2) {
+        // OPTIMISATION: Replace the find with the binary_search
         if (std::find(vec.begin(), vec.end(), std::abs(l2)) == vec.end())
           continue;
         set_D.insert(l2);
@@ -711,16 +702,6 @@ coord_t dcnf::e_autarky(lit_t e) {
     }
   }
   update_data_structure(e);
-  // Add the chosen assgnmnet: first clause
-  /*cl_t vassgnmt;
-  vassgnmt.push_back(e);
-  for (lit_t l : dcnf_clauses[*s1.begin()].lits) {
-    if (std::abs(l) == e) continue;
-    if (std::find(vec.begin(), vec.end(), std::abs(l)) == vec.end()) continue;
-    vassgnmt.push_back(l ? -l : std::abs(l));
-  }
-  // final_assgmt.push_back(vassgnmt);
-  // */
   if (present_clauses.size() > 0)
     return 11;
   else
