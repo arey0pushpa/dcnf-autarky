@@ -24,6 +24,23 @@
 \usepackage{todonotes}
 \newtheorem{prop}{Proposition}
 
+\DeclareMathOperator{\Aaut}{A}
+\DeclareMathOperator{\Eaut}{E}
+
+\DeclareMathOperator{\idg}{idg}
+
+\DeclareMathOperator{\varess}{\var_{es}} % essential variables
+\DeclareMathOperator{\nessv}{\mathit{n}_{es}} % number of essential variables
+
+\DeclareMathOperator{\amo}{AMO}
+\newcommand{\autks}{\textsc{Aut-Search}}
+\newcommand{\solvereval}{\textsc{Solver-Eval}}
+\newcommand{\caqe}{\textsc{CAQE}}
+\newcommand{\depqbf}{\textsc{DepQBF}}
+\newcommand{\qute}{\textsc{Qute}}
+\newcommand{\hqspre}{\textsc{HQSpre}}
+\newcommand{\autfinder}{\textsc{Autark-Finder}}
+
 
 \begin{document}
 
@@ -228,11 +245,30 @@ The work by~\cite{wimmer2016skolem} obtains Skolem functions from an elimination
 The size of the Skolem functions is optimized by don’t-care minimization using Craig interpolants and rewriting techniques.
 
 
-\section{Experiments}
-\label{sec:experiments}
+\section{Experiments}\label{sec:experiments}
+We perform two sets of experiments. Finding autarkies on the selected benchmarks and evaluating the effect of the autarky-reduction on a particular solver.
 
-XXX.
-We left out a few families from the QBFLIB to meet our computational constraints. XXX
+We performed autarky search experiments on benchmarks from both the DQBF- (334 instances) and  PCNF-track (463 instances) of QBFEVAL'18 \cite{Qbfeval18}.
+%
+From the QBFLIB benchmark \cite{Qbflib}, we removed non-PCNF instances (instances in qcir format) and selected instances in PCNF format (25,522 instances) for the experiment.
+
+% We also performed autarky search experiments on  PCNF format (25,650 instances) instances of .
+%QBFEVAL'18 benchmarks (total 1234 instances) and .
+
+%From the QBFEVAL'18 benchmarks \cite{Qbfeval18}, we selected instances in PCNF format and removed non-PCNF instances (instances from QCIR-track). In total, we considered 334 instances from DQBF-track and 463 instances from PCNF-track.
+%Similarly, from QBFLIB benchmarks \cite{Qbflib} we removed all instances that are not in PCNF. In total, we considered 25,650 instances from QBFLIB to perform the autarky search.
+
+We selected four (D)QBF solvers to perform the evaluation of autarky-reduction. Top three solvers of QBFEVAL'19 PCNF-track competition; \caqe \cite{DBLP:conf/fmcad/RabeT15}, \depqbf \cite{DBLP:conf/cade/LonsingE17}, \qute \cite{DBLP:journals/jsat/PeitlSS19}\ and the winner of DQBF-track competition, \hqspre \cite{DBLP:conf/tacas/WimmerRM017}.
+
+All the experiments were performed on our cluster where each compute node has
+two Intel Xeon E5-2620 v4 CPUs running at 2.10 GHz with turbo-mode disabled.
+Time limit was set to 2700 seconds and memory limit to 7 GB.
+
+\subsection{Implementation}
+We have implemented the translation for $\Aaut_1$- and $\Eaut_1$-autarky search  (\ref{sec:a1-translation}, \ref{sec:e1-translation}) in a small codebase \autfinder\footnote{https://github.com/arey0pushpa/dcnf-autarky}. The \autfinder\ includes 2,000 lines of C++ code.
+
+The translation requires for each $v \in E$ expressing AMO constraints in equation~\ref{eq:transAMO}, we implemented three encodings, binomial, logarithmic and linear. One of these options can be selected with the $\Aaut_1$ or $\Eaut_1+\Aaut_1$ autarky type. The resulted CNF formula is solved by the lingeling \cite{Biere-SAT-Competition-2017-solvers} SAT solver.
+
 
 \begin{table}
 \caption{Families of (D)QCNF instances and the corresponding autarky count}\label{tab:aut-count}
@@ -243,43 +279,42 @@ We left out a few families from the QBFLIB to meet our computational constraints
     % \hline
     % \textbf{Inactive Modes} & \textbf{Description}\\
     \cline{4-6}
-  & & & E1-Autarky & UA1-Autarky & E1+A1-Autarky \\
+  & & & E1-Autarky & A1-Autarky & E1+A1-Autarky \\
     %\hhline{~--}
     
 \hline
 
-1. & DQBF-track'18 &  334 & 0 & 4 [2] & 4 \\ \hline
-2. & PCNF-track'18 &  463 & 186 &  &  \\ \hline
-
+1. & DQBF-track'19 &  334 & 20 & 22 & 22[1] \\ \hline
+%2. & PCNF-track'19 &  463 & 186 & 48[3] & 194[4] \\ \hline
+2. & PCNF-track'19 &  559 & 200 & 40[4] & 50[6] \\ \hline
 % Doable Small+ Low Autarky
-3. & Akshay-Chakraborty-John-Shah-Rabe &  44 & 42 &  &  \\ \hline
-
+3. & Akshay-Chakraborty-J-S-R &  44 & 42 & 4[3] & 44[3] \\ \hline
 % No E1, small+medium in size
-4. & Amendola-Ricca-Truszczynski & 1933 & 0 &  &  \\ \hline
+4. & Amendola-Ricca-Truszczynski & 1933 & &  &  \\ \hline
 
 %% No E1 Check, medium in size
-5. & Ansotegui &  38 & 0 &  &  \\ \hline
+5. & Ansotegui &  38 & &  &  \\ \hline
 
 % Medium (Very big and few small) Low Autarky, choti choti 
-6. & Ayari &  71 & 21  &  &  \\ \hline
+6. & Ayari &  71 &  &  &  \\ \hline
 
 % Small +, Low Autarky
-7. & Basler &  713 & 711 & 0 & 711 \\ \hline
+7. & Basler &  713 & & &  \\ \hline
 
 %% No E1 Check, Small + to medium!
-8. & Biere &  738 & 0 &  &  \\ \hline
+8. & Biere &  738 & &  &  \\ \hline
 
 % YUGEEE but some Autarky
-9. & Cashmore-Fox-Giunchiglia &  150 & 12 &  &  \\ \hline 
+9. & Cashmore-Fox-Giunchiglia &  150 &  &  &  \\ \hline 
 
 %% No History Check: Very SMALL TARGET!!, Complete E 1 and A1 bith
-10. & Castellini &  169 & 162 &  &  \\ \hline
+10. & Castellini &  169 & &  &  \\ \hline
 
 %% No E1 Check Small +m Complete the E1 redution run
-11. & Chen &  200 & 2 &  &  \\ \hline
+11. & Chen &  200 &  &  &  \\ \hline
 
 % No E1 Check Small _ Medium 
-12. & Diptarama-Jordan-Shinohara &  180 & 0 &  &  \\ \hline
+12. & Diptarama-Jordan-Shinohara &  180 &  &  &  \\ \hline
 
 % No history Check Small TARGET, Run E1
 13. & Egly-Seidl-Tompits-Woltran-Zolda &  1080 &  &  &  \\ \hline
@@ -288,77 +323,77 @@ We left out a few families from the QBFLIB to meet our computational constraints
 14. & Faber-Leone-Maratea-Ricca &  1060 &  &  &  \\ \hline 
 
 % Big but have some autarkies
-15. & Gent-Rowley &  672 & 672 & 0 & 672 \\ \hline
+15. & Gent-Rowley &  672 &  &  &  \\ \hline
 
 % Medium Big Small Combination but have some autarkies
-16. & Herbstritt &  478 & 400 &  &  \\ \hline
+16. & Herbstritt &  478 & &  &  \\ \hline
 
-17. & Jordan-Kaiser &  4608 & 566 [326] &  &  \\\hline
+17. & Jordan-Kaiser &  4608 & &  &  \\\hline
 
 %% No  E1 Check Small +
-18. & Katz &  20 & 0 &  &  \\ \hline
+18. & Katz &  20 &  &  &  \\ \hline
 
 % No E1 Check Small 
-19. & Klieber & 50 & 0 &  &  \\ \hline
+19. & Klieber & 50 &  &  &  \\ \hline
 
 % Small Good Autarkies E1 not A1 TARGET!	
-20. & Kontchakov&  136 & 135 &  &  \\ \hline
+20. & Kontchakov&  136 & &  &  \\ \hline
 
 % BIg Excelelnt Autarkies E1 
-21. & Kronegger-Pfandler-Pichler &  1700 & 1700  & 0  & 1700 \\ \hline 
+21. & Kronegger-Pfandler-Pichler &  1700 &  &   & \\ \hline 
 
 % No E1 Check Small 
-22. & Lahiri-Seshia & 3 & 0 &  &  \\ \hline
+22. & Lahiri-Seshia & 3 & &  &  \\ \hline
 
 % No E1 Check  Medium
-23. & Lee-Jiang &  5 &  0 &  &  \\ \hline
+23. & Lee-Jiang &  5 &  &  &  \\ \hline
 
 % SAT :) Check!!
-24. & Letz & 14 & 5 [5]  &  &  \\\hline
+24. & Letz & 14 &  &  &  \\\hline
 
 % Small :) No E1
-25. & Ling &  8 & 0 &  &  \\ \hline
+25. & Ling &  8 & &  &  \\ \hline
 
 % Yuge low Autarky 
-26. & Mangassarian-Veneris &  171 & 17 &  &  \\ \hline
+26. & Mangassarian-Veneris &  171 & &  &  \\ \hline
 
 %% Small+ low Autarky Target
-27. & MayerEichberger-Saffidine &  312 & 312 & 0 & 312 \\\hline
+27. & MayerEichberger-Saffidine &  312 & & & \\\hline
 
 %%Small to big, No E1!
-28. & Messinger &  63 & 0 &  &  \\ \hline
+28. & Messinger &  63 & &  &  \\ \hline
 
 %%Small to medium, Low autakr
-29. & Miller-Marin & 2632 & 2613 &  &  \\ \hline
+29. & Miller-Marin & 2632 & &  &  \\ \hline
 
-30. & Miller-Scholl & 198 & 198 &  &  \\ \hline
+30. & Miller-Scholl & 198 & &  &  \\ \hline
 
 %%Small to big, Low Autarky, Check again E1
-31. & Mneimneh-Sakallah &  202 & 6 &  &  \\ \hline
+31. & Mneimneh-Sakallah &  202 & &  &  \\ \hline
 
 % Medium but too many Can Skip this Family!! No E1!
 32. & Narizzano &  4000 & &  &  \\ \hline 
 
 % small a few rest BIG , No E1!
-33. & Palacios & 24 & 0 &  &  \\ \hline
+33. & Palacios & 24 &  &  &  \\ \hline
 
 % Small target!! No E1!  Medium
-34. & Pan &  384 & 378 &  &  \\ \hline
+34. & Pan &  384 & &  &  \\ \hline
 
 % No E1, Small check A1
-35. & Peitl & 10 & 0 &  &  \\\hline
+35. & Peitl & 10 &  &  &  \\\hline
 
 % Small to medium, Low Autarkies
-36. & qbfeval12 & 17 & 0 &  &  \\ \hline
+36. & qbfeval12 & 17 & &  &  \\ \hline
 
 % Mediumbut have low autarkies
-37. & Rabe &  17 &  &   \\ \hline
+37. & Rabe &  17 &  & &  \\ \hline
 
 % Small + size, Small Autarkies
-38. & Rintanen &  131 & 46 [2] &  &  \\\hline
+38. & Rintanen &  131 & &  &  \\\hline
 
 %% Medium to Big (a few small), Low Autarky 
-39. & Sauer-Reimer &  928 & 928 & 0 & 928 \\ \hline
+39. & Sauer-Reimer &  928 & &  & \\ \hline
 
 % Check Small, low autarky, Recalculate some changes/
 40. & Scholl-Becker & 64 &  &  &  \\ \hline
@@ -367,10 +402,10 @@ We left out a few families from the QBFLIB to meet our computational constraints
 41. & Seidl &  200 &  &  &  \\ \hline
 
 % Some SAT Some RED!! Small, recheck E1
-42. & Tacchella &  336 & 53 [23] &  &  \\ \hline 
+42. & Tacchella &  336 & &  &  \\ \hline 
 
 % Big Medium, No E1
-43. & Tentrup & 1354 & 0  &  &  \\ \hline \hline
+43. & Tentrup & 1354 &  &  &  \\ \hline \hline
 
 Total &  & 26010 &  &  &  \\  \hline \hline
  
@@ -380,49 +415,80 @@ Total &  & 26010 &  &  &  \\  \hline \hline
 \end{table}
 
 
-We randomly sample from the set of autarky-reduced instances. To represent each family of benchmarks evenly, we normalise the selection. We take the relative contribution of each family to the total number of 2,000 autarky-reduced instances. XXX
+\subsection{Results}
+We use the name of the author to refer to the submitted families of the benchmarks. This is the structure the QBFLIB is organised.
+
+In Table~\ref{tab:aut-count} we present the complete results of the autarky search. For example, out of 334 instances in the DQBF track of QBFEVAL'18, 330 instances are $\Eaut_1+\Aaut_1$-lean (have no non-trivial $\Eaut_1$- or $\Aaut_1$-autarky). From the remaining 4 instances, all are $\Eaut_1$-lean, one is $\Aaut_1$ satisfiable, one is $\Eaut_1+\Aaut_1$ satisfiable, and the remaining two instances are not $\Eaut_1+\Aaut_1$ satisfiable, but allow $\Aaut_1$-autarkies elimination.
+%
+There are a few families of the benchmarks like \textit{Castellini} that has a healthy number of autarkies of all types, $\Eaut_1,\Aaut_1,\Eaut_1+\Aaut_1$. On the other hand there are families like \textit{Tentrup} and  with no autarkies at all. There are total 714 (autarky satisfiable) instances which can be directly solved as a part of autarky cleanup.
+% in both cases around 70\% of variables and clauses (while adding E1 does not change this).
+
+
+
+Table~\ref{tab:sat-solver} shows the number of $\Eaut_1+\Aaut_1$-autark-SAT instance solved by the corresponding (D)QCNF solvers. There are a few instances that are autarky-satisfiable but the solver was unable to solve them in the given time. In particular there was a large set of trivially satisfiable autarky instances which \hqspre\ was unable to solve. This is relevant to our case as our focus is primarily DQCNF and provide a hint that $\Eaut_1+\Aaut_1$ autarky search is not already covered by other pre-processing techniques.
+
+Next out of the total 10,708 autarky instances we select at random around 1100 instances to register the effect of the autarky reduction on the solvers. The selection
+%
+%Out of total 463 instances of the PCNF-track of QBFEval'18 we found that 269 instances are $\Eaut_1+\Aaut_1$ Lean.
+Table~\ref{tab:solver-eval} present the result of solver running on the original instance vs on the autarky-reduced instance. We found XXX
+
+%We randomly sample from the set of autarky-reduced instances. To represent each family of benchmarks evenly, we normalise the selection. We take the relative contribution of each family to the total number of 2,000 autarky-reduced instances. XXX
+
 
 \begin{table}
-\caption{Comparison of run time of reduced instance with the original instance}\label{tab:solver-cmp}
-\begin{tabular}{l|l|l|l|l}
-
-\hline
-    \multirow{2}{3cm}{Family}  & \multicolumn{4}{c}{(D)QCNF Solver} \\
-    % \hline
-    % \textbf{Inactive Modes} & \textbf{Description}\\
-    \cline{2-5}
-   & (d)-Caqe & DepQbf & Cute & HQSpre  \\
-    %\hhline{~--}
-    
-\hline
-
-DQBF-track'18 (4) &  4 & 0 & 2 & 4 \\
-
-\hline
-\end{tabular}
+	\caption{Total $\Eaut_1+\Aaut_1$ Autark-SAT instance solved by the corresponding (D)QCNF solvers}\label{tab:sat-solver}
+	\begin{tabular}{l|c|c|c|c}
+		
+		\hline
+		\multirow{2}{3cm}{Family}  & \multicolumn{4}{c}{(D)QCNF Solver} \\
+		% \hline
+		% \textbf{Inactive Modes} & \textbf{Description}\\
+		\cline{2-5}
+		& Caqe & DepQbf & Qute & HQSpre  \\
+		%\hhline{~--}
+		
+		\hline
+		
+		SAT-instances (500) &  474 & 484 & 485 & 392 \\
+		
+		\hline
+	\end{tabular}
 \end{table}
 
 \begin{table}
-\caption{Families of (D)QCNF instances and the corresponding autarky count}\label{tab:aut-results}
-\begin{tabular}{l|l|l|l|l|l|l|l|l}
-
-\hline
-    \multirow{2}{3cm}{Family} &  \multirow{2}{2cm}{Total instances} & \multicolumn{3}{c}{Autarky system} & \multicolumn{4}{c}{(D)QCNF Solver} \\
-    % \hline
-    % \textbf{Inactive Modes} & \textbf{Description}\\
-    \cline{3-9}
-   & & E1 & A1 & E1+A1 & Caqe& Depqbf & Cute & HQSpre\\
-    %\hhline{~--}
-    
-\hline
-
-DQBF-track'18 &  334 & 0 & 2 & 4 \\ \hline
-PCNF-track'18 &  463 & 168 & 82 & 174 \\ \hline
-Baseler & 71 & 68 & 40 & 71 \\
- 
-
-\hline
-\end{tabular}
+	\caption{Comparison of the (D)QCNF instances solved without and with autarky reduction. \emph{Orig} represent the original instance and \emph{Red} represent the autarky reduced formula. Number inside () represents uniquely solved instances.  }\label{tab:solver-eval}
+	\begin{tabular}{l| c |c c c }
+		
+		\hline
+		\multirow{2}{2.5cm}{Solvers} &  \multirow{2}{1cm}{Type} & \multicolumn{3}{c}{Instances} \\
+		\cline{3-5}
+		& & Random-255 [$\Aaut_1$] & Random-336 [$\Eaut_1+\Aaut_1$] & Random-500 [$\Eaut_1$] \\\hline
+		% \hline
+		% \textbf{Inactive Modes} & \textbf{Description}\\
+		
+		%   & & \multicolumn{2}{c}{Caqe} &\multicolumn{2}{c}{Depqbf} & \multicolumn{2}{c}{Qute}& \multicolumn{2}{c}{HQSpre}\\  \cline{3-10}
+		%     & & Orig & Red & Orig & Red & Orig & Red & Orig & Red \\
+		%\hhline{~--}
+		
+		\hline
+		\multirow{2}{*}{\caqe} & Orig & 193(4) & 228(2) & 381(2) \\
+		& Red & 196(7) & 230(4) & 380(1)\\\hline
+		\multirow{2}{*}{\depqbf} & Orig & 184(2) & 231(1) & 365(7)\\
+		& Red & 183(1)& 232(2)& 367(9)\\\hline
+		\multirow{2}{*}{\qute} & Orig & 117(1) & 205(0) & 283(3)  \\
+		& Red  & 124(8) & 210(5) & 281(1) \\\hline
+		\multirow{2}{*}{\hqspre} & Orig & 96(0) &251(0) & 279(4) \\
+		& Red  & 98(2)& 254(4) & 280(5) \\
+		% &
+		%Qute &
+		%HQSpe &
+		%Random set-1 &  326 & 228(2) & 230(4) & 231(1) & 232(2) & 205(0) & 210(5) & 251(0)& 254(4) \\ \hline
+		%%PCNF-track'18 &  463 & 168 & 82 & 174 \\ \hline
+		%Random set-2 ($\Eaut_1+\Aaut_1$)&  255 & 193(4) & 196(7) & 184(2)& 183(1) & 117(1) & 124(8) & 96(0)& 98(2) \\\hline
+		%Random set-3 (Only E1) &  500 & 381(2) & 380(1) & 365(7) & 367(9) & 283(3) & 281(1) & 279(4) & 280(5) \\
+		
+		\hline
+	\end{tabular}
 \end{table}
 
 \section{Conclusion}
