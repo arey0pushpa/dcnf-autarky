@@ -8,23 +8,26 @@
 
 \documentclass[runningheads]{llncs}
 
-%\input Latex_macros/Definitionen.tex
-
 \usepackage{enumerate}
 \usepackage[active]{srcltx}
 \usepackage[all]{xy}
 
 \usepackage{xr}
+\usepackage{amsmath, amssymb}
+\usepackage[normalem]{ulem}
+\usepackage{lmodern}
+\usepackage{breakcites}
 
-% Added By Ankit
 \usepackage{multirow}
 \usepackage{hyperref}
 
+\usepackage{todonotes}
+\newtheorem{prop}{Proposition}
 
 
 \begin{document}
 
-\title{Autarky Tables}
+\title{Autarkies for DQBF}
 
 \author{Oliver Kullmann\inst{1} \and Ankit Shukla\inst{2}}
 \authorrunning{O.~Kullmann, A.~Shukla}
@@ -36,33 +39,193 @@
     \email{ankit.shukla@jku.at}
 }
 
-
 \maketitle
 
+\begin{abstract}
+We survey the solving approaches for DQBF, preprocessing and inprocessing techniques, and further advances in DQBF solving.
+\end{abstract}
+
 \keywords{QBF, DQBF, autarkies}
-
-
 
 \setcounter{section}{-1}
 \section{TODOS}
 \label{sec:todos}
 
 \begin{enumerate}
-\item For the abstract, can we say more about ``which (D)QCNF benchmarks have which autarkies''?
-\item For the abstract, can see say more about ``while even the above very basic cases can help to solve instances''?
-  \begin{enumerate}
-  \item Are there even instances which are satisfiable under one of the three systems, while they are hard to solver otherwise?
-  \end{enumerate}
- \item Selection of a naming convention for the family of benchmarks. The QBFLIB organised them by the submitted author's name. For example one such directory is: Kronegger-Pfandler-Pichler. It has two subdirectories, bomb and dungeon. What should we use? The paper \href{https://www.react.uni-saarland.de/publications/cav2017-caqe.pdf}{On Expansion and Resolution in CEGAR Based QBF Solving} use bomb and dungeon as the name of the family in the table.
- \item The above paper do not consider all the instances but only those that are solved by any solver. Find which instances are solver by a solver from the corresponding benchmark! Is it possible? Our strategy can be consider all instances (not just restricted to solved ones) and see if reduced instance that was not previously solved can be solved by the solver (is there cases the other way around).
- \item Oliver can you suggest the structure of the experiments table that you have in mind. I had in mind was Table3. What should be the comparison parameter? Average time solving the instances? no. of instance solved out of total?
+\item Compose the literature on DQBF applications.
 \end{enumerate}
-
 
 
 \section{Introduction}
 \label{sec:intro}
 
+In logic a branching quantifier, also called a \textbf{Henkin quantifier}, finite partially ordered quantifier or nonlinear quantifier, is a finite partially ordering 
+\[ \langle Qx_{1}\dots Qx_{n}\rangle \]
+of quantifiers for $Q  \in \{\forall,\exists\}$.
+	
+The simplest Henkin quantifier, $Q_{H}$ is :
+\begin{displaymath}
+\binom{\forall x_{1} \exists y_{1}}{\forall x_{2} \exists y_{2}} \, \phi(x_{1},x_{2},y_{1},y_{2})
+\end{displaymath}
+
+Branching quantification first appeared in a 1959 conference paper of Leon Henkin~\cite{henkin1961some}.
+Systems of partially ordered quantification are intermediate in strength between first-order logic and second-order logic.
+	
+In computer science literature the term \textbf{DQBF} was first used in \cite{peterson1979multiple} to model multiple person (team) games of incomplete information.
+The generalization of the alternation machines (nondeterministic Turing Machines with existential and universal quantifiers alternation, conceptually similar to QBF) to classes of machines namely multiple person alternation machines (conceptually DQBF).
+
+\section{Multiple player games of incomplete information \cite{petersonr79, peterson2001lower}}
+
+The term DQBF and the proof of DQBF being NEXPTIME-complete were first presented in \cite{peterson1979multiple} and then later in \cite{peterson2001lower}.
+
+Both the works generalize alternation machines \cite{chandra1981lj} and \cite{fraenkel78} (extensions of non-deterministic machines with existential and universal choices) to model multiple player games of incomplete information.
+Incomplete information means the players do not have common knowledge of the game being played.
+The common knowledge can be payoffs, who the other players are, what moves are possible, what opponent knows, and what he knows I know, etc.
+
+A multiple person (team) game consists of $k+1$ players, $\{0, 1,2, ... ,k\}$ divided into two teams, Team A and Team B.
+Team A is our team of preference.
+One property of these games is that the size of Team A will be the determinate of the complexity of the game and therefore Team B need only be one player.
+So we identify Team A with Players $1,...,k$ and Team B with Player 0.
+
+The use of the word succinct means no more than squaring in size. Consider a DQBF
+\[
+\forall X_1,X_2 \, \exists Y_1(X_1) \, \exists Y_2(X_2) \,\, F (X_1, X_2, Y_1, Y_2)
+\]
+this formula do not have a succinct QBF representation.
+
+The formula above corresponds to a three-player game (a modified version is presented here, using \cite{hearn06}) with Players \{0,1,2\}.
+There are two teams, A and B.
+The input formula $F$ is a CNF over variables $X_1 \cup Y_1 \cup X_2 \cup Y_2$.
+The objective is to decide the A Player has a winning strategy.
+The Player 0 chooses an assignment of the variables in $X_1 \cup X_2$.
+Player 1 then chooses an assignment for $Y_1$, then Player 2 chooses an assignment for $Y_2$.
+Player $i$ only sees the assignments of $X_i$ and $Y_i$. Team A (B) wins if the $F$ is true (false).
+
+Both the work \cite{petersonr79, peterson2001lower} is theoretical in nature. The results applied to relative succinctness and power questions of finite state machines and complexity questions of parallel finite state machines.
+\cite{peterson2001lower} provide matching lower bounds for the decision algorithms for these games.
+
+\section{First solving approach: DQDPLL}
+The first solving approach was presented in~\cite{frohlich2012dpll}.
+%
+This was adaptation of QDPLL from QBF to DQBF, e.g., unit propagation, clause
+learning, universal reduction, watched literals, etc.
+%
+
+The motivation was to solve the quantifier-free bit-vector formulas (QF\_BV) by translating it to DQBF (both belongs to same complexity class).
+
+\section{First Application: PEC Problems}
+The application of partial equivalence checking (PEC) of circuits transformed as a DQBF satisfiability was presented in~\cite{gitina2013equivalence}.
+%
+The presented algorithm solve DQBF based on variable elimination (\cite{biere2004resolve}).
+
+\section{First publicly available solver}
+The technique presented in~\cite{finkbeiner2014fast} is similar to BMC encoding of QBF and can only solve UNSAT problems.  
+
+\section{Complete solver: iDQ}
+The iDQ solver presented in~\cite{frohlich2014idq} adapts and extends the Inst-Gen approach (solving approach for EPR logic, fragment of first order logic) to DQBF.
+
+\section{A new solver: HQS}
+The work of~\cite{gitina2015solving} present an improved expansion-based solver, HQS.
+%
+The solver expands DQBF to QBF, eliminates the minimum set of variables that cause non-linear
+dependencies and uses AIGs to detect units and pure literals.
+
+\section{Preprocessing and inprocessing}
+The work of~\cite{wimmer2015preprocessing} generalize preprocessing techniques for QBF to DQBF. 
+%
+The technique includes, blocked clause elimination, equivalence reasoning, structure extraction, and variable elimination by resolution.
+
+In further work~\cite{wimmer2017hqspre} presents a preprocessor HQSpre for both QBF's and DQBF's.
+%
+The techniques, variable elimination routines, clause elimination routines, clause strengthening routines, dependency schemes and gate rewriting.
+
+\section{Dependency}
+\todo{Only read overview of the papers in this section: read completely}The work by~\cite{wimmer2016dependency} analyse the dependency
+schemes proposed for QBF to apply on DQBF. 
+%
+The paper gives correctness proof of the few that are sound for DQBF. 
+%
+
+The \cite{wimmer2017dqbf} eliminate of dependencies of DQBF to convert it to an equisatisfiable QBF.
+%
+The technique is implemented in HQS.
+
+% which result from the application of dependency schemes to the formula and can be added to or removed from the formula at no cost
+
+
+The work ~\cite{beyersdorff2018reinterpreting} proposed an approach which improve the relationship between DQBF and QBF
+dependency schemes.
+%
+Core of the paper is the method that gives rise to soundness results across different calculi.
+
+\section{Proof systems}
+The work~\cite{beyersdorff2016lifting} examines the lifting existing resolution systems of QBF to DQBF.
+%
+QBF have a strict chain of proof systems, where Q-Res $<$ IR-calc $<$ IRM-calc.
+%
+
+In the case of DQBF the obvious adaptations of Q-Res and universal resolution turns out to be too weak: they are not complete. 
+%
+The obvious adaptation of IR-calc has
+the right strength: it is sound and complete. 
+%
+The IRM-calc and long-distance resolution is too strong: it is not sound any more.
+
+\todo{Incomplete and only intro}The work of~\cite{rabe2017resolution} presents a sound and complete proof system for DQBF.
+%
+The system has three rules, resolution, universal reduction, and a new proof rule called \textit{fork extensions}.
+
+The definition of resolution admits universal variables as pivots...
+
+\section{Certification perspective and Skolem functions}
+
+%\begin{enumerate}
+The work of Henkin Quantifiers and Boolean Formulae~\cite{balabanov2012henkin} investigates DQBF's properties like negation, complement, formula expansion, and prenex, non-prenex form conversion. 
+%
+The paper used two forms to describe prenex DQBF, Skolem (S-Form) and Herbrand (H-Form) form:
+
+\begin{align}
+\Phi_{S} \,\, = \,\, \forall x_{1}... \forall x_{n} \exists y_{1_{(S_{1})}}...\exists y_{m_{(S_{m})}} . \phi \label{eq1}\\
+\Phi_{H}  \,\, = \,\, \forall x_{1_{(H_{1})}}... \forall x_{n_{(H_{n})}} \exists y_{1}...\exists y_{m} . \phi \label{eq2}
+\end{align}
+
+Additional subscripts on the quantified variables is just another way to express dependencies, $S_{i} \subseteq A$ and $H_{i} \subseteq E$.
+
+In the case of S-Form, $\exists y_{1_{(S_{1})}}$ means  existential variable $y_{1}$ depend on the universal variables set $S_{1}$. 
+%
+Similarly, for the H-form, universal quantifiers in the prefix are annotated with the existential variables they depend on. 
+
+%Semantically, the truth and falsity of a DQBF is interpreted as existence of Skolem (in the case of \ref{eq1}) and Herbrand fucntion (in the case of \ref{eq2}). 
+Skolem functions serve as the model to a true S-form DQBF whereas Herbrand functions serve as the countermodel to a false H-form DQBF.
+
+Most important property discussed is the notion of \textbf{negation} and \textbf{complement}.
+%
+In the case of negation ($\neg$) the quantifiers are flipped and propositional formula is negated but no change in the dependency set and it's position.
+
+\begin{align}
+\neg \Phi_{S} \,\, =   \,\, \exists x_{1}... \exists x_{n} \forall y_{1_{(S_{1})}}...\forall y_{m_{(S_{m})}} . \neg \phi \label{eq3}
+\end{align}
+
+In the case of complement ($\sim$) the position is shifted from one quantifier type to another in the prefix. Here, $H^{\prime}_{i} = \{ y_{i} \in E \, | \, x_{i} \notin S_{j} \}$
+
+\begin{align}
+\sim \Phi_{S} \,\, =   \,\, \exists x_{1_{(H^{\prime}_1)}}... \exists x_{1_{(H^{\prime}_n)}} \forall y_{1}...\forall y_{m} . \neg \phi \label{eq4}
+\end{align}
+
+Interestingly the following proposition holds, 
+\begin{prop}
+	DQBF under the negation operation obeys the law of excluded middle but under the complement operation it does not.
+\end{prop} 
+
+In the journal paper ``A certification perspective of DQBF"~\cite{balabanov2014henkin} additionally a generalized resolution rule for DQBF evaluation is presented. Although,  it is shown to be sound, but incomplete.
+
+Two central references in both are~\cite{bubeck2006dependency} and ~\cite{bubeck2010model} in introduction section referring that S-form DQBF can be converted to an equivalent QBF by formula expansion on the universal variables.
+
+%\end{enumerate}
+
+The work by~\cite{wimmer2016skolem} obtains Skolem functions from an elimination-based DQBF solver HQS, while taking preprocessing steps into account.
+%
+The size of the Skolem functions is optimized by don’t-care minimization using Craig interpolants and rewriting techniques.
 
 
 \section{Experiments}
@@ -265,11 +428,8 @@ Baseler & 71 & 68 & 40 & 71 \\
 \section{Conclusion}
 \label{sec:conclusion}
 
-
-
-
-
-
+\bibliographystyle{apalike}
+\bibliography{DQBF_Autarky}
 
 \end{document}
 
