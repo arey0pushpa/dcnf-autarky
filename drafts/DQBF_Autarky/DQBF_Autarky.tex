@@ -266,6 +266,20 @@ For the matrix (given the inputs of the black boxes are consistently assigned) w
   PEC is NEXPTIME-complete.
 \end{corollary}
 
+\subsection{BMC for Incomplete Designs \cite{drechsler2018formal}}
+The complexity of deciding realizability depends on the allowed behavior of the black boxes: 
+\begin{enumerate}
+  \item If we assume that the contents of the black boxes are combinational circuits, the problem of deciding realizability is NEXPTIME-complete.
+  \item If we allow the black boxes to contain an arbitrary amount of memory, the interesting decision problems become undecidable \cite{pnuelir90}.
+\end{enumerate}
+
+Bounded Model Checking (BMC) for incomplete design was studied in \cite{millerklb10, millersb13}. Only invariant
+properties were considered: Given a Boolean formula $P(x, s, y)$, which describes the states of the circuit that satisfy the invariant, are there implementations of the black boxes such that $P(x, s, y)$ is satisfied in each step of the circuit?
+
+First a QBF modeling was presented. However, if the black box in the design is not directly connected to all primary inputs, (i.e., if the black box does not have ``complete information"), the property may be unrealizable, although BMC with QBF modeling is not able to prove this. 
+In that case, DQBF is necessary to express the actual dependencies of the black boxes on their inputs.
+XXX
+
 \section{First solving approach: DQDPLL}
 The first solving approach was presented in~\cite{frohlich2012dpll}.
 %
