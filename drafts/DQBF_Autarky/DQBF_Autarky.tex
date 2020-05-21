@@ -91,7 +91,14 @@ Systems of partially ordered quantification are intermediate in strength between
 In computer science literature the term \textbf{DQBF} was first used in \cite{peterson1979multiple} to model multiple person (team) games of incomplete information.
 The generalization of the alternation machines (nondeterministic Turing Machines with existential and universal quantifiers alternation, conceptually similar to QBF) to classes of machines namely multiple person alternation machines (conceptually DQBF).
 
-\section{Multiple player games of incomplete information \cite{petersonr79, peterson2001lower}}
+\section{DQBF-Horn}\label{sec:dqbf-horn}
+There is an interesting work on dependency quantified horn formulas \cite{bubeckb06}.
+
+\section{DQBF Applications}\label{sec:dqbf-applications}
+
+We present applications of DQBF from the literature.
+
+\subsection{Analysis of multiple player games of incomplete information}\label{subsec:multiplayer-games}
 
 The term DQBF and the proof of DQBF being NEXPTIME-complete were first presented in \cite{peterson1979multiple} and then later in \cite{peterson2001lower}.
 
@@ -121,6 +128,77 @@ Player $i$ only sees the assignments of $X_i$ and $Y_i$. Team A (B) wins if the 
 Both the work \cite{petersonr79, peterson2001lower} is theoretical in nature. The results applied to relative succinctness and power questions of finite state machines and complexity questions of parallel finite state machines.
 \cite{peterson2001lower} provide matching lower bounds for the decision algorithms for these games.
 
+\subsection{Bit-vector logics}\label{subsec:bitvectors}
+Certain bit-vector logics \cite{kovasznaifb12, wintersteigerhm13}.
+
+\subsection{Verification of incomplete combinational and sequential circuits}\label{subsec:pec}
+
+The partial equivalence checking problem (\textbf{PEC}) \cite{gitinarswb13r}: checking whether a partial design can be extended
+such that it is equivalent to a given specification, i. e., whether the specification can be realized.
+If it turns out that there is no feasible extension, the available parts are erroneous and must be fixed. This helps to detect errors in an early stage of a design.
+The partial design is a combinational circuit containing
+black boxes and the specification is also a combinational circuit.
+The paper also shows that PEC is equivalent to DQBF. Therefore PEC lies in the same complexity class as DQBF, namely NEXPTI1ME-complete.
+
+The original work of \cite{schollb01} used SAT or QBF formulation for solving PEC. The SAT formulation was
+efficient but inaccurate due to a coarse
+approximation. 
+To overcome this drawback a QBF formulation was presented that can solve PEC for a single black box. 
+No feasible algorithmic method was presented to handle multiple black boxes.
+
+Follow up works \cite{gitinarswb13, gitinarswb13r, wimmerws018} used DQBF to solving PEC with multiple black boxes.
+%\begin{itemize}
+%	%\item Checking equivalence for partial implementations \cite{schollb01}.
+%	\item Equivalence checking of partial designs using dependency quantified Boolean formulae \cite{gitinarswb13}.
+%	\item Equivalence Checking for Partial Implementations Revisited \cite{gitinarswb13r}
+%	\item Analysis of incomplete circuits using dependency quantified Boolean formulas \cite{wimmerws018}.
+%\end{itemize}
+
+\subsubsection{Partial Equivalence Checking}\label{sssec:pec}
+Equivalence checking considers the problem to decide whether
+two combinational circuits always produce the same outputs,
+given the same inputs.
+
+Partial equivalence checking problem (PEC):
+\par\textbf{Given}: A complete circuit (specification) and an incomplete circuit (contains missing parts; black boxes).
+\par\textbf{Problem}: If there are implementations of the black boxes such that the two circuits become equivalent?
+
+If these implementations exist, we say the partial design is realizable, otherwise unrealizable.
+
+\begin{figure}[]
+	\includegraphics[width=9cm, height=7cm]{pec}
+	\centering 
+	\caption{PEC}\label{fig:pec}
+\end{figure}
+
+\begin{example}
+Consider $x_1 \oplus x_2$ as the specification and as an
+implementation a partial circuit with three gates and two black boxes as given in Fig.~\ref{fig:pec}. 
+PEC problem: Is there a realization of both black boxes $BB_1$ and $BB_2$ such that the implementation is equivalent to the specification for every value of the inputs $x_1$ and $x_2$? 
+
+To answer this question, we add an additional equivalence (or XNOR) gate for each corresponding output of the specification and implementation and require the outputs of these equivalence gates to be constantly 1.
+\end{example}
+
+\subsubsection{DQBF formulation}\label{sssec:dqbf-fml}
+Both \cite{gitinarswb13, gitinarswb13r} present a linear transformation from PEC to DQBF such that the resulting DQBF is satisfied if and only if the PEC is realizable.
+
+Let's introduce notations for partial combinational circuits $P$ :
+
+\begin{itemize}
+\item $x_1,...,x_n$: primary inputs of the circuit.
+\item $BB_1 ,..., BB_m$: black boxes of the circuit in topological order.
+\item $\overrightarrow{I_i}$: inputs of $BB_i (i = 1,..., m)$.
+\item $\overrightarrow{Y_i}$: inputs of $BB_i (i = 1,..., m)$.
+\item $\overrightarrow{F_i}(x_1,..., x_n, Y_1,...,Y_{i-1}$: vector of functions defining $\overrightarrow{I_i}$. 
+\item $R(x_1,..., x_n, Y_1,...,Y_{m}$: is the output function of the circuit. 
+\end{itemize}
+\begin{figure}[]
+	\includegraphics[width=6cm, height=7cm]{not}
+	\centering 
+	\caption{PEC}\label{fig:notation}
+\end{figure}	
+
+
 \section{First solving approach: DQDPLL}
 The first solving approach was presented in~\cite{frohlich2012dpll}.
 %
@@ -129,9 +207,6 @@ learning, universal reduction, watched literals, etc.
 %
 
 The motivation was to solve the quantifier-free bit-vector formulas (QF\_BV) by translating it to DQBF (both belongs to same complexity class).
-
-\section{First Application: PEC Problems}
-The application of partial equivalence checking (PEC) of circuits transformed as a DQBF satisfiability was presented in~\cite{gitina2013equivalence}.
 %
 The presented algorithm solve DQBF based on variable elimination (\cite{biere2004resolve}).
 
@@ -422,8 +497,6 @@ In Table~\ref{tab:aut-count} we present the complete results of the autarky sear
 %
 There are a few families of the benchmarks like \textit{Castellini} that has a healthy number of autarkies of all types, $\Eaut_1,\Aaut_1,\Eaut_1+\Aaut_1$. On the other hand there are families like \textit{Tentrup} and  with no autarkies at all. There are total 714 (autarky satisfiable) instances which can be directly solved as a part of autarky cleanup.
 % in both cases around 70\% of variables and clauses (while adding E1 does not change this).
-
-
 
 Table~\ref{tab:sat-solver} shows the number of $\Eaut_1+\Aaut_1$-autark-SAT instance solved by the corresponding (D)QCNF solvers. There are a few instances that are autarky-satisfiable but the solver was unable to solve them in the given time. In particular there was a large set of trivially satisfiable autarky instances which \hqspre\ was unable to solve. This is relevant to our case as our focus is primarily DQCNF and provide a hint that $\Eaut_1+\Aaut_1$ autarky search is not already covered by other pre-processing techniques.
 
