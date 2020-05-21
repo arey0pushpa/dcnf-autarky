@@ -76,10 +76,10 @@ We survey the solving approaches for DQBF, preprocessing and inprocessing techni
 \section{Introduction}
 \label{sec:intro}
 
-In logic a branching quantifier, also called a \textbf{Henkin quantifier}, finite partially ordered quantifier or nonlinear quantifier, is a finite partially ordering 
+In logic a branching quantifier, also called a \textbf{Henkin quantifier}, finite partially ordered quantifier or nonlinear quantifier, is a finite partially ordering
 \[ \langle Qx_{1}\dots Qx_{n}\rangle \]
 of quantifiers for $Q  \in \{\forall,\exists\}$.
-	
+
 The simplest Henkin quantifier, $Q_{H}$ is :
 \begin{displaymath}
 \binom{\forall x_{1} \exists y_{1}}{\forall x_{2} \exists y_{2}} \, \phi(x_{1},x_{2},y_{1},y_{2})
@@ -87,7 +87,7 @@ The simplest Henkin quantifier, $Q_{H}$ is :
 
 Branching quantification first appeared in a 1959 conference paper of Leon Henkin~\cite{henkin1961some}.
 Systems of partially ordered quantification are intermediate in strength between first-order logic and second-order logic.
-	
+
 In computer science literature the term \textbf{DQBF} was first used in \cite{peterson1979multiple} to model multiple person (team) games of incomplete information.
 The generalization of the alternation machines (nondeterministic Turing Machines with existential and universal quantifiers alternation, conceptually similar to QBF) to classes of machines namely multiple person alternation machines (conceptually DQBF).
 
@@ -106,10 +106,10 @@ Both the works generalize alternation machines \cite{chandra1981lj} and \cite{fr
 Incomplete information means the players do not have common knowledge of the game being played.
 The common knowledge can be payoffs, who the other players are, what moves are possible, what opponent knows, and what he knows I know, etc.
 
-A multiple person (team) game consists of $k+1$ players, $\{0, 1,2, ... ,k\}$ divided into two teams, Team A and Team B.
+A multiple person (team) game consists of $k+1$ players, $\{0, 1,2, \dots ,k\}$ divided into two teams, Team A and Team B.
 Team A is our team of preference.
 One property of these games is that the size of Team A will be the determinate of the complexity of the game and therefore Team B need only be one player.
-So we identify Team A with Players $1,...,k$ and Team B with Player 0.
+So we identify Team A with Players $1,\dots,k$ and Team B with Player 0.
 
 The use of the word succinct means no more than squaring in size. Consider a DQBF
 \[
@@ -142,8 +142,8 @@ The paper also shows that PEC is equivalent to DQBF. Therefore PEC lies in the s
 
 The original work of \cite{schollb01} used SAT or QBF formulation for solving PEC. The SAT formulation was
 efficient but inaccurate due to a coarse
-approximation. 
-To overcome this drawback a QBF formulation was presented that can solve PEC for a single black box. 
+approximation.
+To overcome this drawback a QBF formulation was presented that can solve PEC for a single black box.
 No feasible algorithmic method was presented to handle multiple black boxes.
 
 Follow up works \cite{gitinarswb13, gitinarswb13r, wimmerws018} used DQBF to solving PEC with multiple black boxes.
@@ -167,14 +167,14 @@ If these implementations exist, we say the partial design is realizable, otherwi
 
 \begin{figure}[]
 	\includegraphics[width=9cm, height=7cm]{pec}
-	\centering 
+	\centering
 	\caption{PEC}\label{fig:pec}
 \end{figure}
 
-\begin{example}
+\begin{example} \label{eg:dqbf}
 Consider $x_1 \oplus x_2$ as the specification and as an
-implementation a partial circuit with three gates and two black boxes as given in Fig.~\ref{fig:pec}. 
-PEC problem: Is there a realization of both black boxes $BB_1$ and $BB_2$ such that the implementation is equivalent to the specification for every value of the inputs $x_1$ and $x_2$? 
+implementation a partial circuit with three gates and two black boxes as given in Fig.~\ref{fig:pec}.
+PEC problem: Is there a realization of both black boxes $BB_1$ and $BB_2$ such that the implementation is equivalent to the specification for every value of the inputs $x_1$ and $x_2$?
 
 To answer this question, we add an additional equivalence (or XNOR) gate for each corresponding output of the specification and implementation and require the outputs of these equivalence gates to be constantly 1.
 \end{example}
@@ -185,19 +185,86 @@ Both \cite{gitinarswb13, gitinarswb13r} present a linear transformation from PEC
 Let's introduce notations for partial combinational circuits $P$ :
 
 \begin{itemize}
-\item $x_1,...,x_n$: primary inputs of the circuit.
-\item $BB_1 ,..., BB_m$: black boxes of the circuit in topological order.
-\item $\overrightarrow{I_i}$: inputs of $BB_i (i = 1,..., m)$.
-\item $\overrightarrow{Y_i}$: inputs of $BB_i (i = 1,..., m)$.
-\item $\overrightarrow{F_i}(x_1,..., x_n, Y_1,...,Y_{i-1}$: vector of functions defining $\overrightarrow{I_i}$. 
-\item $R(x_1,..., x_n, Y_1,...,Y_{m}$: is the output function of the circuit. 
+\item $x_1,\dots,x_n$: primary inputs of the circuit.
+\item $BB_1 ,\dots, BB_m$: black boxes of the circuit in topological order.
+\item $\overrightarrow{I_i}$: inputs of $BB_i (i = 1,\dots, m)$.
+\item $\overrightarrow{Y_i}$: inputs of $BB_i (i = 1,\dots, m)$.
+\item $\overrightarrow{F_i}(x_1,\dots, x_n, Y_1,\dots,Y_{i-1}$: vector of functions defining $\overrightarrow{I_i}$.
+\item $R(x_1,\dots, x_n, Y_1,\dots,Y_{m}$: is the output function of the circuit.
 \end{itemize}
 \begin{figure}[]
 	\includegraphics[width=6cm, height=7cm]{not}
-	\centering 
+	\centering
 	\caption{PEC}\label{fig:notation}
-\end{figure}	
+\end{figure}
 
+We assume w.l.o.g. that $Y_i \cap I_j = \emptyset$  for all $i,j$. That means no output of a black box is directly connected to an input of another black box.
+The primary inputs $x_1 ,\dots, x_n$ and the black box inputs $\overrightarrow{I_1},\dots,\overrightarrow{I_m}$ are universally quantified, all other variables are existentially
+quantified.
+The dependency set of black box output $y_{i,j}$ contains exactly the inputs $\overrightarrow{I_i}$ of $BB_i$.
+We construct the quantifier prefix of the DQBF as follows:
+\[
+\forall x_1,\dots,x_n \, \forall \overrightarrow{I_1},\dots,\overrightarrow{I_m} \, \exists \overrightarrow{Y_1}(\overrightarrow{I_1}),\dots, \exists \overrightarrow{Y_m}(\overrightarrow{I_m})
+\]
+If the black boxes are not directly connected to the primary inputs but to internal signals we have to take into account that not all possible combinations of values may arrive at the inputs of the black boxes.
+Since we use a universal quantification for the black box inputs we have to ensure that our formula is satisfied if the value of the black box inputs $I_i$ deviates from the values
+obtained as a function $\overrightarrow{F_i} (x_1 ,\dots, x_n,\overrightarrow{Y_1} ,\dots ,\overrightarrow{Y}_{i-1} )$
+
+\begin{equation}
+\begin{split}\nonumber
+	 \varphi &=  \big( \overrightarrow{I_1} \not\equiv \overrightarrow{F_1} (x_1 ,\dots, x_n)  \big) \, \lor \, \dots \lor  \\
+	 & \big( \overrightarrow{I_m} \not\equiv \overrightarrow{F_m} (x_1 ,\dots,x_m, \overrightarrow{Y_1} ,\dots,\overrightarrow{Y}_{m-1})  \big) \\
+	 & \lor R(x_1,\dots, x_n, \overrightarrow{Y_1},\dots,\overrightarrow{Y_m})
+\end{split}
+\end{equation}
+
+This formula is not necessarily given in CNF. By applying Tseitin transformation (introducing auxiliary variables for the internal signals of the circuit), one can obtain a
+CNF $\varphi^{\prime}$ that is satisfiability equivalent to $\varphi$ and whose size is linear in the size of $\varphi$.
+Let $\overrightarrow{A}$ be the vector of these auxiliary variables, which are existentially quantified in the quantifier prefix.
+Their dependency set encompasses all universally quantified variables.
+
+\begin{equation}
+\begin{split}\nonumber
+\Phi &= 	\forall x_1,\dots,x_n \, \forall \overrightarrow{I_1},\dots,\overrightarrow{I_m} \, \exists \overrightarrow{Y_1}(\overrightarrow{I_1}),\dots, \exists \overrightarrow{Y_m}(\overrightarrow{I_m}) \, \\
+& \,\,\,\,\,\,\,\, \exists \overrightarrow{A}(x_1,\dots,x_n, \overrightarrow{I_1},\dots,\overrightarrow{I_m}): \varphi^{\prime}
+\end{split}
+\end{equation}
+
+The formula $\Phi$ is satisfied if and only if we can replace
+all $\overrightarrow{Y_i}$ with Skolem functions $\overrightarrow{s}_{\overrightarrow{Y_i},\overrightarrow{I_i}}$ such that $\varphi^{\prime}$ becomes a tautology.
+The Skolem functions $\overrightarrow{s}_{\overrightarrow{Y_i},\overrightarrow{I_i}}$ exist if and only if there are implementations for the black boxes $BB_i$ of the PEC, such that the specification is realized.
+
+\begin{lemma}
+  Any PEC can be translated into an equivalent DQBF with linear effort.
+\end{lemma}
+
+
+\begin{example}
+  For the Example~\ref{eg:dqbf} PEC can be translated to the following DQBF:
+\begin{equation} \nonumber
+  \Phi_{DQBF} = \forall x_1 x_2 \exists y_1 (x_1) y_2 (x_2) :
+  \big( (y_1 \lor y_2) \lor (x_1 \land \neg x_2) \big) \equiv (x_1 \oplus x_2)
+\end{equation}
+The primary inputs $x_1$ and $x_2$ get universally quantified.
+The input functions $F_1$ and $F_2$ are the identity functions (of $x_1$ and $x_2$).
+The black box inputs are directly connected to the primary inputs and therefore we do not need additional variables for them.
+The black box outputs $y_1$ and $y_2$ are existentially quantified.
+The signal $y_1$ depends on $x_1$ ($BB_1$ has $x_1$ as input) and signal $y_2$ depends on $x_2$.
+The three gates of the implementation (Example~\ref{eg:dqbf}) are represented by the Boolean expression $(y_1 \lor y_2) \lor (x_1 \land \neg x_2)$.
+For the matrix (given the inputs of the black boxes are consistently assigned) we require the implementation must be equal to $(x_1 \oplus x_2)$.
+\end{example}
+
+\begin{lemma}
+  Any DQBF can be translated into an equivalent PEC with linear effort (easy to show).
+\end{lemma}
+
+\begin{theorem}
+  PEC and DQBF are polynomially equivalent.
+\end{theorem}
+
+\begin{corollary}
+  PEC is NEXPTIME-complete.
+\end{corollary}
 
 \section{First solving approach: DQDPLL}
 The first solving approach was presented in~\cite{frohlich2012dpll}.
@@ -211,7 +278,7 @@ The motivation was to solve the quantifier-free bit-vector formulas (QF\_BV) by 
 The presented algorithm solve DQBF based on variable elimination (\cite{biere2004resolve}).
 
 \section{First publicly available solver}
-The technique presented in~\cite{finkbeiner2014fast} is similar to BMC encoding of QBF and can only solve UNSAT problems.  
+The technique presented in~\cite{finkbeiner2014fast} is similar to BMC encoding of QBF and can only solve UNSAT problems.
 
 \section{Complete solver: iDQ}
 The iDQ solver presented in~\cite{frohlich2014idq} adapts and extends the Inst-Gen approach (solving approach for EPR logic, fragment of first order logic) to DQBF.
@@ -223,7 +290,7 @@ The solver expands DQBF to QBF, eliminates the minimum set of variables that cau
 dependencies and uses AIGs to detect units and pure literals.
 
 \section{Preprocessing and inprocessing}
-The work of~\cite{wimmer2015preprocessing} generalize preprocessing techniques for QBF to DQBF. 
+The work of~\cite{wimmer2015preprocessing} generalize preprocessing techniques for QBF to DQBF.
 %
 The technique includes, blocked clause elimination, equivalence reasoning, structure extraction, and variable elimination by resolution.
 
@@ -233,9 +300,9 @@ The techniques, variable elimination routines, clause elimination routines, clau
 
 \section{Dependency}
 \todo{Only read overview of the papers in this section: read completely}The work by~\cite{wimmer2016dependency} analyse the dependency
-schemes proposed for QBF to apply on DQBF. 
+schemes proposed for QBF to apply on DQBF.
 %
-The paper gives correctness proof of the few that are sound for DQBF. 
+The paper gives correctness proof of the few that are sound for DQBF.
 %
 
 The \cite{wimmer2017dqbf} eliminate of dependencies of DQBF to convert it to an equisatisfiable QBF.
@@ -256,10 +323,10 @@ The work~\cite{beyersdorff2016lifting} examines the lifting existing resolution 
 QBF have a strict chain of proof systems, where Q-Res $<$ IR-calc $<$ IRM-calc.
 %
 
-In the case of DQBF the obvious adaptations of Q-Res and universal resolution turns out to be too weak: they are not complete. 
+In the case of DQBF the obvious adaptations of Q-Res and universal resolution turns out to be too weak: they are not complete.
 %
 The obvious adaptation of IR-calc has
-the right strength: it is sound and complete. 
+the right strength: it is sound and complete.
 %
 The IRM-calc and long-distance resolution is too strong: it is not sound any more.
 
@@ -267,27 +334,27 @@ The IRM-calc and long-distance resolution is too strong: it is not sound any mor
 %
 The system has three rules, resolution, universal reduction, and a new proof rule called \textit{fork extensions}.
 
-The definition of resolution admits universal variables as pivots...
+The definition of resolution admits universal variables as pivots\dots
 
 \section{Certification perspective and Skolem functions}
 
 %\begin{enumerate}
-The work of Henkin Quantifiers and Boolean Formulae~\cite{balabanov2012henkin} investigates DQBF's properties like negation, complement, formula expansion, and prenex, non-prenex form conversion. 
+The work of Henkin Quantifiers and Boolean Formulae~\cite{balabanov2012henkin} investigates DQBF's properties like negation, complement, formula expansion, and prenex, non-prenex form conversion.
 %
 The paper used two forms to describe prenex DQBF, Skolem (S-Form) and Herbrand (H-Form) form:
 
 \begin{align}
-\Phi_{S} \,\, = \,\, \forall x_{1}... \forall x_{n} \exists y_{1_{(S_{1})}}...\exists y_{m_{(S_{m})}} . \phi \label{eq1}\\
-\Phi_{H}  \,\, = \,\, \forall x_{1_{(H_{1})}}... \forall x_{n_{(H_{n})}} \exists y_{1}...\exists y_{m} . \phi \label{eq2}
+\Phi_{S} \,\, = \,\, \forall x_{1}\dots \forall x_{n} \exists y_{1_{(S_{1})}}\dots\exists y_{m_{(S_{m})}} . \phi \label{eq1}\\
+\Phi_{H}  \,\, = \,\, \forall x_{1_{(H_{1})}}\dots \forall x_{n_{(H_{n})}} \exists y_{1}\dots\exists y_{m} . \phi \label{eq2}
 \end{align}
 
 Additional subscripts on the quantified variables is just another way to express dependencies, $S_{i} \subseteq A$ and $H_{i} \subseteq E$.
 
-In the case of S-Form, $\exists y_{1_{(S_{1})}}$ means  existential variable $y_{1}$ depend on the universal variables set $S_{1}$. 
+In the case of S-Form, $\exists y_{1_{(S_{1})}}$ means  existential variable $y_{1}$ depend on the universal variables set $S_{1}$.
 %
-Similarly, for the H-form, universal quantifiers in the prefix are annotated with the existential variables they depend on. 
+Similarly, for the H-form, universal quantifiers in the prefix are annotated with the existential variables they depend on.
 
-%Semantically, the truth and falsity of a DQBF is interpreted as existence of Skolem (in the case of \ref{eq1}) and Herbrand fucntion (in the case of \ref{eq2}). 
+%Semantically, the truth and falsity of a DQBF is interpreted as existence of Skolem (in the case of \ref{eq1}) and Herbrand fucntion (in the case of \ref{eq2}).
 Skolem functions serve as the model to a true S-form DQBF whereas Herbrand functions serve as the countermodel to a false H-form DQBF.
 
 Most important property discussed is the notion of \textbf{negation} and \textbf{complement}.
@@ -295,19 +362,19 @@ Most important property discussed is the notion of \textbf{negation} and \textbf
 In the case of negation ($\neg$) the quantifiers are flipped and propositional formula is negated but no change in the dependency set and it's position.
 
 \begin{align}
-\neg \Phi_{S} \,\, =   \,\, \exists x_{1}... \exists x_{n} \forall y_{1_{(S_{1})}}...\forall y_{m_{(S_{m})}} . \neg \phi \label{eq3}
+\neg \Phi_{S} \,\, =   \,\, \exists x_{1}\dots \exists x_{n} \forall y_{1_{(S_{1})}}\dots\forall y_{m_{(S_{m})}} . \neg \phi \label{eq3}
 \end{align}
 
 In the case of complement ($\sim$) the position is shifted from one quantifier type to another in the prefix. Here, $H^{\prime}_{i} = \{ y_{i} \in E \, | \, x_{i} \notin S_{j} \}$
 
 \begin{align}
-\sim \Phi_{S} \,\, =   \,\, \exists x_{1_{(H^{\prime}_1)}}... \exists x_{1_{(H^{\prime}_n)}} \forall y_{1}...\forall y_{m} . \neg \phi \label{eq4}
+\sim \Phi_{S} \,\, =   \,\, \exists x_{1_{(H^{\prime}_1)}}\dots \exists x_{1_{(H^{\prime}_n)}} \forall y_{1}\dots\forall y_{m} . \neg \phi \label{eq4}
 \end{align}
 
-Interestingly the following proposition holds, 
+Interestingly the following proposition holds,
 \begin{prop}
 	DQBF under the negation operation obeys the law of excluded middle but under the complement operation it does not.
-\end{prop} 
+\end{prop}
 
 In the journal paper ``A certification perspective of DQBF"~\cite{balabanov2014henkin} additionally a generalized resolution rule for DQBF evaluation is presented. Although,  it is shown to be sound, but incomplete.
 
@@ -356,7 +423,7 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
     \cline{4-6}
   & & & E1-Autarky & A1-Autarky & E1+A1-Autarky \\
     %\hhline{~--}
-    
+
 \hline
 
 1. & DQBF-track'19 &  334 & 20 & 22 & 22[1] \\ \hline
@@ -370,7 +437,7 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 %% No E1 Check, medium in size
 5. & Ansotegui &  38 & &  &  \\ \hline
 
-% Medium (Very big and few small) Low Autarky, choti choti 
+% Medium (Very big and few small) Low Autarky, choti choti
 6. & Ayari &  71 &  &  &  \\ \hline
 
 % Small +, Low Autarky
@@ -380,7 +447,7 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 8. & Biere &  738 & &  &  \\ \hline
 
 % YUGEEE but some Autarky
-9. & Cashmore-Fox-Giunchiglia &  150 &  &  &  \\ \hline 
+9. & Cashmore-Fox-Giunchiglia &  150 &  &  &  \\ \hline
 
 %% No History Check: Very SMALL TARGET!!, Complete E 1 and A1 bith
 10. & Castellini &  169 & &  &  \\ \hline
@@ -388,14 +455,14 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 %% No E1 Check Small +m Complete the E1 redution run
 11. & Chen &  200 &  &  &  \\ \hline
 
-% No E1 Check Small _ Medium 
+% No E1 Check Small _ Medium
 12. & Diptarama-Jordan-Shinohara &  180 &  &  &  \\ \hline
 
 % No history Check Small TARGET, Run E1
 13. & Egly-Seidl-Tompits-Woltran-Zolda &  1080 &  &  &  \\ \hline
 
 % No History Check Medium, Run E1
-14. & Faber-Leone-Maratea-Ricca &  1060 &  &  &  \\ \hline 
+14. & Faber-Leone-Maratea-Ricca &  1060 &  &  &  \\ \hline
 
 % Big but have some autarkies
 15. & Gent-Rowley &  672 &  &  &  \\ \hline
@@ -408,16 +475,16 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 %% No  E1 Check Small +
 18. & Katz &  20 &  &  &  \\ \hline
 
-% No E1 Check Small 
+% No E1 Check Small
 19. & Klieber & 50 &  &  &  \\ \hline
 
-% Small Good Autarkies E1 not A1 TARGET!	
+% Small Good Autarkies E1 not A1 TARGET!
 20. & Kontchakov&  136 & &  &  \\ \hline
 
-% BIg Excelelnt Autarkies E1 
-21. & Kronegger-Pfandler-Pichler &  1700 &  &   & \\ \hline 
+% BIg Excelelnt Autarkies E1
+21. & Kronegger-Pfandler-Pichler &  1700 &  &   & \\ \hline
 
-% No E1 Check Small 
+% No E1 Check Small
 22. & Lahiri-Seshia & 3 & &  &  \\ \hline
 
 % No E1 Check  Medium
@@ -429,7 +496,7 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 % Small :) No E1
 25. & Ling &  8 & &  &  \\ \hline
 
-% Yuge low Autarky 
+% Yuge low Autarky
 26. & Mangassarian-Veneris &  171 & &  &  \\ \hline
 
 %% Small+ low Autarky Target
@@ -447,7 +514,7 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 31. & Mneimneh-Sakallah &  202 & &  &  \\ \hline
 
 % Medium but too many Can Skip this Family!! No E1!
-32. & Narizzano &  4000 & &  &  \\ \hline 
+32. & Narizzano &  4000 & &  &  \\ \hline
 
 % small a few rest BIG , No E1!
 33. & Palacios & 24 &  &  &  \\ \hline
@@ -467,23 +534,23 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 % Small + size, Small Autarkies
 38. & Rintanen &  131 & &  &  \\\hline
 
-%% Medium to Big (a few small), Low Autarky 
+%% Medium to Big (a few small), Low Autarky
 39. & Sauer-Reimer &  928 & &  & \\ \hline
 
 % Check Small, low autarky, Recalculate some changes/
 40. & Scholl-Becker & 64 &  &  &  \\ \hline
 
-% medium, Low Autarkies  	
+% medium, Low Autarkies
 41. & Seidl &  200 &  &  &  \\ \hline
 
 % Some SAT Some RED!! Small, recheck E1
-42. & Tacchella &  336 & &  &  \\ \hline 
+42. & Tacchella &  336 & &  &  \\ \hline
 
 % Big Medium, No E1
 43. & Tentrup & 1354 &  &  &  \\ \hline \hline
 
 Total &  & 26010 &  &  &  \\  \hline \hline
- 
+
 
 \hline
 \end{tabular}
@@ -511,7 +578,7 @@ Table~\ref{tab:solver-eval} present the result of solver running on the original
 \begin{table}
 	\caption{Total $\Eaut_1+\Aaut_1$ Autark-SAT instance solved by the corresponding (D)QCNF solvers}\label{tab:sat-solver}
 	\begin{tabular}{l|c|c|c|c}
-		
+
 		\hline
 		\multirow{2}{3cm}{Family}  & \multicolumn{4}{c}{(D)QCNF Solver} \\
 		% \hline
@@ -519,11 +586,11 @@ Table~\ref{tab:solver-eval} present the result of solver running on the original
 		\cline{2-5}
 		& Caqe & DepQbf & Qute & HQSpre  \\
 		%\hhline{~--}
-		
+
 		\hline
-		
+
 		SAT-instances (500) &  474 & 484 & 485 & 392 \\
-		
+
 		\hline
 	\end{tabular}
 \end{table}
@@ -531,18 +598,18 @@ Table~\ref{tab:solver-eval} present the result of solver running on the original
 \begin{table}
 	\caption{Comparison of the (D)QCNF instances solved without and with autarky reduction. \emph{Orig} represent the original instance and \emph{Red} represent the autarky reduced formula. Number inside () represents uniquely solved instances.  }\label{tab:solver-eval}
 	\begin{tabular}{l| c |c c c }
-		
+
 		\hline
 		\multirow{2}{2.5cm}{Solvers} &  \multirow{2}{1cm}{Type} & \multicolumn{3}{c}{Instances} \\
 		\cline{3-5}
 		& & Random-255 [$\Aaut_1$] & Random-336 [$\Eaut_1+\Aaut_1$] & Random-500 [$\Eaut_1$] \\\hline
 		% \hline
 		% \textbf{Inactive Modes} & \textbf{Description}\\
-		
+
 		%   & & \multicolumn{2}{c}{Caqe} &\multicolumn{2}{c}{Depqbf} & \multicolumn{2}{c}{Qute}& \multicolumn{2}{c}{HQSpre}\\  \cline{3-10}
 		%     & & Orig & Red & Orig & Red & Orig & Red & Orig & Red \\
 		%\hhline{~--}
-		
+
 		\hline
 		\multirow{2}{*}{\caqe} & Orig & 193(4) & 228(2) & 381(2) \\
 		& Red & 196(7) & 230(4) & 380(1)\\\hline
@@ -559,7 +626,7 @@ Table~\ref{tab:solver-eval} present the result of solver running on the original
 		%%PCNF-track'18 &  463 & 168 & 82 & 174 \\ \hline
 		%Random set-2 ($\Eaut_1+\Aaut_1$)&  255 & 193(4) & 196(7) & 184(2)& 183(1) & 117(1) & 124(8) & 96(0)& 98(2) \\\hline
 		%Random set-3 (Only E1) &  500 & 381(2) & 380(1) & 365(7) & 367(9) & 283(3) & 281(1) & 279(4) & 280(5) \\
-		
+
 		\hline
 	\end{tabular}
 \end{table}
