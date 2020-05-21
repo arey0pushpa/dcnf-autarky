@@ -78,7 +78,7 @@ class Variables {
   set_t neg_cls;
 
   bool present;
-  //  cl_t subset_e;
+  cl_t subset_e;
 
   Variables() : quantype('a'), dependency({}), present(1) {}
   void initialise_qtype(char c) { quantype = c; }

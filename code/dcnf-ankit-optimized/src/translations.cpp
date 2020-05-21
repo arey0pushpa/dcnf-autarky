@@ -16,14 +16,14 @@ void dcnf::existential_subset() {
       d2 = dcnf_variables[e2].dependency;
       if (d1.size() > d2.size()) {
         if (std::includes(d1.begin(), d1.end(), d2.begin(), d2.end())) {
-          dcnf_variables[e1].dependency.push_back(e2 + 1);
+          dcnf_variables[e1].subset_e.push_back(e2 + 1);
         }
       } else if (std::includes(d2.begin(), d2.end(), d1.begin(), d1.end())) {
         if (d1.size() < d2.size()) {
-          dcnf_variables[e2].dependency.push_back(e1 + 1);
+          dcnf_variables[e2].subset_e.push_back(e1 + 1);
         } else {
-          dcnf_variables[e1].dependency.push_back(e2 + 1);
-          dcnf_variables[e2].dependency.push_back(e1 + 1);
+          dcnf_variables[e1].subset_e.push_back(e2 + 1);
+          dcnf_variables[e2].subset_e.push_back(e1 + 1);
         }
       }
     }
@@ -668,6 +668,13 @@ coord_t dcnf::e_autarky(lit_t e) {
       return 10;
   }
   cl_t vec = dcnf_variables[e - 1].dependency;
+  if (gen > 0) {
+    cl_t sset_e = dcnf_variables[e - 1].subset_e;
+    for (lit_t e : sset_e) {
+      vec.push_back(e);
+    }
+  }
+
   // OPTIMISATION: If a clause in s1 do not have any dep_var of e, QUIT!!
   for (lit_t j : s1) {
     // if (!dcnf_clauses[j].present) continue;

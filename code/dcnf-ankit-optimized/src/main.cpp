@@ -248,7 +248,9 @@ int main(int argc, char *argv[]) {
               << "\nc\n";
   }
 
-  d->min_satisfying_assgn(d->aut_level);
+  if (d->reduction_type == 2 || d->reduction_type == 3) {
+    d->min_satisfying_assgn(d->aut_level);
+  }
   d->old_cls_size = cls_size;
   coord_t updated_cls_size = 0;
 
@@ -256,7 +258,9 @@ int main(int argc, char *argv[]) {
     // E_Autarky reduction
     if (d->reduction_type == 1 || d->reduction_type == 3) {
       auto t1 = std::chrono::high_resolution_clock::now();
-      d->selected_boolfunc(d->aut_level);
+      if (d->reduction_type == 3) {
+        d->selected_boolfunc(d->aut_level);
+      }
       cl_t iter_active_evars;
       if (d->output_type == 0)
         std::cout << "c Performing E1-Autarky iteration.\n";
