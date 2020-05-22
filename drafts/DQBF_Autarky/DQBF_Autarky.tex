@@ -150,8 +150,25 @@ The QBVF-satisfiability problem (the problem of deciding whether a QBVF is satis
 The QBVF supports uninterpreted function and predicate symbols.
 
 QBF problem can be easily encoded in QBVF
-by using bit-vectors of size 1. The converse is not true, QBVF
-is more expressive than QBF.
+by using bit-vectors of size 1.
+
+\begin{example}
+  XXX
+\end{example}
+
+The converse is not true, QBVF is more expressive than QBF.
+For instance, uninterpreted function symbols can be used to simulate non-linear quantifier prefixes.
+The EPR fragment of first-order logic comprises formulas of the form $\exists * \forall * \varphi$, where $\varphi$ is a quantifier-free formula with predicates but without function symbols.
+EPR is a decidable fragment because the Herbrand universe of a
+EPR formula is always finite. The satisfiability problem for
+EPR is NEXPTIME-complete.
+
+\begin{theorem}
+  The satisfiability problem for QBVF is
+  NEXPTIME-complete.
+\end{theorem}
+
+No transformation from BV to DQBF is presented. The paper use set of simplifications and rewriting techniques that transform the input into a set of equations that an SMT solver is able to solve efficiently.
 
 \subsection{Verification of incomplete combinational and sequential circuits}\label{subsec:pec}
 
