@@ -125,6 +125,7 @@ class dcnf {
     coord_t output_type = 0;   // commandline o/p
     result = "NONE";
     ever_reduced = 0;
+    ered_last = 0;
     naut = 0;
   }
 
@@ -162,6 +163,7 @@ class dcnf {
   coord_t old_cls_size;
   // coord_t updated_cls_size;
   coord_t ever_reduced;
+  coord_t ered_last;
   std::chrono::high_resolution_clock::time_point start_time;
 
   cl_t active_evars;    // Current evar set of active variables

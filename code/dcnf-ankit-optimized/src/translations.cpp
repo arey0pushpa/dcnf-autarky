@@ -170,8 +170,9 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
     result = "SAT";
     print_results();
   }
-  if ((aut_present == 20 && result != "RED") ||
-      (aut_present == 20 && reduction_type == 2)) {
+  if (((aut_present == 20 && result != "RED") ||
+       (aut_present == 20 && reduction_type == 2)) &&
+      ered_last != 1) {
     if (ever_reduced) {
       result = "RED";
     } else {
@@ -181,7 +182,8 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
   }
   old_cls_size = present_clauses.size();
   ++naut;
-  result = "RED";
+  // result = "RED";
+  ered_last = 0;
 }
 
 std::string display_string(cl_t& container) {

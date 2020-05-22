@@ -129,7 +129,29 @@ Both the work \cite{petersonr79, peterson2001lower} is theoretical in nature. Th
 \cite{peterson2001lower} provide matching lower bounds for the decision algorithms for these games.
 
 \subsection{Bit-vector logics}\label{subsec:bitvectors}
-Certain bit-vector logics \cite{kovasznaifb12, wintersteigerhm13}.
+Certain bit-vector logics \cite{kovasznaifb12, wintersteigerhm10}.
+
+The satisfiability problem for quantifier-free bit-vector logic is NP-hard \cite{barrettdl98}.
+A sublogic of quantifier-free bit-vector is claimed to be NP-complete \cite{bruttomessos09}.
+The satisfiability problem of quantified bit-vectors with uninterpreted functions is proven to be NExpTime-complete \cite{wintersteiger2011termination, wintersteigerhm10, wintersteigerhm13}.
+The proof holds only if we assume that the bit-widths of the bit-vectors in the input formula are written/encoded
+in unary form.
+
+The \cite{kovasznaifb12} shows the complexity results of binary encoded problem for solving fixed-size bit-vector formulas .
+
+The \cite{wintersteigerhm10, wintersteigerhm13} present a new approach to solving quantified bit-vector (QBVF) logic.
+This logic allows for a direct mapping of
+hardware and (finite-state) software verification problems.
+
+A Quantified Bit-Vector Formula (QBVF) is a many-sorted
+first-order logic formula where the sort of every variable
+is a bit-vector sort.
+The QBVF-satisfiability problem (the problem of deciding whether a QBVF is satisfiable modulo the theory of bit-vectors) is decidable because every universal (existental) quantifier can be expanded into a conjunction (disjunction) of potentially exponential, but finite size.
+The QBVF supports uninterpreted function and predicate symbols.
+
+QBF problem can be easily encoded in QBVF
+by using bit-vectors of size 1. The converse is not true, QBVF
+is more expressive than QBF.
 
 \subsection{Verification of incomplete combinational and sequential circuits}\label{subsec:pec}
 

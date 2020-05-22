@@ -291,6 +291,7 @@ int main(int argc, char *argv[]) {
         d->print_results();
       } else if (updated_cls_size != d->old_cls_size) {
         d->ever_reduced = 1;
+        d->ered_last = 1;
         d->result = "RED";
         d->naut += 1;
         if (d->reduction_type == 1) {
