@@ -41,7 +41,6 @@
 \newcommand{\hqspre}{\textsc{HQSpre}}
 \newcommand{\autfinder}{\textsc{Autark-Finder}}
 
-
 \begin{document}
 
 \title{Autarkies for DQBF}
@@ -129,38 +128,36 @@ Both the work \cite{petersonr79, peterson2001lower} is theoretical in nature. Th
 \cite{peterson2001lower} provide matching lower bounds for the decision algorithms for these games.
 
 \subsection{Bit-vector logics}\label{subsec:bitvectors}
-Certain bit-vector logics \cite{kovasznaifb12, wintersteigerhm10}.
+We focus on certain bit-vector logics \cite{kovasznaifb12, wintersteigerhm10}, which are NEXPTIME-Complete.
+
+\subsubsection{Solving quantified bit-vector logic \cite{wintersteigerhm10, wintersteigerhm13}}
 
 The satisfiability problem for quantifier-free bit-vector logic is NP-hard \cite{barrettdl98}.
-A sublogic of quantifier-free bit-vector is claimed to be NP-complete \cite{bruttomessos09}.
-The satisfiability problem of quantified bit-vectors with uninterpreted functions is proven to be NExpTime-complete \cite{wintersteiger2011termination, wintersteigerhm10, wintersteigerhm13}.
-The proof holds only if we assume that the bit-widths of the bit-vectors in the input formula are written/encoded
+A sublogic of quantifier-free bit-vector is NP-complete \cite{bruttomessos09}.
+The satisfiability problem of quantified bit-vectors with uninterpreted functions is NEXPTIME-complete \cite{wintersteiger2011termination, wintersteigerhm10, wintersteigerhm13}.
+The proof holds only if we assume that the bit-widths of the bit-vectors in the input formula are encoded
 in unary form.
 
-The \cite{kovasznaifb12} shows the complexity results of binary encoded problem for solving fixed-size bit-vector formulas .
-
-The \cite{wintersteigerhm10, wintersteigerhm13} present a new approach to solving quantified bit-vector (QBVF) logic.
-This logic allows for a direct mapping of
-hardware and (finite-state) software verification problems.
+%The \cite{wintersteigerhm10, wintersteigerhm13} present a new approach to solving quantified bit-vector (QBVF) logic.
+%This logic allows for a direct mapping of hardware and (finite-state) software verification problems.
 
 A Quantified Bit-Vector Formula (QBVF) is a many-sorted
 first-order logic formula where the sort of every variable
 is a bit-vector sort.
-The QBVF-satisfiability problem (the problem of deciding whether a QBVF is satisfiable modulo the theory of bit-vectors) is decidable because every universal (existental) quantifier can be expanded into a conjunction (disjunction) of potentially exponential, but finite size.
-The QBVF supports uninterpreted function and predicate symbols.
-
-QBF problem can be easily encoded in QBVF
-by using bit-vectors of size 1.
 
 \begin{example}
   XXX
 \end{example}
 
+The QBVF-satisfiability problem (the problem of deciding whether a QBVF is satisfiable modulo the theory of bit-vectors) is decidable because every universal (existental) quantifier can be expanded into a conjunction (disjunction) of potentially exponential, but finite size.
+The QBVF supports uninterpreted function and predicate symbols.
+
+QBF problem can be easily encoded in QBVF
+by using bit-vectors of size 1.
 The converse is not true, QBVF is more expressive than QBF.
 For instance, uninterpreted function symbols can be used to simulate non-linear quantifier prefixes.
 The EPR fragment of first-order logic comprises formulas of the form $\exists * \forall * \varphi$, where $\varphi$ is a quantifier-free formula with predicates but without function symbols.
-EPR is a decidable fragment because the Herbrand universe of a
-EPR formula is always finite. The satisfiability problem for
+EPR is a decidable fragment and the satisfiability problem for
 EPR is NEXPTIME-complete.
 
 \begin{theorem}
@@ -168,16 +165,20 @@ EPR is NEXPTIME-complete.
   NEXPTIME-complete.
 \end{theorem}
 
-No transformation from BV to DQBF is presented. The paper use set of simplifications and rewriting techniques that transform the input into a set of equations that an SMT solver is able to solve efficiently.
+No transformation from QBVF to DQBF is presented. The paper use set of simplifications and rewriting techniques that transform the input into a set of equations that an SMT solver is able to solve efficiently.
+
+\subsubsection{Solving bit-vector logic with binary encoding \cite{kovasznaifb12}}
+The \cite{kovasznaifb12} shows the complexity results of binary encoded problem for solving fixed-size bit-vector formulas. The binary encoding adds more expressiveness to
+bit-vector logics, e.g. it makes fixed-size bit-vector logic even without uninterpreted functions nor quantification NEXPTIME-complete. XXX
 
 \subsection{Verification of incomplete combinational and sequential circuits}\label{subsec:pec}
 
 The partial equivalence checking problem (\textbf{PEC}) \cite{gitinarswb13r}: checking whether a partial design can be extended
 such that it is equivalent to a given specification, i. e., whether the specification can be realized.
 If it turns out that there is no feasible extension, the available parts are erroneous and must be fixed. This helps to detect errors in an early stage of a design.
-The partial design is a combinational circuit containing
-black boxes and the specification is also a combinational circuit.
-The paper also shows that PEC is equivalent to DQBF. Therefore PEC lies in the same complexity class as DQBF, namely NEXPTI1ME-complete.
+
+Both the partial design (containing black boxes) and the specification is a combinational circuit.
+The paper also shows that PEC is equivalent to DQBF. Therefore PEC lies in the same complexity class as DQBF, namely NEXPTIME-complete.
 
 The original work of \cite{schollb01} used SAT or QBF formulation for solving PEC. The SAT formulation was
 efficient but inaccurate due to a coarse
@@ -305,7 +306,7 @@ For the matrix (given the inputs of the black boxes are consistently assigned) w
   PEC is NEXPTIME-complete.
 \end{corollary}
 
-\subsection{BMC for Incomplete Designs \cite{drechsler2018formal}}
+\subsubsection{BMC for Incomplete Designs \cite{drechsler2018formal}}
 The complexity of deciding realizability depends on the allowed behavior of the black boxes:
 \begin{enumerate}
   \item If we assume that the contents of the black boxes are combinational circuits, the problem of deciding realizability is NEXPTIME-complete.
@@ -318,6 +319,72 @@ properties were considered: Given a Boolean formula $P(x, s, y)$, which describe
 First a QBF modeling was presented. However, if the black box in the design is not directly connected to all primary inputs, (i.e., if the black box does not have ``complete information"), the property may be unrealizable, although BMC with QBF modeling is not able to prove this.
 In that case, DQBF is necessary to express the actual dependencies of the black boxes on their inputs.
 XXX
+
+\subsection{Distributed Synthesis for LTL Fragments \cite{chatterjee13}}
+
+%\cite{chatterjee13} consider the distributed synthesis problem for temporal logic specifications.
+
+The distributed synthesis problem \cite{pnueli90} extends
+the classical synthesis problem of constructing a system from a given temporal logic specification to a distributed setting.
+
+The input for distributed synthesis problem is:
+\begin{enumerate}
+  \item An architecture of synchronously communicating processes, that exchange messages through communication channels.
+  \item A specification given as a temporal logic formula.
+\end{enumerate}
+
+The synthesis question is: to construct a reactive system for each process such that the specification is satisfied.
+The logic used to express the temporal logic specification is the linear-time temporal logic (LTL).
+
+Previous results:
+In general the distributed synthesis problem is undecidable for LTL, but the problem is decidable for pipeline architectures.
+The undecidability proof uses ideas originating from the undecidability proof of three-player imperfect-information games \cite{peterson2001lower}.
+
+The result of the paper relevant to us: Temporal specifications without the next operator (a fragment of LTL, LTL$_{AG}$) is NEXPTIME-complete.
+%The problem of realizability is decidable in non-deterministic exponential time in the size of the specification.
+If we consider a set of safety assumptions, and a set of guarantees such that each guarantee is a safety, reachability, or a liveness guarantee, then the distributed synthesis problem is NEXPTIME-complete for all architectures.
+
+Fragment LTL$_{AG}$. Consider formulae $\phi$ from the following LTL fragment (standard semantics of LTL is used: $\square$ is Globally; property is always true. $\lozenge$ is Finally: property eventually has to hold ):
+
+\begin{flalign*}
+  \phi &= \bigwedge_i \square P_i \to \big( \bigwedge_i \square Q_i \land \bigwedge_i \square \lozenge R_i \land \bigwedge_i \lozenge F_i \big)
+\end{flalign*}
+
+for $i \in {1,\dots,m}$, with $P_i$,
+$Q_i$, $R_i$, $F_i$ are propositional formulae, P = $\land_i P$ and Q = $\land_i Q$.
+This fragment can express specifications that
+consist of conjunction of safety assumptions, and guarantees
+where each guarantee is a safety, reachability, or a liveness
+condition.
+
+Local strategy: For every process $p$ a local strategy is a function setting the output variables of $p$ according to the history of its input variables. They only depend on the
+information available.
+
+Memoryless strategy: they do not depend on the
+history, only on the current state.
+
+\begin{lemma}
+  Deciding whether every $\phi_{F_i}, \phi_{R_i}$ is realizable reduces to realizing the propositional formulae $(P \to (Q  \land R_i))$ and $(P \to (Q  \land F_i))$.
+\end{lemma}
+
+\begin{lemma}
+  Every formula $ \phi \in LTL_{AG}$ is realizable if and only if it admits local strategies for all the corresponding $\phi_{F_i}, \phi_{R_i}$
+\end{lemma}
+
+Deciding whether every $\phi_{F_i}, \phi_{R_i}$ is realizable can be done in NEXPTIME, by having a non-deterministic Turing machine guessing the local strategies of all processes, and verifying that such strategies satisfy the formula under all the (exponentially many) possible inputs of the environment.
+
+The problem is shown to be NEXPTIME-hard, via a reduction
+from the Dependency Quantifier Boolean Formula (DQBF)
+validity problem \cite{peterson2001lower}.
+
+\begin{theorem}
+  Given an architecture $A$ and a formula  $\phi \in LTL_{AG}$,
+  deciding whether $\phi$ is realizable in $A$ is NEXPTIME-hard.
+\end{theorem}
+
+\begin{theorem}
+  Given an architecture $A$ and a specification $\phi \in LTL_{AG}$, the realizability of $\phi$ in A is NEXPTIME-complete.
+\end{theorem}
 
 \section{First solving approach: DQDPLL}
 The first solving approach was presented in~\cite{frohlich2012dpll}.
@@ -352,7 +419,7 @@ In further work~\cite{wimmer2017hqspre} presents a preprocessor HQSpre for both 
 The techniques, variable elimination routines, clause elimination routines, clause strengthening routines, dependency schemes and gate rewriting.
 
 \section{Dependency}
-\todo{Only read overview of the papers in this section: read completely}The work by~\cite{wimmer2016dependency} analyse the dependency
+The work by~\cite{wimmer2016dependency} analyse the dependency
 schemes proposed for QBF to apply on DQBF.
 %
 The paper gives correctness proof of the few that are sound for DQBF.
@@ -383,7 +450,7 @@ the right strength: it is sound and complete.
 %
 The IRM-calc and long-distance resolution is too strong: it is not sound any more.
 
-\todo{Incomplete and only intro}The work of~\cite{rabe2017resolution} presents a sound and complete proof system for DQBF.
+The work of~\cite{rabe2017resolution} presents a sound and complete proof system for DQBF.
 %
 The system has three rules, resolution, universal reduction, and a new proof rule called \textit{fork extensions}.
 
