@@ -269,6 +269,10 @@ int main(int argc, char *argv[]) {
         if (aut_present == 0) {
           iter_active_evars.push_back(e);
         } else if (aut_present == 10) {
+          if (d->output_type == 0) {
+            std::cout << "c Remaining clauses count after E-Reduction: "
+                      << d->present_clauses.size() << "\nc\n";
+          }
           d->result = "SAT";
           // Use of next two lines?
           d->update_avars();
@@ -276,16 +280,16 @@ int main(int argc, char *argv[]) {
           d->print_results();
         }
       }
-      if (d->output_type == 0) {
-        std::cout << "c Remaining clauses count after E-Reduction: "
-                  << d->present_clauses.size() << "\n";
-      }
       updated_cls_size = d->present_clauses.size();
       auto t2 = std::chrono::high_resolution_clock::now();
       auto duration =
           std::chrono::duration_cast<std::chrono::seconds>(t2 - t1).count();
       std::cout << "c This E_Autarky iteration took: " << duration
-                << " secs.\nc\n";
+                << " secs.\n";
+      if (d->output_type == 0) {
+        std::cout << "c Remaining clauses count after E-Reduction: "
+                  << d->present_clauses.size() << "\nc\n";
+      }
       if (updated_cls_size == d->old_cls_size &&
           (d->reduction_type == 1 || d->result == "UNSAT")) {
         d->print_results();

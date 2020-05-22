@@ -123,7 +123,7 @@ class dcnf {
     reduction_type = 2;        // a-autarky
     coord_t aut_present = 10;  // autarky present
     coord_t output_type = 0;   // commandline o/p
-    result = "NONE";
+    result = "LEAN";
     ever_reduced = 0;
     ered_last = 0;
     naut = 0;
@@ -145,7 +145,7 @@ class dcnf {
 
   coord_t ntaut;          // No of tautological clauses
   coord_t naut;           // No of autarkies found.
-  std::string result;     // SAT, UNSAT, RED, NONE, T/O, ERR
+  std::string result;     // SAT, UNSAT, RED, LEAN, T/O, ERR
   coord_t no_of_vars;     // No Of variables in the input
   coord_t no_of_clauses;  // Input clause set
   cl_t e_vars;            // e variables in the input

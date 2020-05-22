@@ -176,7 +176,7 @@ void dcnf::display_result(coord_t aut_present, coord_t output_type) {
     if (ever_reduced) {
       result = "RED";
     } else {
-      result = "NONE";
+      result = "LEAN";
     }
     print_results();
   }
@@ -206,6 +206,12 @@ void dcnf::display_rresult() {
   // const char *command = str.c_str();
   // system(command);
   std::string aut_type;
+  if (ever_reduced) {
+    result = "RED";
+  }
+  if (present_clauses.size() == 0) {
+    result = "SAT";
+  }
   if (reduction_type == 1) {
     aut_type = "E1";
   } else if (reduction_type == 2) {
