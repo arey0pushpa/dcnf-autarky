@@ -90,6 +90,10 @@ Systems of partially ordered quantification are intermediate in strength between
 In computer science literature the term \textbf{DQBF} was first used in \cite{peterson1979multiple} to model multiple person (team) games of incomplete information.
 The generalization of the alternation machines (nondeterministic Turing Machines with existential and universal quantifiers alternation, conceptually similar to QBF) to classes of machines namely multiple person alternation machines (conceptually DQBF).
 
+\section{EPR}
+EPR is a subset of first-order logic that contains formulas of the form $\exists A . \forall B . \varphi$, where $A$ and $B$ are disjoint vectors of variables ranging over some domain $D$, and $\varphi$ is a function-free first-order formula in CNF. 
+The formula $\varphi$  can contain predicates, which are (implicitly) existentially quantified.
+
 \section{DQBF-Horn}\label{sec:dqbf-horn}
 There is an interesting work on dependency quantified horn formulas \cite{bubeckb06}.
 
@@ -385,6 +389,102 @@ validity problem \cite{peterson2001lower}.
 \begin{theorem}
   Given an architecture $A$ and a specification $\phi \in LTL_{AG}$, the realizability of $\phi$ in A is NEXPTIME-complete.
 \end{theorem}
+
+\subsection{The synthesis of safe controllers}
+The work \cite{bloemks14} focus on synthesis of hardware systems from safety specifications (certain ``bad things" never happen).
+The paper propose several new approaches to use satisfiability-based methods for the synthesis of reactive systems.
+% from safety specifications. 
+Here only EPR (Effectively Propositional Logic) based method is described.
+
+The goal is to synthesize a safe controller for a finite-state transition system $S$.
+The synthesis problem can be seen as a game between the protagonist controlling the $c$-variables and the antagonist controlling
+the $i$-variables during an execution.
+The protagonist wins the game if the execution never visits an unsafe state $x \not\models P$. Otherwise, the antagonist wins. 
+A safe controller for $S$ is now simply a strategy for the protagonist to win the game.
+
+Synthesis methods computes such a winning strategy in two steps:
+\begin{itemize}
+  \item First, a so-called winning region is computed. 
+  A winning region is a set of states $W(x)$ from
+  which a winning strategy for the protagonist exists.
+  \item A winning strategy
+  is derived from (intermediate results in the computation of) the winning region.
+\end{itemize}
+
+For safety synthesis problems, the following conditions are
+sufficient for a winning region $W(x)$ to be turned into a winning strategy.
+\begin{enumerate}
+  \item Every initial state is in the winning region: $I \Rightarrow W$.
+  \item The winning region contains only safe states: $W \Rightarrow P$.
+  \item The protagonist can enforce to stay in the winning region: $W \Rightarrow Force^p_{1}(W)$.
+\end{enumerate}
+
+A specification is realizable if and only if such a winning region exists. 
+Hence, it suffices to search for a formula that satisfies these three constraints. 
+%Deriving a winning strategy $f : 2^{x} * 2^{i} \to 2^c$ from such a winning region is then conceptually easy: $f$ must always pick control signal values such that the successor state is in W again.
+%This is always possible due to 1 and 3. 
+The focus is to efficiently compute a winning region that satisfies 1-3.
+
+The EPR approach is based on the observation that a winning region $W(x)$
+satisfying the three requirements 1-3 can also be computed as a Skolem function.
+However, the requirement 3 concerns not only $W$ but also its next-state copy $W^{\prime}$. 
+Hence, we need a Skolem function for the winning region and its next-state copy, and the two functions must be consistent.
+
+\begin{flalign*}
+ \forall x . \exists w . \forall i . \exists c \\
+   (I \Rightarrow w) \land (w \Rightarrow P ) \land ((x = x^{\prime}) \Rightarrow (w = w^{\prime} )) \land (w \land T \Rightarrow w^{\prime} ) . \\
+ \forall x^{\prime} . \exists w^{\prime}
+\end{flalign*}
+
+This cannot be formulated as a QBF problem with a linear
+quantifier structure, but only using so-called Henkin Quantifiers or or in the Effectively Propositional Logic (EPR) fragment of first-order logic.
+
+Reductions to EPR. 
+We need to find a formula $W(x)$ such that $\forall x, i . \exists c,x^{\prime} .(I \Rightarrow W ) \land
+(W \Rightarrow P ) \land (W \Rightarrow T \land W^{\prime} )$.
+
+In order to get a corresponding EPR formula, we
+must
+\begin{enumerate}
+  \item Encode the Boolean variables using first-order domain variables. \item Eliminate the existential quantification inside the universal one.
+  \item Encode the body of the formula in CNF.
+\end{enumerate}
+
+We can address 1 by introducing a new domain variable $Y$ for every Boolean variable $y$, a unary predicate $p$ to encode the truth value of variables, constants $\top$ and $\bot$ to encode true and false, and the axioms $p(\top)$ and $\neg p(\bot)$.
+The existential quantification of the $x^{\prime}$ variables can be turned into a universal one by turning the conjunction with $T$
+into an implication. This works because we assume that
+T is both deterministic and complete.
+
+We Skolemize the c-variables $c_1,\dots, c_n$ by introducing new predicates $C_1 (X, I), \newline \dots C_n (X, I)$. For $W$, we also introduce a
+new predicate $W(X)$.
+
+\begin{flalign*}
+  \forall X, I, X . (I(X) \Rightarrow W (X)) \land  (W (X) \Rightarrow P (X)) \land  (W (X) \\ \land T(X, I, C(X, I), X) \Rightarrow W (X^{\prime}))
+\end{flalign*}
+
+The body of this formula has to be encoded in CNF, but many first-order theorem provers and EPR solvers can do this internally.
+Instantiation-based EPR-solvers like iProver [17]
+can not only decide the satisfiability of EPR formulas, but also compute models in form of concrete formulas for the predicates. 
+For our problem, this means that we cannot only directly extract a winning region but also implementations for the control signals from the $C_j(X, I)$-predicates.
+
+\subsection{The Complexity of Bounded Synthesis for Timed Control with Partial Observability}
+
+The synthesis of timed control with partial observability is undecidable in general but can be made decidable by fixing the granularity of the controller (the number of clocks and the precision of the guards is limited in advance), resulting in a 2EXPTime-complete problem.
+The work of \cite{peterf12} present a complexity analysis of the
+impact of imposing a bound on the size of the controller and limit the search to only those controllers that fall below the bound.
+Bounding the number of locations and the granularity reduces the complexity to NEXPTime-complete.
+
+Goal is to effectively synthesize real-time controllers under partial observability, i.e., in situations where there are some events in the plant that the controller cannot observe.
+
+The proofs require nontrivial extensions of the techniques used in the literature that may also be of interest in other settings. For example, the proof of the NExpTime lower bound of is based on an insightful connection between timed automata and the theory of problems on succinctly specified graphs. XXX A nontrivial proof is given.
+
+\subsection{Interactive proof systems}
+NEXPTIME often arises in the context of interactive proof systems XXX
+
+\subsection{Probabilistic Planning of finite length}
+
+\section{EXPTIME}
+Henzinger and Kopke showed that this construction is theoretically optimal by proving that the synthesis problem for safety properties is EXPTime-complete \cite{henzingerk99}.
 
 \section{First solving approach: DQDPLL}
 The first solving approach was presented in~\cite{frohlich2012dpll}.
