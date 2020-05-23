@@ -40,7 +40,7 @@
 \newcommand{\qute}{\textsc{Qute}}
 \newcommand{\hqspre}{\textsc{HQSpre}}
 \newcommand{\autfinder}{\textsc{Autark-Finder}}
-
+\newcommand{\bigo}{\mathcal{O}}
 \begin{document}
 
 \title{Autarkies for DQBF}
@@ -89,6 +89,20 @@ Systems of partially ordered quantification are intermediate in strength between
 
 In computer science literature the term \textbf{DQBF} was first used in \cite{peterson1979multiple} to model multiple person (team) games of incomplete information.
 The generalization of the alternation machines (nondeterministic Turing Machines with existential and universal quantifiers alternation, conceptually similar to QBF) to classes of machines namely multiple person alternation machines (conceptually DQBF).
+
+
+\section{EXPTIME problems and completeness proof}
+From Wikipedia:
+``In computational complexity theory, the complexity class EXPTIME (sometimes called EXP or DEXPTIME) is the set of all decision problems that are solvable by a deterministic Turing machine in exponential time, i.e., in $\bigo(2^p(n))$ time, where $p(n)$ is a polynomial function of n."
+
+EXPTIME relates to the other basic time and space complexity classes in the following way: 
+P $\subseteq$ NP $\subseteq$ PSPACE $\subseteq$ EXPTIME $\subseteq$ NEXPTIME $\subseteq$ EXPSPACE. 
+%Furthemore, by the time  hierarchy theorem and the space hierarchy theorem, it is known that P $\not\subseteq$ EXPTIME, NP $\not\subseteq$ NEXPTIME and PSPACE $\not\subseteq$ EXPSPACE.
+
+
+
+
+Henzinger and Kopke showed that this construction is theoretically optimal by proving that the synthesis problem for safety properties is EXPTime-complete \cite{henzingerk99}.
 
 \section{EPR}
 EPR is a subset of first-order logic that contains formulas of the form $\exists A . \forall B . \varphi$, where $A$ and $B$ are disjoint vectors of variables ranging over some domain $D$, and $\varphi$ is a function-free first-order formula in CNF. 
@@ -483,10 +497,9 @@ NEXPTIME often arises in the context of interactive proof systems XXX
 
 \subsection{Probabilistic Planning of finite length}
 
-\section{EXPTIME}
-Henzinger and Kopke showed that this construction is theoretically optimal by proving that the synthesis problem for safety properties is EXPTime-complete \cite{henzingerk99}.
 
-\section{First solving approach: DQDPLL}
+\section{DQBF Solving}
+\subsection{First solving approach: DQDPLL}
 The first solving approach was presented in~\cite{frohlich2012dpll}.
 %
 This was adaptation of QDPLL from QBF to DQBF, e.g., unit propagation, clause
@@ -497,19 +510,19 @@ The motivation was to solve the quantifier-free bit-vector formulas (QF\_BV) by 
 %
 The presented algorithm solve DQBF based on variable elimination (\cite{biere2004resolve}).
 
-\section{First publicly available solver}
+\subsection{First publicly available solver}
 The technique presented in~\cite{finkbeiner2014fast} is similar to BMC encoding of QBF and can only solve UNSAT problems.
 
-\section{Complete solver: iDQ}
+\subsection{Complete solver: iDQ}
 The iDQ solver presented in~\cite{frohlich2014idq} adapts and extends the Inst-Gen approach (solving approach for EPR logic, fragment of first order logic) to DQBF.
 
-\section{A new solver: HQS}
+\subsection{A new solver: HQS}
 The work of~\cite{gitina2015solving} present an improved expansion-based solver, HQS.
 %
 The solver expands DQBF to QBF, eliminates the minimum set of variables that cause non-linear
 dependencies and uses AIGs to detect units and pure literals.
 
-\section{Preprocessing and inprocessing}
+\subsection{Preprocessing and inprocessing}
 The work of~\cite{wimmer2015preprocessing} generalize preprocessing techniques for QBF to DQBF.
 %
 The technique includes, blocked clause elimination, equivalence reasoning, structure extraction, and variable elimination by resolution.
@@ -518,7 +531,7 @@ In further work~\cite{wimmer2017hqspre} presents a preprocessor HQSpre for both 
 %
 The techniques, variable elimination routines, clause elimination routines, clause strengthening routines, dependency schemes and gate rewriting.
 
-\section{Dependency}
+\subsection{Dependency}
 The work by~\cite{wimmer2016dependency} analyse the dependency
 schemes proposed for QBF to apply on DQBF.
 %
@@ -537,7 +550,7 @@ dependency schemes.
 %
 Core of the paper is the method that gives rise to soundness results across different calculi.
 
-\section{Proof systems}
+\subsection{Proof systems}
 The work~\cite{beyersdorff2016lifting} examines the lifting existing resolution systems of QBF to DQBF.
 %
 QBF have a strict chain of proof systems, where Q-Res $<$ IR-calc $<$ IRM-calc.
@@ -556,7 +569,7 @@ The system has three rules, resolution, universal reduction, and a new proof rul
 
 The definition of resolution admits universal variables as pivots\dots
 
-\section{Certification perspective and Skolem functions}
+\subsection{Certification perspective and Skolem functions}
 
 %\begin{enumerate}
 The work of Henkin Quantifiers and Boolean Formulae~\cite{balabanov2012henkin} investigates DQBF's properties like negation, complement, formula expansion, and prenex, non-prenex form conversion.
