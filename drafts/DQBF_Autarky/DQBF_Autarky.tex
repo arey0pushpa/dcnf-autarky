@@ -99,8 +99,18 @@ EXPTIME relates to the other basic time and space complexity classes in the foll
 P $\subseteq$ NP $\subseteq$ PSPACE $\subseteq$ EXPTIME $\subseteq$ NEXPTIME $\subseteq$ EXPSPACE. 
 %Furthemore, by the time  hierarchy theorem and the space hierarchy theorem, it is known that P $\not\subseteq$ EXPTIME, NP $\not\subseteq$ NEXPTIME and PSPACE $\not\subseteq$ EXPSPACE.
 
-
-
+Interesting problems:
+\begin{enumerate}
+  \item Two-person games and specific question is whether a player from a given game position has a strategy to win the game safely. Games can last for a number of moves that is exponential in the size of the board.
+  \begin{itemize}
+    \item Generalized chess \cite{fraenkel81}.
+    \item Checkers \cite{robson84}.
+    \item Go with the Japanese knockout rules \cite{robson83}.
+    
+    All these games have in common that a game can have exponentially many moves.
+  \end{itemize}
+\item Graph problems with input represented by a succinct circuits. 
+\end{enumerate}
 
 Henzinger and Kopke showed that this construction is theoretically optimal by proving that the synthesis problem for safety properties is EXPTime-complete \cite{henzingerk99}.
 
@@ -108,8 +118,12 @@ Henzinger and Kopke showed that this construction is theoretically optimal by pr
 EPR is a subset of first-order logic that contains formulas of the form $\exists A . \forall B . \varphi$, where $A$ and $B$ are disjoint vectors of variables ranging over some domain $D$, and $\varphi$ is a function-free first-order formula in CNF. 
 The formula $\varphi$  can contain predicates, which are (implicitly) existentially quantified.
 
+XXX\\
+
 \section{DQBF-Horn}\label{sec:dqbf-horn}
 There is an interesting work on dependency quantified horn formulas \cite{bubeckb06}.
+
+XXX
 
 \section{DQBF Applications}\label{sec:dqbf-applications}
 
@@ -659,6 +673,7 @@ The translation requires for each $v \in E$ expressing AMO constraints in equati
 
 \hline
 
+0. & DQBF-Master &  476 & 20 & - & - \\ \hline
 1. & DQBF-track'19 &  334 & 20 & 22 & 22[1] \\ \hline
 %2. & PCNF-track'19 &  463 & 186 & 48[3] & 194[4] \\ \hline
 2. & PCNF-track'19 &  559 & 200 & 40[4] & 50[6] \\ \hline
@@ -789,6 +804,28 @@ Total &  & 26010 &  &  &  \\  \hline \hline
 \end{tabular}
 \end{table}
 
+
+\begin{table}
+  \caption{Families of (D)QCNF instances and the corresponding autarky count}\label{tab:aut-count1}
+  \begin{tabular}{c|l|c|c|c|c}
+    
+    \hline
+    \multirow{2}{1cm}{Sr.No} &  \multirow{2}{3cm}{Family} &  \multirow{2}{2cm}{Total instances} & \multicolumn{3}{c}{Autarky system} \\
+    % \hline
+    % \textbf{Inactive Modes} & \textbf{Description}\\
+    \cline{4-6}
+    & & & E1S-Autarky & A1S-Autarky & E1S+A1-Autarky \\
+    %\hhline{~--}
+    
+    \hline
+    0. & DQBF-Master &  476 & 21 & - & - \\ \hline
+    1. & DQBF-track'19 &  334 & 21 & - & 23[2] \\ \hline
+    2. & PCNF-track'19 &  559 & - & - & - \\ \hline
+    
+\hline
+\end{tabular}
+\end{table}
+There is one more instance which is reduced by E1S reduction (in comparison to E1). One more satisfiable instance for E1SA1 - E1A1.
 
 \subsection{Results}
 We use the name of the author to refer to the submitted families of the benchmarks. This is the structure the QBFLIB is organised.
